@@ -1,7 +1,8 @@
 import React from 'react';
-import Navbar from "./components/Navbar";
+import Navbar from "./_components/Navbar";
 import {BrowserRouter } from "react-router-dom";
-import Router from "./navigation/Router";
+import Router from "./_navigation/Router";
+import Button from "./_components/Button";
 
 function App() {
     return (
@@ -9,6 +10,7 @@ function App() {
             <div className="App">
                 <Navbar/>
                 <Router/>
+                <Button/>
             </div>
         </BrowserRouter>
     );
