@@ -1,18 +1,55 @@
+/* Variable */
+
 :root {
   --gold: #BF9E4E;
   --grey: #556A68;
+  --blue: #69F;
 }
+
+/* Imported fonts */
+
+@font-face {
+  src: url("_assets/fonts/opensans/OpenSans-Regular.ttf");
+  font-family: "Open Sans";
+}
+
+@font-face {
+  src: url("_assets/fonts/sansation/Sansation-Regular.ttf");
+  font-family: "Sansation";
+}
+
+
+/* Container */
 
 body {
   margin: 0;
   font-family: "Open Sans", sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+/* Items */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Sansation", "Open Sans", sans-serif;
+}
+
+h1,
+h3,
+h5 {
+  color: var(--gold);
+}
+
+h2,
+h4,
+h6 {
+  color: var(--grey);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
 }
