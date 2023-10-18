@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from "./_components/Navbar";
 import {BrowserRouter } from "react-router-dom";
 import Router from "./_navigation/Router";
-import Button from "./_components/Button";
+import Calendar from "./_components/Calendar";
 
 function App() {
     return (
@@ -10,7 +10,7 @@ function App() {
             <div className="App">
                 <Navbar/>
                 <Router/>
-                <Button/>
+                <Calendar/>
             </div>
         </BrowserRouter>
     );
