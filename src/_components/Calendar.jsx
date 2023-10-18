@@ -9,13 +9,13 @@ const Calendar = () => {
             initialView="dayGridWeek"
             weekends={false}
             events={
-                {
+                [{
                     url: fetch(
                         'https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/M3MREkYB.shu',
                         {mode: "no-cors"}
                     ),
                     format: 'ics'
-                }
+                }]
             }
         />
     )
