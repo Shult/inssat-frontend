@@ -7,7 +7,7 @@ import './Calendar.css'
 const Calendar = () => {
 
     const  style = {
-        width: '50%',
+        width: '66%',
 
         padding: '1rem',
         margin: '1rem',
