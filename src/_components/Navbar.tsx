@@ -1,12 +1,13 @@
 import React from "react";
+import LinkGold from "./Links/LinkGold";
 
 const Navbar = () => {
     return(
         <nav className="">
             <div className="">
                 <ul className="">
-                    <li><a href="/homeStudent">HomeStudent</a></li>
-                    <li><a href="/test">Test</a></li>
+                    <li><LinkGold linkHref={"/homeStudent"} linkContent={"HomeStudent"}/></li>
+                    <li><LinkGold linkHref={"/test"} linkContent={"Test"}/></li>
                 </ul>
             </div>
         </nav>
