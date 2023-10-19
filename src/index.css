@@ -9,12 +9,12 @@
 /* Imported fonts */
 
 @font-face {
-  src: url("_assets/fonts/opensans/OpenSans-Regular.ttf");
+  src: url("_assets/fonts/OpenSans/OpenSans-Regular.ttf");
   font-family: "Open Sans";
 }
 
 @font-face {
-  src: url("_assets/fonts/sansation/Sansation-Regular.ttf");
+  src: url("_assets/fonts/Sansation/Sansation-Regular.ttf");
   font-family: "Sansation";
 }
 
