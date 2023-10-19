@@ -1,0 +1,43 @@
+import React from 'react'
+import FullCalendar from '@fullcalendar/react'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import iCalendarPlugin from '@fullcalendar/icalendar'
+import './Calendar.css'
+
+const Calendar = () => {
+
+    const  style = {
+        width: '50%',
+
+        padding: '1rem',
+        margin: '1rem',
+
+        borderRadius: '1rem',
+        boxShadow: '0 0 5px var(--grey)',
+    }
+
+    return(
+        <>
+            <div style={style}>
+                <FullCalendar
+                    plugins = {[ timeGridPlugin, iCalendarPlugin ]}
+                    initialView = 'timeGridWeek'
+                    events = {{url: 'http://localhost:3000/_helpers/test.ics', format: 'ics'}}
+
+                    themeSystem={'default'}
+                    eventBackgroundColor = {'var(--grey)'}
+                    eventBorderColor = {'var(--gold)'}
+
+                    slotMinTime = {'07:00'}
+                    slotMaxTime = {'20:00'}
+
+                    weekends = {false}
+                    allDaySlot = {false}
+                />
+            </div>
+        </>
+
+
+    )
+}
+export default Calendar

@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from "./_components/Navbar";
 import {BrowserRouter } from "react-router-dom";
 import Router from "./_navigation/Router";
-import Calendar from "./_components/Calendar";
+import Calendar from "./_components/Calendar/Calendar";
 
 function App() {
     return (
