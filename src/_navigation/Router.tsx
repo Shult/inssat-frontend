@@ -1,6 +1,6 @@
 import React from "react";
 import {Route, Routes} from "react-router-dom";
-import HomeStudent from "../homeStudent/HomeStudent";
+import HomeStudent from "../HomeStudent";
 import Test from "../test/Test";
 
 const Router = () => {

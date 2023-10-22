@@ -22,7 +22,13 @@ const Calendar = () => {
                 <FullCalendar
                     plugins = {[ timeGridPlugin, iCalendarPlugin ]}
                     initialView = 'timeGridWeek'
-                    events = {{url: 'http://localhost:3000/_helpers/test.ics', format: 'ics'}}
+                    events = {
+                        {
+                            // url: 'https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/NYa47j3l.shu',
+                            url: 'http://localhost:3000/_helpers/test.ics',
+                            format: 'ics'
+                        }
+                    }
 
                     themeSystem={'default'}
                     eventBackgroundColor = {'var(--grey)'}
@@ -40,4 +46,5 @@ const Calendar = () => {
 
     )
 }
+
 export default Calendar
