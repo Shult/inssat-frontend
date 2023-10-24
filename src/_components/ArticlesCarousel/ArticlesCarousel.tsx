@@ -22,6 +22,16 @@ const ArticleCarousel = ({ }) => {
         slidesToScroll: 3
     };
 
+    // Used to load the image, because I faced an issue when I past directly the images
+    function loadImage(imagePath: string) {
+        try {
+            return require(`../../../public/_assets/_imgArticles/${imagePath}`);
+        } catch (err) {
+            return '';
+        }
+    }
+
+
     return (
         <div>
         <div className={"article-big-title"}>
@@ -33,9 +43,9 @@ const ArticleCarousel = ({ }) => {
                         <div className={"article-card"}>
                             <div className={"row"}>
                                 <div className={"article-div-img"}>
-                                    <p>{article.imageUrl}</p>
+                                    {/*<p>{article.imageUrl}</p>*/}
                                     {/*<img className="article-img" src={require("../../_assets/hades.jpg")} alt={"worlds"}/>*/}
-                                    <img className="article-img" src={article.imageUrl} alt={article.title}/>
+                                    <img className="article-img" src={loadImage(article.imageUrl)} alt={article.title}/>
                                 </div>
                             </div>
                             <div className={"row"}>
