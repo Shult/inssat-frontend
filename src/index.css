@@ -2,10 +2,42 @@
 
 :root {
   --gold: #BF9E4E;
+  --goldDark: #a48231;
+
   --grey: #556A68;
+  --greyDark: #334442;
+
+  --error: #ff4466;
+  --errorDark: #c21635;
+
+  --success: #33cc66;
+  --successDark: #1fa14a;
+
   --fontTitle: "Sansation";
   --fontText: "Ubuntu";
 }
+
+/* Reusable class */
+
+.w25 { width: 25% }
+.w33 { width: 33% }
+.w50 { width: 50% }
+.w66 { width: 66% }
+.w75 { width: 75% }
+.w100 { width: 100% }
+
+.space-around { justify-content: space-around }
+.space-between { justify-content: space-between }
+
+.self-center { align-self: center }
+.self-baseline { align-self: baseline}
+.self-start { align-self: flex-start}
+.self-end { align-self: flex-end}
+
+.items-center { align-items: center }
+.items-baseline { align-items: baseline }
+.items-start { align-items: flex-start }
+.items-end { align-items: flex-end }
 
 /* Imported fonts */
 
@@ -22,9 +54,14 @@
 
 /* Container */
 
-body {
-  margin: 0;
-  font-family: var(--fontText)
+body{
+  font-family: var(--fontText);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 /* Items */

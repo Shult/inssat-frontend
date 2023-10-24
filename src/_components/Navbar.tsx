@@ -1,17 +1,26 @@
 import React from "react";
-import LinkGold from "./Links/LinkGold";
+import Link from "./Links/Link";
+import ClickableImg from "./ClickableImg/ClickableImg";
 
 const Navbar = () => {
+
+    const styleNav = {
+        background: "var(--gold)",
+        borderRadius: "0.5rem",
+        boxShadow: "0 0 5px var(--grey)"
+    }
+
     return(
-        <nav className="">
-            <div className="">
-                <ul className="">
-                    <li><LinkGold linkHref={"/homeStudent"} linkContent={"HomeStudent"}/></li>
-                    <li><LinkGold linkHref={"/test"} linkContent={"Test"}/></li>
-                </ul>
-            </div>
-        </nav>
+        <div className={"row w100"}>
+            <nav className={"row w75"} style={styleNav}>
+                <Link className={"linkWhite goldenBackground"} name={"Home"} href={"/homeStudent"} content={"Home"}/>
+                <Link className={"linkWhite goldenBackground"} name={"Test"} href={"/test"} content={"Test"}/>
+                <Link className={"linkWhite goldenBackground"} name={"Mail"} href={"/mail"} content={"Mail"}/>
+                <Link className={"linkWhite goldenBackground"} name={"Marks"} href={"/marks"} content={"Marks"}/>
+                <ClickableImg/>
+            </nav>
+        </div>
     )
 }
 
-export default Navbar
+export default Navbar;

@@ -1,0 +1,98 @@
+/* Common pattern */
+
+.buttonGold,
+.buttonGold2,
+.buttonGrey,
+.buttonWhite,
+.buttonBlack,
+.buttonError,
+.buttonSuccess {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Golden button specificities */
+
+.buttonGold,
+.buttonGold2 {
+    background: var(--gold);
+    border: solid 1px var(--gold);
+}
+
+.buttonGold:hover {
+    background: #fff;
+    color: var(--gold);
+}
+
+.buttonGold2:hover {
+    background: var(--goldDark);
+}
+
+/* Grey button specificities */
+
+.buttonGrey {
+    background: var(--grey);
+    border: solid 1px var(--grey);
+}
+
+.buttonGrey:hover {
+    background: var(--greyDark);
+}
+
+/* White button specificities */
+
+.buttonWhite {
+    border: solid 1px var(--gold);
+    color: var(--gold);
+}
+
+.buttonWhite:hover {
+    background: var(--gold);
+    color: #fff;
+}
+
+/* Black button specificities */
+
+.buttonBlack {
+    border: solid 1px #000;
+    background: #fff;
+    color: #000;
+}
+
+.buttonBlack:hover {
+    background: #000;
+    color: #fff;
+}
+
+/* Error button specificities */
+
+.buttonError {
+    border: solid 1px var(--error);
+    background: var(--error);
+}
+
+.buttonError:hover {
+    border: solid 1px var(--error);
+    background: var(--errorDark);
+}
+
+/* Error button specificities */
+
+.buttonSuccess {
+    border: solid 1px var(--success);
+    background: var(--success);
+}
+
+.buttonSuccess:hover {
+    border: solid 1px var(--success);
+    background: var(--successDark);
+}
+
+/* If there is a golden background */
+
+.goldenBackground:hover {
+    text-decoration: none;
+    background: #fff;
+}
