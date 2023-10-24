@@ -1,13 +1,10 @@
 import React, {useEffect} from 'react';
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import './ArticlesCarousel.css';
+import './ArticlesCarouselV2.css';
 import {useDispatch, useSelector} from "react-redux";
 import {Article} from "../../_interfaces";
 import {getArticles} from "../../_actions/articleActions"; // Style for the carousel
 
-const ArticleCarousel = ({ }) => {
+const ArticleCarouselV2 = ({ }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -15,12 +12,6 @@ const ArticleCarousel = ({ }) => {
     }, [dispatch]);
 
     const articles = useSelector((state: any) => state.articles.articles) as Article[];
-
-    const settings = {
-        infinite: true,
-        slidesToShow: 3,
-        slidesToScroll: 3
-    };
 
     // Used to load the image, because I faced an issue when I past directly the images
     function loadImage(imagePath: string) {
@@ -32,21 +23,18 @@ const ArticleCarousel = ({ }) => {
     }
 
     return (
-        <div>
-        <div className={"article-big-title"}>
-            <h1>THE NEWS</h1>
-        </div>
-            <Slider {...settings}>
+        <div className={"container article-list"}>
+            <div className={"article-big-title"}>
+                <h1>THE NEWS</h1>
+            </div>
                 {articles.map(article => (
-                    <div className={"container"}>
+                    <div className={"row"}>
                         <div className={"article-card"}>
                             <div className={"row"}>
-                                <div className={"article-div-img"}>
+                                <div className={"col article-div-img"}>
                                     <img className="article-img" src={loadImage(article.imageUrl)} alt={article.title}/>
                                 </div>
-                            </div>
-                            <div className={"row"}>
-                                <div className="article-text">
+                                <div className={"col article-text"}>
                                     <h2 className={"article-text"}>{article.title}</h2>
                                     <p className={"article-text"}>{article.snippet}</p>
                                     {article.tags.map(tag =>(
@@ -57,9 +45,8 @@ const ArticleCarousel = ({ }) => {
                         </div>
                     </div>
                 ))}
-            </Slider>
         </div>
     );
 }
 
-export default ArticleCarousel;
+export default ArticleCarouselV2;

@@ -23,6 +23,7 @@ const NavbarS = () => {
                         <NavItem link={"courses"} linkName={"Courses"}/>
                         <NavItem link={"messages"} linkName={"Messages"}/>
                         <NavItem link={"contacts"} linkName={"Contacts"}/>
+                        <NavItem link={"homeStudentv2"} linkName={"HomeV2"}/>
                     </ul>
                 </div>
             </div>
