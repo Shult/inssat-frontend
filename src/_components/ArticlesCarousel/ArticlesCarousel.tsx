@@ -33,7 +33,9 @@ const ArticleCarousel = ({ }) => {
                         <div className={"article-card"}>
                             <div className={"row"}>
                                 <div className={"article-div-img"}>
-                                    <img className="article-img" src={require("../../_assets/hades.jpg")} alt={"worlds"}/>
+                                    <p>{article.imageUrl}</p>
+                                    {/*<img className="article-img" src={require("../../_assets/hades.jpg")} alt={"worlds"}/>*/}
+                                    <img className="article-img" src={article.imageUrl} alt={article.title}/>
                                 </div>
                             </div>
                             <div className={"row"}>

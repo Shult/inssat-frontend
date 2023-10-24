@@ -7,9 +7,20 @@ const HomeStudent = () => {
         <div className="">
             <h4 className="">Home Student</h4>
             <p>Under Construction...</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic quisquam vel voluptate? Aperiam blanditiis dicta dolores, est mollitia sapiente veritatis! Accusantium ea nisi numquam perspiciatis qui similique veniam voluptate voluptatibus!</p>
-            <Calendar/>
-            <ArticlesCarousel></ArticlesCarousel>
+            <div className="container">
+                <div className="col-sm-2">
+                    {/*Navbar*/}
+                </div>
+                <div className="col-sm-12">
+                    <div className="row">
+                        <Calendar/>
+                    </div>
+                    <div className="row">
+                        <ArticlesCarousel/>
+                    </div>
+                </div>
+
+            </div>
         </div>
     )
 }

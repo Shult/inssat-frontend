@@ -2,7 +2,7 @@
   {
     "id": 1,
     "title": "Hades",
-    "imageUrl": "../../_assets/hades.jpg",
+    "imageUrl": "https://localhost:3000/_assets/worlds.jpg",
     "snippet": "Le nouveau jeu Hades est sorti !",
     "link": "https://store.steampowered.com/app/1145360/Hades/?l=french",
     "tags": ["Phot", "IAI", "INFO", "SysNum"]
@@ -10,7 +10,7 @@
   {
     "id": 2,
     "title": "Worlds 2023",
-    "imageUrl": "../../_assets/worlds.jpg",
+    "imageUrl": "https://localhost:3000/_assets/worlds.jpg",
     "snippet": "Les worlds de league of legends ont commencé sur des chapeaux de roues !",
     "link": "https://lolesports.com/schedule?leagues=worlds",
     "tags": ["Phot", "IAI", "INFO", "SysNum"]
@@ -18,7 +18,7 @@
   {
     "id": 3,
     "title": "React",
-    "imageUrl": "../../_assets/logo.svg",
+    "imageUrl": "localhost:3000/_assets/worlds.jpg",
     "snippet": "C'est trop bien React !",
     "link": "https://react.com",
     "tags": ["Phot", "IAI", "INFO", "SysNum"]
@@ -26,7 +26,7 @@
   {
     "id": 4,
     "title": "Worlds 2023 2",
-    "imageUrl": "../../_assets/worlds.jpg",
+    "imageUrl": "https://localhost:3000/_assets/worlds.jpg",
     "snippet": "Les worlds de league of legends ont commencé sur des chapeaux de roues !",
     "link": "https://lolesports.com/schedule?leagues=worlds",
     "tags": ["Phot", "IAI", "INFO", "SysNum"]
@@ -34,7 +34,7 @@
   {
     "id": 5,
     "title": "React 2",
-    "imageUrl": "../../_assets/logo.svg",
+    "imageUrl": "https://localhost:3000/_assets/worlds.jpg",
     "snippet": "C'est trop bien React !",
     "link": "https://react.com",
     "tags": ["Phot", "IAI", "INFO", "SysNum"]
