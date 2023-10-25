@@ -1,6 +1,7 @@
 import React from 'react'
 import Calendar from "./_components/Calendar/Calendar";
 import ArticlesCarousel from "./_components/ArticlesCarousel/ArticlesCarousel";
+import UploadFile from "./_components/UploadFile";
 
 const HomeStudent = () => {
 
@@ -21,8 +22,9 @@ const HomeStudent = () => {
 
             <h4 className={"w100"}>Home Student</h4>
 
-            <div className={"w66"}>
+            <div className={"line w66"}>
                 <Calendar/>
+                <UploadFile accept={"ics"}/>
             </div>
 
             <div className={"w33"}>
