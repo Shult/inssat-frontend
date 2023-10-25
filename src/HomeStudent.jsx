@@ -5,6 +5,8 @@ import ArticlesCarousel from "./_components/ArticlesCarousel/ArticlesCarousel";
 const HomeStudent = () => {
 
     const style = {
+        background: "var(--mediumGrey)",
+
         width: "85%",
         height: "inherit",
 

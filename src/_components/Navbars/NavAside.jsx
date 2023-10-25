@@ -12,7 +12,6 @@ const NavAside = () => {
         padding: "1rem ",
 
         background: "var(--lightGrey)",
-        borderRight: "solid 1px #000"
     }
 
     const styleDivTop = { alignSelf: "flex-start" }
