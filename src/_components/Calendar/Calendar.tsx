@@ -34,6 +34,7 @@ const Calendar = () => {
                 allDaySlot = {false}
             />
         </div>
+    )
 }
 
 /**
