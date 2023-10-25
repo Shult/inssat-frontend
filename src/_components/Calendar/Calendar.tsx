@@ -1,25 +1,38 @@
 import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import iCalendarPlugin from '@fullcalendar/icalendar'
+import "./Calendar.css"
 
 const Calendar = () => {
+
+    const style = {
+        width: "66%",
+
+        padding: "1rem",
+        boxShadow: "0 0 5px var(--enssatGrey)"
+    }
+
     return (
-        <FullCalendar
-            plugins = {[ timeGridPlugin, iCalendarPlugin ]}
-            initialView = 'timeGridWeek'
-            events = {
-                {
-                    url: data,
-                    format: 'ics'
+        <div style={style}>
+
+            <FullCalendar
+                plugins = {[ timeGridPlugin, iCalendarPlugin ]}
+                initialView = 'timeGridWeek'
+                events = {
+
+                    {
+                        url: data,
+                        format: 'ics'
+                    }
                 }
-            }
 
-            slotMinTime = {'07:00'}
-            slotMaxTime = {'20:00'}
+                slotMinTime = {'07:00'}
+                slotMaxTime = {'20:00'}
 
-            weekends = {false}
-            allDaySlot = {false}
-        />
+                weekends = {false}
+                allDaySlot = {false}
+            />
+        </div>
     )
 }
 
