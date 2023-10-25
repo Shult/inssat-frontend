@@ -1,21 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 
-initialCalendar
-
+const initialCalendarState = {
+    status: 'Idle',
+    data: null,
+    error: null
+}
+/**
 export const calendarSlice = createSlice({
     name: 'calendar',
-    initialState: {
-        value: "",
-    },
+    initialState: initialCalendarState,
     reducers: {
         fetchICal: (url) => {
-            const response = fetch(url);
-            const blob = response.blob();
-            URL.createObjectURL(blob);
+            fetch(url)
+                .then(response => response.blob())
+                .then(blob =>
+                    url = URL.createObjectURL(blob)
+                )
+                .catch((err) =>
+
+                )
         }
     }
-})
+})**/
 
 // Action creators are generated for each case reducer function
 export const { fetchICal } = calendarSlice.actions
