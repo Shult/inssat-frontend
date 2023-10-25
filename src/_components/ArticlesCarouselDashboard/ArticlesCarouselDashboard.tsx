@@ -1,0 +1,67 @@
+import React, {useEffect} from 'react';
+import './ArticlesCarouselDashboard.css';
+import {useDispatch, useSelector} from "react-redux";
+import {Article} from "../../_interfaces";
+import {getArticles} from "../../_actions/articleActions"; // Style for the carousel
+
+const ArticleCarouselV2 = ({ }) => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getArticles());
+    }, [dispatch]);
+
+    const articles = useSelector((state: any) => state.articles.articles) as Article[];
+
+    // Used to load the image, because I faced an issue when I past directly the images
+    function loadImage(imagePath: string) {
+        try {
+            return require(`../../../public/_assets/${imagePath}`);
+        } catch (err) {
+            return '';
+        }
+    }
+
+    function redirectToSite(Link : string) : void {
+        window.location.href = Link;
+    }
+
+    return (
+        <div className={"container article-dashboard-list"}>
+            <div className={"article-dashboard-big-title"}>
+                <h1>THE NEWS</h1>
+            </div>
+                {articles.map(article => (
+                    <div onClick={() => redirectToSite(article.link)} className={"row"}>
+                        <div className={"article-dashboard-card"}>
+                            <div className={"row"}>
+                                <div className={"col article-dashboard-div-img"} style={{ padding: '0' }}>
+                                    <img className="article-dashboard-img" src={loadImage(article.imageUrl)} alt={article.title}/>
+                                </div>
+                                <div className={"col article-dashboard-text"}>
+                                        <h2 className={"article-dashboard-text"}>{article.title}</h2>
+                                        <p className={"article-dashboard-text"}>{article.snippet}</p>
+                                    {article.tags.map(tag =>(
+                                        <a className="btn btn-outline-secondary article-dashboard-tag">#{tag}</a>
+                                    ))}
+                                    <div className={"row-4"}>
+                                        <div className={""}>
+                                            <img className={"article-dashboard-user-img"} src={loadImage(article.imageUrl)} alt={article.title}/>
+                                            <div className={""}>
+                                                <div className={"article-dashboard-user-text"}>
+                                                    Username <b>.</b>00/00/00
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+        </div>
+    );
+}
+
+export default ArticleCarouselV2;

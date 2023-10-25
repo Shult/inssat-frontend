@@ -31,6 +31,10 @@ const ArticleCarousel = ({ }) => {
         }
     }
 
+    function redirectToSite(Link : string) : void {
+        window.location.href = Link;
+    }
+
     return (
         <div>
         <div className={"article-big-title"}>
@@ -38,7 +42,7 @@ const ArticleCarousel = ({ }) => {
         </div>
             <Slider {...settings}>
                 {articles.map(article => (
-                    <div className={"container"}>
+                    <div onClick={() => redirectToSite(article.link)} className={"container"}>
                         <div className={"article-card"}>
                             <div className={"row"}>
                                 <div className={"article-div-img"}>
@@ -50,7 +54,7 @@ const ArticleCarousel = ({ }) => {
                                     <h2 className={"article-text"}>{article.title}</h2>
                                     <p className={"article-text"}>{article.snippet}</p>
                                     {article.tags.map(tag =>(
-                                        <a href={article.link} className="btn btn-outline-secondary article-tag">#{tag}</a>
+                                        <a className="btn btn-outline-secondary article-tag">#{tag}</a>
                                     ))}
                                 </div>
                             </div>

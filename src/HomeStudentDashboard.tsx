@@ -1,18 +1,16 @@
 import React from 'react'
 import Calendar from "./_components/Calendar/Calendar";
-import ArticlesCarouselV2 from "./_components/ArticlesCarouselV2/ArticlesCarouselV2";
+import ArticlesCarouselV2 from "./_components/ArticlesCarouselDashboard/ArticlesCarouselDashboard";
 
-const HomeStudentV2 = () => {
+const HomeStudentDashboard = () => {
     return(
         <div className="">
             <h4 className="">Home Student</h4>
             <p>Under Construction...</p>
-            <div className={""}>
+            <Calendar/>
+            <div className={"container"}>
                 <div className={"row"}>
-                    <div className={"col-8"}>
-                        <Calendar/>
-                    </div>
-                    <div className={"col-4"}>
+                    <div className={"col"}>
                         <ArticlesCarouselV2/>
                     </div>
                 </div>
@@ -21,4 +19,4 @@ const HomeStudentV2 = () => {
     )
 }
 
-export default HomeStudentV2
+export default HomeStudentDashboard
