@@ -2,9 +2,14 @@ import React from 'react'
 import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import iCalendarPlugin from '@fullcalendar/icalendar'
+import { fetchICal} from "./CalendarSlice"
 import './Calendar.css'
+import {useDispatch} from "react-redux";
 
 const Calendar = () => {
+
+    const dispatch = useDispatch()
+    console.log(dispatch(fetchICal()))
 
     const  style = {
         width: '66%',
@@ -26,6 +31,7 @@ const Calendar = () => {
                         {
                             // url: 'https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/NYa47j3l.shu',
                             url: 'http://localhost:3000/_helpers/test.ics',
+                            // url: ,
                             format: 'ics'
                         }
                     }
@@ -46,5 +52,4 @@ const Calendar = () => {
 
     )
 }
-
 export default Calendar
