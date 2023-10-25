@@ -1,39 +1,43 @@
-import React from 'react'
 import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import iCalendarPlugin from '@fullcalendar/icalendar'
-import { fetchICal} from "./CalendarSlice"
-import './Calendar.css'
-import {useDispatch} from "react-redux";
 
 const Calendar = () => {
+    return (
+        <FullCalendar
+            plugins = {[ timeGridPlugin, iCalendarPlugin ]}
+            initialView = 'timeGridWeek'
+            events = {
+                {
+                    url: data,
+                    format: 'ics'
+                }
+            }
 
-    let url = ""
-    fetch('https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/NYa47j3l.shu')
-        .then(response => response.blob())
-        .then(blob =>
-            url = URL.createObjectURL(blob)
-        )
+            slotMinTime = {'07:00'}
+            slotMaxTime = {'20:00'}
 
-    const  style = {
-        width: '66%',
-
-        padding: '1rem',
-        margin: '1rem',
-
-        borderRadius: '1rem',
-        boxShadow: '0 0 5px var(--grey)',
-    }
-
-    return(
-        <>
-            <div style={style}>
-
-
-            </div>
-        </>
-
-
+            weekends = {false}
+            allDaySlot = {false}
+        />
     )
 }
+
+const url = "https://cors-anywhere.herokuapp.com/" +
+    "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/NYa47j3l.shu"
+
+
+async function getContent (remoteURL: string) {
+    const response = await fetch(remoteURL, {headers: {"X-Requested-With": "XMLHttpRequest"}})
+    const blob = await response.blob()
+    return blob
+}
+
+function fromBlobToString (blob: Blob) {
+    return URL.createObjectURL(blob)
+}
+
+const data = fromBlobToString(await getContent(url))
+
+
 export default Calendar
