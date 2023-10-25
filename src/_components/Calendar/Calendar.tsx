@@ -34,7 +34,6 @@ const Calendar = () => {
                 allDaySlot = {false}
             />
         </div>
-    )
 }
 
 /**
@@ -43,6 +42,7 @@ const Calendar = () => {
 
 const url = "https://cors-anywhere.herokuapp.com/" +
     "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/NYa47j3l.shu"
+
 
 async function getContent (remoteURL: string) {
     const response = await fetch(remoteURL, {headers: {"X-Requested-With": "XMLHttpRequest"}})
