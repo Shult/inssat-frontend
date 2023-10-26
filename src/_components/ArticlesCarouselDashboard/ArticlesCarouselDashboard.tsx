@@ -45,11 +45,11 @@ const ArticleCarouselV2 = ({ }) => {
                                         <a className="btn btn-outline-secondary article-dashboard-tag">#{tag}</a>
                                     ))}
                                     <div className={"row-4"}>
-                                        <div className={""}>
+                                        <div className={"user-profile-container"}>
                                             <img className={"article-dashboard-user-img"} src={loadImage(article.imageUrl)} alt={article.title}/>
-                                            <div className={""}>
+                                            <div className={"user-info"}>
                                                 <div className={"article-dashboard-user-text"}>
-                                                    Username <b>.</b>00/00/00
+                                                    Sylvain MESTRE <b>.</b>{article.publishDate}
                                                 </div>
                                             </div>
                                         </div>

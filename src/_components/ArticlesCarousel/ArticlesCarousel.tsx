@@ -25,7 +25,7 @@ const ArticleCarousel = ({ }) => {
     // Used to load the image, because I faced an issue when I past directly the images
     function loadImage(imagePath: string) {
         try {
-            return require(`../../../public/_assets/_imgArticles/${imagePath}`);
+            return require(`../../../public/_assets/${imagePath}`);
         } catch (err) {
             return '';
         }

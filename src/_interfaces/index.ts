@@ -5,4 +5,5 @@ export interface Article {
     snippet: string;
     link: string;
     tags: string[];
+    publishDate: string;
 }

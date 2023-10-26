@@ -71,5 +71,17 @@
     font-family: Arial, sans-serif;
     font-weight: 100;
     color: #556A68;
-    position: absolute;
+    position: relative;
+}
+
+.user-profile-container {
+    display: flex; /* Utilisez Flexbox pour positionner les éléments en ligne */
+    align-items: center; /* Centrez les éléments verticalement */
+    gap: 10px; /* Créez un espace entre l'image et le texte */
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column; /* Placez les éléments les uns en dessous des autres */
+    align-items: flex-start; /* Alignez le contenu à gauche */
 }
