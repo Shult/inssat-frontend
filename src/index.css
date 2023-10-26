@@ -4,8 +4,12 @@
   --gold: #BF9E4E;
   --goldDark: #a48231;
 
-  --grey: #556A68;
-  --greyDark: #334442;
+  --enssatGrey: #556A68;
+  --enssatGreyDark: #334442;
+
+  --lightGrey: #E6E6E6;
+  --mediumGrey: #C8C8C8;
+  --darkGrey: #333;
 
   --error: #ff4466;
   --errorDark: #c21635;
@@ -54,14 +58,21 @@
 
 /* Container */
 
+html,
+#root,
+.App {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
 body{
   font-family: var(--fontText);
 }
 
-.row {
+.line {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
 }
 
 /* Items */

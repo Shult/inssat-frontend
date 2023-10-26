@@ -10,23 +10,26 @@ const Navbar = () => {
 
     const toggle = () => setIsOpen(!isOpen);
     return(
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className="container-fluid">
-                <NavLink className="navbar-brand" to="homeStudent">INSSAT</NavLink>
-                <button className="navbar-toggler" type="button" onClick={toggle}>
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className={`collapse navbar-collapse ${isOpen ? 'show' : ''}`}>
-                    <ul className="navbar-nav ml-auto">
-                        <NavItem link={"notes"} linkName={"Notes"}/>
-                        <NavItem link={"timetable"} linkName={"Timetable"}/>
-                        <NavItem link={"courses"} linkName={"Courses"}/>
-                        <NavItem link={"messages"} linkName={"Messages"}/>
-                        <NavItem link={"contacts"} linkName={"Contacts"}/>
-                    </ul>
+        <div className={"w100"}>
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <div className="container-fluid">
+                    <NavLink className="navbar-brand" to="homeStudent">INSSAT</NavLink>
+                    <button className="navbar-toggler" type="button" onClick={toggle}>
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className={`collapse navbar-collapse ${isOpen ? 'show' : ''}`}>
+                        <ul className="navbar-nav ml-auto">
+                            <NavItem link={"notes"} linkName={"Notes"}/>
+                            <NavItem link={"timetable"} linkName={"Timetable"}/>
+                            <NavItem link={"courses"} linkName={"Courses"}/>
+                            <NavItem link={"messages"} linkName={"Messages"}/>
+                            <NavItem link={"contacts"} linkName={"Contacts"}/>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
+
     )
 }
 

@@ -1,6 +1,5 @@
 .fc
 {
-
 }
 
 .fc-media-screen
@@ -174,11 +173,16 @@
 
 .fc-col-header-cell-cushion
 {
-
+    width: auto;
+    text-decoration: none;
+    font: var(--fontTitle);
+    color: var(--gold);
 }
 
 .fc-event-main
 {
+    background: var(--gold);
+    color: #fff;
     text-align: center;
 }
 

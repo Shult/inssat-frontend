@@ -3,6 +3,7 @@
 .buttonGold,
 .buttonGold2,
 .buttonGrey,
+.buttonLightGrey,
 .buttonWhite,
 .buttonBlack,
 .buttonError,
@@ -33,12 +34,12 @@
 /* Grey button specificities */
 
 .buttonGrey {
-    background: var(--grey);
-    border: solid 1px var(--grey);
+    background: var(--enssatGrey);
+    border: solid 1px var(--enssatGrey);
 }
 
 .buttonGrey:hover {
-    background: var(--greyDark);
+    background: var(--enssatGreyDark);
 }
 
 /* White button specificities */
@@ -95,4 +96,24 @@
 .goldenBackground:hover {
     text-decoration: none;
     background: #fff;
+}
+
+/* Button from aside navbar */
+
+.buttonLightGrey {
+    max-height: inherit;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: var(--lightGrey);
+    color: var(--darkGrey);
+    text-decoration: none;
+}
+
+.buttonLightGrey:hover {
+    background: var(--mediumGrey);
+}
+
+.buttonLightGrey:checked {
+    background: var(--gold);
+    color: #fff
 }

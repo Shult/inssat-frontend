@@ -1,13 +1,13 @@
 import React from "react";
 import "./style.css"
 
-const ButtonGold = ({className = "buttonWhite", btnName = "I'm a btn", btnHref= "#", btnContent= "Click me"}) => {
+const Button = ({className = "buttonWhite", name = "I'm a btn", href= "#", content= "Click me"}) => {
     return(
         <a className={className}
-           name={btnName}
-           href={btnHref}
-        >{btnContent}</a>
+           name={name}
+           href={href}
+        >{content}</a>
     )
 }
 
-export default ButtonGold
+export default Button

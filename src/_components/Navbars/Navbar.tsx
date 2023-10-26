@@ -1,6 +1,6 @@
 import React from "react";
-import Link from "./Links/Link";
-import ClickableImg from "./ClickableImg/ClickableImg";
+import Link from "../Links/Link";
+import ClickableImg from "../ClickableImg/ClickableImg";
 
 const Navbar = () => {
 
@@ -11,8 +11,8 @@ const Navbar = () => {
     }
 
     return(
-        <div className={"row w100"}>
-            <nav className={"row w75"} style={styleNav}>
+        <div className={"line w100"}>
+            <nav className={"line w75"} style={styleNav}>
                 <Link className={"linkWhite goldenBackground"} name={"Home"} href={"/homeStudent"} content={"Home"}/>
                 <Link className={"linkWhite goldenBackground"} name={"Test"} href={"/test"} content={"Test"}/>
                 <Link className={"linkWhite goldenBackground"} name={"Mail"} href={"/mail"} content={"Mail"}/>

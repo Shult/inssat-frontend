@@ -32,7 +32,7 @@
 /* Grey link specificities */
 
 .linkGrey {
-    color: var(--grey);
+    color: var(--enssatGrey);
 }
 
 .linkGrey:hover {

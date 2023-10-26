@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-const ClickableImg = ({href="#", src="_images/robot-icon.png", title="img", alt="img", width="5%"}) => {
+const ClickableImg = ({href="#", src="_images/robot-icon.png", title="img", alt="img", width="fit-content"}) => {
 
     const [isHover, setHover] = useState()
 
@@ -11,10 +11,10 @@ const ClickableImg = ({href="#", src="_images/robot-icon.png", title="img", alt=
     }
 
     const styleImg= {
+        margin: "0.5rem",
         alignSelf: "center",
         width: "100%",
-        borderRadius: "100%",
-        border: isHover ? "solid 3px #fff" : "none"
+        boxShadow: isHover ? "solid 3px var(--gold)" : "none"
     }
 
     return (
