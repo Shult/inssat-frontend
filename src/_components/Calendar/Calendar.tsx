@@ -5,6 +5,16 @@ import "./Calendar.css"
 
 const Calendar = () => {
 
+<<<<<<< HEAD
+=======
+    let url = ""
+    fetch('https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/NYa47j3l.shu')
+        .then(response => response.blob())
+        .then(blob =>
+            url = URL.createObjectURL(blob)
+        )
+
+>>>>>>> 6acff6a (tmp/)
     const  style = {
         background: "#fff",
         padding: '1rem',
@@ -13,6 +23,7 @@ const Calendar = () => {
     }
 
     return(
+<<<<<<< HEAD
         <div className={"w100"} style={style}>
             <FullCalendar
                 plugins = {[ timeGridPlugin, iCalendarPlugin ]}
@@ -26,6 +37,14 @@ const Calendar = () => {
 
                 themeSystem={'default'}
                 eventBorderColor = {'var(--gold)'}
+=======
+        <>
+            <div style={style}>
+
+
+            </div>
+        </>
+>>>>>>> 6acff6a (tmp/)
 
                 slotMinTime = {'07:00'}
                 slotMaxTime = {'20:00'}
