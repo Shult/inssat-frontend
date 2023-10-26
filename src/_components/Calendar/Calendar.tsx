@@ -2,18 +2,22 @@ import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import iCalendarPlugin from '@fullcalendar/icalendar'
 import "./Calendar.css"
+import {useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
+import {calendarActions} from "../../_store";
 
 const Calendar = () => {
 
-    const style = {
-        width: "66%",
+    const [state, setState] = useState()
+    const dispatch = useDispatch();
 
-        padding: "1rem",
-        boxShadow: "0 0 5px var(--enssatGrey)"
-    }
+    useEffect(() => {
+        // clear alert on location change
+        dispatch(calendarActions.getICS());
+    }, []);
 
     return (
-        <div style={style}>
+        <div>
 
             <FullCalendar
                 plugins = {[ timeGridPlugin, iCalendarPlugin ]}

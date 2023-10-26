@@ -27,13 +27,16 @@ function createReducers() {
         getICS: getICS()
     };
 
-    async function getICS() {
-
-        const remoteURL = 'https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/NYa47j3l.shu'
-
-        const response = await fetch(remoteURL);
-        const blob = await response.blob();
-
-        return URL.createObjectURL(blob);
+    function getICS (state, content: string) {
+        if (state.value == "loaded") {
+            return getContent(content)
+        }
     }
+
+    async function getContent (remoteURL: string) {
+        const response = await fetch(remoteURL, {headers: {"X-Requested-With": "XMLHttpRequest"}})
+        const blob = await response.blob()
+        return URL.createObjectURL(blob)
+    }
+
 }
