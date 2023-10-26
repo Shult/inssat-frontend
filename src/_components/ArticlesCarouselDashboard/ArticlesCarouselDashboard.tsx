@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import './ArticlesCarouselDashboard.css';
 import {useDispatch, useSelector} from "react-redux";
-import {Article} from "../../_interfaces";
-import {getArticles} from "../../_actions/articleActions"; // Style for the carousel
+import {Article} from "../../_interfaces/interfacesArticles"
+import {getArticles} from "../../_actions/articleActions";
 
 const ArticleCarouselV2 = ({ }) => {
     const dispatch = useDispatch();

@@ -1,6 +1,7 @@
 import React from 'react'
 import Calendar from "./_components/Calendar/Calendar";
 import ArticlesCarouselV2 from "./_components/ArticlesCarouselDashboard/ArticlesCarouselDashboard";
+import CreateArticle from "./_components/articleCRUD/CreateArticle";
 
 const HomeStudentDashboard = () => {
     return(
