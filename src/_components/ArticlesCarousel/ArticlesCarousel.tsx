@@ -19,7 +19,10 @@ const ArticleCarousel = ({ }) => {
     const settings = {
         infinite: true,
         slidesToShow: 3,
-        slidesToScroll: 3
+        slidesToScroll: 3,
+        vertical: true,
+        verticalSwiping: true,
+        arrows: false
     };
 
     return (

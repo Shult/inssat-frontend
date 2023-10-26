@@ -9,6 +9,7 @@ function App() {
         background: "var(--mediumGrey)",
         position: "fixed",
         maxWidth: "85%",
+        height: "inherit",
         left: "15%",
 
         padding: "1rem"

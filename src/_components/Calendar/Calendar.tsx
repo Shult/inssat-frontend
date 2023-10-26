@@ -2,6 +2,7 @@ import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import iCalendarPlugin from '@fullcalendar/icalendar'
 import "./Calendar.css"
+import {inherits} from "util";
 
 const Calendar = () => {
 
@@ -11,6 +12,7 @@ const Calendar = () => {
         padding: '1rem',
         borderRadius: '1rem',
         boxShadow: '0 0 5px var(--enssatGrey)',
+        height: '70%'
     }
 
     return(
@@ -25,14 +27,16 @@ const Calendar = () => {
                     }
                 }
 
-                themeSystem={'default'}
+                themeSystem = {'default'}
                 eventBorderColor = {'var(--gold)'}
 
                 slotMinTime = {'07:00'}
-                slotMaxTime = {'20:00'}
+                slotMaxTime = {'21:00'}
 
                 weekends = {false}
                 allDaySlot = {false}
+                height={'100%'}
+
             />
         </div>
     )
