@@ -4,11 +4,23 @@ import Router from "./_navigation/Router";
 import NavAside from "./_components/Navbars/NavAside";
 
 function App() {
+
+    const style = {
+        background: "var(--mediumGrey)",
+        position: "fixed",
+        maxWidth: "85%",
+        left: "15%",
+
+        padding: "1rem"
+    }
+
     return (
         <BrowserRouter>
             <div className="App line">
                 <NavAside/>
-                <Router/>
+                <div style={style}>
+                    <Router/>
+                </div>
             </div>
         </BrowserRouter>
     );

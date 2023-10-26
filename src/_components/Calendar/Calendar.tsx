@@ -7,13 +7,14 @@ const Calendar = () => {
 
     const  style = {
         background: "#fff",
+        maxWidth: "inherit",
         padding: '1rem',
         borderRadius: '1rem',
         boxShadow: '0 0 5px var(--enssatGrey)',
     }
 
     return(
-        <div className={"w100"} style={style}>
+        <div style={style}>
             <FullCalendar
                 plugins = {[ timeGridPlugin, iCalendarPlugin ]}
                 initialView = 'timeGridWeek'
