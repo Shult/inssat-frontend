@@ -27,12 +27,15 @@ const Calendar = () => {
     )
 }
 
+/**
+ * NOTE: Need to go to Heroku first to be allowed to use it
+ */
 
 const url = "https://cors-anywhere.herokuapp.com/" +
     "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/NYa47j3l.shu"
 
 async function getContent (remoteURL: string) {
-    const response = await fetch(remoteURL, {headers: {"X-Requested-With": "XMLHttpRequest"}})
+    const response = await fetch(remoteURL, {mode: "cors", headers: {"X-Requested-With": "XMLHttpRequest"}})
     const blob = await response.blob()
     return blob
 }
@@ -42,6 +45,7 @@ function fromBlobToString (blob: Blob) {
 }
 
 const data = fromBlobToString(await getContent(url))
+console.log(data)
 
 
 export default Calendar
