@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Article} from "../../_interfaces";
 import {getArticles} from "../../_actions/articleActions"; // Style for the carousel
 
-const ArticleCarousel = ({ }) => {
+const ArticleCarousel = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {

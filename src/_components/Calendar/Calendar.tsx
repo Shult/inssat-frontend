@@ -2,7 +2,6 @@ import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import iCalendarPlugin from '@fullcalendar/icalendar'
 import "./Calendar.css"
-import {inherits} from "util";
 
 const Calendar = () => {
 
@@ -59,6 +58,6 @@ function fromBlobToString (blob: Blob) {
     return URL.createObjectURL(blob)
 }
 
-const data = fromBlobToString(await getContent(url))
-
+//const data = fromBlobToString(await getContent(url))
+const data = ""
 export default Calendar
