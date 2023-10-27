@@ -1,15 +1,33 @@
 // import axios from 'axios';
-import {CREATE_ARTICLE, DELETE_ARTICLE, GET_ARTICLES, UPDATE_ARTICLE} from './types';
+import {FETCH_ARTICLES_REQUEST, FETCH_ARTICLES_SUCCESS, FETCH_ARTICLES_FAILURE, CREATE_ARTICLE, DELETE_ARTICLE, UPDATE_ARTICLE} from './types';
 import articles from '../_data/articles.json';
 import { Article, CreateArticleAction, UpdateArticleAction, DeleteArticleAction } from '../_interfaces/interfacesArticles';
 
 export const getArticles = () => {
     return {
-        type: GET_ARTICLES,
+        type: FETCH_ARTICLES_SUCCESS,
         payload: articles as Article[]
     };
 };
+// Avec la gestion d'erreur
+// export const getArticles = () => {
+//     return async (dispatch : any)=> {
+//         dispatch({ type: FETCH_ARTICLES_REQUEST, payload:"" });
+//         try{
+//             dispatch({
+//                 type: FETCH_ARTICLES_SUCCESS,
+//                 payload: articles as Article[]
+//             })
+//         }catch (e){
+//             dispatch({
+//                 type: FETCH_ARTICLES_FAILURE,
+//                 payload: "error"
+//             })
+//         }
+//     };
+// };
 
+// When the API will be available
 // export const getArticlesAPI = () => {
 //     return async (dispatch: any) => {
 //         dispatch({ type: 'FETCH_ARTICLES_REQUEST' });

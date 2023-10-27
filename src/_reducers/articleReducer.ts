@@ -1,4 +1,4 @@
-import { GET_ARTICLES } from '../_actions/types';
+import {FETCH_ARTICLES_REQUEST, FETCH_ARTICLES_SUCCESS, FETCH_ARTICLES_FAILURE} from '../_actions/types';
 import { ArticleState, ArticleActions } from '../_interfaces/interfacesArticles';
 
 const initialState: ArticleState = {
