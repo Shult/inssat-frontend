@@ -3,7 +3,6 @@ import {Route, Routes} from "react-router-dom";
 import HomeStudent from "../HomeStudent";
 import Test from "../test/Test";
 import PageNotFound from "../_components/PageNotFound";
-
 const Router = () => {
     return(
         <Routes>

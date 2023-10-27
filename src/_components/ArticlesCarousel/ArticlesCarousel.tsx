@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './ArticlesCarousel.css';
 import {useDispatch, useSelector} from "react-redux";
-import {Article} from "../../_interfaces";
+import {Article} from "../../_interfaces/interfacesArticles"
 import {getArticles} from "../../_actions/articleActions"; // Style for the carousel
 
 const ArticleCarousel = () => {
@@ -25,6 +25,19 @@ const ArticleCarousel = () => {
         arrows: false
     };
 
+    // Used to load the image, because I faced an issue when I past directly the images
+    function loadImage(imagePath: string) {
+        try {
+            return require(`../../../public/_assets/${imagePath}`);
+        } catch (err) {
+            return '';
+        }
+    }
+
+    function redirectToSite(Link : string) : void {
+        window.location.href = Link;
+    }
+
     return (
         <div>
         <div className={"article-big-title"}>
@@ -32,11 +45,11 @@ const ArticleCarousel = () => {
         </div>
             <Slider {...settings}>
                 {articles.map(article => (
-                    <div className={"container"}>
+                    <div onClick={() => redirectToSite(article.link)} className={"container"}>
                         <div className={"article-card"}>
                             <div className={"row"}>
                                 <div className={"article-div-img"}>
-                                    <img className="article-img" src={require("../../_assets/hades.jpg")} alt={"worlds"}/>
+                                    <img className="article-img" src={loadImage(article.imageUrl)} alt={article.title}/>
                                 </div>
                             </div>
                             <div className={"row"}>
@@ -44,7 +57,7 @@ const ArticleCarousel = () => {
                                     <h2 className={"article-text"}>{article.title}</h2>
                                     <p className={"article-text"}>{article.snippet}</p>
                                     {article.tags.map(tag =>(
-                                        <a href={article.link} className="btn btn-outline-secondary article-tag">#{tag}</a>
+                                        <a className="btn btn-outline-secondary article-tag">#{tag}</a>
                                     ))}
                                 </div>
                             </div>
