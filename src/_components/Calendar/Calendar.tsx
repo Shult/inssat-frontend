@@ -1,27 +1,28 @@
 import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import iCalendarPlugin from '@fullcalendar/icalendar'
+
 import "./Calendar.css"
 
-const Calendar = () => {
+import {deleteCalendar, selectCalendar} from "./Calendar.slice";
+import {useAppDispatch, useAppSelector} from "../../_store/hook";
+import {useState} from "react";
+import {EMPTY_URL} from "./Calendar.const";
 
-    const  style = {
-        background: "#fff",
-        maxWidth: "inherit",
-        padding: '1rem',
-        borderRadius: '1rem',
-        boxShadow: '0 0 5px var(--enssatGrey)',
-        height: '70%'
-    }
+const Calendar = () => {
+    const calendar = useAppSelector(selectCalendar);
+    const dispatch = useAppDispatch();
+    const [remoteURL, setURL] = useState("");
+    const currentURL = String(remoteURL) || EMPTY_URL
 
     return(
-        <div style={style}>
+        <div id={"CalendarContainer"}>
             <FullCalendar
                 plugins = {[ timeGridPlugin, iCalendarPlugin ]}
                 initialView = 'timeGridWeek'
                 events = {
                     {
-                        url: data,
+                        url: calendar,
                         format: 'ics'
                     }
                 }
@@ -34,30 +35,22 @@ const Calendar = () => {
 
                 weekends = {false}
                 allDaySlot = {false}
-                height={'100%'}
 
+                height={'100%'}
+                locale={"fr"}
             />
+            <div>
+                <input
+                    aria-label="Set remote URL"
+                    value={currentURL}
+                    onChange={(e) => setURL(e.target.value)}
+                />
+                <button className={"buttonError"} onClick={() => dispatch(deleteCalendar())} >
+                    Supprimer calendrier
+                </button>
+            </div>
         </div>
     )
 }
 
-/**
- * NOTE: Need to go to Heroku first to be allowed to use it
- */
-
-const url = "https://cors-anywhere.herokuapp.com/" +
-    "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/NYa47j3l.shu"
-
-async function getContent (remoteURL: string) {
-    const response = await fetch(remoteURL, {headers: {"X-Requested-With": "XMLHttpRequest"}})
-    const blob = await response.blob()
-    return blob
-}
-
-function fromBlobToString (blob: Blob) {
-    return URL.createObjectURL(blob)
-}
-
-//const data = fromBlobToString(await getContent(url))
-const data = ""
 export default Calendar
