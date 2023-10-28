@@ -16,29 +16,30 @@ const Calendar = () => {
     const currentURL = String(remoteURL) || EMPTY_URL
 
     return(
-        <div id={"CalendarContainer"}>
-            <FullCalendar
-                plugins = {[ timeGridPlugin, iCalendarPlugin ]}
-                initialView = 'timeGridWeek'
-                events = {
-                    {
-                        url: calendar,
-                        format: 'ics'
+        <>
+            <div id={"CalendarContainer"}>
+                <FullCalendar
+                    plugins = {[ timeGridPlugin, iCalendarPlugin ]}
+                    initialView = 'timeGridWeek'
+                    events = {
+                        {
+                            url: calendar,
+                            format: 'ics'
+                        }
                     }
-                }
 
-                themeSystem = {'default'}
-                eventBorderColor = {'var(--gold)'}
+                    themeSystem = {'default'}
+                    eventBorderColor = {'var(--gold)'}
 
-                slotMinTime = {'07:00'}
-                slotMaxTime = {'21:00'}
+                    slotMinTime = {'08:00'}
+                    slotMaxTime = {'21:00'}
 
-                weekends = {false}
-                allDaySlot = {false}
+                    weekends = {false}
+                    allDaySlot = {false}
 
-                height={'100%'}
-                locale={"fr"}
-            />
+                    locale={'fr'}
+                />
+            </div>
             <div>
                 <input
                     aria-label="Set remote URL"
@@ -49,7 +50,7 @@ const Calendar = () => {
                     Supprimer calendrier
                 </button>
             </div>
-        </div>
+        </>
     )
 }
 

@@ -28,18 +28,19 @@ const NavAside = () => {
                 </div>
 
                 <Button className={"buttonLightGrey w100"} href={"/"} content={"Dashboard"}/>
-                <Button className={"buttonLightGrey w100"} href={"/test"} content={"Schedule"}/>
-                <Button className={"buttonLightGrey w100"} content={"Marks"}/>
-                <Button className={"buttonLightGrey w100"} content={"Courses"}/>
-                <Button className={"buttonLightGrey w100"} content={"Messaging"}/>
-                <Button className={"buttonLightGrey w100"} content={"Contact"}/>
-                <Button className={"buttonLightGrey w100"} href={"/news"} content={"News"}/>
+                <Button className={"buttonLightGrey w100"} href={"/test"} content={"Emploi du temps"}/>
+                <Button className={"buttonLightGrey w100"} href={"/marks"} content={"Notes"}/>
+                <Button className={"buttonLightGrey w100"} href={"/courses"} content={"Cours"}/>
+                <Button className={"buttonLightGrey w100"} href={"/chat"} content={"Messagerie instantanée"}/>
+                <Button className={"buttonLightGrey w100"} href={"/contact"} content={"Contact"}/>
+                <Button className={"buttonLightGrey w100"} href={"/news"} content={"Actualités"}/>
+                <Button className={"buttonLightGrey w100"} href={"/blogEditor"} content={"Edition des actualités"}/>
             </div>
 
             <div className={"line w100"} style={styleDivBottom}>
-                <Button className={"buttonLightGrey w100"} content={"My profile"}/>
-                <Button className={"buttonLightGrey w100"} content={"Settings"}/>
-                <Button className={"buttonLightGrey w100"} content={"Log out"}/>
+                <Button className={"buttonLightGrey w100"} content={"Mon profile"}/>
+                <Button className={"buttonLightGrey w100"} content={"Paramètres"}/>
+                <Button className={"buttonLightGrey w100"} content={"Déconnexion"}/>
             </div>
 
         </aside>

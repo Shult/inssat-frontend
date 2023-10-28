@@ -2,7 +2,7 @@
     background: #fff;
 
     max-width: inherit;
-    height: 70%;
+    height: fit-content;
 
     padding: 1rem;
 
@@ -14,66 +14,23 @@
 {
 }
 
-.fc-media-screen
-{
-
-}
-
-.fc-direction-ltr
-{
-
-}
-
-.fc-theme-standard
-{
-
-}
-
-.fc-liquid-hack
-{
-
-}
-
 .fc-header-toolbar
 {
-
-}
-
-.fc-toolbar
-{
-
-}
-
-.fc-toolbar-chunk
-{
-
-}
-
-.fc-toolbar-title
-{
-}
-
-.fc-dom-2
-{
-
+    margin: 0 !important;
 }
 
 .fc-today-button
 {
+    background: var(--gold) !important;
+    border: solid 1px var(--gold) !important;
+}
 
+.fc-today-button:hover
+{
+    background: var(--goldDark) !important;
 }
 
 .fc-button
-{
-
-}
-
-.fc-button-primary
-{
-
-}
-
-.fc-icon
 {
 
 }
@@ -93,94 +50,28 @@
 
 }
 
-.fc-view-harness
-{
-
-}
-
-.fc-view-harness-active
-{
-
-}
-
-.fc-timeGridWeek-view
-{
-
-}
-
-.fc-view
-{
-
-}
-
-.fc-timegrid
-{
-
-}
-
 .fc-scrollgrid
 {
-
-}
-
-.fc-scrollgrid-liquid
-{
-
-}
-
-.fc-scrollgrid-section
-{
-
-}
-
-.fc-scrollgrid-section-header
-{
-
-}
-
-.fc-scroller-harness
-{
-
+    margin: 0;
 }
 
 .fc-scroller
 {
-
+    overflow: hidden !important;
 }
+
 
 .fc-col-header
 {
-
+    margin: 0 !important;
 }
 
-.fc-timegrid-axis
+.fc-col-header th
 {
-
-}
-
-.fc-timegrid-axis-frame
-{
-
-}
-
-.fc-col-header-cell
-{
-
-}
-
-.fc-day
-{
-
-}
-
-.fc-day-past
-{
-
-}
-
-.fc-scrollgrid-sync-inner
-{
-
+    background: #fff !important;
+    border: none !important;
+    border-collapse: collapse !important;
+    padding: 0.5rem !important;
 }
 
 .fc-col-header-cell-cushion
@@ -198,12 +89,11 @@
     text-align: center;
 }
 
-.fc-event-time
-{
 
+.fc-timegrid-slots table {
+    margin: 0 !important;
 }
 
-.fc-event-title
-{
-
+.fc-view-harness {
+    height: 45rem !important;
 }

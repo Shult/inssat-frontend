@@ -15,7 +15,9 @@ const CreateArticle: React.FC = () => {
         "snippet": "C'est trop bien React !",
         "link": "https://react.com",
         "tags": ["Phot", "IAI", "INFO", "SysNum"],
-        "publishDate": "26/10/2023"
+        "publishDate": "26/10/2023",
+        "lastUpdate": "28/10/2023",
+        "status": "created"
     }
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

@@ -1,0 +1,31 @@
+#LastArticle-Article,
+#LastArticle-Tags {
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 0 5px var(--enssatGrey);
+}
+
+#LastArticle-Section {
+    margin: 1rem 0;
+    color: #fff;
+    height: 25%;
+}
+
+#LastArticle-Article {
+    background: var(--gold);
+    align-self: stretch;
+}
+
+#LastArticle-Article p {
+    margin: 0;
+    align-self: stretch;
+}
+
+#LastArticle-Tags {
+    background: var(--lightGrey);
+    color: #000;
+}
+
+#SecondLine {
+    height: 75%;
+}

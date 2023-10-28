@@ -1,0 +1,31 @@
+#divTable {
+    background: var(--lightGrey);
+    border-radius: 0.5rem;
+    box-shadow: 0 0 3px var(--enssatGrey);
+
+    margin: 1rem 0;
+    padding: 1rem;
+}
+
+#divTable table {
+    text-align: center;
+}
+
+#divTable th {
+    background: var(--gold);
+
+    font-family: var(--fontTitle);
+    font-variant: small-caps;
+    color: #fff;
+
+    padding: 1rem;
+}
+
+#divTable td {
+    padding: 0.5rem;
+    border-bottom: solid 1px var(--gold) !important;
+}
+
+#divTable tr:hover {
+    background: var(--goldDark);
+}

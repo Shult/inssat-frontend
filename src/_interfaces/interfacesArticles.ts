@@ -7,6 +7,8 @@ export interface Article {
     link: string;
     tags: string[];
     publishDate: string;
+    lastUpdate: string;
+    status: "created" | "published" | "deleted"
 }
 
 export interface ArticleState {

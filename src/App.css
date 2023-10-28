@@ -2,8 +2,8 @@
     position: fixed;
     left: 15%;
 
-    max-width: 85%;
-    max-height: inherit;
+    width: 85%;
+    height: 100%;
 
     background: var(--mediumGrey);
     padding: 1rem;
