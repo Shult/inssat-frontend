@@ -1,6 +1,6 @@
 // interfaces.ts
 export interface Article {
-    id: number;
+    id: string;
     title: string;
     imageUrl: string;
     snippet: string;
@@ -43,7 +43,7 @@ export type UpdateArticleAction = {
 
 export type DeleteArticleAction = {
     type: 'DELETE_ARTICLE';
-    payload: number; // ID de l'article
+    payload: string; // UUID de l'article
 };
 
 export type ArticleActions =

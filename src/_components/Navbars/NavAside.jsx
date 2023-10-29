@@ -1,4 +1,4 @@
-import Button from "../Buttons/Button";
+import Link from "../Clickable/Link";
 import ClickableImg from "../ClickableImg/ClickableImg";
 
 const NavAside = () => {
@@ -27,20 +27,20 @@ const NavAside = () => {
                     <ClickableImg src={"_images/Inssat.png"} href={"/"} title={"Home"}/>
                 </div>
 
-                <Button className={"buttonLightGrey w100"} href={"/"} content={"Dashboard"}/>
-                <Button className={"buttonLightGrey w100"} href={"/test"} content={"Emploi du temps"}/>
-                <Button className={"buttonLightGrey w100"} href={"/marks"} content={"Notes"}/>
-                <Button className={"buttonLightGrey w100"} href={"/courses"} content={"Cours"}/>
-                <Button className={"buttonLightGrey w100"} href={"/chat"} content={"Messagerie instantanée"}/>
-                <Button className={"buttonLightGrey w100"} href={"/contact"} content={"Contact"}/>
-                <Button className={"buttonLightGrey w100"} href={"/news"} content={"Actualités"}/>
-                <Button className={"buttonLightGrey w100"} href={"/blogEditor"} content={"Edition des actualités"}/>
+                <Link className={"buttonLightGrey w100"} href={"/"} content={"Dashboard"}/>
+                <Link className={"buttonLightGrey w100"} href={"/test"} content={"Emploi du temps"}/>
+                <Link className={"buttonLightGrey w100"} href={"/marks"} content={"Notes"}/>
+                <Link className={"buttonLightGrey w100"} href={"/courses"} content={"Cours"}/>
+                <Link className={"buttonLightGrey w100"} href={"/chat"} content={"Messagerie instantanée"}/>
+                <Link className={"buttonLightGrey w100"} href={"/contact"} content={"Contact"}/>
+                <Link className={"buttonLightGrey w100"} href={"/news"} content={"Actualités"}/>
+                <Link className={"buttonLightGrey w100"} href={"/blogEditor"} content={"Edition des actualités"}/>
             </div>
 
             <div className={"line w100"} style={styleDivBottom}>
-                <Button className={"buttonLightGrey w100"} content={"Mon profile"}/>
-                <Button className={"buttonLightGrey w100"} content={"Paramètres"}/>
-                <Button className={"buttonLightGrey w100"} content={"Déconnexion"}/>
+                <Link className={"buttonLightGrey w100"} content={"Mon profile"}/>
+                <Link className={"buttonLightGrey w100"} content={"Paramètres"}/>
+                <Link className={"buttonLightGrey w100"} content={"Déconnexion"}/>
             </div>
 
         </aside>

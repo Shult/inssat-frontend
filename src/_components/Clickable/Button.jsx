@@ -1,11 +1,10 @@
 import React from "react";
 import "./style.css"
 
-const Button = ({className = "buttonWhite", name = "I'm a btn", href= "#", content= "Click me", onclick=""}) => {
+const Button = ({className = "buttonWhite", name = "I'm a btn", content= "Click me", onclick= function (){}}) => {
     return(
         <a className={className}
            name={name}
-           href={href}
            onClick={onclick}
         >{content}</a>
     )

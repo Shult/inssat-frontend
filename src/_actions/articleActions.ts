@@ -51,7 +51,7 @@ export const updateArticle = (article: Article): UpdateArticleAction => ({
     payload: article,
 });
 
-export const deleteArticle = (id: number): DeleteArticleAction => ({
+export const deleteArticle = (id: string): DeleteArticleAction => ({
     type: DELETE_ARTICLE,
     payload: id,
 });

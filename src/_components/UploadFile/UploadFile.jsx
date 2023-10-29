@@ -1,4 +1,4 @@
-import Button from "../Buttons/Button";
+import Button from "../Clickable/Button";
 import "./UploadFile.css"
 
 const UploadFile = ({className="", name="newFolder", content="Import", accept=""}) => {

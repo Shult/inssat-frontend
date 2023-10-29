@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": "1",
     "title": "Hades",
     "imageUrl": "_imgArticles/hades.jpg",
     "snippet": "Le nouveau jeu Hades est sorti !",
@@ -11,7 +11,7 @@
     "status": "published"
   },
   {
-    "id": 2,
+    "id": "2",
     "title": "Worlds 2023",
     "imageUrl": "_imgArticles/worlds.jpg",
     "snippet": "Les worlds de league of legends ont commencé sur des chapeaux de roues !",
@@ -22,7 +22,7 @@
     "status":  "published"
   },
   {
-    "id": 3,
+    "id": "3",
     "title": "React",
     "imageUrl": "_imgArticles/logo.svg",
     "snippet": "C'est trop bien React !",
@@ -33,7 +33,7 @@
     "status":  "published"
   },
   {
-    "id": 4,
+    "id": "4",
     "title": "Worlds 2023 2",
     "imageUrl": "_imgArticles/worlds.jpg",
     "snippet": "Les worlds de league of legends ont commencé sur des chapeaux de roues !",
@@ -44,7 +44,7 @@
     "status":  "published"
   },
   {
-    "id": 5,
+    "id": "5",
     "title": "React 2",
     "imageUrl": "_imgArticles/logo.svg",
     "snippet": "C'est trop bien React !",

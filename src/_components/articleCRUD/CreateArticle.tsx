@@ -9,7 +9,7 @@ const CreateArticle: React.FC = () => {
     const [snippet, setContent] = useState('');
 
     const article : Article = {
-        "id": 6,
+        "id": "6",
         "title": "React 2",
         "imageUrl": "_imgArticles/logo.svg",
         "snippet": "C'est trop bien React !",

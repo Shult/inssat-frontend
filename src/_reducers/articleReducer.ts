@@ -1,4 +1,3 @@
-import {FETCH_ARTICLES_REQUEST, FETCH_ARTICLES_SUCCESS, FETCH_ARTICLES_FAILURE} from '../_actions/types';
 import { ArticleState, ArticleActions } from '../_interfaces/interfacesArticles';
 
 const initialState: ArticleState = {
@@ -19,7 +18,7 @@ const initialState: ArticleState = {
 //     }
 // }
 
-const  articleReducer = (state = initialState, action: ArticleActions): ArticleState => {
+const  articleReducerMook = (state = initialState, action: ArticleActions): ArticleState => {
     switch (action.type) {
         case 'FETCH_ARTICLES_REQUEST':
             return { ...state, loading: true, error: null };
@@ -42,6 +41,13 @@ const  articleReducer = (state = initialState, action: ArticleActions): ArticleS
             return state;
     }
 };
+export default articleReducerMook;
 
 
-export default articleReducer;
+/**
+ * Louis' piece of advice: As our data came from a fake dataset, better to call it "mock"
+ * Likewise, when will have a link to a real DB, better to call it with DB's name
+ */
+
+// const  articleReducerMariaDB = (state = initialState, action: ArticleActions): ArticleState => {};
+// export default articleReducerMariaDB;

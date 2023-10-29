@@ -1,3 +1,87 @@
+/* ========================================== LINK STYLE ========================================== */
+
+/* Common pattern */
+
+.linkGold,
+.linkGrey,
+.linkWhite,
+.linkBlack,
+.linkError,
+.linkSuccess {
+    text-decoration: none;
+    padding: 1.5rem 1rem;
+}
+
+.linkGold:hover,
+.linkGrey:hover,
+.linkWhite:hover,
+.linkBlack:hover,
+.linkError:hover,
+.linkSuccess:hover {
+    text-decoration: underline;
+}
+
+/* Golden link specificities */
+
+.linkGold {
+    color: var(--gold);
+}
+
+.linkGold:hover {
+    color: var(--gold);
+}
+
+/* Grey link specificities */
+
+.linkGrey {
+    color: var(--enssatGrey);
+}
+
+.linkGrey:hover {
+    color: var(--gold);
+}
+
+/* White link specificities */
+
+.linkWhite {
+    color: #fff;
+}
+
+.linkWhite:hover {
+    color: var(--gold);
+}
+
+/* Black link specificities */
+
+.linkBlack {
+    color: #000;
+}
+
+.linkBlack:hover {
+    color: var(--gold);
+}
+
+/* Error link specificities */
+
+.linkError {
+    color: var(--error);
+}
+
+/* Error link specificities */
+
+.linkSuccess {
+    color: var(--success);
+}
+
+/* If there is a golden background */
+
+.goldenBackground:hover {
+    text-decoration: none;
+    background: #fff;
+}
+
+/* ========================================== BUTTON STYLE ========================================== */
+
 /* Common pattern */
 
 .buttonGold,

@@ -37,6 +37,11 @@
 .w75 { width: 75% }
 .w100 { width: 100% }
 
+.txtLeft { text-align: left }
+.txtRight { text-align: right }
+.txtJustify { text-align: justify }
+.txtCenter { text-align: center }
+
 .space-around { justify-content: space-around }
 .space-between { justify-content: space-between }
 

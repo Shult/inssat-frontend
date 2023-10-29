@@ -1,11 +1,11 @@
 import React from "react";
 import {Route, Routes} from "react-router-dom";
-import HomeStudent from "../_pages/HomeStudent/HomeStudent/HomeStudent";
 import Test from "../_pages/Test/Test";
 import PageNotFound from "../_components/PageNotFound";
-import BlogListEditor from "../BlogListEditor/BlogListEditor";
+import Blog from "../Blog/Blog";
 import CreateArticle from "../_components/articleCRUD/CreateArticle";
 import News from "../_pages/News/News";
+import HomeStudent from "../HomeStudent/HomeStudent";
 
 const Router = () => {
     return(
@@ -13,7 +13,7 @@ const Router = () => {
             <Route path="/" Component={HomeStudent}/>
             <Route path="/test" Component={Test}/>
             <Route path="/news" Component={News}/>
-            <Route path="/blogEditor" Component={BlogListEditor}/>
+            <Route path="/blogEditor" Component={Blog}/>
             <Route path="/newPostEditor" Component={CreateArticle}/>
             <Route path="*" Component={PageNotFound} />
         </Routes>
