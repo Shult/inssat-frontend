@@ -56,7 +56,7 @@ const BlogListEditor = () => {
                 <div className={"line w100 items-center"}>
 
                     <div className={"w75"}>
-                        <Button className={"buttonError"} href={"/delAllPosts"} name={"DeleteAllPosts"} content={"Tout supprimer"}/>
+                        <Button className={"buttonError"}  name={"DeleteAllPosts"} content={"Tout supprimer"}/>
                     </div>
 
                     <div className={"line w25"}>
