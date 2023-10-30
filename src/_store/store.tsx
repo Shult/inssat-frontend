@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import calendarReducer from '../_components/Calendar/Calendar.slice';
 import articleReducer from "../_reducers/articleReducer";
+import articleEnssatReducer from "../_components/ArticlesEnssat/articleEnssatReducer";
 
 export const store = configureStore({
     reducer: {
         calendar: calendarReducer,
-        articles: articleReducer
+        articles: articleReducer,
+        articlesEnssat : articleEnssatReducer,
     },
 });
 
