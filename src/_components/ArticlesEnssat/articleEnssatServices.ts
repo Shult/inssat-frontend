@@ -53,20 +53,20 @@ export const fetchRSSFeed = async () => {
             itemsPerPage: parseInt(itemsPerPage, 10),
         },
         articles: post.map((entry: Article) => ({
-            title: entry.title._text,
-            pubDate: entry.published._text,
-            link: entry.link[2]._attributes.href,
-            content: entry.content._text,
-            author: entry.author.name._text,
-            categories: entry.category.map((item: CategoryType) => item._attributes.term),
+            title: entry.title,
+            published: entry.published,
+            link: entry.link,
+            content: entry.content,
+            author: entry.author,
+            category: entry.category.map((item: CategoryType) => item),
         })),
         category: feedCategory.map((cat: CategoryType) => ({
-            term: cat._attributes.term,
-            scheme: cat._attributes.scheme
+            term: cat,
+            scheme: cat
         }))
     };
 
-    //console.log(infoEnssat);
+    console.log(infoEnssat);
 
     return infoEnssat
 }

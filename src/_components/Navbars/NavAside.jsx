@@ -33,7 +33,7 @@ const NavAside = () => {
                 <Button className={"buttonLightGrey w100"} content={"Courses"}/>
                 <Button className={"buttonLightGrey w100"} content={"Messaging"}/>
                 <Button className={"buttonLightGrey w100"} content={"Contact"}/>
-                <Button className={"buttonLightGrey w100"} content={"News"}/>
+                <Button className={"buttonLightGrey w100"} href={"/news"} content={"News"}/>
             </div>
 
             <div className={"line w100"} style={styleDivBottom}>

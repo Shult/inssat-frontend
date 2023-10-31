@@ -1,6 +1,6 @@
 import React from 'react'
-import Calendar from "./_components/Calendar/Calendar";
-import ArticleCarouselV2 from "./_components/ArticlesCarouselDashboard/ArticlesCarouselDashboard";
+import Calendar from "../../_components/Calendar/Calendar";
+import ArticleCarouselV2 from "../../_components/ArticlesCarouselDashboard/ArticlesCarouselDashboard";
 
 const HomeStudent = () => {
     return(
