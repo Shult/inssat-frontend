@@ -3,9 +3,11 @@ import ArticleEnssatComponents from "../../_components/ArticlesEnssat/ArticleEns
 
 const News = () => {
     return(
-        <div className="">
-            <h4 className="">News</h4>
-            <ArticleEnssatComponents/>
+        <div className="container">
+            <div className={"row"}>
+                <h4>News</h4>
+            </div>
+                <ArticleEnssatComponents/>
         </div>
     )
 }

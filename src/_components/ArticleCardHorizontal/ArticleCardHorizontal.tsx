@@ -1,5 +1,5 @@
 import React from 'react';
-import "./ArticleCardHori.css"
+import "./ArticleCardHorizontal.css"
 
 
 // Used to load the image, because I faced an issue when I past directly the images
@@ -15,7 +15,7 @@ function redirectToSite(Link : string) : void {
     window.location.href = Link;
 }
 
-function ArticleCardHori(props : any) {
+function ArticleCardHorizontal(props : any) {
     const { article } = props;
 
     return (
@@ -26,7 +26,7 @@ function ArticleCardHori(props : any) {
                         <img className="article-dashboard-img" src={loadImage(article.imageUrl)} alt={article.title} />
                     </div>
                     <div className={"col article-dashboard-text"}>
-                        <h2 className={"article-dashboard-text"}>{article.title}</h2>
+                        <h2 className={"article-dashboard-text"}>{ article.title }</h2>
                         <p className={"article-dashboard-text"}>{article.snippet}</p>
                         {article.tags.map((tag : any) => (
                             <a key={tag} className="btn btn-outline-secondary article-dashboard-tag">#{tag}</a>
@@ -48,4 +48,4 @@ function ArticleCardHori(props : any) {
     );
 }
 
-export default ArticleCardHori;
+export default ArticleCardHorizontal;
