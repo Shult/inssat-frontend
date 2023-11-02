@@ -39,9 +39,9 @@ const ArticlesComponent = () => {
     if(status==="succeeded"){
         return (
             <div className={"container"}>
-                <div>
+                <div className={"pagination-bar"}>
                     {Array(Math.ceil(articles.length / ARTICLES_PER_PAGE)).fill(null).map((_, idx) => (
-                        <button onClick={() => setCurrentPage(idx + 1)}>
+                        <button onClick={() => setCurrentPage(idx + 1)} className={"pagination-button"}>
                             {idx + 1}
                         </button>
                     ))}

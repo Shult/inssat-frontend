@@ -1,5 +1,13 @@
 .article-enssat-card {
-    border: 1px solid gray;
+    border: 1px solid rgb(128, 128, 128);
     width: 100%;
     height: 100%;
+}
+
+.pagination-button {
+    border: none;
+}
+
+.pagination-bar {
+    text-align: center;
 }
