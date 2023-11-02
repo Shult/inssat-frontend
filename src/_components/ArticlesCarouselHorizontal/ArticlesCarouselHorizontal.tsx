@@ -6,9 +6,9 @@ import './ArticlesCarouselHorizontal.css';
 import {useDispatch, useSelector} from "react-redux";
 import {Article} from "../articleCRUD/interfacesArticles"
 import {getArticles} from "../articleCRUD/articleActions";
-import ArticleCardVertical from "../ArticleCardVertical/ArticleCardVertical"; // Style for the carousel
+import ArticleCardHorizontal from "../ArticleCardHorizontal/ArticleCardHorizontal";
 
-const ArticleCarousel = () => {
+const ArticleCarouselHorizontal = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -21,20 +21,20 @@ const ArticleCarousel = () => {
         infinite: false,
         slidesToShow: 3,
         slidesToScroll: 3,
-        vertical: false,
-        verticalSwiping: false,
-        arrows: false
+        vertical: true,
+        verticalSwiping: true,
+        arrows: true
     };
 
     return (
-        <div>
+        <div className={"container article-dashboard-list"}>
             <Slider {...settings}>
                 {articles.map(article => (
-                    <ArticleCardVertical article = {article}/>
+                    <ArticleCardHorizontal article={article}/>
                 ))}
             </Slider>
         </div>
     );
 }
 
-export default ArticleCarousel;
+export default ArticleCarouselHorizontal;

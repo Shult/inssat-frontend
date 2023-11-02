@@ -5,7 +5,7 @@ import {getArticles} from "../articleCRUD/articleActions";
 import ArticleCardHorizontal from "../ArticleCardHorizontal/ArticleCardHorizontal";
 import "./ArticlesCarouselVertical.css"
 
-const ArticleCarouselDashboard = () => {
+const ArticleCarouselVertical = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -23,4 +23,4 @@ const ArticleCarouselDashboard = () => {
     );
 }
 
-export default ArticleCarouselDashboard;
+export default ArticleCarouselVertical;
