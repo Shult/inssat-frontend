@@ -1,16 +1,18 @@
-import Button from '../_components/Clickable/Button';
-import Link from '../_components/Clickable/Link';
+import Button from '../../_components/Clickable/Button';
 import {useDispatch, useSelector} from 'react-redux';
-import {Article} from '../_interfaces/interfacesArticles';
-import {useEffect} from 'react';
-import {deleteArticle, getArticles} from '../_actions/articleActions';
+import {Article} from '../../_components/articleCRUD/interfacesArticles';
+import React, {useEffect, useState} from 'react';
+import {deleteArticle, getArticles} from '../../_components/articleCRUD/articleActions';
 import './Blog.css'
+import ArticleCreation from "../../_components/ArticleCreation/ArticleCreation";
+import Modal from "../../_components/Modal/Modal";
 
 const Blog = () => {
     const articles = useSelector((state: any) => state.articles.articles) as Article[];
     const dispatch = useDispatch();
     useEffect(() => { dispatch(getArticles()); }, [dispatch]);
 
+    const [showChild, setShowChild] = useState(false);
 
     return (
         <section className={'line w100'}>
@@ -23,11 +25,13 @@ const Blog = () => {
                     name={'searchPostByName'}
                     placeholder={'Recherche par nom...'}
                 />
-                <Link
-                    className={'buttonWhite'}
-                    href={'/newPostEditor'}
-                    name={'NewPost'}
-                    content={'+ Nouvelle publication'}/>
+                <button className={'buttonWhite'} onClick={() => setShowChild(!showChild)}>
+                    {showChild ? ' + Nouvelle publication' : ' + Nouvelle publication'}
+                </button>
+
+                <Modal show={showChild} onClose={() => setShowChild(false)}>
+                    <ArticleCreation/>
+                </Modal>
             </div>
 
             <article className={'w100'} id={'styleBlogSection'}>
