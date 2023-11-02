@@ -5,7 +5,6 @@ import NavAside from "./_components/Navbars/NavAside";
 import "./App.css"
 
 function App() {
-
     return (
         <BrowserRouter>
             <div className="App line">

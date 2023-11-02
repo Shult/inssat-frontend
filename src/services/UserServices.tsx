@@ -1,5 +1,4 @@
 import Keycloak from "keycloak-js";
-
 const _kc = new Keycloak('keycloak.json');
 
 /**
@@ -13,15 +12,15 @@ const initKeycloak = (onAuthenticatedCallback : any) => {
     silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html',
     pkceMethod: 'S256',
   })
-    .then((authenticated : boolean) => {
-      if (!authenticated) {
-        console.log("user is not authenticated..!");
-      }else{
-        onAuthenticatedCallback();
-        console.log(getTokenParsed())
-      }
-    })
-    .catch(console.error);
+      .then((authenticated : boolean) => {
+        if (!authenticated) {
+          console.log("user is not authenticated..!");
+        }else{
+          onAuthenticatedCallback();
+          console.log(getTokenParsed())
+        }
+      })
+      .catch(console.error);
 };
 
 const doLogin = _kc.login;
@@ -35,9 +34,9 @@ const getTokenParsed = () => _kc.tokenParsed;
 const isLoggedIn = () => !!_kc.token;
 
 const updateToken = (successCallback : any) =>
-  _kc.updateToken(60)
-    .then(successCallback)
-    .catch(doLogin);
+    _kc.updateToken(60)
+        .then(successCallback)
+        .catch(doLogin);
 
 const getUsername = () => _kc.tokenParsed?.preferred_username;
 

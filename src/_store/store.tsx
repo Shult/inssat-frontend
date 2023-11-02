@@ -3,11 +3,12 @@ import calendarReducer from '../_components/Calendar/Calendar.slice';
 import articleReducer from "../_components/articleCRUD/articleReducer";
 import articleEnssatReducer from "../_components/ArticlesEnssat/articleEnssatReducer";
 
+
 export const store = configureStore({
     reducer: {
         calendar: calendarReducer,
         articles: articleReducer,
-        articlesEnssat : articleEnssatReducer,
+        articlesEnssat : articleEnssatReducer
     },
 });
 

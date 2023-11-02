@@ -6,7 +6,7 @@ import articlesData from '../../_data/articles.json';
 import "./ArticleCreation.css"
 
 interface ArticleCreationProps {
-    onContentChange?: () => void;
+    onContentChange?: () => void; // Le '?' signifie que cette prop est optionnelle
 }
 
 const ArticleCreation: React.FC<ArticleCreationProps> = () => {
