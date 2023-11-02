@@ -49,6 +49,6 @@ const NavAside = () => {
 
 function logout(){
     window.history.replaceState(null, null, '/')
-    return UserServices.doLogout()
+    return UserServices.doLogout({redirectUri : "http://localhost:3000/"})
 }
 export default NavAside
