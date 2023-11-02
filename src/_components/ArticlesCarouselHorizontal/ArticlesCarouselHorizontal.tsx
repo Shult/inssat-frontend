@@ -4,8 +4,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './ArticlesCarouselHorizontal.css';
 import {useDispatch, useSelector} from "react-redux";
-import {Article} from "../../_interfaces/interfacesArticles"
-import {getArticles} from "../../_actions/articleActions";
+import {Article} from "../articleCRUD/interfacesArticles"
+import {getArticles} from "../articleCRUD/articleActions";
 import ArticleCardVertical from "../ArticleCardVertical/ArticleCardVertical"; // Style for the carousel
 
 const ArticleCarousel = () => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createArticle } from '../../_actions/articleActions';
-import {Article} from "../../_interfaces/interfacesArticles";
+import { createArticle } from './articleActions';
+import {Article} from "./interfacesArticles";
 
 const CreateArticle: React.FC = () => {
     const dispatch = useDispatch();

@@ -1,4 +1,4 @@
-import { ArticleState, ArticleActions } from '../_interfaces/interfacesArticles';
+import { ArticleState, ArticleActions } from './interfacesArticles';
 
 const initialState: ArticleState = {
     articles: [],

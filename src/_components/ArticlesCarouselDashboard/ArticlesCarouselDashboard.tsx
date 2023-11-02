@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import './ArticlesCarouselDashboard.css';
 import {useDispatch, useSelector} from "react-redux";
-import {Article} from "../../_interfaces/interfacesArticles"
-import {getArticles} from "../../_actions/articleActions";
+import {Article} from "../articleCRUD/interfacesArticles"
+import {getArticles} from "../articleCRUD/articleActions";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

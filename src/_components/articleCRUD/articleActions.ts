@@ -1,7 +1,7 @@
 // import axios from 'axios';
 import {FETCH_ARTICLES_REQUEST, FETCH_ARTICLES_SUCCESS, FETCH_ARTICLES_FAILURE, CREATE_ARTICLE, DELETE_ARTICLE, UPDATE_ARTICLE} from './types';
-import articles from '../_data/articles.json';
-import { Article, CreateArticleAction, UpdateArticleAction, DeleteArticleAction } from '../_interfaces/interfacesArticles';
+import articles from '../../_data/articles.json';
+import { Article, CreateArticleAction, UpdateArticleAction, DeleteArticleAction } from './interfacesArticles';
 
 export const getArticles = () => {
     return {

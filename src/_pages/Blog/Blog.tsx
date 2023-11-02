@@ -1,9 +1,9 @@
-import Button from '../_components/Clickable/Button';
-import Link from '../_components/Clickable/Link';
+import Button from '../../_components/Clickable/Button';
+import Link from '../../_components/Clickable/Link';
 import {useDispatch, useSelector} from 'react-redux';
-import {Article} from '../_interfaces/interfacesArticles';
+import {Article} from '../../_components/articleCRUD/interfacesArticles';
 import {useEffect} from 'react';
-import {deleteArticle, getArticles} from '../_actions/articleActions';
+import {deleteArticle, getArticles} from '../../_components/articleCRUD/articleActions';
 import './Blog.css'
 
 const Blog = () => {
