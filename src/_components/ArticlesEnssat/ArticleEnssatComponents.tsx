@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchArticles } from "./articleEnssatReducer";
 import { RootState} from "../../_store/store";
 import "./articleEnssatComponents.css"
-import "../ArticlesCarouselDashboard/ArticlesCarouselDashboard.css"
 import ArticleCardEnssat2 from "../ArticleCardEnssat/ArticleCardEnssat.vs2";
+import "../ArticleCardHorizontal/ArticleCardHorizontal.css"
 
 const ArticlesComponent = () => {
     const dispatch = useDispatch();

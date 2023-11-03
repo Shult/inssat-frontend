@@ -20,6 +20,7 @@ const ArticleCreation: React.FC<ArticleCreationProps> = () => {
     const [publishDate, setPublishDate] = useState('');
     const [lastUpdate, setLastUpdate] = useState('');
     const [status, setStatus] = useState('');
+    const [author, setAuthor] = useState('');
 
     const handleSubmit = (e: React.FormEvent) => {
         console.log("Creation of the new article");

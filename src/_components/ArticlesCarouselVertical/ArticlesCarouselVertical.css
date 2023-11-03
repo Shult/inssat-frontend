@@ -1,0 +1,5 @@
+.containerArticleList {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: inherit;
+}

@@ -4,12 +4,13 @@ export interface Article {
     title: string;
     imageUrl: string;
     snippet: string;
+    content?: string
     link: string;
     tags: string[];
     publishDate: string;
     lastUpdate: string;
     status: "created" | "published" | "deleted";
-    author: string
+    author?: string
 }
 
 export interface ArticleState {
