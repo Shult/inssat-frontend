@@ -5,6 +5,7 @@
 .linkGold,
 .linkGrey,
 .linkWhite,
+.linkWhiteDark,
 .linkBlack,
 .linkError,
 .linkSuccess {
@@ -15,6 +16,7 @@
 .linkGold:hover,
 .linkGrey:hover,
 .linkWhite:hover,
+.linkWhiteDark:hover,
 .linkBlack:hover,
 .linkError:hover,
 .linkSuccess:hover {
@@ -43,12 +45,17 @@
 
 /* White link specificities */
 
-.linkWhite {
+.linkWhite,
+.linkWhiteDark {
     color: #fff;
 }
 
 .linkWhite:hover {
     color: var(--gold);
+}
+
+.linkWhiteDark:hover {
+    color: var(--goldDark);
 }
 
 /* Black link specificities */

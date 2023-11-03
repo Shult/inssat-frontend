@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchArticles } from "./articleEnssatReducer";
 import { RootState} from "../../_store/store";
 import "./articleEnssatComponents.css"
-import ArticleCardEnssat from "../ArticleCardEnssat/ArticleCardEnssat";
+import "../ArticlesCarouselDashboard/ArticlesCarouselDashboard.css"
+import ArticleCardEnssat2 from "../ArticleCardEnssat/ArticleCardEnssat.vs2";
 
 const ArticlesComponent = () => {
     const dispatch = useDispatch();
@@ -38,7 +39,7 @@ const ArticlesComponent = () => {
     console.log(articles);
     if(status==="succeeded"){
         return (
-            <div className={"container"}>
+            <div className={"container containerArticleList"}>
                 <div className={"pagination-bar"}>
                     {Array(Math.ceil(articles.length / ARTICLES_PER_PAGE)).fill(null).map((_, idx) => (
                         <button onClick={() => setCurrentPage(idx + 1)} className={"pagination-button"}>
@@ -48,7 +49,7 @@ const ArticlesComponent = () => {
                 </div>
                 {currentArticles.map((item, index) => (
                     <div className={"col"}>
-                        <ArticleCardEnssat item={item} index={index}/>
+                        <ArticleCardEnssat2 item={item} index={index}/>
                     </div>
                 ))}
 

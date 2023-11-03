@@ -1,0 +1,30 @@
+#ArticleLastNews-Article,
+#ArticleLastNews-DivTag {
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 0 5px var(--enssatGrey);
+    align-self: stretch;
+    height: 100%;
+}
+
+#ArticleLastNews-Section {
+    color: #fff;
+}
+
+#ArticleLastNews-Article {
+    background: var(--gold);
+}
+
+#ArticleLastNews-Content {
+    height: inherit;
+}
+
+#ArticleLastNews-Content p {
+    margin: 0 1rem;
+}
+
+
+#ArticleLastNews-DivTag {
+    background: var(--lightGrey);
+    color: #000;
+}

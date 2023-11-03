@@ -2,7 +2,7 @@
     background: #fff;
 
     max-width: inherit;
-    height: fit-content;
+    height: 100%;
 
     padding: 1rem;
 
@@ -12,6 +12,7 @@
 
 .fc
 {
+    height: 100%;
 }
 
 .fc-header-toolbar

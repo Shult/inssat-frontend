@@ -1,5 +1,7 @@
 import React from 'react';
 import "./ArticleCardHorizontal.css"
+import "./ArticleCardHorizontal.css"
+import Link from "../Clickable/Link";
 
 
 // Used to load the image, because I faced an issue when I past directly the images
@@ -11,40 +13,41 @@ function loadImage(imagePath: string) {
     }
 }
 
-function redirectToSite(Link : string) : void {
-    window.location.href = Link;
-}
-
 function ArticleCardHorizontal(props : any) {
     const { article } = props;
 
     return (
-        <div onClick={() => redirectToSite(article.link)} className={"row"}>
-            <div className={"article-dashboard-card"}>
-                <div className={"row"}>
-                    <div className={"col article-dashboard-div-img"} style={{ padding: '0' }}>
-                        <img className="article-dashboard-img" src={loadImage(article.imageUrl)} alt={article.title} />
-                    </div>
-                    <div className={"col article-dashboard-text"}>
-                        <h2 className={"article-dashboard-text"}>{ article.title }</h2>
-                        <p className={"article-dashboard-text"}>{article.snippet}</p>
-                        {article.tags.map((tag : any) => (
-                            <a key={tag} className="btn btn-outline-secondary article-dashboard-tag">#{tag}</a>
-                        ))}
-                        <div className={"row-4"}>
-                            <div className={"user-profile-container"}>
-                                <img className={"article-dashboard-user-img"} src={loadImage(article.imageUrl)} alt={article.title} />
-                                <div className={"user-info"}>
-                                    <div className={"article-dashboard-user-text"}>
-                                        Sylvain MESTRE <b>.</b>{article.publishDate}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <article className={"line space-between items-center"} id="styleArticle">
+            <div className={"w33 self-stretch"}>
+                <img src={loadImage(article.imageUrl)} alt={article.title} className={"styleImgSide"}/>
+            </div>
+
+            <div className={"line w66"} id="styleDivContent">
+
+                <h2 className={"w100"}>
+                    <Link key={article.id} href={article.link} content={article.title}/>
+                </h2>
+                <p className={"w100"}>{article.snippet}</p>
+
+                <div className={"line w100 space-around"} id={"styleDivContentTag"}>
+                    {article.tags.map((tag : any) => (
+                        <Link key={tag} className={"buttonWhite"} href={article.link} content={tag}/>
+                    ))}
+                </div>
+
+                <div className={"line w100 space-around items-center"}>
+                    <img className={"w33"} src={loadImage(article.imageUrl)} alt={article.title} id="styleImgBubble"/>
+                    <div className={"w66"}>
+                        <p className={"w100"}>
+                            {article.author}Sylvain MESTRE
+                            <br/>
+                            {article.publishDate}
+                        </p>
                     </div>
                 </div>
+
             </div>
-        </div>
+        </article>
     );
 }
 

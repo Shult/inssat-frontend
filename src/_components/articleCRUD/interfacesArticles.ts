@@ -8,7 +8,8 @@ export interface Article {
     tags: string[];
     publishDate: string;
     lastUpdate: string;
-    status: "created" | "published" | "deleted"
+    status: "created" | "published" | "deleted";
+    author: string
 }
 
 export interface ArticleState {
@@ -44,6 +45,11 @@ export type UpdateArticleAction = {
 export type DeleteArticleAction = {
     type: 'DELETE_ARTICLE';
     payload: string; // UUID de l'article
+};
+
+export type GetArticleAction = {
+    type: 'GET_ARTICLE';
+    payload: string;
 };
 
 export type ArticleActions =

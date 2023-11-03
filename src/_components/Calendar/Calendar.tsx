@@ -4,53 +4,36 @@ import iCalendarPlugin from '@fullcalendar/icalendar'
 
 import "./Calendar.css"
 
-import {deleteCalendar, selectCalendar} from "./Calendar.slice";
-import {useAppDispatch, useAppSelector} from "../../_store/hook";
-import {useState} from "react";
-import {EMPTY_URL} from "./Calendar.const";
+import {selectCalendar} from "./Calendar.slice";
+import {useAppSelector} from "../../_store/hook";
 
 const Calendar = () => {
     const calendar = useAppSelector(selectCalendar);
-    const dispatch = useAppDispatch();
-    const [remoteURL, setURL] = useState("");
-    const currentURL = String(remoteURL) || EMPTY_URL
 
     return(
-        <>
-            <div id={"CalendarContainer"}>
-                <FullCalendar
-                    plugins = {[ timeGridPlugin, iCalendarPlugin ]}
-                    initialView = 'timeGridWeek'
-                    events = {
-                        {
-                            url: calendar,
-                            format: 'ics'
-                        }
+        <div id={"CalendarContainer"}>
+            <FullCalendar
+                plugins = {[ timeGridPlugin, iCalendarPlugin ]}
+                initialView = 'timeGridWeek'
+                events = {
+                    {
+                        url: calendar,
+                        format: 'ics'
                     }
+                }
 
-                    themeSystem = {'default'}
-                    eventBorderColor = {'var(--gold)'}
+                themeSystem = {'default'}
+                eventBorderColor = {'var(--gold)'}
 
-                    slotMinTime = {'08:00'}
-                    slotMaxTime = {'21:00'}
+                slotMinTime = {'08:00'}
+                slotMaxTime = {'20:30'}
 
-                    weekends = {false}
-                    allDaySlot = {false}
+                weekends = {false}
+                allDaySlot = {false}
 
-                    locale={'fr'}
-                />
-            </div>
-            <div>
-                <input
-                    aria-label="Set remote URL"
-                    value={currentURL}
-                    onChange={(e) => setURL(e.target.value)}
-                />
-                <button className={"buttonError"} onClick={() => dispatch(deleteCalendar())} >
-                    Supprimer calendrier
-                </button>
-            </div>
-        </>
+                locale={'fr'}
+            />
+        </div>
     )
 }
 
