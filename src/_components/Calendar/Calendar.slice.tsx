@@ -3,6 +3,7 @@ import {EMPTY_URL, REMOTE_URL} from "./Calendar.const"
 import {CalendarInterface} from "./Calendar.interface"
 import {fetchCalendar} from "./Calendar.api";
 import {RootState} from "../../_store/store";
+import UserServices from "../../services/UserServices";
 
 const initialState: CalendarInterface = {
     url: REMOTE_URL,
@@ -37,8 +38,9 @@ export const calendarSlice = createSlice({
 export const importCalendar = createAsyncThunk(
     'calendar/fetchCalendar',
     async (url: string) => {
-        console.log("import calendar function")
-        const response = await fetchCalendar(url, {headers: {"X-Requested-With": "XMLHttpRequest"}});
+        const token = UserServices.getTokenParsed()
+        const remote = "https://api.dapi-services.fr/ade/"+token?.["ade_link"]
+        const response = await fetchCalendar(remote, {headers: {"X-Requested-With": "XMLHttpRequest"}});
         return response.data;
     }
 );

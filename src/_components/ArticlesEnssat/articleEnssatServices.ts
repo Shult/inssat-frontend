@@ -4,7 +4,7 @@ import {CategoryType, Article} from "./articleEnssatInterfaces";
 export const fetchRSSFeed = async () => {
 
     // Avoid CORS policy
-    const url = "https://cors-anywhere.herokuapp.com/blog.enssat.fr/feeds/posts/default";
+    const url = "https://api.dapi-services.fr/blogs_enssat";
 
     // Classical RSS Flux
     //const url = "http://blog.enssat.fr/feeds/posts/default";

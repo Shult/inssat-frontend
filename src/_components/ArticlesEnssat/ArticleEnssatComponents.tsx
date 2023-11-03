@@ -39,7 +39,7 @@ const ArticlesComponent = () => {
     console.log(articles);
     if(status==="succeeded"){
         return (
-            <div className={"container containerArticleList"}>
+            <div className={"container articleCarouselList"}>
                 <div className={"pagination-bar"}>
                     {Array(Math.ceil(articles.length / ARTICLES_PER_PAGE)).fill(null).map((_, idx) => (
                         <button onClick={() => setCurrentPage(idx + 1)} className={"pagination-button"}>

@@ -38,7 +38,7 @@ const NavAside = () => {
             </div>
 
             <div className={"line w100"} style={styleDivBottom}>
-                <Link className={"buttonLightGrey w100"} href={"/myAccount"} content={"Mon profile"}/>
+                <Button className={"buttonLightGrey w100"} content={"Mon profil"} onclick={UserServices.manageAccount}/>
                 <Button className={"buttonLightGrey w100"} content={"Déconnexion"} onclick={logout}/>
             </div>
 
