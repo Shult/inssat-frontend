@@ -1,8 +1,8 @@
 {
   "realm": "intranet",
-  "auth-server-url": "https://auth.dapi-services.fr",
+  "auth-server-url": "http://localhost:8041/",
   "ssl-required": "external",
-  "resource": "intranet-front",
+  "resource": "intra-front",
   "public-client": true,
   "confidential-port": 0
 }

@@ -21,13 +21,28 @@ const initialState: ArticleState = {
 const  articleReducerMook = (state = initialState, action: ArticleActions): ArticleState => {
     switch (action.type) {
         case 'FETCH_ARTICLES_REQUEST':
-            return { ...state, loading: true, error: null };
+            return {
+                ...state,
+                loading: true,
+                error: null
+            };
         case 'FETCH_ARTICLES_SUCCESS':
-            return { ...state, articles: action.payload, loading: false };
+            return {
+                ...state, articles:
+                action.payload,
+                loading: false
+            };
         case 'FETCH_ARTICLES_FAILURE':
-            return { ...state, loading: false, error: action.payload };
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            };
         case 'CREATE_ARTICLE':
-            return { ...state, articles: [...state.articles, action.payload] };
+            return {
+                ...state,
+                articles: [...state.articles, action.payload]
+            };
         case 'UPDATE_ARTICLE':
             return {
                 ...state,
@@ -36,7 +51,10 @@ const  articleReducerMook = (state = initialState, action: ArticleActions): Arti
                 ),
             };
         case 'DELETE_ARTICLE':
-            return { ...state, articles: state.articles.filter(article => article.id !== action.payload) };
+            return {
+                ...state,
+                articles: state.articles.filter(article => article.id !== action.payload)
+            };
         default:
             return state;
     }

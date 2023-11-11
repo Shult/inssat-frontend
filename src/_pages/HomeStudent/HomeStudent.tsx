@@ -1,6 +1,6 @@
 import React from 'react'
 import Calendar from "../../_components/Calendar/Calendar";
-import ArticleCarouselV2 from "../../_components/ArticlesCarouselDashboard/ArticlesCarouselDashboard";
+import ArticleCarouselVertical from "../../_components/ArticlesCarouselHorizontal/ArticlesCarouselHorizontal";
 import Button from "../../_components/Clickable/Button";
 import "./HomeStudent.css"
 
@@ -36,7 +36,7 @@ const HomeStudent = () => {
                 </article>
 
                 <article className={"w33"}>
-                    <ArticleCarouselV2/>
+                    <ArticleCarouselVertical/>
                 </article>
 
             </section>
