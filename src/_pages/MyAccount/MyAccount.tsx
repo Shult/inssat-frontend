@@ -1,5 +1,6 @@
 import UserServices from "../../services/UserServices";
 import React from "react";
+import Button from "../../_components/Clickable/Button";
 
 const MyAccount = () => {
     const token = UserServices.getTokenParsed()
@@ -13,6 +14,8 @@ const MyAccount = () => {
             <p className={"line w25"}>Nom : {token?.["family_name"]}</p>
             <p className={"line w25"}>Mail : {token?.["email"]}</p>
             <p className={"line w25"}>Groupe : {token?.["group"]}</p>
+
+            <Button content={"Gérer mon compte"} onclick={UserServices.manageAccount}/>
 
         </section>
     )
