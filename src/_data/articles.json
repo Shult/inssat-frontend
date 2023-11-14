@@ -22,12 +22,10 @@
     "snippet": "Les worlds de league of legends ont commencé sur des chapeaux de roues !",
     "link": "https://lolesports.com/schedule?leagues=worlds",
     "tags": [
-
       "Phot",
       "IAI",
       "INFO",
       "SysNum"
-
     ],
     "publishDate": "26/10/2023",
     "lastUpdate": "28/10/2013",
@@ -40,18 +38,30 @@
     "snippet": "Les worlds de league of legends ont commencé sur des chapeaux de roues !",
     "link": "https://lolesports.com/schedule?leagues=worlds",
     "tags": [
-
       "Phot",
       "IAI",
       "INFO",
       "SysNum"
-
     ],
     "publishDate": "26/10/2023",
     "lastUpdate": "28/10/2013",
     "status": "published"
   },
   {
+    "id": "104.0322566052192",
+    "title": "Test",
+    "imageUrl": "",
+    "snippet": "Test",
+    "content": "",
+    "link": "Test",
+    "tags": [
+      "Test"
+    ],
+    "publishDate": "2023-11-02",
+    "lastUpdate": "2023-11-03",
+    "status": "published"
+  },
+  {
     "id": "776.449344334415",
     "title": "Test",
     "imageUrl": "_imgArticles/logo.svg",
@@ -256,217 +266,8 @@
     "tags": [
       "Css"
     ],
-    "publishDate": "2023-11-02",
-    "lastUpdate": "2023-11-03",
-    "status": "published"
-  },
-  {
-    "id": "776.449344334415",
-    "title": "Test",
-    "imageUrl": "_imgArticles/logo.svg",
-    "snippet": "Test",
-    "link": "https://react.com",
-    "tags": [
-      "test"
-    ],
-    "publishDate": "",
-    "lastUpdate": "",
-    "status": ""
-  },
-  {
-    "id": "979.9390147297564",
-    "title": "Test",
-    "imageUrl": "_imgArticles/logo.svg",
-    "snippet": "Test",
-    "link": "https://react.com",
-    "tags": [
-      "test"
-    ],
-    "publishDate": "",
-    "lastUpdate": "",
-    "status": ""
-  },
-  {
-    "id": "740.4311306687667",
-    "title": "Test",
-    "imageUrl": "_imgArticles/logo.svg",
-    "snippet": "Test",
-    "link": "https://react.com",
-    "tags": [
-      "test"
-    ],
-    "publishDate": "",
-    "lastUpdate": "",
-    "status": ""
-  },
-  {
-    "id": "451.16352701960614",
-    "title": "Hello",
-    "imageUrl": "_imgArticles/logo.svg",
-    "snippet": "Hello",
-    "link": "https://react.com",
-    "tags": [
-      "Hello"
-    ],
-    "publishDate": "2023-11-02",
-    "lastUpdate": "2023-11-03",
-    "status": ""
-  },
-  {
-    "id": "721.2399016373982",
-    "title": "Hello",
-    "imageUrl": "_imgArticles/logo.svg",
-    "snippet": "Hello",
-    "link": "https://react.com",
-    "tags": [
-      "Hello"
-    ],
-    "publishDate": "2023-11-02",
-    "lastUpdate": "2023-11-03",
-    "status": ""
-  },
-  {
-    "id": "815.2561315375493",
-    "title": "Hello",
-    "imageUrl": "_imgArticles/logo.svg",
-    "snippet": "Hello",
-    "link": "https://react.com",
-    "tags": [
-      "Hello"
-    ],
-    "publishDate": "2023-11-02",
-    "lastUpdate": "2023-11-03",
-    "status": ""
-  },
-  {
-    "id": "160.11765641952326",
-    "title": "Hello",
-    "imageUrl": "_imgArticles/logo.svg",
-    "snippet": "Hello",
-    "link": "https://react.com",
-    "tags": [
-      "Hello"
-    ],
-    "publishDate": "2023-11-02",
-    "lastUpdate": "2023-11-03",
-    "status": "draft"
-  },
-  {
-    "id": "274.4974782923739",
-    "title": "Hello",
-    "imageUrl": "_imgArticles/logo.svg",
-    "snippet": "Hello",
-    "link": "https://react.com",
-    "tags": [
-      "Hello"
-    ],
-    "publishDate": "2023-11-02",
-    "lastUpdate": "2023-11-03",
-    "status": "draft"
-  },
-  {
-    "id": "191.2026844412369",
-    "title": "Hello",
-    "imageUrl": "_imgArticles/logo.svg",
-    "snippet": "Hello",
-    "link": "https://react.com",
-    "tags": [
-      "Hello"
-    ],
-    "publishDate": "2023-11-02",
-    "lastUpdate": "2023-11-03",
-    "status": "published"
-  },
-  {
-    "id": "970.4227230983075",
-    "title": "Redirect",
-    "imageUrl": "_imgArticles/logo.svg",
-    "snippet": "Redirect",
-    "link": "https://react.com",
-    "tags": [
-      "Redirect"
-    ],
-    "publishDate": "2023-11-02",
-    "lastUpdate": "2023-11-03",
-    "status": ""
-  },
-  {
-    "id": "193.29704986775354",
-    "title": "gege",
-    "imageUrl": "",
-    "snippet": "gege",
-    "link": "dzzd",
-    "tags": [
-      "gege"
-    ],
-    "publishDate": "2023-11-02",
-    "lastUpdate": "2023-11-03",
-    "status": "draft"
-  },
-  {
-    "id": "826.8162710261569",
-    "title": "ty",
-    "imageUrl": "ty",
-    "snippet": "ty",
-    "link": "ty",
-    "tags": [
-      "ty"
-    ],
-    "publishDate": "2023-11-02",
-    "lastUpdate": "2023-11-03",
-    "status": "draft"
-  },
-  {
-    "id": "476.94433493262653",
-    "title": "tete",
-    "imageUrl": "tetet",
-    "snippet": "tete",
-    "link": "tete",
-    "tags": [
-      "tete"
-    ],
-    "publishDate": "2023-11-02",
-    "lastUpdate": "2023-11-03",
-    "status": "draft"
-  },
-  {
-    "id": "640.7352754061151",
-    "title": "fefe",
-    "imageUrl": "fefe",
-    "snippet": "fefe",
-    "link": "fefe",
-    "tags": [
-      "fefe"
-    ],
-    "publishDate": "2023-11-02",
-    "lastUpdate": "2023-11-03",
-    "status": "draft"
-  },
-  {
-    "id": "338.76914059970375",
-    "title": "Modal",
-    "imageUrl": "Modal",
-    "snippet": "Modal",
-    "link": "Modal",
-    "tags": [
-      "Modal"
-    ],
-    "publishDate": "2023-11-02",
-    "lastUpdate": "2023-11-03",
-    "status": "published"
-  },
-  {
-    "id": "698.4407169459041",
-    "title": "Css",
-    "imageUrl": "Css",
-    "snippet": "Css",
-    "content": "",
-    "link": "Css",
-    "tags": [
-      "Css"
-    ],
-    "publishDate": "2023-11-02",
-    "lastUpdate": "2023-11-03",
+    "publishDate": "2023-11-21",
+    "lastUpdate": "2023-11-22",
     "status": "published"
   }
 ]

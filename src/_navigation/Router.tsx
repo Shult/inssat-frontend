@@ -19,7 +19,7 @@ const Router = () => {
             { (groupeManager.isStudent || groupeManager.isTeacher) ? <Route path="/" Component={ HomeStudent }/> : <></>}
             { (groupeManager.isExternal) ? <Route path="/" Component={ HomeExternal }/> : <></>}
             { (groupeManager.isStaff) ? <Route path="/" Component={ HomeAdmin }/> : <></>}
-            <Route path="/test" Component={Test}/>
+            <Route path="/test" Component={ Test }/>
             <Route path="/news" Component={News}/>
             <Route path="/blogEditor" Component={Blog}/>
             <Route path="/myaccount" Component={MyAccount}/>

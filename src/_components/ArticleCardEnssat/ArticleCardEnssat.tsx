@@ -2,6 +2,7 @@ import React from 'react';
 import "./ArticleCardEnssat.css"
 import Link from "../Clickable/Link";
 
+
 // Used to load the image, because I faced an issue when I past directly the images
 function loadImage(imagePath: string) {
     try {
@@ -9,10 +10,6 @@ function loadImage(imagePath: string) {
     } catch (err) {
         return '';
     }
-}
-
-function redirectToSite(Link : string) : void {
-    window.location.href = Link;
 }
 
 const extractFirstImageLink = (htmlString : any) => {
@@ -25,32 +22,39 @@ const extractFirstImageLink = (htmlString : any) => {
     return loadImage("_user/Unknown.png");
 }
 
-function ArticleCardEnssat(props : any) {
+
+function ArticleCardEnssat2(props : any) {
     const { item, index } = props;
 
     return (
-        <div onClick={() => redirectToSite(item.link[2]._attributes.href)} className={"article-enssat-card row"}>
+        <article className={"line space-between items-center"} id="styleArticle">
 
-            <div key={index} className={"w33"}>
-                <img src={ extractFirstImageLink(item.content._text) } alt="Extracted from HTML" className={"styleImgSide"} />
+            <div className={"w33 self-stretch"}>
+                <img src={extractFirstImageLink(item.content._text)} alt={item.title._text} className={"styleImgSide"}/>
             </div>
 
-            <div className={"w66"}>
-                <h2 className={"w100"}>{ item.title._text }</h2>
-                
-                <div>
-                    <img className={"article-enssat-user-img"} src={loadImage("_user/Unknown.png")} alt={item.title._text} />
-                    {item.author.name._text} {item.published._text}
+            <div className={"line w66"} id="styleDivContent">
+
+                <h2 className={"w100"}>
+                    <Link key={index} content={item.title._text} href={item.link[2]._attributes.href}/>
+                </h2>
+
+                <div className={"line w100 items-center"}>
+                    <img className={""} src={loadImage("_user/Unknown.png")} alt={item.title._text} id="styleImgBubble"/>
+                    <div className={""}>
+                        <p className={"w100"}>{item.author.name._text} {item.published._text}</p>
+                    </div>
                 </div>
 
-                <div className={"line w100 space-around"}>
+                <div className={"line w100 space-around"} id={"styleDivContentTag"}>
                     {item.category.map((tag : any) => (
-                        <Link key={tag._attributes.term} className={"buttonWhite"} content={tag._attributes.term}/>
+                        <Link key={tag} className={"buttonWhite"} href={tag._attributes.term} content={tag._attributes.term}/>
                     ))}
                 </div>
+
             </div>
-        </div>
+        </article>
     );
 }
 
-export default ArticleCardEnssat;
+export default ArticleCardEnssat2;
