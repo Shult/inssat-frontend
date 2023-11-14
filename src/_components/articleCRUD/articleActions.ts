@@ -8,7 +8,9 @@ import {
     UPDATE_ARTICLE,
     GET_ARTICLE
 } from './types';
+
 import articles from '../../_data/articles.json';
+
 import {
     Article,
     CreateArticleAction,
@@ -16,11 +18,30 @@ import {
     DeleteArticleAction,
     GetArticleAction
 } from './interfacesArticles';
+import axios from "axios";
 
-export const getArticles = () => {
-    return {
-        type: FETCH_ARTICLES_SUCCESS,
-        payload: articles as Article[]
+// export const getArticles = () => {
+//     return {
+//         type: FETCH_ARTICLES_SUCCESS,
+//         payload: articles as Article[]
+//     };
+// };
+export const getArticles = () : any => {
+    return (dispatch: any) => {
+        dispatch({ type: FETCH_ARTICLES_REQUEST });
+        axios.get('http://localhost:3001/articles')
+            .then(response => {
+                dispatch({
+                    type: FETCH_ARTICLES_SUCCESS,
+                    payload: response.data as Article[]
+                });
+            })
+            .catch(error => {
+                dispatch({
+                    type: FETCH_ARTICLES_FAILURE,
+                    payload: error.message
+                });
+            });
     };
 };
 

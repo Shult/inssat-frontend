@@ -15,13 +15,13 @@ export const fetchRSSFeed = async () => {
     let textJson = JSON.parse(xml2json(text, { compact: true }));
 
     // Full Json from ENSSAT rss flux
-    let jsonEnssatArticles = JSON.stringify(textJson, null, 2);
+    //let jsonEnssatArticles = JSON.stringify(textJson, null, 2);
     //console.log("Full json : "+jsonEnssatArticles);
 
     //console.log("Get the information about the website article")
-    let title = textJson.feed.title._text;
+    //let title = textJson.feed.title._text;
     //console.log("Title = "+ title);
-    let subtitle = textJson.feed.subtitle._text;
+    // let subtitle = textJson.feed.subtitle._text;
     //console.log("Subtitle = "+ subtitle);
     let totalResults = textJson.feed["openSearch:totalResults"]["_text"];
     let startIndex = textJson.feed["openSearch:startIndex"]["_text"]
@@ -42,8 +42,8 @@ export const fetchRSSFeed = async () => {
     //console.log("Author = "+post[0].author.name._text);
 
     // //console.log("Category = "+post[0].category);  // List of all the post's categories
-    const categories = post[0].category;
-    const terms = categories.map((item: CategoryType) => item._attributes.term);
+    // const categories = post[0].category;
+    // const terms = categories.map((item: CategoryType) => item._attributes.term);
     //console.log("Categories:", terms);
 
     const infoEnssat = {
@@ -66,7 +66,7 @@ export const fetchRSSFeed = async () => {
         }))
     };
 
-    console.log(infoEnssat);
+    // console.log(infoEnssat);
 
     return infoEnssat
 }

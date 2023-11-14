@@ -49,7 +49,7 @@ const ArticleCreation: React.FC<ArticleCreationProps> = () => {
         );
 
         // Serveur Express temporaire
-        fetch('http://localhost:5001/create-article', {
+        fetch('http://localhost:6000/create-article', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

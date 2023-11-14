@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require("cors");
 
 const app = express();
-const PORT = 5001;
+const PORT = 3001;
 app.use(cors());
 
 // Middleware pour parser les requêtes JSON
@@ -14,6 +14,19 @@ app.use(bodyParser.json());
 app.get('/hello', (req, res) => {
     res.send('Hello World');
 });
+
+app.get('/articles', (req, res) => {
+    // Lire le fichier articles.json
+    fs.readFile(path.join(__dirname, '../src/_data/articles.json'), 'utf-8', (err, data) => {
+        if (err) {
+            return res.status(500).json({ message: 'Erreur lors de la lecture du fichier.' });
+        }
+
+        const articles = JSON.parse(data);
+        res.send(articles);
+    });
+});
+
 app.post('/create-article', (req, res) => {
     const article = req.body;
 

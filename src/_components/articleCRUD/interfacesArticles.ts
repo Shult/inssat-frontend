@@ -11,6 +11,7 @@ export interface Article {
     lastUpdate: string;
     status: "created" | "published" | "deleted";
     author?: string
+    fromEnssat: boolean;
 }
 
 export interface ArticleState {

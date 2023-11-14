@@ -23,7 +23,7 @@ const extractFirstImageLink = (htmlString : any) => {
 }
 
 
-function ArticleCardEnssat2(props : any) {
+function ArticleCardEnssat(props : any) {
     const { item, index } = props;
 
     return (
@@ -57,4 +57,4 @@ function ArticleCardEnssat2(props : any) {
     );
 }
 
-export default ArticleCardEnssat2;
+export default ArticleCardEnssat;

@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchArticles } from "./articleEnssatReducer";
 import { RootState} from "../../_store/store";
 import "./articleEnssatComponents.css"
-import ArticleCardEnssat2 from "../ArticleCardEnssat/ArticleCardEnssat";
 import "../ArticleCardHorizontal/ArticleCardHorizontal.css"
+import ArticleCardEnssat from "../ArticleCardEnssat/ArticleCardEnssat";
 
 const ArticlesComponent = () => {
     const dispatch = useDispatch();
@@ -49,7 +49,7 @@ const ArticlesComponent = () => {
                 </div>
                 {currentArticles.map((item, index) => (
                     <div className={"col"}>
-                        <ArticleCardEnssat2 item={item} index={index}/>
+                        <ArticleCardEnssat item={item} index={index}/>
                     </div>
                 ))}
 

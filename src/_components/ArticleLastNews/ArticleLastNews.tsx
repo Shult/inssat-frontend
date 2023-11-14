@@ -27,7 +27,8 @@ const ArticleLastNews = () => {
         "publishDate": "03/11/2023",
         "lastUpdate": "03/11/2023",
         "status": "created",
-        "author": "Sylvain MESTRE"
+        "author": "Sylvain MESTRE",
+        "fromEnssat": false
     }
 
     return (
