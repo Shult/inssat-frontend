@@ -47,7 +47,7 @@ const ArticlesAllComponent = () => {
                 imageUrl: article.content._text,                                    // CAREFUL NEED TO CHANGE THIS
                 snippet: "",                                                        // CAREFUL NEED TO CHANGE THIS
                 content: article.content._text,
-                link: article.link[0]._attributes.href,
+                link: article.link[2]._attributes.href,
                 tags: article.category.map(tag=> (
                     tag._attributes.term
                 )),
