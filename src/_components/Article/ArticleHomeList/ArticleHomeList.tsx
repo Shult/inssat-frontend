@@ -51,7 +51,7 @@ const ArticleHomeList = () => {
         return (
             <div className={"articleCarouselList"}>
                 {allArticles.map((article, index) => (
-                    <ArticleCard article={article} index={index}/>
+                    <ArticleCard article={article} key={index}/>
                 ))}
             </div>
         );

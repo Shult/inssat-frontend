@@ -13,17 +13,32 @@ const Blog = () => {
     useEffect(() => { dispatch(getArticles()); }, [dispatch]);
 
     const [showChild, setShowChild] = useState(false);
+    const [searched, setSearched] = useState("");
+
+    function getArticlesByTitle(searched: string, articles: Article[]){
+        if (searched.length <= 3){ return articles }
+        else {
+            let newList = []
+            for (let i = 0; i < articles.length; i++) {
+                if (articles[i].title.includes(searched)) {
+                    newList.push(articles[i])
+                }
+            }
+            return newList
+        }
+    }
 
     return (
-        <section className={'line w100'}>
+        <section className={'line w100'} id={"Blog"}>
 
-            <div className={'line w100 space-between'}>
-                <h2 className={'w50'}>Liste des publications</h2>
+            <div className={'line w100 space-between items-center'}>
+                <h2 className={'w25'}>Liste des publications</h2>
                 <input
-                    className={'w25'}
+                    className={'w50'}
                     type={'text'}
                     name={'searchPostByName'}
                     placeholder={'Recherche par nom...'}
+                    onChange={ e => setSearched(e.target.value) }
                 />
                 <button className={'buttonWhite'} onClick={() => setShowChild(!showChild)}>
                     {showChild ? ' + Nouvelle publication' : ' + Nouvelle publication'}
@@ -34,10 +49,10 @@ const Blog = () => {
                 </Modal>
             </div>
 
-            <article className={'w100'} id={'styleBlogSection'}>
+            <article className={'w100'}>
                 <table className={'w100 txtCenter'}>
                     <thead>
-                    <tr id={'styleBlogThead'}>
+                    <tr>
                         <th>
                             <input type={'checkbox'}
                                    id={'mainCheckBox'}
@@ -50,11 +65,8 @@ const Blog = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {articles.map(article => (
-                        <tr
-                            id={'styleBlogTbody'}
-                            key={article.id}
-                        >
+                    {getArticlesByTitle(searched, articles).map(article => (
+                        <tr>
                             <td>
                                 <input
                                     type={'checkbox'}
@@ -69,7 +81,9 @@ const Blog = () => {
                     ))}
                     </tbody>
                 </table>
+            </article>
 
+            <div className={'line w100 items-center'}>
                 <div className={'line w100 items-center'}>
                     <div className={'w66'}>
                         <Button className={'buttonError'}
@@ -79,7 +93,7 @@ const Blog = () => {
                         />
                     </div>
 
-                    <div className={'line w33 space-around items-center'}>
+                    {/* <div className={'line w33 space-around items-center'}>
                         <div className={'line w50 space-around items-center'}>
                             <h6>Publications par page </h6>
                             <select name={'RowPerPage'}>
@@ -91,12 +105,13 @@ const Blog = () => {
 
                         <div className={'line w50 space-around items-center'}>
                             <Button className={"buttonGrey"} content={"<"}/>
-                                Page 1/1
+                            Page 1/1
                             <Button className={"buttonGrey"} content={">"}/>
                         </div>
                     </div>
+                    */}
                 </div>
-            </article>
+            </div>
         </section>
     )
 
