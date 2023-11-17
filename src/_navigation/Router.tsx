@@ -7,20 +7,19 @@ import ArticleCreation from "../_components/ArticleCreation/ArticleCreation";
 import News from "../_pages/News/News";
 import HomeStudent from "../_pages/HomeStudent/HomeStudent";
 import MyAccount from "../_pages/MyAccount/MyAccount";
-import HomeAdmin from "../_pages/HomeAdmin/HomeAdmin";
 import HomeExternal from "../_pages/HomeExternal/HomeExternal";
-import {GroupManager} from "./GroupManager";
+import {RoleManager} from "./RoleManager";
 
 const Router = () => {
-    const groupeManager = GroupManager()
+    const roleManager = RoleManager()
 
     return(
         <Routes>
-            { (groupeManager.isStudent || groupeManager.isTeacher) ? <Route path="/" Component={ HomeStudent }/> : <></>}
-            { (groupeManager.isExternal) ? <Route path="/" Component={ HomeExternal }/> : <></>}
-            { (groupeManager.isStaff) ? <Route path="/" Component={ HomeAdmin }/> : <></>}
+            { (roleManager.isStudent || roleManager.isTeacher) ? <Route path="/" Component={ HomeStudent }/> : <></>}
+            { (roleManager.isExternal) ? <Route path="/" Component={ HomeExternal }/> : <></>}
+            { (roleManager.isNewsManager) ? <Route path="/" Component={ News }/> : <></>}
             <Route path="/test" Component={Test}/>
-            <Route path="/news" Component={News}/>
+            { (roleManager.isNewsManager) ? <></> : <Route path="/news" Component={News}/> }
             <Route path="/blogEditor" Component={Blog}/>
             <Route path="/myaccount" Component={MyAccount}/>
             <Route path="/newPostEditor" Component={ArticleCreation}/>

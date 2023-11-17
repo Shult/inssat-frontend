@@ -3,10 +3,10 @@ import ClickableImg from "../ClickableImg/ClickableImg";
 import {styleAside, styleDivBottom, styleDivTop, styleDivTopImg} from "./NavAside.style";
 import Button from "../Clickable/Button";
 import UserServices from "../../services/UserServices";
-import {GroupManager} from "../../_navigation/GroupManager";
+import {RoleManager} from "../../_navigation/RoleManager";
 
 const NavAside = () => {
-    const grpManager = GroupManager()
+    const roleManager = RoleManager()
 
     return (
         <aside className={"line"} style={styleAside}>
@@ -19,7 +19,7 @@ const NavAside = () => {
 
                 <Link className={"buttonLightGrey w100"} href={"/"} content={"Dashboard"}/>
                 {
-                    (grpManager.isStudent || grpManager.isTeacher) ?
+                    (roleManager.isStudent || roleManager.isTeacher) ?
                         <>
                             <Link className={"buttonLightGrey w100"} href={"/marks"} content={"Notes"}/>
                             <Link className={"buttonLightGrey w100"} href={"/courses"} content={"Cours"}/>
@@ -30,7 +30,7 @@ const NavAside = () => {
                 <Link className={"buttonLightGrey w100"} href={"/contact"} content={"Contact"}/>
                 <Link className={"buttonLightGrey w100"} href={"/news"} content={"Actualités"}/>
                 {
-                    (grpManager.isStaff) ?
+                    (roleManager.isNewsManager) ?
                         <Link className={"buttonLightGrey w100"} href={"/blogEditor"} content={"Edition des actualités"}/>
                         :
                         <></>
