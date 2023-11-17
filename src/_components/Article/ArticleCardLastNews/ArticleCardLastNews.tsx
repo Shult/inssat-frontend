@@ -1,17 +1,10 @@
 import React from "react";
-import Link from "../Clickable/Link";
-import {Article} from "../articleCRUD/interfacesArticles";
-import "./ArticleLastNews.css"
+import Link from "../../Clickable/Link";
+import {Article} from "../Services/interfacesArticles";
+import "./ArticleCardLastNews.css"
+import {loadImage} from "../Services/articleServices";
 
-function loadImage(imagePath: string) {
-    try {
-        return require(`../../../public/_assets/${imagePath}`);
-    } catch (err) {
-        return '';
-    }
-}
-
-const ArticleLastNews = () => {
+const ArticleCardLastNews = () => {
     // const dispatch = useDispatch();
     // useEffect(() => { dispatch(getArticles()); }, [dispatch]);
     // const articles = useSelector((state: any) => state.articles.articles) as Article[];
@@ -61,4 +54,4 @@ const ArticleLastNews = () => {
         </section>
     )
 }
-export default ArticleLastNews
+export default ArticleCardLastNews

@@ -1,31 +1,21 @@
-// import axios from 'axios';
+import axios from "axios";
 import {
     FETCH_ARTICLES_REQUEST,
     FETCH_ARTICLES_SUCCESS,
     FETCH_ARTICLES_FAILURE,
     CREATE_ARTICLE,
     DELETE_ARTICLE,
-    UPDATE_ARTICLE,
-    GET_ARTICLE
-} from './types';
-
-import articles from '../../_data/articles.json';
+    UPDATE_ARTICLE
+} from './articleActionsTypes';
 
 import {
     Article,
     CreateArticleAction,
     UpdateArticleAction,
-    DeleteArticleAction,
-    GetArticleAction
+    DeleteArticleAction
 } from './interfacesArticles';
-import axios from "axios";
 
-// export const getArticles = () => {
-//     return {
-//         type: FETCH_ARTICLES_SUCCESS,
-//         payload: articles as Article[]
-//     };
-// };
+// API TEMPORAIRE
 export const getArticles = () : any => {
     return (dispatch: any) => {
         dispatch({ type: FETCH_ARTICLES_REQUEST });
@@ -50,6 +40,7 @@ export const getArticles = () : any => {
 
 // GET all articles details
 // http://localhost:5000/api_blog/articles/details
+
 export const getArticlesREALAPI = () : any => {
     return (dispatch: any) => {
         dispatch({ type: FETCH_ARTICLES_REQUEST });
@@ -69,8 +60,6 @@ export const getArticlesREALAPI = () : any => {
     };
 };
 
-
-
 export const createArticle = (article: Article): CreateArticleAction => ({
     type: CREATE_ARTICLE,
     payload: article,
@@ -83,10 +72,5 @@ export const updateArticle = (article: Article): UpdateArticleAction => ({
 
 export const deleteArticle = (id: string): DeleteArticleAction => ({
     type: DELETE_ARTICLE,
-    payload: id,
-});
-
-export const getArticle = (id: string): GetArticleAction => ({
-    type: GET_ARTICLE,
     payload: id,
 });

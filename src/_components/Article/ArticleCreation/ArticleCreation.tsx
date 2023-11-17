@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createArticle } from '../articleCRUD/articleActions';
-import {Article} from "../articleCRUD/interfacesArticles";
-import articlesData from '../../_data/articles.json';
+import { createArticle } from '../Services/articleActions';
+import {Article} from "../Services/interfacesArticles";
+import articlesData from '../../../_data/articles.json';
 import "./ArticleCreation.css"
 
 interface ArticleCreationProps {

@@ -6,18 +6,6 @@ const initialState: ArticleState = {
     error: null,
 };
 
-// export default function articleReducer(state = initialState, action: any) {
-//     switch (action.type) {
-//         case GET_ARTICLES:
-//             return {
-//                 ...state,
-//                 articles: action.payload
-//             };
-//         default:
-//             return state;
-//     }
-// }
-
 const  articleReducerMook = (state = initialState, action: ArticleActions): ArticleState => {
     switch (action.type) {
         case 'FETCH_ARTICLES_REQUEST':
@@ -60,12 +48,3 @@ const  articleReducerMook = (state = initialState, action: ArticleActions): Arti
     }
 };
 export default articleReducerMook;
-
-
-/**
- * Louis' piece of advice: As our data came from a fake dataset, better to call it "mock"
- * Likewise, when will have a link to a real DB, better to call it with DB's name
- */
-
-// const  articleReducerMariaDB = (state = initialState, action: ArticleActions): ArticleState => {};
-// export default articleReducerMariaDB;

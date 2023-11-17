@@ -1,10 +1,10 @@
 import Button from '../../_components/Clickable/Button';
 import {useDispatch, useSelector} from 'react-redux';
-import {Article} from '../../_components/articleCRUD/interfacesArticles';
+import {Article} from '../../_components/Article/Services/interfacesArticles';
 import React, {useEffect, useState} from 'react';
-import {deleteArticle, getArticles} from '../../_components/articleCRUD/articleActions';
+import {deleteArticle, getArticles} from '../../_components/Article/Services/articleActions';
 import './Blog.css'
-import ArticleCreation from "../../_components/ArticleCreation/ArticleCreation";
+import ArticleCreation from "../../_components/Article/ArticleCreation/ArticleCreation";
 import Modal from "../../_components/Modal/Modal";
 
 const Blog = () => {

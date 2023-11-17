@@ -1,15 +1,11 @@
 import React from 'react'
-import ArticleEnssatComponents from "../../_components/ArticlesEnssat/ArticleEnssatComponents";
 import "./News.css"
-import ArticleAllComponent from "../../_components/ArticleAll/ArticleAllComponent";
-import ArticleAllComponent2 from "../../_components/ArticleAll/ArticleAllComponentAPIBack";
+import ArticleNewsList from "../../_components/Article/ArticleNewsList/ArticleNewsList";
 
 const News = () => {
     return(
         <div className="container" id={"NewsContainer"}>
-            {/*<ArticleEnssatComponents/>*/}
-            {/*<ArticleAllComponent/>*/}
-            <ArticleAllComponent2/>
+            <ArticleNewsList/>
         </div>
     )
 }

@@ -33,27 +33,6 @@ export interface ArticleDetails {
     link: string
 }
 
-export interface Article2 {
-    author_id: string;
-    category_id: string[];
-    comment_authorized: boolean;
-    content: string;
-    createdAt: string;
-    description:string;
-    flag_count: number;
-    id: number;
-    is_blacklisted: boolean;
-    is_pinned: boolean;
-    like_count:number;
-    principal_image: string;
-    published_at: string;
-    status: string;
-    thumbnail: string;
-    title: string;
-    updatedAt: string;
-    fromEnssat: boolean
-}
-
 export interface ArticleState {
     articles: Article[];
     loading: boolean;
