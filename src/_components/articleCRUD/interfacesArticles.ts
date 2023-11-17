@@ -13,6 +13,46 @@ export interface Article {
     author?: string
     fromEnssat: boolean;
 }
+export interface ArticleDetails {
+    id: number;
+    title: string;
+    description: string;
+    thumbnail: string;
+    author_id: string;
+    published_at: string;
+    article_tags: string[];
+    category: {
+        title: string;
+    };
+    author: {
+        ID: string;
+        FIRST_NAME: string | null;
+        LAST_NAME: string | null;
+    };
+    fromEnssat: boolean;
+    link: string
+}
+
+export interface Article2 {
+    author_id: string;
+    category_id: string[];
+    comment_authorized: boolean;
+    content: string;
+    createdAt: string;
+    description:string;
+    flag_count: number;
+    id: number;
+    is_blacklisted: boolean;
+    is_pinned: boolean;
+    like_count:number;
+    principal_image: string;
+    published_at: string;
+    status: string;
+    thumbnail: string;
+    title: string;
+    updatedAt: string;
+    fromEnssat: boolean
+}
 
 export interface ArticleState {
     articles: Article[];

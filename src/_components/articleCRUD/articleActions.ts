@@ -45,6 +45,32 @@ export const getArticles = () : any => {
     };
 };
 
+// GET all articles
+// http://localhost:5000/api_blog/articles
+
+// GET all articles details
+// http://localhost:5000/api_blog/articles/details
+export const getArticlesREALAPI = () : any => {
+    return (dispatch: any) => {
+        dispatch({ type: FETCH_ARTICLES_REQUEST });
+        axios.get('http://localhost:5000/api_blog/articles/details')
+            .then(response => {
+                dispatch({
+                    type: FETCH_ARTICLES_SUCCESS,
+                    payload: response.data as Article[]
+                });
+            })
+            .catch(error => {
+                dispatch({
+                    type: FETCH_ARTICLES_FAILURE,
+                    payload: error.message
+                });
+            });
+    };
+};
+
+
+
 export const createArticle = (article: Article): CreateArticleAction => ({
     type: CREATE_ARTICLE,
     payload: article,

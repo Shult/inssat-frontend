@@ -1,5 +1,5 @@
 import React from 'react'
-import ArticleAllComponent from "../../_components/ArticleAll/ArticleAllComponent";
+import ArticleAllComponent2 from "../../_components/ArticleAll/ArticleAllComponentAPIBack";
 
 console.log("Rending test !");
 const Test = () => {
@@ -9,7 +9,7 @@ const Test = () => {
             <p>Page type</p>
             <p>Useful to create a basic page by copy paste</p>
 
-            <ArticleAllComponent/>
+            <ArticleAllComponent2/>
 
         </div>
     )
