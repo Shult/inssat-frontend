@@ -21,8 +21,8 @@ function ArticleCard(props : any) {
                     </h2>
                     {/*<p className={"w100"}>{article.description}</p>*/}
 
-                    <div className={"line w100 space-around"} id={"styleDivContentTag"}>
-                        {article.article_tags.map((tag : any) => (
+                    <div className={"line w100"} id={"styleDivContentTag"}>
+                        {article.article_tags.slice(-4).map((tag : any) => (
                             <Link key={tag} className={"buttonWhite"} href={article.content} content={tag}/>
                         ))}
                     </div>

@@ -1,19 +1,34 @@
+:root {
+    --maxSmallCardHeigth: 20rem;
+}
+
 #styleArticle {
     background: var(--lightGrey);
     margin: 0.25rem 0.25rem 1rem 0.25rem;
     box-shadow: 0 0 5px var(--enssatGrey);
     border-radius: 0.5rem;
+    height: var(--maxSmallCardHeigth);
 }
 
 #styleDivContent { padding: 0.5rem 0.25rem }
 
-#styleDivContent > p {
-    padding: 0 1rem;
-    margin: 0
+#styleDivContent a {
+    padding: 0;
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-#styleDivContentTag  {
-    padding: 0.5rem;
+#styleDivContent p {
+    padding: 0 1rem;
+    margin: 0.5rem 0 0 0;
+}
+
+#styleDivContentTag a {
+    padding: 0.25rem 0.5rem;
+    margin-right: 0.25rem;
 }
 
 #styleImgBubble {
@@ -29,3 +44,4 @@
     max-width: 100%;
     height: 100%;
 }
+ #styleArticle .styleImgSide { height: var(--maxSmallCardHeigth) }
