@@ -1,0 +1,39 @@
+/* Heading.css */
+.heading1-epic {
+     font-size: 60px;
+    font-weight: 800;
+  }
+  
+  .heading1 {
+     font-size: 48px;
+    font-weight: 700;
+  }
+  
+  .heading2 {
+     font-size: 30px;
+    font-weight: 700;
+  }
+  
+  .heading3 {
+     font-size: 24px;
+    font-weight: 700;
+  }
+  
+  .heading4 {
+     font-size: 20px;
+     font-weight: 700;
+  }
+  
+  /* Paragraph.css */
+  .paragraph-std { 
+    font-size: 18px;
+    font-weight: 400;
+    text-align: justify;
+  }
+  
+  .paragraph-sm { 
+    font-size: 14px;
+    font-weight: 400;
+    text-align: justify;
+  }
+  

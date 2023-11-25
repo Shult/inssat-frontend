@@ -1,6 +1,15 @@
 import Keycloak from "keycloak-js";
 
-const _kc = new Keycloak('keycloak.json');
+let initOptions = {
+  url: 'http://localhost:8080/',
+  realm: 'intranet',
+  clientId: 'intranet-front',
+  onLoad: 'check-sso', // check-sso | login-required
+  KeycloakResponseType: 'code',
+}
+ 
+
+const _kc = new Keycloak(initOptions);
 
 /**
  * Initializes Keycloak instance and calls the provided callback function if successfully authenticated.
@@ -18,7 +27,7 @@ const initKeycloak = (onAuthenticatedCallback : any) => {
         console.log("user is not authenticated..!");
       }else{
         onAuthenticatedCallback();
-        console.log(getTokenParsed())
+        console.log(_kc)
       }
     })
     .catch(console.error);
@@ -30,7 +39,7 @@ const doLogout = _kc.logout;
 
 const getToken = () => _kc.token;
 
-const getTokenParsed = () => _kc.tokenParsed;
+const getTokenParsed : any = () => _kc.tokenParsed;
 
 const isLoggedIn = () => !!_kc.token;
 
@@ -43,6 +52,10 @@ const getUsername = () => _kc.tokenParsed?.preferred_username;
 
 const hasRole = (roles : any) => roles.some((role : any) => _kc.hasRealmRole(role));
 
+const getKeycloakInstance : any = () => _kc;
+
+const createAccountUrl = () => _kc.createAccountUrl();
+
 const UserService = {
   initKeycloak,
   doLogin,
@@ -53,6 +66,8 @@ const UserService = {
   updateToken,
   getUsername,
   hasRole,
+  getKeycloakInstance,
+  createAccountUrl
 };
 
 export default UserService;

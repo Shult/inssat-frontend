@@ -25,7 +25,17 @@
   --successDark: #1fa14a;
 
   --fontTitle: "Sansation";
-  --fontText: "Ubuntu";
+  --fontText: "ubuntu";
+
+
+  --box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.10), 0px 4px 4px rgba(0, 0, 0, 0.17);
+  --grey-dim: #E5E7E7;
+  --grey-dark:#2e2e2e;
+  --featured-gradient: linear-gradient(202deg, rgba(191,158,78,1) 0%, rgba(238,201,110,0.9920561974789917) 43%, rgba(191,158,78,1) 61%, rgba(140,107,46,1) 100%);
+  
+  --font-family: 'Inter', 'Roboto', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+  'Noto Color Emoji';
 }
 
 /* Reusable class */
@@ -74,11 +84,10 @@ html,
 #root,
 .App {
   height: 100%;
-  width: 100%;
-  display: flex;
+  width: 100%; 
 }
 
-body{
+ body{
   font-family: var(--fontText);
 }
 
@@ -113,4 +122,72 @@ h6 {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
   monospace;
+}
+
+
+
+
+
+@import '../src/_assets/fonts.css';
+
+/*TODO:must delete !important and replace the original font-family on the top.*/
+h1,h2,h3,h4,h4,h5,h6,p,div,span, button, input, textarea{
+  font-family: var(--font-family)!important;
+}
+
+
+
+.card{
+  border-radius: 8px; 
+  box-shadow: var(--box-shadow);
+  border:none;
+}
+
+input, textarea {
+  border-radius: 8px !important;
+  border: 1px solid var(--grey-dim) !important;
+  font-size: 14px !important;
+  color: var(--grey-dark) !important;
+}
+
+
+
+
+
+/******************adding label floating effect for the input placeholder********************/
+
+.form-group {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.form-label {
+  position: absolute;
+  top: 6px;
+  left: 12px;
+  transition: 0.2s ease-out;
+  pointer-events: none;
+  color: #999; /* Placeholder color */
+  font-size: 14px;
+}
+
+.form-control:focus + .form-label,
+.form-control:not(:placeholder-shown) + .form-label,
+.focused .form-label {
+  top: -12px;
+  left: 6px;
+  font-size: 0.8em;
+  color: #333; /* Active label color */
+  background:white;
+  padding-left:8px;
+  padding-right:8px;
+  border-radius: 8px;
+}
+
+ 
+
+
+.form-select {
+  font-size: 14px!important;
+  color: var(--grey-dark)!important;
 }

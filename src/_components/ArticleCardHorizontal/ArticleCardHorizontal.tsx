@@ -1,6 +1,7 @@
 import React from 'react';
 import "./ArticleCardHorizontal.css"
 
+import {GetFileFromURL} from '../../_helpers/GetFileFromURL.function'
 
 // Used to load the image, because I faced an issue when I past directly the images
 function loadImage(imagePath: string) {
@@ -23,7 +24,7 @@ function ArticleCardHorizontal(props : any) {
             <div className={"article-dashboard-card"}>
                 <div className={"row"}>
                     <div className={"col article-dashboard-div-img"} style={{ padding: '0' }}>
-                        <img className="article-dashboard-img" src={loadImage(article.imageUrl)} alt={article.title} />
+                        <img className="article-dashboard-img" src={GetFileFromURL(article.imageUrl)} alt={article.title} />
                     </div>
                     <div className={"col article-dashboard-text"}>
                         <h2 className={"article-dashboard-text"}>{ article.title }</h2>
@@ -33,7 +34,7 @@ function ArticleCardHorizontal(props : any) {
                         ))}
                         <div className={"row-4"}>
                             <div className={"user-profile-container"}>
-                                <img className={"article-dashboard-user-img"} src={loadImage(article.imageUrl)} alt={article.title} />
+                                <img className={"article-dashboard-user-img"} src={GetFileFromURL(article.imageUrl)} alt={article.title} />
                                 <div className={"user-info"}>
                                     <div className={"article-dashboard-user-text"}>
                                         Sylvain MESTRE <b>.</b>{article.publishDate}

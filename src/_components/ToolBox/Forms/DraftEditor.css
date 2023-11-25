@@ -1,0 +1,13 @@
+.rdw-editor-main{
+    border: 1px solid var(--grey-dim);
+    border-radius: 8px ; 
+    padding: 10px; 
+    margin-bottom: 15px;
+}
+.rdw-option-wrapper{
+    margin-top:5px;
+    margin-bottom:5px;
+}
+.public-DraftStyleDefault-block {
+    margin-top:0;
+}

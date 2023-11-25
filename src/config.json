@@ -1,0 +1,12 @@
+{
+    "development": {
+        "API_URL": "http://localhost:5009"
+    },
+    "production": {
+        "API_URL": "http://localhost:5009"
+    },
+    "test": {
+        "API_URL": "http://localhost:5009"
+    }
+  }
+  
