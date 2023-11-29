@@ -1,0 +1,36 @@
+/* Sidebar container */
+.sidebar-container {
+    display: flex;
+    height: 100vh;
+    overflow: scroll initial;
+  }
+  
+  /* Sidebar menu item */
+  .activeClicked {
+    color: black;
+    background-color: var(--grey-dark);
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Sidebar item hover and active styles */
+  .sidebar-item:hover li,
+  .sidebar-item.activeClicked li {
+    background-color: #BF9E4E !important;
+    color: white;
+    border-radius: 8px;
+  }
+
+
+.activeClicked.active  li{
+
+    background-color: #BF9E4E !important;
+    color: white;
+    border-radius: 8px;
+  }
+
+ .activeClicked:hover  li{
+
+    background-color: #BF9E4E !important;
+    color: white;
+    border-radius: 8px;
+  }

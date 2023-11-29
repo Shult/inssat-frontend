@@ -1,0 +1,99 @@
+ 
+.fc-theme-standard .fc-scrollgrid, .fc-theme-standard td, .fc-theme-standard th{
+    border: none !important;
+    border-bottom: 1px solid red;
+}
+
+.fc-timegrid-slot-label-cushion.fc-scrollgrid-shrink-cushion{
+    font-size:12px;
+    font-weight: 600;
+    padding-right:30px;
+    
+}
+
+.fc .fc-timegrid-col{
+}
+
+.fc .fc-timegrid-col.fc-day-today{
+    background: rgba(235, 235, 235, 0.309) ;
+}
+
+.fc-v-event{
+    background: var(--gold)
+}
+
+a.fc-col-header-cell-cushion{
+    color: var(--gray-dark);
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+}
+.fc-timegrid-slots colgroup ,.fc-scrollgrid-sync-inner{
+    background: var(--grey-dim);
+}
+.fc-timegrid-axis{
+    padding:0 !important;
+}
+th.fc-timegrid-axis{
+    background: var(--grey-dim)!important;
+}
+
+ 
+
+.fc .fc-button-primary{
+    border-color: var(--grey-dark);
+    color:var(--grey-dark) !important;
+    background: white;
+
+   
+}
+
+.fc .fc-button-primary:disabled, .fc .fc-button:not(:disabled){
+    padding-top:0px;
+    padding-bottom:0px;
+    padding-right:22px;
+    padding-left:22px;
+
+    border-color: var(--grey-dark);
+    color:var(--grey-dark) !important;
+    background: white !important;  
+}
+
+.fc .fc-button-primary:disabled{  
+    background: var(--gold) !important;   
+    color:white !important;
+}
+
+
+
+.fc-toolbar-chunk .fc-button-group button{
+    border:none;
+    padding:0px !important; 
+}
+
+
+h2#fc-dom-2,.fc .fc-media-screen *{
+    font-family: var( --font-family) !important;
+}
+
+
+
+
+th.fc-col-header-cell.fc-day{
+    padding:0 !important;
+    padding-left: 1px !important;
+    padding-right:  1px!important;
+}
+
+
+
+
+
+
+h2.fc-toolbar-title{
+    font-size: 22px !important;
+}
+
+.fc-header-toolbar.fc-toolbar{
+    margin-bottom: 10px!important;
+}

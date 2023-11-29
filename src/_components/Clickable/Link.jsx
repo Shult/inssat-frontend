@@ -1,7 +1,12 @@
 import React from "react";
 import "./style.css"
 
-const Link = ({className = "linkGold", name = "reusable link", href= "#", content= "I'm a link, click me", target=""}) => {
+const Link = ({className = "linkGold",
+                  name = "reusable link",
+                  href= "#",
+                  content= "I'm a link, click me",
+                  target="",
+                  onClickFn=()=>{console.log('clicked');}}) => {
 
     return(
         <a
@@ -9,6 +14,7 @@ const Link = ({className = "linkGold", name = "reusable link", href= "#", conten
             name={name}
             href={href}
             target={target}
+            onClick={onClickFn}
         >{content}</a>
     )
 }

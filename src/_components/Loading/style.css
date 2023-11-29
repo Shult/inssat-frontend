@@ -1,0 +1,63 @@
+/* style.css */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  .dots-container {
+    display: flex;
+    margin: 0 5px;
+  }
+  .loading-text {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #B89A3C;
+    margin: 0 2px;
+  }
+  
+  .pulse {
+    animation: pulse 1s infinite linear;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.3);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+
+
+
+  /* Add this to your CSS file */
+.blinking-container {
+    animation: blink 1s infinite linear;
+  }
+  
+  @keyframes blink {
+    0%, 49% {
+      opacity: 1;
+    }
+    80%, 90% {
+      opacity: 0;
+    }
+    90%, 100% {
+      opacity: 1;
+    }
+  }

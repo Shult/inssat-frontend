@@ -18,6 +18,15 @@ export type Article = {
     category: CategoryType[];
 };
 
+export type ArticleToPrint = {
+    title: string;
+    published: string;
+    link: string;
+    content: string;
+    author: string;
+    category: string[];
+};
+
 export type ArticleState = {
     articles: Article[];
     status: 'idle' | 'loading' | 'succeeded' | 'failed';

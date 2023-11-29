@@ -4,6 +4,8 @@ import {styleAside, styleDivBottom, styleDivTop, styleDivTopImg} from "./NavAsid
 import Button from "../Clickable/Button";
 import UserServices from "../../services/UserServices";
 import {RoleManager} from "../../_navigation/RoleManager";
+import UserService from "../../services/UserServices";
+
 
 const NavAside = () => {
     const roleManager = RoleManager()
@@ -14,7 +16,7 @@ const NavAside = () => {
             <div className={"line w100"} style={styleDivTop}>
 
                 <div style={styleDivTopImg}>
-                    <ClickableImg src={"_images/Inssat.png"} href={"/"} title={"Home"}/>
+                    <ClickableImg src={"/_images/Inssat.png"} href={"/"} title={"Home"}/>
                 </div>
 
                 <Link className={"buttonLightGrey w100"} href={"/"} content={"Dashboard"}/>
@@ -38,17 +40,17 @@ const NavAside = () => {
             </div>
 
             <div className={"line w100"} style={styleDivBottom}>
-                <Button className={"buttonLightGrey w100"} content={"Mon profil"} onclick={UserServices.manageAccount}/>
-                <Button className={"buttonLightGrey w100"} content={"Déconnexion"} onclick={logout}/>
+                <Link className={"buttonLightGrey w100"} content={"Mon profil"} onClickFn={()=>{
+                    window.open(UserService.createAccountUrl(), "_blank")
+                }}/>
+                <Link className={"buttonLightGrey w100"} content={"Paramètres"}/>
+                <Link className={"buttonLightGrey w100"} content={"Déconnexion"} onClickFn={()=>{UserService.doLogout({
+                    redirectUri: window.location.origin
+                })}} />
             </div>
 
         </aside>
     )
 }
 
-
-function logout(){
-    window.history.replaceState(null, null, '/')
-    return UserServices.doLogout({redirectUri : "http://localhost:3000/"})
-}
 export default NavAside

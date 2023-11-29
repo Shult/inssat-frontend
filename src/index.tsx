@@ -21,3 +21,14 @@ const renderApp = () => root.render(
     </React.StrictMode>
 );
 UserService.initKeycloak(renderApp);
+
+setInterval(() => {
+    UserService.updateToken((tRefreshed : Boolean) => {
+        if (tRefreshed) {
+            console.warn('Token refreshed');
+        } else {
+            console.info('Token not refreshed, valid for '
+                 + Math.round(UserService.getTokenParsed().exp + UserService.getKeycloakInstance().timeSkew - new Date().getTime() / 1000) + ' seconds');
+        }
+    });
+}, 5000);

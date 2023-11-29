@@ -6,7 +6,7 @@ import {RootState} from "../../_store/store";
 import UserServices from "../../services/UserServices";
 
 const initialState: CalendarInterface = {
-    url: REMOTE_URL,
+    url: "",
     status: 'idle'
 }
 
@@ -16,7 +16,7 @@ export const calendarSlice = createSlice({
     reducers: {
         deleteCalendar: (state) => {
             state.status = 'idle';
-            state.url = EMPTY_URL;
+            state.url = "";
         }
     },
     extraReducers: (builder) => {
