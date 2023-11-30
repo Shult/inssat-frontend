@@ -1,14 +1,10 @@
 import React from 'react'
 
 // Style
-import Calendar from "../../_components/Calendar/Calendar";
-import CalendarToDay  from "../../_components/Calendar/CalendarCustom";
-import ArticleCarouselV2 from "../../_components/ArticlesCarouselDashboard/ArticlesCarouselDashboard";
-import Button from "../../_components/Clickable/Button";
 import "./HomeStudent.css"
 
 // Components
-import Calendar from "../../_components/Calendar/Calendar";
+import CalendarToDay  from "../../_components/Calendar/CalendarCustom";
 import ArticleCardLastNews from "../../_components/Article/ArticleCardLastNews/ArticleCardLastNews";
 import ArticleHomeList from "../../_components/Article/ArticleHomeList/ArticleHomeList";
 
@@ -22,7 +18,7 @@ const HomeStudent = () => {
             <section className={"line w100 space-between"} id={"HomeStudent-SecondLine"}>
 
                 <article className={"w66"}>
-                    <Calendar/>
+                    <CalendarToDay calendarType={"timeGridDay"}/>
                 </article>
 
                 <article className={"w33"}>

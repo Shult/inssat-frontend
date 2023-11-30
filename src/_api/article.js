@@ -10,14 +10,23 @@ const createArticle = (formData) => {
       headers: {
         'Content-Type': 'multipart/form-data', // Ensure correct headers for form data
       },
-    });
+    })
   };
 
-  
+const deleteArticle = (id) => {
+    return client.delete(`/articles/${id}`, id, {
+      headers: {
+        'Content-Type': 'multipart/form-data', // Ensure correct headers for form data
+      },
+    })
+  };
+
+
 export {
     getArticleById,
     getLastSharedArticle,
     getArticlesWithDetails,
     getArticleWithDetails,
-    createArticle
+    createArticle,
+    deleteArticle
 }

@@ -1,14 +1,6 @@
 import Keycloak from "keycloak-js";
-let initOptions = {
-  url: 'http://localhost:8080/',
-  realm: 'intranet',
-  clientId: 'intranet-front',
-  onLoad: 'check-sso', // check-sso | login-required
-  KeycloakResponseType: 'code',
-}
 
-
-const _kc = new Keycloak(initOptions);
+const _kc = new Keycloak();
 
 /**
  * Initializes Keycloak instance and calls the provided callback function if successfully authenticated.
@@ -60,18 +52,18 @@ const getKeycloakInstance : any = () => _kc;
 const createAccountUrl = () => _kc.createAccountUrl();
 
 const UserService = {
-  initKeycloak,
+  createAccountUrl,
   doLogin,
   doLogout,
-  isLoggedIn,
+  getKeycloakInstance,
   getToken,
   getTokenParsed,
-  updateToken,
   getUsername,
   hasRole,
-  manageAccount
-  getKeycloakInstance,
-  createAccountUrl
+  manageAccount,
+  initKeycloak,
+  isLoggedIn,
+  updateToken
 };
 
 export default UserService;

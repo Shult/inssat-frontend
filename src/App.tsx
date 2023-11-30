@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Router from './_navigation/Router';
-import NavAside from './_components/Navbars/NavAside';
 import './App.css';
 import Sidebar from './_components/SideNavBar';
 import LoadingAnimation from './_components/Loading/index';
@@ -36,20 +35,20 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="dashboard d-flex">
+      <div className="dashboard d-flex"
+           style={{
+               height: '100vh',
+               width: '100%',
+               overflow: "hidden"
+           }}>
         <div>
-          <Sidebar />
+          <Sidebar/>
         </div>
         <div
           style={{
             height: '100vh',
             width: '100%',
-            overflowY: 'scroll',
-            paddingTop: '15px',
-            paddingBottom: '15px',
-            paddingLeft: '10px',
-            paddingRight: '10px',
-            scrollbarWidth: 'none',
+            padding: '15px 10px',
             background: 'var(--grey-dim)',
           }}
         >

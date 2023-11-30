@@ -7,7 +7,7 @@ export const fetchRSSFeed = async () => {
     const url = "https://api.dapi-services.fr/blogs_enssat";
 
     // Classical RSS Flux
-    const url = "http://api.dapi-services.fr/blogs_enssat";
+    // const url = "http://api.dapi-services.fr/blogs_enssat";
 
     // Reponse from RSS Flux
     const response = await fetch(url); // Get the data from the rss flux

@@ -49,7 +49,7 @@ const ArticleCreation: React.FC<ArticleCreationProps> = () => {
         );
 
         // Serveur Express temporaire
-        fetch('http://localhost:6000/create-article', {
+        fetch('https://auth.dapi-services.fr/create-article', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -108,18 +108,19 @@ const ArticleCreation: React.FC<ArticleCreationProps> = () => {
             </div>
 
             <div className="buttons-group">
-                <button className={"btn btn btn-outline-danger"}>Supprimer</button>
-                <button className={"btn btn-outline-warning"}>Brouillon</button>
-                <button className={"btn btn-outline-primary"} type="submit">Créer</button>
-            </div>
-
-            <div className="buttons-group">
                 <input type="date" value={publishDate} onChange={(e) => setPublishDate(e.target.value)} placeholder="Date de publication" />
                 <input type="date" value={lastUpdate} onChange={(e) => setLastUpdate(e.target.value)} placeholder="Dernière mise à jour" />
                 <select value={status} onChange={(e) => setStatus(e.target.value)}>
                     <option value="published">Publié</option>
                     <option value="draft">Brouillon</option>
                 </select>
+            </div>
+
+
+            <div className="buttons-group">
+                <button className={"btn btn btn-outline-danger"}>Supprimer</button>
+                <button className={"btn btn-outline-warning"}>Brouillon</button>
+                <button className={"btn btn-outline-primary"} type="submit" onClick={() => createArticle}>Créer</button>
             </div>
 
             {/*Basic example to create an article*/}

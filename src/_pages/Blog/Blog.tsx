@@ -1,26 +1,32 @@
-import Button from '../../_components/Clickable/Button';
-import {useDispatch, useSelector} from 'react-redux';
-import {Article} from '../../_components/Article/Services/interfacesArticles';
 import React, {useEffect, useState} from 'react';
-import {deleteArticle, getArticles} from '../../_components/Article/Services/articleActions';
-import './Blog.css'
+import {Row} from "react-bootstrap";
+
 import ArticleCreation from "../../_components/Article/ArticleCreation/ArticleCreation";
+import Button from '../../_components/Clickable/Button';
 import Modal from "../../_components/Modal/Modal";
 
+import {Article} from '../../_components/Article/Services/interfacesArticles';
+import {deleteArticle} from "../../_api/article";
+import {getArticles} from "../../_components/Article/ArticleFetchAll";
+
+import './Blog.css'
+
 const Blog = () => {
-    const articles = useSelector((state: any) => state.articles.articles) as Article[];
-    const dispatch = useDispatch();
-    useEffect(() => { dispatch(getArticles()); }, [dispatch]);
 
     const [showChild, setShowChild] = useState(false);
     const [searched, setSearched] = useState("");
+    const [articles, setArticles] = useState<any>([]);
+
+    useEffect(() => {
+        getArticles().then(result => setArticles(result))
+    }, []);
 
     function getArticlesByTitle(searched: string, articles: Article[]){
         if (searched.length <= 3){ return articles }
         else {
             let newList = []
             for (let i = 0; i < articles.length; i++) {
-                if (articles[i].title.includes(searched)) {
+                if (articles[i].title.toUpperCase().includes(searched.toUpperCase())) {
                     newList.push(articles[i])
                 }
             }
@@ -83,35 +89,13 @@ const Blog = () => {
                 </table>
             </article>
 
-            <div className={'line w100 items-center'}>
-                <div className={'line w100 items-center'}>
-                    <div className={'w66'}>
-                        <Button className={'buttonError'}
-                                name={'DeleteAllPosts'}
-                                content={'Tout supprimer'}
-                                onclick={deleteAllSelected}
-                        />
-                    </div>
-
-                    {/* <div className={'line w33 space-around items-center'}>
-                        <div className={'line w50 space-around items-center'}>
-                            <h6>Publications par page </h6>
-                            <select name={'RowPerPage'}>
-                                <option value={5}>5</option>
-                                <option value={10}>10</option>
-                                <option value={20}>20</option>
-                            </select>
-                        </div>
-
-                        <div className={'line w50 space-around items-center'}>
-                            <Button className={"buttonGrey"} content={"<"}/>
-                            Page 1/1
-                            <Button className={"buttonGrey"} content={">"}/>
-                        </div>
-                    </div>
-                    */}
-                </div>
-            </div>
+            <Row>
+                <Button className={'buttonError'}
+                        name={'DeleteAllPosts'}
+                        content={'Tout supprimer'}
+                        onclick={deleteAllSelected}
+                />
+            </Row>
         </section>
     )
 
@@ -137,7 +121,7 @@ const Blog = () => {
             if ((checkbox as HTMLInputElement).checked) {
                 const id = checkbox.getAttribute("value")
                 if (id !== null){
-                    dispatch(deleteArticle(id))
+                    deleteArticle(id)
                 }
                 else {
                     console.log("id null")

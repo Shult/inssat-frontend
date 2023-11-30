@@ -7,10 +7,7 @@ import Categories from '../ToolBox/Categories';
 import{Heading5} from '../../_components/ToolBox/Headings'
 import { ActionButton } from '../ToolBox/Forms';
 
-import { createArticle } from '../../_api/article'; 
-import { 
-  getCategoryById
- } from '../../_api/category'; 
+import { createArticle } from '../../_api/article';
 
 
 function CreateArticle() {
@@ -19,15 +16,15 @@ function CreateArticle() {
 
   const [titleFocused, setTitleFocused] = useState(false);
   const [descriptionFocused, setDescriptionFocused] = useState(false);
-  
+
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFile2, setSelectedFile2] = useState(null);
 
-  const handleFileSubmit = (file) => { 
-    setSelectedFile(file); 
+  const handleFileSubmit = (file) => {
+    setSelectedFile(file);
   };
-  const handleFile2Submit = (file) => { 
-      setSelectedFile2(file); 
+  const handleFile2Submit = (file) => {
+      setSelectedFile2(file);
   };
 
 
@@ -46,10 +43,10 @@ function CreateArticle() {
         console.log('Form is invalid. Please fill in required fields.');
        }
     }
-    
+
   }
   const handleSubmit = async (event) => {
-   
+
 
     const form = formRef.current;
     if (form.checkValidity()) {
@@ -59,24 +56,24 @@ function CreateArticle() {
     // console.log(document.querySelector('select[name="category"]').value)
     // console.log(document.querySelector('input[name="tags"]').value.split('|'))
     // console.log(selectedFile)
-    // console.log(selectedFile2) 
-    
+    // console.log(selectedFile2)
+
     const formData = new FormData();
     formData.append('title', document.querySelector('input[name="title"]').value);
     formData.append('description', document.querySelector('textarea[name="Description"]').value);
-    formData.append('content',  document.querySelector('textarea[name="content"]').value);  
-    formData.append('category_id',  document.querySelector('select[name="category"]').value);  
+    formData.append('content',  document.querySelector('textarea[name="content"]').value);
+    formData.append('category_id',  document.querySelector('select[name="category"]').value);
 
-    formData.append('tags',  document.querySelector('input[name="tags"]').value);  
-  
+    formData.append('tags',  document.querySelector('input[name="tags"]').value);
+
     formData.append('images', selectedFile);
     formData.append('images', selectedFile2);
     formData.append('author_id', "94f8dce0-6032-4a98-bcf3-9dd46d0bd909");
-     
+
     console.log('Form is valid. Ready to submit.');
     try {
       const response = await createArticle(formData);
-  
+
       if (response.ok) {
         console.log('Article created successfully');
         // Handle success - maybe redirect, display a success message, etc.
@@ -87,8 +84,8 @@ function CreateArticle() {
     } catch (error) {
       console.error('Error creating article:', error);
       // Handle unexpected errors, such as network issues, etc.
-    } 
-    
+    }
+
   } else {
     // Invalid form - show validation errors
     form.classList.add('was-validated');
@@ -111,7 +108,7 @@ function CreateArticle() {
           <Row className="justify-content-center">
             <Col xs={12} lg={8}>
               <Form.Group className={`mb-3 ${titleFocused ? 'focused' : ''}`} controlId="title">
-                <div className="form-group "> 
+                <div className="form-group ">
                   <Form.Label>Titre</Form.Label>
                   <Form.Control
                     name='title'
@@ -122,11 +119,11 @@ function CreateArticle() {
                       if (!e.target.value) setTitleFocused(false);
                     }}
                     required
-                  /> 
+                  />
                </div>
               </Form.Group>
               <Form.Group className={`mb-3 ${descriptionFocused ? 'focused' : ''}`} controlId="description">
-              <div className="form-group "> 
+              <div className="form-group ">
               <Form.Label>Description</Form.Label>
                 <Form.Control
                   name='Description'
@@ -139,7 +136,7 @@ function CreateArticle() {
                   required
                 />
                 </div>
-              </Form.Group> 
+              </Form.Group>
             </Col>
 
             <Col xs={12} lg={4}>
@@ -160,9 +157,9 @@ function CreateArticle() {
                   <TagsInput/>
                   <Categories required/>
                 </Col>
-                
+
               </Row>
-            </Col> 
+            </Col>
           </Row>
           <Row>
             <Col xs={12} className="d-flex justify-content-center">
@@ -172,7 +169,7 @@ function CreateArticle() {
             </Col>
           </Row>
         </Form>
-          
+
 
         <div className="position-fixed top-0 end-0 p-3">
         {/* Bootstrap Toast for showing validation errors */}

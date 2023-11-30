@@ -1,41 +1,36 @@
- 
 import React, { useEffect, useState } from 'react';
-import ArticleDetails from '../../_components/ArticleDetails';
- 
+import ArticleDetails from '../../_components/Article/ArticleDetails';
+
 import './Article.css'
 
 import { Container, Row, Col } from 'react-bootstrap';
 import { getCategoriesByArticleCount } from '../../_api/category';
 import HorizontalCard from '../../_components/Cards/Horizontal';
- 
+
 import CategoriesCard from '../../_components/Cards/CategoriesOrderedByArticles'
 
 import {getArticleWithDetails, getArticlesWithDetails} from '../../_api/article'
 import { useParams } from 'react-router-dom';
 
-import LoadingAnimation from '../../_components/Loading';
-
 const Article = () => {
   // Access the parameters from the URL
   const { id } = useParams();
 
- 
-
   const [categories, setCategories] = useState([{
     title:'',
     id:''
-  }]); 
+  }]);
   const [articles, setArticles] = useState([]);
 
   const [articleDetails, setArticleDetails] = useState([]);
 
   useEffect(() => {
-     // Now 'id' contains the value from the URL
-      console.log('Article ID:', id);
+    // Now 'id' contains the value from the URL
+    console.log('Article ID:', id);
     fetchData();
   }, []);
 
-    //------------_> getCategories
+  //------------_> getCategories
   const fetchData = async () => {
     try {
       const categoriesResponse = await getCategoriesByArticleCount();
@@ -47,7 +42,6 @@ const Article = () => {
     } catch (error) {
       console.error('Error fetching categories:', error);
     }
-
 
     //------------_> getArticleById
     try {
@@ -61,9 +55,7 @@ const Article = () => {
     } catch (error) {
       console.error('Error fetching categories:', error);
     }
-    
 
-    
     //------------_> getArticlesWithDetails
     try {
       const articlesResponse = await getArticlesWithDetails();
@@ -76,25 +68,24 @@ const Article = () => {
       console.error('Error fetching articles:', error);
     }
   };
-    
-    return (
 
-      <Container fluid className="w-100"> 
-        <Row className="justify-content-center"> 
+  return (
+      <Container fluid className="w-100">
+        <Row className="justify-content-center">
           <Col xs={12} md={12} lg={7} xl={8}>
-          <ArticleDetails article={articleDetails} />
+            <ArticleDetails article={articleDetails} />
           </Col>
           <Col xs={12} md={12} lg={5} xl={4}>
-          <CategoriesCard  categories={categories} />
+            <CategoriesCard  categories={categories} />
             {articles.length > 0 &&
-              articles.map((article, index) => (
-                <HorizontalCard key={index} article={article} />
-              ))}
+                articles.map((article, index) => (
+                    <HorizontalCard key={index} article={article} />
+                ))}
           </Col>
         </Row>
       </Container>
-    )
+  )
 
- 
+
 }
 export default Article

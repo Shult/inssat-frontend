@@ -1,4 +1,4 @@
- 
+
 .fc-theme-standard .fc-scrollgrid, .fc-theme-standard td, .fc-theme-standard th{
     border: none !important;
     border-bottom: 1px solid red;
@@ -8,11 +8,11 @@
     font-size:12px;
     font-weight: 600;
     padding-right:30px;
-    
 }
 
-.fc .fc-timegrid-col{
-}
+.fc .fc-timegrid-col{}
+
+.fc .fc-timegrid-body{ min-height: inherit }
 
 .fc .fc-timegrid-col.fc-day-today{
     background: rgba(235, 235, 235, 0.309) ;
@@ -23,7 +23,7 @@
 }
 
 a.fc-col-header-cell-cushion{
-    color: var(--gray-dark);
+    color: var(--enssatGreyDark);
     font-weight: 600;
     font-size: 15px;
     text-decoration: none;
@@ -38,14 +38,14 @@ th.fc-timegrid-axis{
     background: var(--grey-dim)!important;
 }
 
- 
+
 
 .fc .fc-button-primary{
     border-color: var(--grey-dark);
     color:var(--grey-dark) !important;
     background: white;
 
-   
+
 }
 
 .fc .fc-button-primary:disabled, .fc .fc-button:not(:disabled){
@@ -56,11 +56,11 @@ th.fc-timegrid-axis{
 
     border-color: var(--grey-dark);
     color:var(--grey-dark) !important;
-    background: white !important;  
+    background: white !important;
 }
 
-.fc .fc-button-primary:disabled{  
-    background: var(--gold) !important;   
+.fc .fc-button-primary:disabled{
+    background: var(--gold) !important;
     color:white !important;
 }
 
@@ -68,7 +68,7 @@ th.fc-timegrid-axis{
 
 .fc-toolbar-chunk .fc-button-group button{
     border:none;
-    padding:0px !important; 
+    padding:0px !important;
 }
 
 

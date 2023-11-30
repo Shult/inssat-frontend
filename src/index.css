@@ -81,9 +81,7 @@ html,
   width: 100%;
 }
 
- body{
-  font-family: var(--fontText);
-}
+body { font-family: var(--fontText); }
 
 .line {
   display: flex;
