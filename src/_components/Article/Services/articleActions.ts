@@ -19,7 +19,7 @@ import {
 export const getArticles = () : any => {
     return (dispatch: any) => {
         dispatch({ type: FETCH_ARTICLES_REQUEST });
-        axios.get('http://localhost:3001/articles')
+        axios.get('https://api.dapi-services.fr/articles')
             .then(response => {
                 dispatch({
                     type: FETCH_ARTICLES_SUCCESS,
@@ -44,7 +44,7 @@ export const getArticles = () : any => {
 export const getArticlesREALAPI = () : any => {
     return (dispatch: any) => {
         dispatch({ type: FETCH_ARTICLES_REQUEST });
-        axios.get('http://localhost:5000/api_blog/articles/details')
+        axios.get('https://api.dapi-services.fr/api_blog/articles/details')
             .then(response => {
                 dispatch({
                     type: FETCH_ARTICLES_SUCCESS,
