@@ -59,6 +59,9 @@
 .items-start { align-items: flex-start }
 .items-end { align-items: flex-end }
 
+.float-right { float: right }
+.float-left { float: left }
+
 /* Imported fonts */
 
 @font-face {
@@ -108,7 +111,7 @@ h5 {
 h2,
 h4,
 h6 {
-  color: var(--grey);
+  color: var(--enssatGrey);
 }
 
 code {
@@ -121,11 +124,6 @@ code {
 
 
 @import '../src/_assets/fonts.css';
-
-/*TODO:must delete !important and replace the original font-family on the top.*/
-h1,h2,h3,h4,h4,h5,h6,p,div,span, button, input, textarea{
-  font-family: var(--font-family)!important;
-}
 
 
 

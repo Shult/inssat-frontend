@@ -18,10 +18,13 @@ import {
 } from "../Services/articleServices";
 
 const ArticleHomeList = () => {
+
     const dispatch = useDispatch();
+
     const articlesInssat = useSelector((state: any) => state.articles.articles) as ArticleDetails[];
     const articlesEnssat = useSelector((state: RootState) => state.articlesEnssat.articles);
     const status = useSelector((state: RootState) => state.articlesEnssat.status);
+
     let useEffectBool = false;
     let allArticles : ArticleDetails[] = []
 

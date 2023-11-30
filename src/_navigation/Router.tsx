@@ -11,6 +11,7 @@ import MyAccount from "../_pages/MyAccount/MyAccount";
 import HomeExternal from "../_pages/HomeExternal/HomeExternal";
 import {RoleManager} from "./RoleManager";
 import Home from "../_pages/Home";
+import ApprenticeshipManagement from "../_pages/ApprenticeshipManagement/ApprenticeshipManagement";
 
 const Router = () => {
     const roleManager = RoleManager()
@@ -28,6 +29,9 @@ const Router = () => {
             }
             { (roleManager.isNewsManager) ?
                 <Route path="/" Component={ News }/> : <Route path="/news" Component={ News }/>
+            }
+            { (roleManager.isApprenticeshipManager) ?
+                <Route path="/" Component={ ApprenticeshipManagement }/> : <Route path="/apprenticeshipManagement" Component={ ApprenticeshipManagement }/>
             }
             <Route path="/blogEditor" Component={Blog}/>
             <Route path="/myaccount" Component={MyAccount}/>

@@ -1,0 +1,9 @@
+#ApprenticeshipManagement > section { margin-bottom: 1rem; }
+
+#ApprenticeshipManagement h3 { margin: 0; }
+
+#ApprenticeshipManagement input {
+    padding: 0.7rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--enssatGrey);
+}
