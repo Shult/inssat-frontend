@@ -1,61 +1,68 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Router from './_navigation/Router';
-import NavAside from './_components/Navbars/NavAside';
-import './App.css';
 import Sidebar from './_components/SideNavBar';
 import LoadingAnimation from './_components/Loading/index';
-import apiClient  from './_api/client';
+import apiClient from './_api/client';
+
+
+interface Styles {
+  [key: string]: React.CSSProperties;
+}
+
+
+const styles:Styles = {
+  dashboard: {
+    height: '100vh',
+    display: 'flex',
+  },
+  mainContent: {
+    height: '100vh',
+    width: '100%',
+    overflowY: 'scroll',
+    padding: '15px 10px',
+    scrollbarWidth: 'none',
+    background: 'var(--grey-dim)',
+  },
+  hiddenContent: {
+    display: 'none',
+  },
+};
 
 function App() {
   const [loading, setLoading] = useState(false);
 
   
-
   useEffect(() => { 
   
     const clearInterceptors = () => { 
 
         apiClient.addRequestTransform(request => { 
             setLoading(true);
-            
           });
  
         apiClient.addResponseTransform(response => {
             //TODO: for testing purpose i am adding delay to Loading so that the animation take its time to finish '3s'
-            setTimeout(() => {
-                setLoading(false);
-              }, 2500);  
+            setTimeout(()=>{setLoading(false)},3000)
           });    
     };
   
     return clearInterceptors;
   }, []);
-  
-  
 
   return (
     <BrowserRouter>
-      <div className="dashboard d-flex">
+      <div style={styles.dashboard}>
         <div>
           <Sidebar />
         </div>
-        <div
-          style={{
-            height: '100vh',
-            width: '100%',
-            overflowY: 'scroll',
-            paddingTop: '15px',
-            paddingBottom: '15px',
-            paddingLeft: '10px',
-            paddingRight: '10px',
-            scrollbarWidth: 'none',
-            background: 'var(--grey-dim)',
-          }}
-        >
-          {/* Render the LoadingAnimation based on the loading state */}
+
+        <div style={styles.mainContent}>
           {loading && <LoadingAnimation />}
-          <Router />
+
+          <div style={loading ? styles.hiddenContent : {}}>
+            <Router />
+          </div>
         </div>
       </div>
     </BrowserRouter>
@@ -63,3 +70,4 @@ function App() {
 }
 
 export default App;
+

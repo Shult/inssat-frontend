@@ -35,7 +35,7 @@ const Article = () => {
     fetchData();
   }, []);
 
-    //------------_> getCategories
+  //------------_> getCategories
   const fetchData = async () => {
     try {
       const categoriesResponse = await getCategoriesByArticleCount();
@@ -47,7 +47,6 @@ const Article = () => {
     } catch (error) {
       console.error('Error fetching categories:', error);
     }
-
 
     //------------_> getArticleById
     try {
