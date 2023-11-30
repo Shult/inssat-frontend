@@ -1,6 +1,11 @@
-import Keycloak from "keycloak-js";
+import Keycloak, {KeycloakConfig} from "keycloak-js";
 
-const _kc = new Keycloak();
+let initOptions : KeycloakConfig = {
+  url: 'https://auth.dapi-services.fr/',
+  realm: 'intranet',
+  clientId: 'intranet-front',
+}
+const _kc = new Keycloak(initOptions);
 
 /**
  * Initializes Keycloak instance and calls the provided callback function if successfully authenticated.

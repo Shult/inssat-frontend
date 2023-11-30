@@ -68,7 +68,6 @@ function CreateArticle() {
 
     formData.append('images', selectedFile);
     formData.append('images', selectedFile2);
-    formData.append('author_id', "94f8dce0-6032-4a98-bcf3-9dd46d0bd909");
 
     console.log('Form is valid. Ready to submit.');
     try {
