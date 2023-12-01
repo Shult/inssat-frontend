@@ -1,5 +1,6 @@
+ 
 import { Card, Form, Row, Col, Button, Toast } from 'react-bootstrap';
-import React, { useRef, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import FileInputWithPreview from '../../_components/ToolBox/Forms/FileInputWithPreview';
 import DraftEditor from '../ToolBox/Forms/DraftEditor';
 import TagsInput from '../ToolBox/Forms/TagsInput';
@@ -7,17 +8,23 @@ import Categories from '../ToolBox/Categories';
 import{Heading5} from '../../_components/ToolBox/Headings'
 import { ActionButton } from '../ToolBox/Forms';
 
-import { createArticle } from '../../_api/article';
- 
+import { update, getArticleWithDetails } from '../../_api/article';
+import { useParams } from 'react-router-dom'; 
 
-function CreateArticle() {
+import {getImageAsBase64} from '../../_helpers/GetFileFromURL.function'
+
+
+function EditArticle(props) {
+  const { id } = useParams();
+
   const formRef = useRef(null);
+  const [article, setArticle] = useState({});
   const [showToast, setShowToast] = useState(false);
   const [showSuccessToast, setShowSuccessToast] = useState(false);
   const [newArticlePath, setNewArticlePath] = useState(false);
 
-  const [titleFocused, setTitleFocused] = useState(false);
-  const [descriptionFocused, setDescriptionFocused] = useState(false);
+  const [titleFocused, setTitleFocused] = useState(true);
+  const [descriptionFocused, setDescriptionFocused] = useState(true);
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFile2, setSelectedFile2] = useState(null);
@@ -52,13 +59,14 @@ function CreateArticle() {
 
     const form = formRef.current;
     if (form.checkValidity()) {
-    // console.log(document.querySelector('input[name="title"]').value)
-    // console.log(document.querySelector('textarea[name="Description"]').value)
-    // console.log(document.querySelector('textarea[name="content"]').value)
-    // console.log(document.querySelector('select[name="category"]').value)
-    // console.log(document.querySelector('input[name="tags"]').value.split('|'))
-    // console.log(selectedFile)
-    // console.log(selectedFile2)
+      console.log(document.querySelector('input[name="title"]').value)
+      console.log(document.querySelector('textarea[name="Description"]').value)
+      console.log(document.querySelector('textarea[name="content"]').value)
+      console.log(document.querySelector('select[name="category"]').value)
+      console.log(document.querySelector('input[name="tags"]').value.split('|'))
+      console.log(selectedFile)
+      console.log(selectedFile2)
+      
 
     const formData = new FormData();
     formData.append('title', document.querySelector('input[name="title"]').value);
@@ -72,21 +80,23 @@ function CreateArticle() {
     formData.append('images', selectedFile2);
 
     console.log('Form is valid. Ready to submit.');
+   
     try {
-      const response = await createArticle(formData);
+      const response = await update(id, formData);
+      
     
       if (response.ok) {
-        console.log('Article created successfully');
+        console.log('Article updated successfully');
         setShowSuccessToast(true);
     
-        // Assuming response.data.id contains the ID of the newly created article
+        // Assuming response.data.id contains the ID of the newly updated article
         const newArticleId = response.data.id;
         const articleLink = `/article/${newArticleId}`; // Adjust the route path as needed
         setNewArticlePath(articleLink)
     
         // Handle success - maybe redirect, display a success message, etc.
       } else {
-        console.error('Failed to create article:', response.problem);
+        console.error('Failed to update article:', response.problem);
         // Handle error display or other actions based on response.problem
         setShowSuccessToast(false);
       }
@@ -109,8 +119,46 @@ function CreateArticle() {
 
 
 
+useEffect(() => {
+  fetchArticleDetails();
+}, []);
 
-  return (
+const fetchArticleDetails = async () => {
+  try {
+    const response = await getArticleWithDetails(id);
+    if (response.ok) {
+      setArticle(response.data);
+      getImageAsBase64(response?.data?.thumbnail)
+      .then((base64Data) => {
+        // Handle the Base64 data here
+        setSelectedFile(base64Data);
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error('Error:', error);
+      });
+
+      getImageAsBase64(response?.data?.principal_image)
+      .then((base64Data) => {
+        // Handle the Base64 data here
+        setSelectedFile2(base64Data);
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error('Error:', error);
+      });
+      
+    } else {
+      alert("article was found")
+      console.error('Failed to fetch article details');
+    }
+  } catch (error) {
+    console.error('Error fetching article details:', error);
+  }
+};
+
+
+  return article && (
     <Card className="mb-4">
       <Card.Body>
         <Card.Title className="mb-3">Create Article</Card.Title>
@@ -120,13 +168,15 @@ function CreateArticle() {
             
           </div>
           <div>
-            <p style={{ marginBottom: '5px' }}>Article was created!</p>
-            <p style={{ color: '#BF9E4E', fontSize: '14px' }}>Your new article has been successfully created.</p>
+            <p style={{ marginBottom: '5px' }}>Article was updated!</p>
+            <p style={{ color: '#BF9E4E', fontSize: '14px' }}>Your new article has been successfully updated.</p>
             <a href={newArticlePath}>click here to checkout</a>
           </div>
         </div>
         ) :
-        (<Form   ref={formRef} noValidate>
+        (<Form ref={formRef} 
+
+        noValidate>
           <Row className="justify-content-center">
             <Col xs={12} lg={8}>
               <Form.Group className={`mb-3 ${titleFocused ? 'focused' : ''}`} controlId="title">
@@ -141,10 +191,12 @@ function CreateArticle() {
                       if (!e.target.value) setTitleFocused(false);
                     }}
                     required
+                    value={article.title} 
+                    onChange={(e) => setArticle({ ...article, title: e.target.value })}
                   />
                </div>
               </Form.Group>
-              <Form.Group className={`mb-3 ${descriptionFocused ? 'focused' : ''}`} controlId="description">
+              <Form.Group  className={`mb-3 ${descriptionFocused ? 'focused' : ''}`} controlId="description">
               <div className="form-group ">
               <Form.Label>Description</Form.Label>
                 <Form.Control
@@ -155,6 +207,9 @@ function CreateArticle() {
                   onBlur={(e) => {
                     if (!e.target.value) setDescriptionFocused(false);
                   }}
+                   value={article.description}
+                   onChange={(e) => setArticle({ ...article, description: e.target.value })}
+
                   required
                 />
                 </div>
@@ -162,22 +217,24 @@ function CreateArticle() {
             </Col>
 
             <Col xs={12} lg={4}>
-            <FileInputWithPreview required id="image1" name="images" title="selectionner miniature" onChange={handleFileSubmit}/>
+            <FileInputWithPreview image={selectedFile} required id="image1" name="images" title="selectionner miniature" onChange={handleFileSubmit}/>
             </Col>
             <Col xs={12}>
-            <FileInputWithPreview required id="image2" name="images2" title="selectionner image principal" onChange={handleFile2Submit}/>
+            <FileInputWithPreview image={selectedFile2}  required id="image2" name="images2" title="selectionner image principal" onChange={handleFile2Submit}/>
             </Col>
 
             <Col xs={12} lg={8}>
-                  <DraftEditor name="content" title="Contenu" />
+                  <DraftEditor  onChange={(e) => setArticle({ ...article, content: e.target.value })}
+ content={article.content} name="content" title="Contenu" />
             </Col>
 
             <Col xs={12} lg={4}>
               <Row className="align-items-center justify-content-center h-100">
                 <Col xs={12}>
                   <Heading5 >Tags & Categories</Heading5>
-                  <TagsInput/>
-                  <Categories required/>
+                  <TagsInput tags={article.article_tags}/>
+                  <Categories                     onChange={(e) => setArticle({ ...article, category: {...article, id:e.target.value} })}
+ selected={article.category?.id} required/>
                 </Col>
 
               </Row>
@@ -211,4 +268,4 @@ function CreateArticle() {
   );
 }
 
-export default CreateArticle;
+export default EditArticle;

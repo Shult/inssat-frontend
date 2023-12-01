@@ -32,7 +32,7 @@ const CalendarCustom = ({ calendarType = 'timeGridWeek', Height = "100vh"}) => {
 
 
   return (
-      <Card style={{height: Height, padding: '20px', boxShadow: 'var(--box-shadow)', border: 0 }}>
+      <Card style={{ padding: '20px', boxShadow: 'var(--box-shadow)', border: 0 }}>
         <Card.Body>
           <FullCalendar
               plugins={[timeGridPlugin, iCalendarPlugin]}

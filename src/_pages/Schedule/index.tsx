@@ -11,7 +11,7 @@ const Schedule = () => {
             <Row className="justify-content-center">
 
                 <Col xs={12} md={12} lg={12} xl={12}>
-                    <CalendarCustom Height={"95vh"} />
+                    <CalendarCustom  />
                 </Col>
 
             </Row>

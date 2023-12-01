@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const CategoryItem = ({ title, articleCount }: any) => {
+const CategoryItem = ({ id, title, articleCount }: any) => {
   return (
     <Link
-      to={`/category/${title}`}
+      to={`/category/${title}/${id}`}
       className="btn btn-sm m-1 d-flex justify-content-between align-items-center"
       style={{
         backgroundColor: 'var(--gold)',

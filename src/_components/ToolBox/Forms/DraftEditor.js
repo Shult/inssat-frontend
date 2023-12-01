@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+import { EditorState, convertFromHTML, ContentState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { stateToHTML } from 'draft-js-export-html';
@@ -9,7 +9,7 @@ import {
   Heading5
 } from '../Headings'
 
-const DraftEditor = ({ title, name, required }) => {
+const DraftEditor = ({ title, name, content, required }) => {
     const [editorState, setEditorState] = useState(() =>
       EditorState.createEmpty()
     );
@@ -18,6 +18,18 @@ const DraftEditor = ({ title, name, required }) => {
     useEffect(() => {
       convertToHTML(); // Convert to HTML initially
     }, [editorState]); // Trigger when editorState changes
+
+    useEffect(() => {
+      if (content) {
+        const blocksFromHTML = convertFromHTML(content);
+        const state = ContentState.createFromBlockArray(
+          blocksFromHTML.contentBlocks,
+          blocksFromHTML.entityMap
+        );
+        setEditorState(EditorState.createWithContent(state));
+      }
+    }, [content]);
+
   
     const onEditorStateChange = (newEditorState) => {
       setEditorState(newEditorState);
@@ -41,6 +53,7 @@ const DraftEditor = ({ title, name, required }) => {
             options: ['blockType', 'inline', 'list'],
             list: { inDropdown: false, options: ['unordered', 'ordered'] },
             blockType: { inDropdown: false, options: ['Normal', 'H2',  'H3',  'H4', 'H5', 'Blockquote', 'Code','atomic','unstyled'] },
+            
           }}
         /> 
        

@@ -18,6 +18,10 @@ const Home = () => {
         getLastArticle().then(result => setLastArticle(result))
     }, []);
 
+    useEffect(() => {
+        console.log(articles)
+    }, [articles]);
+
     return (
         <Container fluid className="w-100">
 
@@ -29,12 +33,12 @@ const Home = () => {
 
             <Row className="justify-content-center">
 
-                <Col xs={12} md={12} lg={7} xl={8} >
+                <Col className='mb-3' xs={12} md={12} lg={7} xl={8} >
                     <CalendarCustom calendarType={"timeGridDay"} Height={"70vh"}/>
                 </Col>
 
                 <Col className={"scrollable"} xs={12} md={12} lg={5} xl={4}>
-                    <div style={{height: "70vh", overflowY: "scroll"}}>
+                    <div className='hide-scroller internal-box-shadow ' style={{height: "70vh", overflowY: "scroll"}}>
                         {articles.length > 0 &&
                             articles.map((article: any, index: any) => (
                                 <HorizontalCard key={index} article={article} />

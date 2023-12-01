@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaTrash } from 'react-icons/fa';
-import './FileInputWithPreview.css'; 
+import './FileInputWithPreview.css';
 
-function FileInputWithPreview({ onChange, id,  title, name }) {
+function FileInputWithPreview({ onChange, image, id, title, name }) {
   const [selectedFile, setSelectedFile] = useState(null);
+
+  useEffect(() => {
+    if (image) {
+      setSelectedFile(image);
+    }
+  }, [image]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -23,7 +29,7 @@ function FileInputWithPreview({ onChange, id,  title, name }) {
 
   const handleDelete = () => {
     setSelectedFile(null);
-    onChange(null); // Informs parent component of file deletion
+    onChange(null); // Informs the parent component of file deletion
   };
 
   const handleDrop = (e) => {

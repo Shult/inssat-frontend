@@ -183,3 +183,27 @@ input, textarea {
   font-size: 14px!important;
   color: var(--grey-dark)!important;
 }
+
+
+
+
+
+
+
+/* CSS class to hide scrollbar */
+.hide-scroller {
+  /* Enable overflow to allow scrolling */
+  overflow: auto;
+  
+  /* Hide the scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer & Edge */
+  
+}
+
+ 
+
+/* Hide scrollbar for Chrome, Safari, and Opera */
+.hide-scroller::-webkit-scrollbar {
+  display: none;
+}

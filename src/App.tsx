@@ -6,6 +6,30 @@ import Sidebar from './_components/SideNavBar';
 import LoadingAnimation from './_components/Loading/index';
 import apiClient  from './_api/client';
 
+
+interface Styles {
+  [key: string]: React.CSSProperties;
+}
+
+
+const styles:Styles = {
+  dashboard: {
+    height: '100vh',
+    display: 'flex',
+  },
+  mainContent: {
+    height: '100vh',
+    width: '100%',
+    overflowY: 'scroll',
+    padding: '15px 10px',
+    scrollbarWidth: 'none',
+    background: 'var(--grey-dim)',
+  },
+  hiddenContent: {
+    display: 'none',
+  },
+};
+
 function App() {
   const [loading, setLoading] = useState(false);
 
@@ -35,26 +59,17 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="dashboard d-flex"
-           style={{
-               height: '100vh',
-               width: '100%',
-               overflow: "hidden"
-           }}>
+       <div style={styles.dashboard}>
         <div>
-          <Sidebar/>
+          <Sidebar />
         </div>
-        <div
-          style={{
-            height: '100vh',
-            width: '100%',
-            padding: '15px 10px',
-            background: 'var(--grey-dim)',
-          }}
-        >
-          {/* Render the LoadingAnimation based on the loading state */}
+
+        <div style={styles.mainContent}>
           {loading && <LoadingAnimation />}
-          <Router />
+
+          <div style={loading ? styles.hiddenContent : {}}>
+            <Router />
+          </div>
         </div>
       </div>
     </BrowserRouter>

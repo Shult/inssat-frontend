@@ -18,7 +18,5 @@ const Details = () => {
         </Row>
       </Container>
     )
-
-
 }
 export default Details

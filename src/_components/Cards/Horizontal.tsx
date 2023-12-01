@@ -18,28 +18,58 @@ const HorizontalCard = ({ article }: any) => {
     event.target.src = GetFileFromURL('default-thumbnail-horizontal.png');
   };
 
+  const fitImageStyles = { 
+  };
   return (
-      <a href={`/article/${id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+      <a href={
+        article?.fromEnssat ? article.link : `/article/${id}` 
+         }
+        style={{ textDecoration: 'none', color: 'inherit' }
+      }>
         <Card className="horizontal-card mb-3" style={{ borderRadius: '8px', boxShadow: 'var(--box-shadow)' }}>
           <Card.Body>
             <Row>
               <Col xs={4}>
-                <div className="image-container">
-                  <Image srcSet={extractFirstImageLink(article.thumbnail)} onError={handleImageError} src={GetFileFromURL(thumbnail)} className="img-fluid" alt="Card" style={{ borderRadius: '8px',
-                    height:'154px',
-                    objectFit: 'cover', }} />
-                </div>
+              <div className="image-container d-flex justify-content-center align-items-center">
+                {article?.fromEnssat ? (
+                  <Image
+                    srcSet={extractFirstImageLink(article.thumbnail)}
+                    onError={handleImageError}
+                    className="img-fluid"
+                    alt="Card"
+                    style={{
+                      borderRadius: '8px', 
+                      maxHeight: '130px',
+                      minHeight: '130px',
+                      objectFit: 'cover',
+                      ...fitImageStyles,
+                    }}
+                  />
+                ) : (
+                  <Image
+                    onError={handleImageError}
+                    src={GetFileFromURL(thumbnail)}
+                    className="img-fluid"
+                    alt="Card"
+                    style={{
+                      borderRadius: '8px',
+                      maxHeight: '130px',
+                      minHeight: '130px',
+                      objectFit: 'cover',
+                      ...fitImageStyles,
+                    }}
+                  />
+                )}
+              </div>
               </Col>
               <Col xs={8}>
-                <Row className="tags-row">
-                  <div className="mb-3">
-                    {article_tags.slice(0, 2).map((tag: any, index: any) => (
-                        <Tag key={index} text={tag}></Tag>
-                    ))}
-
-                  </div>
-
-                </Row>
+              <Row className="tags-row">
+              <div className="mb-3">
+                {article_tags.slice(0, 2).map((tag: any, index: any) => (
+                  <Tag key={index} text={tag}></Tag>
+                ))}
+              </div>
+            </Row>
                 <Row className="title-row">
                   <Heading6 style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                     {title}

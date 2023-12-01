@@ -12,6 +12,7 @@ const CategoriesCard = ({ categories }: { categories: any[] }) => {
             {categories.map((category, index) => (
               <CategoryItem
                 key={index}
+                id = {category.id}
                 title={category.title}
                 articleCount={category.articleCount}
               />

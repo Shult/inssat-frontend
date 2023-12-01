@@ -22,7 +22,6 @@ const FeaturedUpdate = ({ article }:any) => {
         <Card
             className="horizontal-card mb-3"
             style={{
-                height: "25vh",
                 borderRadius: '8px',
                 border: '0',
                 background: 'var(--featured-gradient)',

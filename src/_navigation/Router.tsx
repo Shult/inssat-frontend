@@ -33,7 +33,9 @@ const Router = () => {
             <Route path="/myaccount" Component={MyAccount}/>
             <Route path="/newPostEditor" Component={ArticleCreation}/>
             <Route path="/article/:id" Component={Article.Details}/>
+            <Route path="/article/:id/edit" Component={Article.Edit}/>
             <Route path="/article/new" Component={Article.New}/>
+            <Route path="/category/:name/:id" Component={Article.ByCategory}/>
             <Route path="/category/:name" Component={Category.Details} />
 
             {/* PageNotFound */}
