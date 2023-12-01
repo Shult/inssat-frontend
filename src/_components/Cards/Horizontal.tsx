@@ -24,6 +24,7 @@ const HorizontalCard = ({ article }: any) => {
       <a href={
         article?.fromEnssat ? article.link : `/article/${id}` 
          }
+        target={article?.fromEnssat ? "_blank" : "_self"}
         style={{ textDecoration: 'none', color: 'inherit' }
       }>
         <Card className="horizontal-card mb-3" style={{ borderRadius: '8px', boxShadow: 'var(--box-shadow)' }}>
