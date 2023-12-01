@@ -78,10 +78,10 @@ export function formatDateInFrench(dateString: string): string {
 export const extractFirstImageLink = (htmlString : any) => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlString, "text/html");
-    const imgElement = doc.querySelector("a");
+    const imgElement = doc.querySelector("img");
     // console.log("imgElement = " + imgElement)
     if (imgElement) {
-        return imgElement.href;
+        return imgElement.src;
     }
     return loadImage("_user/Unknown.png");
 }

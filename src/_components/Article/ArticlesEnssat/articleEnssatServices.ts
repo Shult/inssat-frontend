@@ -15,8 +15,8 @@ export const fetchRSSFeed = async () => {
     let textJson = JSON.parse(xml2json(text, { compact: true }));
 
     // Full Json from ENSSAT rss flux
-    //let jsonEnssatArticles = JSON.stringify(textJson, null, 2);
-    //console.log("Full json : "+jsonEnssatArticles);
+    // let jsonEnssatArticles = JSON.stringify(textJson, null, 2);
+    // console.log("Full json : "+jsonEnssatArticles);
 
     //console.log("Get the information about the website article")
     //let title = textJson.feed.title._text;
