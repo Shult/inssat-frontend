@@ -1,0 +1,16 @@
+#dropdown-basic{
+    border-radius: 20px;
+    background-color: #BF9E4E;
+    border-style: none;
+    color: #2E2E2E;
+    font-weight: bold;
+    font-family: Inter, "Roboto Light", serif;
+}
+
+#dropdown-button-golden:hover {
+    border-color: #D2BB83;
+}
+
+#separator {
+    margin-top: 1%;
+}

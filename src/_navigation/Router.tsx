@@ -11,6 +11,8 @@ import MyAccount from "../_pages/MyAccount/MyAccount";
 import HomeExternal from "../_pages/HomeExternal/HomeExternal";
 import {RoleManager} from "./RoleManager";
 import Home from "../_pages/Home";
+import ActivityReport from "../_pages/ActivityReport/ActivityReport"
+import ActivityReportView from "../_pages/ActivityReport/ActivityReportView/ActivityReportView"
 
 const Router = () => {
     const roleManager = RoleManager()
@@ -37,6 +39,8 @@ const Router = () => {
             <Route path="/article/new" Component={Article.New}/>
             <Route path="/category/:name/:id" Component={Article.ByCategory}/>
             <Route path="/category/:name" Component={Category.Details} />
+            <Route path="/activityReport/" Component={ActivityReport} />
+            <Route path="/activityReportView/" Component={ActivityReportView} />
 
             {/* PageNotFound */}
             <Route path="*" Component={PageNotFound}/>

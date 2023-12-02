@@ -1,0 +1,23 @@
+.grade {
+    color: #556A68;
+    font-family: "Inter-ExtraBold", Helvetica, serif;
+    font-size: 60px;
+    font-weight: 800;
+    text-align: right;
+}
+
+.under {
+    color: #2E2E2E;
+    font-family: "Inter-Bold", Helvetica, serif;
+    font-size: 30px;
+    font-weight: 700;
+    text-align: left;
+    vertical-align: bottom;
+    position: relative;
+}
+
+.span {
+    position: absolute;
+    bottom: 13px;
+    left:0;
+}
