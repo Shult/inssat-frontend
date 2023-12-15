@@ -27,7 +27,7 @@ const ApprenticeshipManagement = () => {
     }, []);
 
     function getAssociationsBySearch(searched: string, associations: AssociationInterface[]){
-        if (searched.length <= 3){ return associations }
+        if (searched.length < 2){ return associations }
         else {
             let newList = []
             searched = searched.toUpperCase()

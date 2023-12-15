@@ -1,4 +1,4 @@
-import UserSelector from '../../../_components/User/UserSelector';
+import UserDropdown from '../../../_components/User/UserDropdown';
 import Button from '../../../_components/Clickable/Button';
 
 import {getUsersMock} from '../../../_components/User/User.api';
@@ -19,8 +19,8 @@ const ModalAssociationUpdate = ({studentUUID}: any) => {
                     />
                     <h6>Student : {getUsersMock('uuid', studentUUID)?.pop()?.firstname} {getUsersMock('uuid', studentUUID)?.pop()?.lastname}</h6>
                 </div>
-                <UserSelector className={'w100'} id={'select-tutor'} usertype={'teacher'}/>
-                <UserSelector className={'w100'} id={'select-supervisor'} usertype={'supervisor'}/>
+                <UserDropdown className={'w100'} id={'select-tutor'} usertype={'teacher'}/>
+                <UserDropdown className={'w100'} id={'select-supervisor'} usertype={'supervisor'}/>
 
                 <div className={'line w100 space-around'}>
                     <Button className={'buttonSuccess'}

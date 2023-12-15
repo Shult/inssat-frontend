@@ -10,6 +10,8 @@ import { deleteAssociationMock } from "../../../_components/User/ApprenticeshipA
 
 import "./ApprenticeshipManagement.table.css"
 import {AssociationInterface} from "../../../_components/User/ApprenticeshipAssociation/Association.interface";
+import {Simulate} from "react-dom/test-utils";
+import submit = Simulate.submit;
 
 const ApprenticeshipManagementTable = ({associations}: any) => {
     const [showModalUpdate, setShowModalUpdate] = useState(false);
@@ -77,8 +79,8 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                                 </td>
                                 <td>
                                     <button onClick={() => {
-                                        console.log("clicked delete ", association.studentUUID)
-                                        deleteAssociationMock(association.studentUUID)
+                                        window.confirm("Confirmez-vous la suppression de cette association ?") ?
+                                            deleteAssociationMock(association.studentUUID) : console.log()
                                     }}>
                                         <CDBSidebarMenuItem icon={"trash"}/>
                                     </button>
@@ -94,10 +96,10 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                         name={'DeleteAllPosts'}
                         content={'Tout supprimer'}
                         onclick={() => {
-                            console.log("clicked delete all")
-                            deleteAssociationSelected()
+                            if( window.confirm("Confirmez-vous la suppression de ces associations ?") ) {
+                                deleteAssociationSelected()
                             }
-                        }
+                        }}
                 />
             </div>
 
