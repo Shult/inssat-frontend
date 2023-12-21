@@ -70,7 +70,7 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                                     </div>
                                 </td>
                                 <td>
-                                    <button onClick={() => {
+                                    <button id="edit-button" onClick={() => {
                                         setShowModalUpdate(!showModalUpdate)
                                         setStudentUUID(association.studentUUID)
                                     }}>
@@ -78,7 +78,7 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                                     </button>
                                 </td>
                                 <td>
-                                    <button onClick={() => {
+                                    <button id="delete-button"  onClick={() => {
                                         window.confirm("Confirmez-vous la suppression de cette association ?") ?
                                             deleteAssociationMock(association.studentUUID) : console.log()
                                     }}>

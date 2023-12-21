@@ -63,7 +63,8 @@
 #ApprenticeshipManagementTable .sc-Nxspf,
 #ApprenticeshipManagementTable .cvIITU,
 #ApprenticeshipManagementTable .gmeTLe,
-#ApprenticeshipManagementTable button
+#ApprenticeshipManagementTable #edit-button,
+#ApprenticeshipManagementTable #delete-button
 {
     background: inherit;
     padding: 0;
