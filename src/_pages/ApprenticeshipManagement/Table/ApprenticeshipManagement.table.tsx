@@ -10,8 +10,6 @@ import { deleteAssociationMock } from "../../../_components/User/ApprenticeshipA
 
 import "./ApprenticeshipManagement.table.css"
 import {AssociationInterface} from "../../../_components/User/ApprenticeshipAssociation/Association.interface";
-import {Simulate} from "react-dom/test-utils";
-import submit = Simulate.submit;
 
 const ApprenticeshipManagementTable = ({associations}: any) => {
     const [showModalUpdate, setShowModalUpdate] = useState(false);
@@ -22,7 +20,7 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
             <article className={"line w100 space-around"} id={"ApprenticeshipManagementTable"}>
 
                 <Modal show={showModalUpdate} onClose={() => setShowModalUpdate(false)}>
-                    <ModalAssociationUpdate studentUUID={studentUUID}/>
+                    <ModalAssociationUpdate onValidate={() => setShowModalUpdate(false)} show={showModalUpdate} studentUUID={studentUUID}/>
                 </Modal>
 
                 <table className={"w100"}>

@@ -1,8 +1,6 @@
 import {AssociationInterface} from "./Association.interface";
 import client from "../../../_api/client";
-import {associationMock, usersMock} from "../User.mock";
-import {getUsersMock} from "../User.api";
-import {UserInterface} from "../User.interface";
+import {associationMock} from "../User.mock";
 
 /*
  * Mock functions
@@ -51,7 +49,7 @@ function createAssociationMock(student: string, tutor: string, supervisor: strin
     let i = 0
     let found = false
 
-    console.log(student, tutor, supervisor)
+    // console.log(student, tutor, supervisor)
 
     while ( i < associations.length && !found) {
         console.log("looking for association...")
@@ -70,11 +68,16 @@ function updateAssociationMock(student: string, tutor: string, supervisor: strin
     let i = 0
     let found = false
 
+    // console.log(student, tutor, supervisor)
+
     while ( i < associations.length && !found) {
+        console.log("looking for association...")
         associations[i].studentUUID === student ? found = true :  i++
     }
 
     if (found){
+        console.log("updating association...")
+
         if (associations[i].tutorUUID !== tutor) {
             associations[i].tutorUUID = tutor
         }
@@ -90,11 +93,17 @@ function deleteAssociationMock(student: string){
     let i = 0
     let found = false
 
+    // console.log(student, tutor, supervisor)
+
     while ( i < associations.length && !found) {
+        console.log("looking for association...")
         associations[i].studentUUID === student ? found = true :  i++
     }
 
-    if (found) { associationMock.splice(i, 1) }
+    if (found) {
+        console.log("deleting association...")
+        associationMock.splice(i, 1)
+    }
 }
 
 /*

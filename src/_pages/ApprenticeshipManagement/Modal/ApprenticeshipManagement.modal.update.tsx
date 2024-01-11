@@ -5,9 +5,15 @@ import {getUsersMock} from '../../../_components/User/User.api';
 import {updateAssociationMock} from '../../../_components/User/ApprenticeshipAssociation/Association.api';
 
 import './ApprenticeshipManagement.modal.css'
+import React from "react";
 
-const ModalAssociationUpdate = ({studentUUID}: any) => {
-    return (
+interface ModalAssociationUpdtProps {
+    onValidate: () => void;
+    show: boolean;
+    studentUUID: string;
+}
+const ModalAssociationUpdate: React.FC<ModalAssociationUpdtProps> = ({ onValidate, show, studentUUID }) => {
+    if (!show) return null;    return (
         <>
             <article className={'line w100 space-between ApprenticeshipManagementModal'}>
                 <h2 className={'w100'}>Mettre à jour l'association</h2>
@@ -32,6 +38,7 @@ const ModalAssociationUpdate = ({studentUUID}: any) => {
                                     (document.getElementById('select-tutor') as HTMLSelectElement).value,
                                     (document.getElementById('select-supervisor') as HTMLSelectElement).value
                                 )
+                                onValidate()
                             }
                     }
                     />
