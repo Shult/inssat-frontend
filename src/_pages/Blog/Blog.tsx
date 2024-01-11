@@ -46,8 +46,8 @@ const Blog = () => {
                     placeholder={'Recherche par nom...'}
                     onChange={ e => setSearched(e.target.value) }
                 />
-                <button className={'buttonWhite'} onClick={() => setShowChild(!showChild)}>
-                    {showChild ? ' + Nouvelle publication' : ' + Nouvelle publication'}
+                <button className={'buttonWhite'} onClick={() => document.location.href = "/article/new"}>
+                    + Nouvelle publication
                 </button>
 
                 <Modal show={showChild} onClose={() => setShowChild(false)}>
