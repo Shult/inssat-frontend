@@ -3,11 +3,15 @@ import React from "react";
 import Button from "../../_components/Clickable/Button";
 
 import "./ApprenticeshipTickets.css"
+import { apprenticeshipTicketsMock, dataSuiviMock } from "../../_components/ApprenticeshipTickets/Services/apprenticeshipTickets.mock";
+import SuiviInfoCard from "../../_components/ApprenticeshipTickets/SuiviCard/SuiviInfoCard";
+import BilanAccordion from "../../_components/ApprenticeshipTickets/BilanAccordion/BilanAccordion";
 
 const ApprenticeshipTickets = () => {
 
 
-    
+    const { company, student, supervisor, teacher } = dataSuiviMock;
+    const listTickets = apprenticeshipTicketsMock;
 
     return (
         <div>
@@ -22,74 +26,22 @@ const ApprenticeshipTickets = () => {
                     <Card.Title>Fiche de suivi</Card.Title>
                     <Row>
                         <Col className="container">
-                        <Card>
-                            <Card.Body>
-                                <Card.Title>Entreprise</Card.Title>
-                                <ul>
-                                    <li>Nom : Groupama Support et Service</li>
-                                    <li>Nom : Groupama Support et Service</li>
-                                    <li>Nom : Groupama Support et Service</li>
-                                    <li>Nom : Groupama Support et Service</li>
-                                </ul>
-
-                            </Card.Body>
-
-                        </Card>
+                            <Card>
+                                <Card.Body>
+                                    <Card.Title>Entreprise</Card.Title>
+                                    <ul>
+                                        <li>Nom : {company.name}</li>
+                                        <li>Adresse : {company.address}</li>
+                                        <li>Ville : {company.city}</li>
+                                    </ul>
+                                </Card.Body>
+                            </Card>
                         </Col>
-
-                        <Col className="container">
-                        <Card>
-                            <Card.Body>
-                                <Card.Title>Maitre d'apprentissage</Card.Title>
-                                <ul>
-                                    <li>Nom : Groupama Support et Service</li>
-                                    <li>Nom : Groupama Support et Service</li>
-                                    <li>Nom : Groupama Support et Service</li>
-                                    <li>Nom : Groupama Support et Service</li>
-                                </ul>
-
-                            </Card.Body>
-
-                        </Card>
-                        </Col>
-
-                        </Row>
-
-                        <Row>
-
-                        <Col className="container">
-
-                        <Card>
-                            <Card.Body>
-                                <Card.Title>Tuteur</Card.Title>
-                                <ul>
-                                    <li>Nom : Groupama Support et Service</li>
-                                    <li>Nom : Groupama Support et Service</li>
-                                    <li>Nom : Groupama Support et Service</li>
-                                    <li>Nom : Groupama Support et Service</li>
-                                </ul>
-
-                            </Card.Body>
-
-                        </Card>
-                        </Col>
-
-                        <Col className="container">
-                        <Card>
-                            <Card.Body>
-                                <Card.Title>Elève</Card.Title>
-                                <ul>
-                                    <li>Nom : Groupama Support et Service</li>
-                                    <li>Nom : Groupama Support et Service</li>
-                                    <li>Nom : Groupama Support et Service</li>
-                                    <li>Nom : Groupama Support et Service</li>
-                                </ul>
-
-                            </Card.Body>
-
-                        </Card>
-                        </Col>
-
+                        <SuiviInfoCard title="Maitre d'apprentissage" data={supervisor} />
+                    </Row>
+                    <Row>
+                        <SuiviInfoCard title="Tuteur" data={teacher} />
+                        <SuiviInfoCard title="Elève" data={student} />
                     </Row>
                 </Card.Body>
             </Card>
@@ -101,77 +53,10 @@ const ApprenticeshipTickets = () => {
                 <Card.Body>
                     <Card.Title>Tickets d'évaluations</Card.Title>
                     
+                    <BilanAccordion bilans={apprenticeshipTicketsMock} />
+                
 
-                    <div className="container">
-                    <Accordion>
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header>Bilan période 1</Accordion.Header>
-                            <Accordion.Body>
-                                <Row>
-                                    <Col>
-                                        <div>
-                                            <p>Travail réalisé en entreprise : </p><span>17 / 20</span>
-                                        </div>
-                                    </Col>
-                                    <Col>
-                                        <div>
-                                            <p>Rapport écrit rendu à l'école : </p><span>17 / 20</span>
-                                        </div>
-                                    </Col>
-                                    <Col>
-                                        <div>
-                                            <p>Soutenance orale : </p><span>17 / 20</span>
-                                        </div>
-                                    </Col>
-                                    <Col>
-                                        <div>
-                                            <p>Note finale : </p><span>17 / 20</span>
-                                        </div>
-                                    </Col>
-                                    <Col>
-                                    <Button className={"buttonGold txtCenter"}
-                            content={"Détail"} />
-                             {/* Ajouter redirection vers Sylvain */}
-                                    </Col>
-                                </Row>
-                            
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="1">
-                            <Accordion.Header>Bilan période 2</Accordion.Header>
-                            <Accordion.Body>
-                                <Row>
-                                    <Col>
-                                        <div>
-                                            <p>Travail réalisé en entreprise : </p><span>17 / 20</span>
-                                        </div>
-                                    </Col>
-                                    <Col>
-                                        <div>
-                                            <p>Rapport écrit rendu à l'école : </p><span>17 / 20</span>
-                                        </div>
-                                    </Col>
-                                    <Col>
-                                        <div>
-                                            <p>Soutenance orale : </p><span>17 / 20</span>
-                                        </div>
-                                    </Col>
-                                    <Col>
-                                        <div>
-                                            <p>Note finale : </p><span>17 / 20</span>
-                                        </div>
-                                    </Col>
-                                    <Col>
-                                    <Button className={"buttonGold txtCenter"}
-                            content={"Détail"} />
-                             {/* Ajouter redirection vers Sylvain */}
-                                    </Col>
-                                </Row>
-                            
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                    </div>
+                    
                     <div className="container center">
                     <Button className={"buttonWhite txtCenter"}
                             content={"Créer un nouveau tickets"} />
