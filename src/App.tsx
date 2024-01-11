@@ -60,7 +60,7 @@ function App() {
   return (
     <BrowserRouter>
        <div style={styles.dashboard}>
-        <div>
+        <div id={"divSideNav"}>
           <Sidebar />
         </div>
 
