@@ -8,7 +8,7 @@ const ParagraphStd =  ({ children } : { children: React.ReactNode }) => {
 
 // Small Paragraph
 const ParagraphSm =  ({ children }: { children: React.ReactNode }) => {
-  return <p className="paragraph-sm" >{children}</p>;
+  return <p className="paragraph-sm">{children}</p>;
 };
 
 export { ParagraphStd, ParagraphSm };

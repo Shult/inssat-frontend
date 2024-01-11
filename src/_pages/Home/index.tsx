@@ -19,7 +19,7 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
-        console.log(articles)
+        // console.log(articles)
     }, [articles]);
 
     return (
