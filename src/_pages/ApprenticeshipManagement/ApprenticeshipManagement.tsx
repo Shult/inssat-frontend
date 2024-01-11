@@ -6,7 +6,6 @@ import ApprenticeshipManagementTable from "./Table/ApprenticeshipManagement.tabl
 import ModalAssociationCreation from "./Modal/ApprenticeshipManagement.modal.create";
 
 import {getUsersMock} from "../../_components/User/User.api";
-import {getAssociationsMock} from "../../_components/User/ApprenticeshipAssociation/Association.api";
 import {AssociationInterface} from "../../_components/User/ApprenticeshipAssociation/Association.interface";
 import {associationMock} from "../../_components/User/User.mock";
 
@@ -70,7 +69,7 @@ const ApprenticeshipManagement = () => {
             </section>
 
             <Modal show={showModalCreation} onClose={() => setShowModalCreation(false)}>
-                <ModalAssociationCreation/>
+                <ModalAssociationCreation onValidate={() => setShowModalCreation(false)} show={showModalCreation}/>
             </Modal>
 
             <ApprenticeshipManagementTable associations={getAssociationsBySearch(searched, associations)}/>

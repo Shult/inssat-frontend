@@ -1,6 +1,8 @@
 import {AssociationInterface} from "./Association.interface";
 import client from "../../../_api/client";
-import {associationMock} from "../User.mock";
+import {associationMock, usersMock} from "../User.mock";
+import {getUsersMock} from "../User.api";
+import {UserInterface} from "../User.interface";
 
 /*
  * Mock functions
@@ -42,17 +44,26 @@ function getAssociationsMock(student?: string, tutor?: string, supervisor?: stri
 
     return newList.length > 0 ? newList : associations
 }
+// function createAssociationMock(student: UserInterface, tutor: UserInterface, supervisor: UserInterface){
 function createAssociationMock(student: string, tutor: string, supervisor: string){
+
     let associations: AssociationInterface[] = associationMock
     let i = 0
     let found = false
 
-    while ( i < associations.length && !found) { associations[i].studentUUID === student ? found = true : i++ }
+    console.log(student, tutor, supervisor)
+
+    while ( i < associations.length && !found) {
+        console.log("looking for association...")
+        associations[i].studentUUID === student ? found = true : i++
+    }
 
     if (!found){
+        console.log("creating new association...")
         associationMock.push({studentUUID: student, tutorUUID: tutor, supervisorUUID: supervisor})
     }
 }
+
 
 function updateAssociationMock(student: string, tutor: string, supervisor: string){
     let associations: AssociationInterface[] = associationMock

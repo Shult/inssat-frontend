@@ -7,7 +7,7 @@ import "./UserDropdown.css"
 const UserDropdown = ({className = "w33", id = "select-user", usertype = "user"}) => {
     const [focused, setFocus] = useState(false)
     const [searched, setSearched] = useState("");
-    const [searchedValue, setValue] = useState( "");
+    const [searchedValue, setValue] = useState<UserInterface | null>(null);
     const users = getUserBySearch(searched)
 
     function getUserBySearch(searched: string, users: UserInterface[] = getUsersMock("group", usertype)){
@@ -32,27 +32,27 @@ const UserDropdown = ({className = "w33", id = "select-user", usertype = "user"}
     return (
         <div className="w100 dropdown">
             <h5>{usertype}</h5>
-            <input className="w100"
+            <input
+                   className="w100"
                    type={"text"}
-                   name={'searchPostByName'}
+                   name={'searchUserByName'}
                    placeholder={'Recherche par nom...'}
-                   onFocus={ () => setFocus(true) }
                    onChange={ e => setSearched(e.target.value) }
-                   value = { searchedValue? searchedValue : searched }
+                   value = { searchedValue? searchedValue.firstname + " " + searchedValue.lastname : searched }
             />
+            <input
+                id={id}
+                type={"hidden"}
+                value={searchedValue? searchedValue.uuid : searched}
+            />
+
             <div>
-                { focused ? users.map( user =>
+                {users.map( user =>
                     <button key={user.uuid}
                             value={user.uuid}
-                            onClick={() => {
-                                let firstname = getUsersMock("uuid", user.uuid).pop()?.firstname
-                                let lastname = getUsersMock("uuid", user.uuid).pop()?.lastname
-                                let content = firstname+" "+lastname
-                                setValue(content)
-                                setFocus(false)
-                            }}
+                            onClick={() => setValue(user) }
                     >{user.firstname} {user.lastname}</button>
-                ) : <></> }
+                )}
             </div>
 
         </div>
