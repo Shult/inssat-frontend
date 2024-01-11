@@ -1,7 +1,13 @@
-#AppContainer {
-    background: var(--mediumGrey);
+#divSideNav {
+    max-height: 100vh;
+    background: #463c1c;
+}
 
-    flex: 1 1 auto;
-    display: flex;
-    height: 100vh;
+@media (max-width: 1000px){
+
+    #divSideNav > .sidebar-container .toggled {
+        height: 70px;
+        background: #a48231;
+    }
+
 }

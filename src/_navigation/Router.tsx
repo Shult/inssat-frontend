@@ -14,6 +14,7 @@ import Home from "../_pages/Home";
 import ApprenticeshipManagement from "../_pages/ApprenticeshipManagement/ApprenticeshipManagement";
 import ActivityReport from "../_pages/ActivityReport/ActivityReport"
 import ActivityReportView from "../_pages/ActivityReport/ActivityReportView/ActivityReportView"
+import ApprenticeshipTickets from "../_pages/ApprenticeshipTickets/ApprenticeshipTickets";
 
 const Router = () => {
     const roleManager = RoleManager()
@@ -43,6 +44,7 @@ const Router = () => {
             <Route path="/article/new" Component={Article.New}/>
             <Route path="/category/:name/:id" Component={Article.ByCategory}/>
             <Route path="/category/:name" Component={Category.Details} />
+            <Route path="/apprenticeshipTickets" Component={ApprenticeshipTickets}></Route>
             <Route path="/activityReport/" Component={ActivityReport} />
             <Route path="/activityReportView/" Component={ActivityReportView} />
 
