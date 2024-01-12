@@ -1,19 +1,19 @@
-.dropdown {
+.UserDropdown {
     margin-bottom: 20vh;
 }
 
-.dropdown div {
+.UserDropdown div {
     height: 15vh;
     overflow-y: scroll;
 }
 
-.dropdown button {
+.UserDropdown button {
     width: 100%;
     background: var(--lightGrey);
     border: 1px solid var(--mediumGrey);
 }
 
-.dropdown button:hover {
+.UserDropdown button:hover {
     background: var(--goldDark);
     border: 1px solid var(--gold);
     color: white;
