@@ -7,7 +7,7 @@ import Modal from "../../_components/Modal/Modal";
 
 import {Article} from '../../_components/Article/Services/interfacesArticles';
 import {deleteArticle} from "../../_api/article";
-import {getArticles} from "../../_components/Article/ArticleFetchAll";
+import {getArticlesINSSAT} from "../../_components/Article/ArticleFetchAll";
 
 import './Blog.css'
 
@@ -18,7 +18,7 @@ const Blog = () => {
     const [articles, setArticles] = useState<any>([]);
 
     useEffect(() => {
-        getArticles().then(result => setArticles(result))
+        getArticlesINSSAT().then(result => setArticles(result))
     }, []);
 
     function getArticlesByTitle(searched: string, articles: Article[]){

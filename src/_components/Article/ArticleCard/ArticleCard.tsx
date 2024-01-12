@@ -1,13 +1,18 @@
 import React from 'react';
 import "./articleCard.css"
 import Link from "../../Clickable/Link";
-import {extractFirstImageLink, formatDateInFrench, loadImage} from "../Services/articleServices";
+import {extractFirstImageLink, formatDateInFrench} from "../Services/articleServices";
 
 function ArticleCard(props : any) {
     const { article } = props;
 
     // Different printing for the article from Inssat and Enssat
     if(article.fromEnssat){
+        // condition
+        if(article.author_id === "Unknown"){
+            article.author.FIRST_NAME = "Blog"
+            article.author.LAST_NAME = "ENSSAT"
+        }
         return (
             <article className={"line space-between items-center"} id="styleArticle">
                 <div className={"w33 self-stretch"}>
@@ -19,7 +24,6 @@ function ArticleCard(props : any) {
                     <h2 className={"w100"}>
                         <Link key={article.id} href={article.link} content={article.title}/>
                     </h2>
-                    {/*<p className={"w100"}>{article.description}</p>*/}
 
                     <div className={"line w100"} id={"styleDivContentTag"}>
                         {article.article_tags.slice(-4).map((tag : any) => (
@@ -31,7 +35,7 @@ function ArticleCard(props : any) {
                         <img className={"w33"} src={extractFirstImageLink("<div></div>")} alt={article.title} id="styleImgBubble"/>
                         <div className={"w66"}>
                             <p className={"w100"}>
-                                {article.author_id}
+                                {article.author?.FIRST_NAME} {article.author?.LAST_NAME}
                                 <br/>
                                 {formatDateInFrench(article.published_at)}
                             </p>
@@ -41,10 +45,12 @@ function ArticleCard(props : any) {
             </article>
         );
     } else {
+
+        console.log(article.thumbnail)
         return (
             <article className={"line space-between items-center"} id="styleArticle">
                 <div className={"w33 self-stretch"}>
-                    <img src={loadImage(article.thumbnail)} alt={article.title} className={"styleImgSide"}/>
+                    <img src={"https://api.dapi-services.fr/api_blog/uploads/"+article.thumbnail} alt={article.title} className={"styleImgSide"}/>
                 </div>
 
                 <div className={"line w66"} id="styleDivContent">
@@ -64,7 +70,7 @@ function ArticleCard(props : any) {
                         <img className={"w33"} src={extractFirstImageLink("<div></div>")} alt={article.title} id="styleImgBubble"/>
                         <div className={"w66"}>
                             <p className={"w100"}>
-                                {article.author.FIRST_NAME}
+                                {article.author?.FIRST_NAME} {article.author?.LAST_NAME}
                                 <br/>
                                 {formatDateInFrench(article.published_at)}
                             </p>

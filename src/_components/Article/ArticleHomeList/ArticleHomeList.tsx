@@ -30,19 +30,9 @@ const ArticleHomeList = () => {
 
     useEffect(() => {
         if (status === 'idle' && !useEffectBool) {
-            // console.log("Dispatching fetch request");
             dispatch(fetchArticles());
             dispatch(getArticlesREALAPI())
             useEffectBool = true;
-        }
-        else if(status === 'failed'){
-            // console.log("Request failed");
-        }
-        else if(status === 'loading'){
-            // console.log("Request loading");
-        }
-        else if(status === 'succeeded'){
-            // console.log("Request succeeded");
         }
     }, []);
 
@@ -61,7 +51,7 @@ const ArticleHomeList = () => {
     } else {
         return(
             <div>
-                Waiting ...
+                Loading ...
             </div>
         )
     }

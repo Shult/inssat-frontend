@@ -19,33 +19,35 @@ export function ArticleInssatToArticleDetails(articleInssat : ArticleDetails[], 
     }
 }
 export function ArticleEnssatToArticleDetails(articlesEnssat : Article[], articleDetails : ArticleDetails[]){
-    articlesEnssat.forEach((article, index) => {
-        if (article.title && typeof article.title._text === 'string') {
-            // Create a new article object and push it into allArticles
-            const newArticle : ArticleDetails = {
-                id: index,
-                title: article.title._text,
-                description: article.content._text,
-                thumbnail: article.content._text,
-                author_id: article.author.name._text,
-                published_at: article.published._text,
-                article_tags: article.category.map(tag=> (
-                    tag._attributes.term
-                )),
-                category: {
-                    title: "cat0"
-                },
-                author: {
-                    ID: index.toString(),
-                    FIRST_NAME: article.author.name._text,
-                    LAST_NAME: article.author.name._text
-                },
-                fromEnssat: true,
-                link: article.link[2]._attributes.href
-            };
-            articleDetails.push(newArticle);
+    articlesEnssat.forEach(
+        (article, index) => {
+            if (article.title && typeof article.title._text === 'string') {
+                    // Create a new article object and push it into allArticles
+                    const newArticle : ArticleDetails = {
+                        id: index,
+                        title: article.title._text,
+                        description: article.content._text,
+                        thumbnail: article.content._text,
+                        author_id: article.author.name._text,
+                        published_at: article.published._text,
+                        article_tags: article.category.map(tag=> (
+                            tag._attributes.term
+                        )),
+                        category: {
+                            title: "cat0"
+                        },
+                        author: {
+                            ID: index.toString(),
+                            FIRST_NAME: article.author.name._text,
+                            LAST_NAME: article.author.name._text
+                        },
+                        fromEnssat: true,
+                        link: article.link[2]._attributes.href
+                    };
+                articleDetails.push(newArticle);
+            }
         }
-    });
+    );
 }
 
 // Used to load the image, because I faced an issue when I past directly the images
@@ -71,7 +73,7 @@ export function formatDateInFrench(dateString: string): string {
     const heure = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padStart(2, '0');
 
-    return `Publiée le ${dateFormatee} à ${heure}h${minutes}`;
+    return `Publié le ${dateFormatee} à ${heure}h${minutes}`;
 }
 
 // Get the image from the xml from the RSS flux of the ENSSAT
@@ -79,7 +81,7 @@ export const extractFirstImageLink = (htmlString : any) => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlString, "text/html");
     const imgElement = doc.querySelector("img");
-    // console.log("imgElement = " + imgElement)
+
     if (imgElement) {
         return imgElement.src;
     }

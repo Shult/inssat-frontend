@@ -10,8 +10,10 @@ import {
 
 
 // ARTICLES
+export const getArticlesCrossOrigin = () => fetchArticlesMultiOrigins()
+export const getArticlesINSSAT = () => fetchArticlesINSSAT()
 
-export const getArticles = () => fetchArticlesMultiOrigins()
+
 async function fetchArticlesMultiOrigins() {
     let allArticles: ArticleDetails[] = []
     const articlesInssat = await getArticlesWithDetails()
@@ -20,6 +22,16 @@ async function fetchArticlesMultiOrigins() {
         ArticleInssatToArticleDetails(articlesInssat.data, allArticles)
     }
     ArticleEnssatToArticleDetails(articlesEnssat.articles, allArticles)
+    SortArticleByDate(allArticles)
+    return allArticles
+}
+
+async function fetchArticlesINSSAT() {
+    let allArticles: ArticleDetails[] = []
+    const articlesInssat = await getArticlesWithDetails()
+    if (articlesInssat.ok){
+        ArticleInssatToArticleDetails(articlesInssat.data, allArticles)
+    }
     SortArticleByDate(allArticles)
     return allArticles
 }

@@ -41,7 +41,6 @@ function App() {
 
         apiClient.addRequestTransform(request => {
             setLoading(true);
-
           });
 
         apiClient.addResponseTransform(response => {
