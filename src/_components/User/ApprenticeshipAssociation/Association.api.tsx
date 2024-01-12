@@ -1,159 +1,63 @@
+import {
+    getAssociations,
+    getAssociationByStudentID,
+    createAssociation,
+    updateAssociation,
+    deleteAssociation,
+} from "../../../_api/association";
 import {AssociationInterface} from "./Association.interface";
 import client from "../../../_api/client";
-import {associationMock} from "../User.mock";
+import {createArticle} from "../../../_api/article";
+import {useRef} from "react";
 
-/*
- * Mock functions
- */
 
-function getAssociationsMock(student?: string, tutor?: string, supervisor?: string){
-    let associations: AssociationInterface[] = associationMock
-    let newList: AssociationInterface[] = []
+// GETTER
+const getAllAssociations = () => fetchAssociations()
+const getAssociationByStudent = () => fetchAssociationByStudent()
 
-    let i = 0;
-    if (student){
-        while ( i < associations.length && associations[i].studentUUID !== student) {
-            if (associations[i].studentUUID === student) {
-                newList.push(associations[i])
-            }
+async function fetchAssociations() {
+    let associations : AssociationInterface[] = []
+    const request = await getAssociations()
+    if (request.ok){
+        associations = request.data
+    }
+    return associations
+}
+
+async function fetchAssociationByStudent(){
+    let association : AssociationInterface = { studentUUID: "", tutorUUID: "", supervisorUUID: ""}
+    const request = await getAssociationByStudentID()
+    if (request.ok){
+        association = request.data
+    }
+    return association
+}
+
+// CRUD
+const newAssociation = () => {
+    if (form.checkValidity()) {
+        const formData = new FormData();
+
+        formData.append('studentUUID', document.querySelector('input[id="select-student"]')?.nodeValue)
+        formData.append('tutorUUID', document.querySelector('input[id="select-tutor"]')?.nodeValue)
+        formData.append('supervisorUUID', document.querySelector('input[id="select-supervisor"]')?.nodeValue)
+
+        try {
+            const response = await createAssociation(formData);
+            response.ok ? console.log('Created') : console.error('Failed', response.problem);
         }
-        i++
-    }
-
-    i = 0;
-    if (tutor){
-        while ( i < associations.length && associations[i].tutorUUID !== tutor) {
-            if (associations[i].tutorUUID === tutor) {
-                newList.push(associations[i])
-            }
-        }
-        i++
-    }
-
-    i = 0;
-    if (supervisor){
-        while ( i < associations.length && associations[i].supervisorUUID !== supervisor) {
-            if (associations[i].supervisorUUID === supervisor) {
-                newList.push(associations[i])
-            }
-        }
-        i++
-    }
-
-    return newList.length > 0 ? newList : associations
+        catch (error) { console.error('Error:', error) }
+    } else { console.log('Form is invalid') }
 }
-// function createAssociationMock(student: UserInterface, tutor: UserInterface, supervisor: UserInterface){
-function createAssociationMock(student: string, tutor: string, supervisor: string){
+const modifyAssociation = () => updateAssociation()
+const removeAssociation = () => deleteAssociation()
 
-    let associations: AssociationInterface[] = associationMock
-    let i = 0
-    let found = false
-
-    // console.log(student, tutor, supervisor)
-
-    while ( i < associations.length && !found) {
-        console.log("looking for association...")
-        associations[i].studentUUID === student ? found = true : i++
-    }
-
-    if (!found){
-        console.log("creating new association...")
-        associationMock.push({studentUUID: student, tutorUUID: tutor, supervisorUUID: supervisor})
-    }
-}
-
-
-function updateAssociationMock(student: string, tutor: string, supervisor: string){
-    let associations: AssociationInterface[] = associationMock
-    let i = 0
-    let found = false
-
-    // console.log(student, tutor, supervisor)
-
-    while ( i < associations.length && !found) {
-        console.log("looking for association...")
-        associations[i].studentUUID === student ? found = true :  i++
-    }
-
-    if (found){
-        console.log("updating association...")
-
-        if (associations[i].tutorUUID !== tutor) {
-            associations[i].tutorUUID = tutor
-        }
-        if (associations[i].supervisorUUID !== supervisor) {
-            associations[i].supervisorUUID = supervisor
-        }
-    }
-}
-
-
-function deleteAssociationMock(student: string){
-    let associations: AssociationInterface[] = associationMock
-    let i = 0
-    let found = false
-
-    // console.log(student, tutor, supervisor)
-
-    while ( i < associations.length && !found) {
-        console.log("looking for association...")
-        associations[i].studentUUID === student ? found = true :  i++
-    }
-
-    if (found) {
-        console.log("deleting association...")
-        associationMock.splice(i, 1)
-    }
-}
-
-/*
- * Database functions
- */
-
-const getAssociations = (key?: string, value?: any) => fetchAssociations(key, value)
-
-async function fetchAssociations (key?: string, value?: any): Promise<AssociationInterface[]> {
-    const response = await fetchAssociationsDB(key, value)
-    return response.data as AssociationInterface[]
-}
-
-const fetchAssociationsDB = (key?: string, value?: any) => key? client.get(`/associations/details/${value}`) : client.get(`/associations/details`)
-
-const createAssociation = (formData: any) => {
-    return client.post('/associations', formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        },
-    })
-}
-
-const updateAssociation = (id: string, formData: any) => {
-    return client.put(`/associations/${id}`, formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        },
-    })
-}
-
-const deleteAssociation = (id: string) => {
-    return client.delete(`/associations/${id}`, id, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        },
-    })
-}
 
 
 export {
-    // Mock
-    getAssociationsMock,
-    createAssociationMock,
-    updateAssociationMock,
-    deleteAssociationMock,
-
-    // Database
     getAssociations,
-    createAssociation,
-    updateAssociation,
-    deleteAssociation
+    getAssociationByStudent,
+    newAssociation,
+    modifyAssociation,
+    removeAssociation
 }
