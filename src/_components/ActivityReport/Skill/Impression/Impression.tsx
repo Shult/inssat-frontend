@@ -37,10 +37,11 @@ function Impression(data : any) {
     if(!activity.is_free){
         return(
             <Row>
-                <Col xs={9}>
+                {/*xs={12} md={12} lg={12} xl={5}*/}
+                <Col xs={12} md={12} lg={12} xl={9}>
                     <Activity activity={ activity.name }></Activity>
                 </Col>
-                <Col xs={3}>
+                <Col xs={12} md={12} lg={12} xl={3}>
                     <Dropdown onSelect={handleSelect}>
                         <Dropdown.Toggle variant="success" id="dropdown-basic" className={"shadow"} style={dropdownStyle}>
                             { title }
@@ -63,10 +64,10 @@ function Impression(data : any) {
     } else{
         return(
             <Row>
-                <Col xs={4}>
+                <Col xs={12} md={12} lg={12} xl={4}>
                     <Activity activity={ activity.name }></Activity>
                 </Col>
-                <Col xs={8}>
+                <Col xs={12} md={12} lg={12} xl={8}>
                     <Form.Control as="textarea" rows={3} placeholder="Commentaire" id={"text-form"}/>
                 </Col>
                 <hr className="separator" id={'separator'}/>
