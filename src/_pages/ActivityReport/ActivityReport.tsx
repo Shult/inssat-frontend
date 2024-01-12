@@ -27,10 +27,10 @@
         return(
             <div className="container" id={"activityReport"}>
                 <Row>
-                    <Col xs={3}>
+                    <Col xs={12} md={12} lg={3} xl={3}>
                         <h2 className="heading2">Bilan d'activités </h2>
                     </Col>
-                    <Col xs={9}>
+                    <Col xs={12} md={12} lg={9} xl={9}>
                         <Dropdown onSelect={handleSelect}>
                             <Dropdown.Toggle variant="success" id="dropdown-basic" className={"shadow activity-report-title"}>
                                 { title }
