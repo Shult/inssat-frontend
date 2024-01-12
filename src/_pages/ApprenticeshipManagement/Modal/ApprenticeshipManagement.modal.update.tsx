@@ -1,13 +1,19 @@
-import UserSelector from '../../../_components/User/UserSelector';
+import UserDropdown from '../../../_components/User/UserDropdown';
 import Button from '../../../_components/Clickable/Button';
 
 import {getUsersMock} from '../../../_components/User/User.api';
 import {updateAssociationMock} from '../../../_components/User/ApprenticeshipAssociation/Association.api';
 
 import './ApprenticeshipManagement.modal.css'
+import React from "react";
 
-const ModalAssociationUpdate = ({studentUUID}: any) => {
-    return (
+interface ModalAssociationUpdtProps {
+    onValidate: () => void;
+    show: boolean;
+    studentUUID: string;
+}
+const ModalAssociationUpdate: React.FC<ModalAssociationUpdtProps> = ({ onValidate, show, studentUUID }) => {
+    if (!show) return null;    return (
         <>
             <article className={'line w100 space-between ApprenticeshipManagementModal'}>
                 <h2 className={'w100'}>Mettre à jour l'association</h2>
@@ -19,8 +25,8 @@ const ModalAssociationUpdate = ({studentUUID}: any) => {
                     />
                     <h6>Student : {getUsersMock('uuid', studentUUID)?.pop()?.firstname} {getUsersMock('uuid', studentUUID)?.pop()?.lastname}</h6>
                 </div>
-                <UserSelector className={'w100'} id={'select-tutor'} usertype={'teacher'}/>
-                <UserSelector className={'w100'} id={'select-supervisor'} usertype={'supervisor'}/>
+                <UserDropdown className={'w100'} id={'select-tutor'} usertype={'teacher'}/>
+                <UserDropdown className={'w100'} id={'select-supervisor'} usertype={'supervisor'}/>
 
                 <div className={'line w100 space-around'}>
                     <Button className={'buttonSuccess'}
@@ -32,6 +38,7 @@ const ModalAssociationUpdate = ({studentUUID}: any) => {
                                     (document.getElementById('select-tutor') as HTMLSelectElement).value,
                                     (document.getElementById('select-supervisor') as HTMLSelectElement).value
                                 )
+                                onValidate()
                             }
                     }
                     />

@@ -27,6 +27,10 @@
     padding: 0.5rem;
 }
 
+#ApprenticeshipManagementTable thead {
+    height: 20px;
+}
+
 #ApprenticeshipManagementTable th {
     background: var(--gold);
 
@@ -59,7 +63,8 @@
 #ApprenticeshipManagementTable .sc-Nxspf,
 #ApprenticeshipManagementTable .cvIITU,
 #ApprenticeshipManagementTable .gmeTLe,
-#ApprenticeshipManagementTable button
+#ApprenticeshipManagementTable #edit-button,
+#ApprenticeshipManagementTable #delete-button
 {
     background: inherit;
     padding: 0;

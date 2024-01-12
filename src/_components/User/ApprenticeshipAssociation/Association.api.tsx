@@ -42,28 +42,42 @@ function getAssociationsMock(student?: string, tutor?: string, supervisor?: stri
 
     return newList.length > 0 ? newList : associations
 }
+// function createAssociationMock(student: UserInterface, tutor: UserInterface, supervisor: UserInterface){
 function createAssociationMock(student: string, tutor: string, supervisor: string){
+
     let associations: AssociationInterface[] = associationMock
     let i = 0
     let found = false
 
-    while ( i < associations.length && !found) { associations[i].studentUUID === student ? found = true : i++ }
+    // console.log(student, tutor, supervisor)
+
+    while ( i < associations.length && !found) {
+        console.log("looking for association...")
+        associations[i].studentUUID === student ? found = true : i++
+    }
 
     if (!found){
+        console.log("creating new association...")
         associationMock.push({studentUUID: student, tutorUUID: tutor, supervisorUUID: supervisor})
     }
 }
+
 
 function updateAssociationMock(student: string, tutor: string, supervisor: string){
     let associations: AssociationInterface[] = associationMock
     let i = 0
     let found = false
 
+    // console.log(student, tutor, supervisor)
+
     while ( i < associations.length && !found) {
+        console.log("looking for association...")
         associations[i].studentUUID === student ? found = true :  i++
     }
 
     if (found){
+        console.log("updating association...")
+
         if (associations[i].tutorUUID !== tutor) {
             associations[i].tutorUUID = tutor
         }
@@ -79,11 +93,17 @@ function deleteAssociationMock(student: string){
     let i = 0
     let found = false
 
+    // console.log(student, tutor, supervisor)
+
     while ( i < associations.length && !found) {
+        console.log("looking for association...")
         associations[i].studentUUID === student ? found = true :  i++
     }
 
-    if (found) { associationMock.splice(i, 1) }
+    if (found) {
+        console.log("deleting association...")
+        associationMock.splice(i, 1)
+    }
 }
 
 /*

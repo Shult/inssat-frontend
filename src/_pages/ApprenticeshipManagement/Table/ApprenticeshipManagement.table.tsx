@@ -20,7 +20,7 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
             <article className={"line w100 space-around"} id={"ApprenticeshipManagementTable"}>
 
                 <Modal show={showModalUpdate} onClose={() => setShowModalUpdate(false)}>
-                    <ModalAssociationUpdate studentUUID={studentUUID}/>
+                    <ModalAssociationUpdate onValidate={() => setShowModalUpdate(false)} show={showModalUpdate} studentUUID={studentUUID}/>
                 </Modal>
 
                 <table className={"w100"}>
@@ -68,7 +68,7 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                                     </div>
                                 </td>
                                 <td>
-                                    <button onClick={() => {
+                                    <button id="edit-button" onClick={() => {
                                         setShowModalUpdate(!showModalUpdate)
                                         setStudentUUID(association.studentUUID)
                                     }}>
@@ -76,9 +76,9 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                                     </button>
                                 </td>
                                 <td>
-                                    <button onClick={() => {
-                                        console.log("clicked delete ", association.studentUUID)
-                                        deleteAssociationMock(association.studentUUID)
+                                    <button id="delete-button"  onClick={() => {
+                                        window.confirm("Confirmez-vous la suppression de cette association ?") ?
+                                            deleteAssociationMock(association.studentUUID) : console.log()
                                     }}>
                                         <CDBSidebarMenuItem icon={"trash"}/>
                                     </button>
@@ -94,10 +94,10 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                         name={'DeleteAllPosts'}
                         content={'Tout supprimer'}
                         onclick={() => {
-                            console.log("clicked delete all")
-                            deleteAssociationSelected()
+                            if( window.confirm("Confirmez-vous la suppression de ces associations ?") ) {
+                                deleteAssociationSelected()
                             }
-                        }
+                        }}
                 />
             </div>
 
