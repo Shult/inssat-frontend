@@ -5,7 +5,7 @@ import { ParagraphSm } from "../../../ToolBox/Paragraphs"
 function Assessment({ assessment } : any) {
 
     return (
-        <Col xs={4}>
+        <Col xs={12} md={12} lg={12} xl={4}>
             <h2 className={"heading4"}>{assessment.name}</h2>
             <Form.Control as="textarea" rows={3} placeholder="Commentaire" id={"text-form"}/>
             <Row>

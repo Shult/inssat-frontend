@@ -33,10 +33,10 @@ function ImpressionSkillView({activity, impression} : any) {
     if(!activity.is_free){
         return(
             <Row>
-                <Col xs={9}>
+                <Col xs={12} md={12} lg={9} xl={9}>
                     <p>{activity.name}</p>
                 </Col>
-                <Col xs={3}>
+                <Col xs={12} md={12} lg={3} xl={3}>
                     <>
                         <Button variant="primary" disabled id={'appreciation'} style={{ backgroundColor: getButtonColor(impression.level_id) }}>
                             {impression.level_id}
@@ -49,11 +49,11 @@ function ImpressionSkillView({activity, impression} : any) {
     } else{
         return(
             <Row>
-                <Col xs={4}>
+                <Col xs={12} md={12} lg={4} xl={4}>
                     {/*<Activity activity={ activity.name }></Activity>*/}
                     <p>{activity.name}</p>
                 </Col>
-                <Col xs={8}>
+                <Col xs={12} md={12} lg={8} xl={8}>
                     <p>{impression.content}</p>
                 </Col>
                 <hr className="separator" id={'separator'}/>
