@@ -35,7 +35,6 @@ const Sidebar = () => {
   if (roleManager.isStudent || roleManager.isTeacher){
     localSidebarItems.push({ path: '/', label: 'Dashboard', icon: 'columns' })
     localSidebarItems.push({ path: '/schedule', label: 'Emploi du temps', icon: 'calendar-alt' })
-    localSidebarItems.push({ path: '/apprenticeshipTickets', label: 'Tickets', icon: 'clipboard' })
     localSidebarItems.push({ path: '/courses', label: 'Cours', icon: 'book' })
   }
 
@@ -44,6 +43,8 @@ const Sidebar = () => {
   }
   localSidebarItems.push({ path: '/contact', label: 'Contact', icon: 'address-book' })
   localSidebarItems.push({ path: '/news', label: 'Actualités', icon: 'newspaper' })
+  localSidebarItems.push({ path: '/apprenticeshipTickets', label: 'Tickets', icon: 'clipboard' })
+
 
 
   return (

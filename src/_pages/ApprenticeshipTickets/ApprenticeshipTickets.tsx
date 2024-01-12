@@ -1,19 +1,24 @@
-import { Accordion, Card, Col, Row } from "react-bootstrap"
+import { Card, Col, Row } from "react-bootstrap"
 import React from "react";
 import Button from "../../_components/Clickable/Button";
 
 import "./ApprenticeshipTickets.css"
-import { apprenticeshipTicketsMock, dataSuiviMock } from "../../_components/ApprenticeshipTickets/Services/apprenticeshipTickets.mock";
+import { apprenticeshipTicketsMock, dataSuiviMock, listStudentSuiviMock } from "../../_components/ApprenticeshipTickets/Services/apprenticeshipTickets.mock";
 import SuiviInfoCard from "../../_components/ApprenticeshipTickets/SuiviCard/SuiviInfoCard";
 import BilanAccordion from "../../_components/ApprenticeshipTickets/BilanAccordion/BilanAccordion";
 
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import { RoleManager } from "../../_navigation/RoleManager";
+import ButtonsMenu from "../../_components/ApprenticeshipTickets/ButtonsMenu/ButtonsMenu";
 
 const ApprenticeshipTickets = () => {
 
 
     const { company, student, supervisor, teacher } = dataSuiviMock;
     const listTickets = apprenticeshipTicketsMock;
+    const listStudentSuivi = listStudentSuiviMock;
+
+    const roleManager = RoleManager()
 
     {/*LIEN TEMPORAIRE*/}
     const navigate = useNavigate();
@@ -21,21 +26,43 @@ const ApprenticeshipTickets = () => {
         navigate(path);
     };
 
+    const hasRightMenu = () => {
+        return (roleManager.isApprenticeshipManager || roleManager.isStudentSupervisor || roleManager.isStudentTutor)
+    }
+
     return (
         <div>
             <h1>Fiches de spécification du travail en entreprise, de suivi et de bilan</h1>
 
-            <div className="container">
-
             
+            <div className="container">
+            {hasRightMenu() && listStudentSuivi.length === 1 ?
+                <>
+                    <span>Elève suivi : </span>
+                    <Button
+                    className={"buttonGold txtCenter "}
+                    content={`${listStudentSuivi[0].firstname} ${listStudentSuivi[0].lastname}`} 
+                    />
+                    
+                </> : <></>
+            }
 
+            {hasRightMenu() && listStudentSuivi.length > 1 && listStudentSuivi.length < 6 ?
+                <>
+                    <span>Liste des élèves suivi : </span>
+                        <ButtonsMenu listStudentSuivi={listStudentSuivi}/>
+                </> : <></>
+            }
+            </div>
+
+            <div className="container">
             <Card>
                 <Card.Body>
                     <Card.Title>Fiche de suivi</Card.Title>
                     <Row>
                         <Col className="container">
                             <Card>
-                                <Card.Body>
+                                <Card.Body style={{ backgroundColor: 'var(--gold)', color: 'white' }}>
                                     <Card.Title>Entreprise</Card.Title>
                                     <ul>
                                         <li>Nom : {company.name}</li>
@@ -45,11 +72,11 @@ const ApprenticeshipTickets = () => {
                                 </Card.Body>
                             </Card>
                         </Col>
-                        <SuiviInfoCard title="Maitre d'apprentissage" data={supervisor} />
+                        <SuiviInfoCard title="Maitre d'apprentissage" data={supervisor} style={{ backgroundColor: 'black', color: 'white' }}/>
                     </Row>
                     <Row>
-                        <SuiviInfoCard title="Tuteur" data={teacher} />
-                        <SuiviInfoCard title="Elève" data={student} />
+                        <SuiviInfoCard title="Tuteur" data={teacher} style={{ backgroundColor: 'var(--gold)', color: 'white' }}/>
+                        <SuiviInfoCard title="Elève" data={student} style={{ backgroundColor: 'black', color: 'white' }}/>
                     </Row>
                 </Card.Body>
             </Card>
@@ -61,14 +88,15 @@ const ApprenticeshipTickets = () => {
                 <Card.Body>
                     <Card.Title>Tickets d'évaluations</Card.Title>
                     
-                    <BilanAccordion bilans={apprenticeshipTicketsMock} />
+                    <BilanAccordion bilans={listTickets} />
 
-                    {/*LIEN TEMPORAIRE*/}
-                    <div className="container center">
-                            <Button className={"buttonWhite txtCenter"}
-                                    content={"Créer un nouveau tickets"}
-                                    onclick={() => navigateToActivityReport('/activityReport')}/>
-                    </div>
+                    { (roleManager.isApprenticeshipManager || roleManager.isStudentSupervisor || roleManager.isStudentTutor) ?
+                     <div className="container center">
+                        <Button className={"buttonWhite txtCenter"} content={"Créer un nouveau tickets"} onclick={() => navigateToActivityReport('/activityReport')}/>
+                    </div> : <></>
+                    }
+
+ 
 
                 </Card.Body>
             </Card>

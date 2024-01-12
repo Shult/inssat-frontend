@@ -13,3 +13,12 @@
     align-items: center;
     justify-content: center;
 }
+
+.black {
+    background-color: black;
+    color: goldenrod;
+}
+
+.whiteText {
+    color: white;
+}
