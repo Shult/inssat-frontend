@@ -29,7 +29,7 @@ const UserDropdown = ({className = "w33", id = "select-user", usertype = "user"}
 
 
     return (
-        <div className="w100 dropdown">
+        <div className="w100 UserDropdown">
             <h5>{usertype}</h5>
             <input
                    className="w100"

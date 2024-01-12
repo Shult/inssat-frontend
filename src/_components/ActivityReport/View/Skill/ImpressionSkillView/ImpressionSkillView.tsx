@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import { Row, Col, Button, Form } from 'react-bootstrap';
-// import "../../../ToolBox/styles.css"
-// import Activity from "../Activity/Activity"
-// import "./impression.css"
 import CustomButton from "../../../../ToolBox/Forms/ActionButton"
 import "./ImpressionSkillView.css"
 import { IActivity, IImpression } from '../../../Services/activityReportInterfaces';
@@ -16,17 +13,24 @@ interface IImpressionProps {
 function ImpressionSkillView({activity, impression} : any) {
     const [buttonText, setButtonText] = useState('Non évalué');
 
-
-    // GetActicityBy (Student_id, Period_id, Activity_id) Pas sur
     const getButtonColor = (text : any) => {
         switch (text) {
+            case 'Excellent':
+                return '#4caf50';
+            case 'Très bien':
+                return '#90ee90';
+            case 'Bien':
+                return '#2196f3';
+            case 'Assez bien':
+                return '#ffc107';
+            case 'Passable':
+                return '#ff9800';
             case 'Insuffisant':
-                return '#E2807D';
-            case 'Non évalué':
+                return '#f44336';
+            case 'Non évaluable':
                 return '#889795';
-            // Ajoutez d'autres cas si nécessaire
             default:
-                return '#BF9E4E';
+                return('#BF9E4E');
         }
     };
 
@@ -38,7 +42,7 @@ function ImpressionSkillView({activity, impression} : any) {
                 </Col>
                 <Col xs={12} md={12} lg={3} xl={3}>
                     <>
-                        <Button variant="primary" disabled id={'appreciation'} style={{ backgroundColor: getButtonColor(impression.level_id) }}>
+                        <Button variant="primary" disabled id={'appreciation'} style={{ borderColor: getButtonColor(impression.level_id), color: getButtonColor(impression.level_id) }}>
                             {impression.level_id}
                         </Button>{' '}
                     </>

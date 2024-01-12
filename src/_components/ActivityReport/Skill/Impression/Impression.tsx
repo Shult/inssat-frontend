@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Row, Col, Dropdown, Form } from 'react-bootstrap';
 import "../../../ToolBox/styles.css"
+import { getButtonColor } from '../../Services/ActivityReportServices';
 import Activity from "../Activity/Activity"
 import "./impression.css"
 
@@ -9,15 +10,31 @@ function Impression(data : any) {
     //const impression = data.impression;
 
     const [title, setTitle] = useState('Évaluer la compétence');
-    const [dropdownBackground, setDropdownBackground] = useState('#BF9E4E'); // Ajout de l'état pour la couleur de fond
+
+    const [dropdownBackground, setDropdownBackground] = useState('#889795'); // Ajout de l'état pour la couleur de fond
 
     const handleSelect = (eventKey : any) => {
         setTitle(eventKey);
 
         // Mettre à jour la couleur de fond en fonction de la sélection
         switch (eventKey) {
+            case 'Excellent':
+                setDropdownBackground('#4caf50');
+                break;
+            case 'Très bien':
+                setDropdownBackground('#90ee90');
+                break;
+            case 'Bien':
+                setDropdownBackground('#2196f3');
+                break;
+            case 'Assez bien':
+                setDropdownBackground('#ffc107');
+                break;
+            case 'Passable':
+                setDropdownBackground('#ff9800');
+                break;
             case 'Insuffisant':
-                setDropdownBackground('#E2807D');
+                setDropdownBackground('#f44336');
                 break;
             case 'Non évaluable':
                 setDropdownBackground('#889795');
