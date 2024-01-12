@@ -1,16 +1,17 @@
 import React from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import { Card, Col} from "react-bootstrap";
 
 interface SuiviInfoCardProps {
     title: string;
     data: { lastname: string; firstname: string; email: string };
+    style?: React.CSSProperties;
 }
 
-const SuiviInfoCard: React.FC<SuiviInfoCardProps> = ({ title, data }) => {
+const SuiviInfoCard: React.FC<SuiviInfoCardProps> = ({ title, data, style }) => {
     return (
         <Col className="container">
-            <Card>
-                <Card.Body>
+            <Card >
+                <Card.Body style={style}>
                     <Card.Title>{title}</Card.Title>
                     <ul>
                         <li>Nom : {data.lastname}</li>

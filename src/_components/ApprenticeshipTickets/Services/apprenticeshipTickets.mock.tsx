@@ -1,4 +1,4 @@
-import { UserInterface } from "../../User/User.interface";
+import { UserEntityInterface, UserInterface } from "../../User/User.interface";
 import { IApprentieceshipTickets, IDataSuivi, ICompany, IGradeDto } from "./apprenticeshipTickets.interface";
 
 
@@ -33,3 +33,22 @@ const apprentieceshipTickets2: IApprentieceshipTickets = { period: 2, grades: [g
 
 apprenticeshipTicketsMock.push(apprentieceshipTickets1)
 apprenticeshipTicketsMock.push(apprentieceshipTickets2)
+
+
+export let listStudentSuiviMock: UserInterface[]
+listStudentSuiviMock = []
+
+const studentSuivi1: UserInterface = {uuid: "000-000-001", firstname: "Jade", lastname: "Martin", email: "Jade.Martin@enssat.fr", group: "student", status: "idle"}
+const studentSuivi2: UserInterface = {uuid: "000-000-001", firstname: "Jade", lastname: "Martin", email: "Jade.Martin@enssat.fr", group: "student", status: "idle"}
+const studentSuivi3: UserInterface = {uuid: "000-000-001", firstname: "Jade", lastname: "Martin", email: "Jade.Martin@enssat.fr", group: "student", status: "idle"}
+const studentSuivi4: UserInterface = {uuid: "000-000-001", firstname: "Jade", lastname: "Martin", email: "Jade.Martin@enssat.fr", group: "student", status: "idle"}
+const studentSuivi5: UserInterface = {uuid: "000-000-001", firstname: "Jade", lastname: "Martin", email: "Jade.Martin@enssat.fr", group: "student", status: "idle"}
+
+listStudentSuiviMock.push(studentSuivi1)
+listStudentSuiviMock.push(studentSuivi2)
+listStudentSuiviMock.push(studentSuivi3)
+listStudentSuiviMock.push(studentSuivi4)
+listStudentSuiviMock.push(studentSuivi5)
+
+export let listStudentSuiviMock2: UserEntityInterface[]
+listStudentSuiviMock2 = []
