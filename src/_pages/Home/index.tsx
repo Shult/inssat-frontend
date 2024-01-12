@@ -27,7 +27,7 @@ const Home = () => {
 
             <Row className="justify-content-center">
                 <Col xs={12} md={12} lg={12}>
-                    <FeaturedUpdate article={lastArticle} />
+                    {/*<FeaturedUpdate article={lastArticle} />*/}
                 </Col>
             </Row>
 

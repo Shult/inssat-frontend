@@ -1,33 +1,28 @@
-import React, { useState } from 'react';
 import { Card, Accordion } from 'react-bootstrap';
 import ImpressionSkillView from "../ImpressionSkillView/ImpressionSkillView"
-import {ISection, IAssessment, IGrade, IImpression, IActivity} from "../../../Services/activityReportInterfaces"
+import {Activity, Section } from '../../../Services/interfaces';
 
-interface SectionProps {
-    section: ISection;
-    activities: IActivity[];
-    impressions: IImpression[];
+interface SectionSkillViewProps {
+    section: Section;
 }
 
-// function SectionSkillView({section, activities, impressions} : SectionProps) {
-function SectionSkillView({section, activities, impressions} : SectionProps) {
-
-
+function SectionSkillView( sectionView : SectionSkillViewProps) {
     return (
         <Accordion defaultActiveKey="0" flush>
             <Card>
                 <Card.Body>
                     <Accordion.Item eventKey="0">
-                        <Accordion.Header id="accordion"><h2 className={"heading4"}> {section.title} </h2></Accordion.Header>
+                        <Accordion.Header id="accordion"><h2 className={"heading4"}> {sectionView.section.title} </h2></Accordion.Header>
                         <Accordion.Body>
                             {
-                                activities.map((activity, index) =>
-                                    <ImpressionSkillView
-                                        key={index}
-                                        activity={activity}
-                                        impression={impressions.find(impression => impression.activity_id === activity.id)}
-                                    />
-                                )
+                                sectionView.section.activities && sectionView.section.activities.length > 0
+                                    ? sectionView.section.activities.map((activity: Activity, index: number) => (
+                                        <ImpressionSkillView
+                                            key={index}
+                                            activity={activity}
+                                        />
+                                    ))
+                                    : <p>Aucune activité à afficher.</p>
                             }
                         </Accordion.Body>
                     </Accordion.Item>
