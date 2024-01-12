@@ -5,7 +5,6 @@ import React, {useState} from "react";
 import "./UserDropdown.css"
 
 const UserDropdown = ({className = "w33", id = "select-user", usertype = "user"}) => {
-    const [focused, setFocus] = useState(false)
     const [searched, setSearched] = useState("");
     const [searchedValue, setValue] = useState<UserInterface | null>(null);
     const users = getUserBySearch(searched)
