@@ -26,7 +26,6 @@
         const assessments = activityReportData.assessments;
         return(
             <div className="container" id={"activityReport"}>
-
                 <Row>
                     <Col xs={3}>
                         <h2 className="heading2">Bilan d'activités </h2>

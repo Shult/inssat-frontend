@@ -3,6 +3,8 @@ import { Accordion, Card, Col, Row } from "react-bootstrap";
 import { IApprentieceshipTickets, IGradeDto } from "../Services/apprenticeshipTickets.interface";
 import Button from "../../Clickable/Button";
 
+import {Routes, Route, useNavigate} from 'react-router-dom';
+
 interface BilanAccordionProps {
     bilans: IApprentieceshipTickets[];
 }
@@ -21,6 +23,12 @@ const BilanAccordion: React.FC<BilanAccordionProps> = ({ bilans }) => {
         const totalWeightedGrade = grades.reduce((acc, grade) => acc + (grade.grade * grade.assessment_coefficient), 0);
 
         return totalWeightedGrade / totalCoefficient;
+    };
+
+    {/*LIEN TEMPORAIRE*/}
+    const navigate = useNavigate();
+    const navigateToActivityReport = (path : string) => {
+        navigate(path);
     };
     
     return (
@@ -50,6 +58,7 @@ const BilanAccordion: React.FC<BilanAccordionProps> = ({ bilans }) => {
                                         className={"buttonGold txtCenter"}
                                         content={"Détail"}
                                         // Ajouter redirection vers Sylvain
+                                        onclick={() => navigateToActivityReport('/activityReportView')}
                                     />
                                 </Col>
                             </Row>

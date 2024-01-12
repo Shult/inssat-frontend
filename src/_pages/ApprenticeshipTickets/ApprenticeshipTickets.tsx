@@ -7,11 +7,19 @@ import { apprenticeshipTicketsMock, dataSuiviMock } from "../../_components/Appr
 import SuiviInfoCard from "../../_components/ApprenticeshipTickets/SuiviCard/SuiviInfoCard";
 import BilanAccordion from "../../_components/ApprenticeshipTickets/BilanAccordion/BilanAccordion";
 
+import {Routes, Route, useNavigate} from 'react-router-dom';
+
 const ApprenticeshipTickets = () => {
 
 
     const { company, student, supervisor, teacher } = dataSuiviMock;
     const listTickets = apprenticeshipTicketsMock;
+
+    {/*LIEN TEMPORAIRE*/}
+    const navigate = useNavigate();
+    const navigateToActivityReport = (path : string) => {
+        navigate(path);
+    };
 
     return (
         <div>
@@ -54,18 +62,13 @@ const ApprenticeshipTickets = () => {
                     <Card.Title>Tickets d'évaluations</Card.Title>
                     
                     <BilanAccordion bilans={apprenticeshipTicketsMock} />
-                
 
-                    
+                    {/*LIEN TEMPORAIRE*/}
                     <div className="container center">
-                    <Button className={"buttonWhite txtCenter"}
-                            content={"Créer un nouveau tickets"} />
-                    {/* Ajouter redirection vers Sylvain */}
-
+                            <Button className={"buttonWhite txtCenter"}
+                                    content={"Créer un nouveau tickets"}
+                                    onclick={() => navigateToActivityReport('/activityReport')}/>
                     </div>
-
-                
-
 
                 </Card.Body>
             </Card>
