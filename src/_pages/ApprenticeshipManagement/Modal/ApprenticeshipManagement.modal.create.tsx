@@ -1,15 +1,14 @@
 import "./ApprenticeshipManagement.modal.css"
 import UserDropdown from "../../../_components/User/UserDropdown";
 import Button from "../../../_components/Clickable/Button";
-import {createAssociationMock} from "../../../_components/User/ApprenticeshipAssociation/Association.api";
-import React from "react";
+import {createAssociationMock} from "../../../_components/User/ApprenticeshipAssociation/Association.mock";
+import React, {useRef, useState} from "react";
+import {ModalCreateAssociationProps} from "../../../_components/User/ApprenticeshipAssociation/Association.interface";
 
 
-interface ModalAssociationProps {
-    onValidate: () => void;
-    show: boolean;
-}
-const ModalAssociationCreation: React.FC<ModalAssociationProps> = ({ onValidate, show }) => {
+
+
+const ModalAssociationCreation: React.FC<ModalCreateAssociationProps> = ({ onValidate, show }) => {
     if (!show) return null;
 
     return <>

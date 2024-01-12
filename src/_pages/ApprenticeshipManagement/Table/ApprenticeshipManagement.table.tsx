@@ -6,7 +6,7 @@ import Button from "../../../_components/Clickable/Button";
 import ModalAssociationUpdate from "../Modal/ApprenticeshipManagement.modal.update";
 
 import { getUsersMock } from "../../../_components/User/User.api";
-import { deleteAssociationMock } from "../../../_components/User/ApprenticeshipAssociation/Association.api";
+import { deleteAssociationMock } from "../../../_components/User/ApprenticeshipAssociation/Association.mock";
 
 import "./ApprenticeshipManagement.table.css"
 import {AssociationInterface} from "../../../_components/User/ApprenticeshipAssociation/Association.interface";

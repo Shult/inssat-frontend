@@ -2,17 +2,13 @@ import UserDropdown from '../../../_components/User/UserDropdown';
 import Button from '../../../_components/Clickable/Button';
 
 import {getUsersMock} from '../../../_components/User/User.api';
-import {updateAssociationMock} from '../../../_components/User/ApprenticeshipAssociation/Association.api';
+import {updateAssociationMock} from '../../../_components/User/ApprenticeshipAssociation/Association.mock';
 
 import './ApprenticeshipManagement.modal.css'
 import React from "react";
+import {ModalUpdateAssociationProps} from "../../../_components/User/ApprenticeshipAssociation/Association.interface";
 
-interface ModalAssociationUpdtProps {
-    onValidate: () => void;
-    show: boolean;
-    studentUUID: string;
-}
-const ModalAssociationUpdate: React.FC<ModalAssociationUpdtProps> = ({ onValidate, show, studentUUID }) => {
+const ModalAssociationUpdate: React.FC<ModalUpdateAssociationProps> = ({ onValidate, show, studentUUID }) => {
     if (!show) return null;    return (
         <>
             <article className={'line w100 space-between ApprenticeshipManagementModal'}>
