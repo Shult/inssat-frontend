@@ -18,11 +18,17 @@ const HorizontalCard = ({ article }: any) => {
     event.target.src = GetFileFromURL('default-thumbnail-horizontal.png');
   };
 
-  const fitImageStyles = { 
-  };
+  const fitImageStyles = {};
+
+  // condition
+  if(article.author_id === "Unknown"){
+    article.author.FIRST_NAME = "Blog"
+    article.author.LAST_NAME = "ENSSAT"
+  }
+
   return (
       <a href={
-        article?.fromEnssat ? article.link : `/article/${id}` 
+        article?.fromEnssat ? article.link : `/article/${id}`
          }
         target={article?.fromEnssat ? "_blank" : "_self"}
         style={{ textDecoration: 'none', color: 'inherit' }
@@ -39,7 +45,7 @@ const HorizontalCard = ({ article }: any) => {
                     className="img-fluid"
                     alt="Card"
                     style={{
-                      borderRadius: '8px', 
+                      borderRadius: '8px',
                       maxHeight: '130px',
                       minHeight: '130px',
                       objectFit: 'cover',
@@ -81,7 +87,7 @@ const HorizontalCard = ({ article }: any) => {
                     <Image src={avatar} alt="Author Avatar" roundedCircle style={{ width: '40px', height: '40px' }} />
                     <div className="ms-3">
                       <p className="fw-bold mb-0">
-                        {author?.FIRST_NAME && author?.FIRST_NAME[0]}. {author?.LAST_NAME}
+                        {author?.FIRST_NAME} {author?.LAST_NAME}
                       </p>
                     </div>
                     <div >

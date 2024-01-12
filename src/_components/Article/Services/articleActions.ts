@@ -35,12 +35,6 @@ export const getArticles = () : any => {
     };
 };
 
-// GET all articles
-// http://localhost:5000/api_blog/articles
-
-// GET all articles details
-// http://localhost:5000/api_blog/articles/details
-
 export const getArticlesREALAPI = () : any => {
     return (dispatch: any) => {
         dispatch({ type: FETCH_ARTICLES_REQUEST });

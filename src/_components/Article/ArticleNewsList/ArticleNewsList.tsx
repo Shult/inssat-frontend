@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import { RootState} from "../../../_store/store";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchArticles } from "../ArticlesEnssat/articleEnssatReducer";
@@ -11,52 +11,37 @@ import ArticleCard from "../ArticleCard/ArticleCard";
 
 // Services
 import {getArticlesREALAPI} from "../Services/articleActions";
+import {ArticleDetails} from "../Services/interfacesArticles";
+import {getArticlesINSSAT} from "../ArticleFetchAll";
 import {
     ArticleEnssatToArticleDetails,
     ArticleInssatToArticleDetails,
     SortArticleByDate
 } from "../Services/articleServices";
-import {ArticleDetails} from "../Services/interfacesArticles";
 
 
 const ArticleNewsList = () => {
     const dispatch = useDispatch();
-    const articlesInssat = useSelector((state: any) => state.articles.articles) as ArticleDetails[];
+
+    const [articlesInssat, setArticlesINSSAT] = useState<ArticleDetails[]>([])
+
     const articlesEnssat = useSelector((state: RootState) => state.articlesEnssat.articles);
     const status = useSelector((state: RootState) => state.articlesEnssat.status);
+
     let useEffectBool = false;
     let allArticles : ArticleDetails[] = []
 
     useEffect(() => {
+        getArticlesINSSAT().then(result => setArticlesINSSAT(result))
         if (status === 'idle' && !useEffectBool) {
-            // console.log("Dispatching fetch request");
             dispatch(fetchArticles());
             dispatch(getArticlesREALAPI())
             useEffectBool = true;
         }
-        else if(status === 'failed'){
-            // console.log("Request failed");
-        }
-        else if(status === 'loading'){
-            // console.log("Request loading");
-        }
-        else if(status === 'succeeded'){
-            // console.log("Request succeeded");
-        }
     }, []);
-
-    // console.log("Article INSSAT : " + articlesInssat);
-    // console.log("Article INSSAT length = " + articlesInssat.length);
-
-    // console.log("Article ENSSAT : " + articlesEnssat);
-    // console.log("Article ENSSAT length = " + articlesEnssat.length);
 
     ArticleEnssatToArticleDetails(articlesEnssat, allArticles);
     ArticleInssatToArticleDetails(articlesInssat, allArticles);
-
-    // console.log("All article = " + allArticles);
-    // console.log("All article length = " + allArticles.length);
-
     SortArticleByDate(allArticles);
 
     const [currentPage, setCurrentPage] = React.useState(1);
@@ -65,17 +50,21 @@ const ArticleNewsList = () => {
     const endIndex = startIndex + ARTICLES_PER_PAGE;
     const currentArticles = allArticles.slice(startIndex, endIndex);
 
-
     if(status==="succeeded"){
         return (
             <div className={"container articleCarouselList"}>
 
                 <div className={"pagination-bar"}>
-                    {Array(Math.ceil(allArticles.length / ARTICLES_PER_PAGE)).fill(null).map((_, idx) => (
-                        <button key= {idx} onClick={() => setCurrentPage(idx + 1)} className={"pagination-button"}>
-                            {idx + 1}
-                        </button>
-                    ))}
+                    { Array ( Math.ceil(allArticles.length / ARTICLES_PER_PAGE ))
+                        .fill(null)
+                        .map(
+                            (_, idx) => (
+                                <button key= {idx} onClick={() => setCurrentPage(idx + 1)} className={"pagination-button"}>
+                                    {idx + 1}
+                                </button>
+                            )
+                        )
+                    }
                 </div>
                 {currentArticles.map((article, index) => (
                     <div key={index}>
@@ -85,13 +74,8 @@ const ArticleNewsList = () => {
 
             </div>
         );
-    } else {
-        return(
-                <div>
-                    Loading ...
-                </div>
-            )
     }
+    else { return( <div> Loading ... </div> ) }
 }
 
 export default ArticleNewsList;

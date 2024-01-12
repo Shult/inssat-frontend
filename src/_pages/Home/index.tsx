@@ -4,7 +4,7 @@ import HorizontalCard from '../../_components/Cards/Horizontal';
 import FeaturedUpdate from '../../_components/Cards/FeaturedUpdate';
 import CalendarCustom from '../../_components/Calendar/CalendarCustom';
 import {
-    getArticles,
+    getArticlesCrossOrigin,
     getLastArticle
 } from "../../_components/Article/ArticleFetchAll";
 
@@ -14,7 +14,7 @@ const Home = () => {
     const [articles, setArticles] = useState<any>([]);
 
     useEffect(() => {
-        getArticles().then(result => setArticles(result))
+        getArticlesCrossOrigin().then(result => setArticles(result))
         getLastArticle().then(result => setLastArticle(result))
     }, []);
 
