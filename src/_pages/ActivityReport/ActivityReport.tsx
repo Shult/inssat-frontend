@@ -1,14 +1,20 @@
-    import React, { useState } from 'react';
+    import React, {useEffect, useState } from 'react';
     import "../../_components/ToolBox/styles.css";
     import Section from "../../_components/ActivityReport/Skill/Section/Section";
     import activityReportData from "../../_components/ActivityReport/Services/tmpData";
     import { Card, Col, Dropdown, Row } from 'react-bootstrap';
     import "./ActivityReport.css";
     import SectionNotation from "../../_components/ActivityReport/Notation/SectionNotation/SectionNotation";
+    import { getSections } from '../../_api/SectionsServices';
+    import {ISection} from "../../_components/ActivityReport/Services/activityReportInterfaces";
 
     const ActivityReport = () => {
         const [blogText, setBlogText] = React.useState('hello world');
         const [title, setTitle] = useState('Sélectionner une période');
+        const assessments = activityReportData.assessments;
+
+        const [sections, setSections] = useState<ISectionApi[]>([]);
+
 
         const handleSelect = (eventKey : any) => {
             setTitle(eventKey);
@@ -23,7 +29,40 @@
             }
         };
 
-        const assessments = activityReportData.assessments;
+        interface ISectionApi {
+            id: number;
+            title: string;
+            "description": string;
+            "created_at": Date;
+            "updated_at": Date
+        }
+
+        const fetchAndDisplaySections = async () : Promise<ISectionApi[]> => {
+            try {
+                const response = await getSections();
+                if (response.ok && response.data) {
+                    const sections : ISectionApi[] = response.data;
+                    console.log("Sections : " + sections);
+                    // Traitez et affichez les données ici
+                    return sections
+                } else {
+                    // Gérez les erreurs ici (par exemple, réponse non ok)
+                    console.error('Erreur lors de la récupération des sections 2');
+                    return [];
+                }
+            } catch (error) {
+                console.error('Erreur lors de la récupération des sections 1 :', error);
+                return [];
+            }
+        };
+
+
+        useEffect(() => {
+            fetchAndDisplaySections().then(fetchedSections => {
+                setSections(fetchedSections);
+            });
+        }, []);
+        
         return(
             <div className="container" id={"activityReport"}>
                 <Row>
@@ -69,6 +108,31 @@
                         />
                     </Card.Body>
                 </Card>
+
+
+                <Card className="horizontal-card mb-3" style={{ borderRadius: '8px', boxShadow: 'var(--box-shadow)' }}>
+                    <Card.Body id={"skill-container"}>
+                        {
+                            sections.map((section, index) => {
+                                if (section.title !== "Notation") {
+                                    return (
+                                        <div key={section.id}>
+                                            <Section
+                                                section={section}
+                                                activities={activityReportData.activities.filter(activity => activity.section_id === section.id)}
+                                                impressions={activityReportData.impressions}
+                                            />
+                                        </div>
+                                    );
+                                }
+                                return null; // Ne rien rendre pour les sections avec le titre "Notation"
+                            })
+                        }
+                    </Card.Body>
+                </Card>
+                
+                
+                
             </div>
         )
     }
