@@ -30,6 +30,13 @@ export interface IActivity {
     updated_at: Date
 }
 
+export interface IActivity2 {
+    id: number,
+    is_free: boolean,
+    name: string,
+    position: number,
+}
+
 export interface IPeriod {
     id: number,
     name: string,

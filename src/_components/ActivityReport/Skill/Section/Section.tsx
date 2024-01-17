@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Card, Accordion } from 'react-bootstrap';
 import "../../../ToolBox/styles.css"
 import Impression from "../Impression/Impression"
-import { ISection, IActivity, IImpression } from "../../Services/activityReportInterfaces"
+import { ISection, IActivity, IImpression, IActivity2 } from "../../Services/activityReportInterfaces"
 import "./section.css"
 
 interface SectionProps {
     section: ISection;
-    activities: IActivity[];
+    activities: IActivity2[];
     impressions: IImpression[];
 }
 
