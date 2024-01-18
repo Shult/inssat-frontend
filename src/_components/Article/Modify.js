@@ -1,5 +1,5 @@
  
-import { Card, Form, Row, Col, Button, Toast } from 'react-bootstrap';
+import { Card, Form, Row, Col, Toast, Spinner } from 'react-bootstrap';
 import React, { useState, useEffect, useRef } from 'react';
 import FileInputWithPreview from '../../_components/ToolBox/Forms/FileInputWithPreview';
 import DraftEditor from '../ToolBox/Forms/DraftEditor';
@@ -11,8 +11,10 @@ import { ActionButton } from '../ToolBox/Forms';
 import { update, getArticleWithDetails } from '../../_api/article';
 import { useParams } from 'react-router-dom'; 
 
-import {getImageAsBase64} from '../../_helpers/GetFileFromURL.function'
-
+import { useNavigate } from 'react-router-dom';
+import ImageSelectorModal from '../ImageModel/ImageSelectorModal'
+import { getPublicFile } from '../../_api/uploads';
+ 
 
 function EditArticle(props) {
   const { id } = useParams();
@@ -26,23 +28,78 @@ function EditArticle(props) {
   const [titleFocused, setTitleFocused] = useState(true);
   const [descriptionFocused, setDescriptionFocused] = useState(true);
 
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [selectedFile2, setSelectedFile2] = useState(null);
 
-  const handleFileSubmit = (file) => {
-    setSelectedFile(file);
+  //---------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------
+
+
+  const [showFileManager, setShowFileManager] = useState(false);
+  const [showFileManager2, setShowFileManager2] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage2, setSelectedImage2] = useState(null);
+  const [selectedImageName, setSelectedImageName] = useState('');
+  const [imageInvalid, setImageInvalid] = useState(false);
+  const [imageInvalid2, setImageInvalid2] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+
+
+
+  //---------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------
+
+  const navigate = useNavigate();
+
+  const handleOpenFileManagerModal = (imageName) => {
+    setSelectedImageName(imageName);
+    setShowFileManager(true);
   };
-  const handleFile2Submit = (file) => {
-      setSelectedFile2(file);
+  const handleOpenFileManagerModal2 = (imageName) => {
+    setSelectedImageName(imageName);
+    setShowFileManager2(true);
+  };
+
+  const handleClose = () => setShowFileManager(false);
+
+  const handleImageSelect = (file) => {
+    if(!file)
+      return handleClose();
+
+
+    setSelectedImage(file);
+    setSelectedImageName(file.imageName);
+    handleClose();
+  };
+
+
+  const handleClose2 = () => setShowFileManager2(false);
+
+  const handleImageSelect2 = (file) => {
+    if(!file)
+      return handleClose();
+    setSelectedImage2(file);
+    setSelectedImageName(file.imageName);
+    handleClose2();
   };
 
 
 
+  //---------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------
+
+
+ 
   const validate = (event)=>{
+    setLoading(true);
     const form = formRef.current;
     if (form) {
-      if (form.checkValidity()) {
-        handleSubmit();
+        setImageInvalid(!selectedImage ? true:false)
+        setImageInvalid2(!selectedImage2 ? true:false)
+    
+      if (form.checkValidity() && selectedImage && selectedImage2) { 
+
+        if(selectedImage || selectedImage2)
+          handleSubmit();
       } else {
         form.classList.add('was-validated');
         setShowToast(true); // Show the toast for validation errors
@@ -51,12 +108,15 @@ function EditArticle(props) {
         }, 3000);
         console.log('Form is invalid. Please fill in required fields.');
        }
-    }
+    } 
+
+    setTimeout(()=>{
+      setLoading(false);
+    }, 1000)
 
   }
+
   const handleSubmit = async (event) => {
-
-
     const form = formRef.current;
     if (form.checkValidity()) {
       console.log(document.querySelector('input[name="title"]').value)
@@ -64,8 +124,6 @@ function EditArticle(props) {
       console.log(document.querySelector('textarea[name="content"]').value)
       console.log(document.querySelector('select[name="category"]').value)
       console.log(document.querySelector('input[name="tags"]').value.split('|'))
-      console.log(selectedFile)
-      console.log(selectedFile2)
       
 
     const formData = new FormData();
@@ -76,8 +134,10 @@ function EditArticle(props) {
 
     formData.append('tags',  document.querySelector('input[name="tags"]').value);
 
-    formData.append('images', selectedFile);
-    formData.append('images', selectedFile2);
+   
+    formData.append('thumbnail', selectedImage.imageName);
+    formData.append('principal_image', selectedImage2.imageName); 
+
 
     console.log('Form is valid. Ready to submit.');
    
@@ -93,7 +153,7 @@ function EditArticle(props) {
         const newArticleId = response.data.id;
         const articleLink = `/article/${newArticleId}`; // Adjust the route path as needed
         setNewArticlePath(articleLink)
-    
+        navigate(articleLink);
         // Handle success - maybe redirect, display a success message, etc.
       } else {
         console.error('Failed to update article:', response.problem);
@@ -128,34 +188,30 @@ const fetchArticleDetails = async () => {
     const response = await getArticleWithDetails(id);
     if (response.ok) {
       setArticle(response.data);
-      getImageAsBase64(response?.data?.thumbnail)
-      .then((base64Data) => {
-        // Handle the Base64 data here
-        setSelectedFile(base64Data);
-      })
-      .catch((error) => {
-        // Handle errors
-        console.error('Error:', error);
+
+      // Fetch and set principal_image
+      const principalImageBlobURL = await getPublicFile(response.data.principal_image);
+      setSelectedImage2({
+        imageName: response.data.principal_image,
+        imageBlob: principalImageBlobURL,
       });
 
-      getImageAsBase64(response?.data?.principal_image)
-      .then((base64Data) => {
-        // Handle the Base64 data here
-        setSelectedFile2(base64Data);
-      })
-      .catch((error) => {
-        // Handle errors
-        console.error('Error:', error);
+      // Fetch and set thumbnail
+      const thumbnailBlobURL = await getPublicFile(response.data.thumbnail);
+      setSelectedImage({
+        imageName: response.data.thumbnail,
+        imageBlob: thumbnailBlobURL,
       });
-      
     } else {
-      alert("article was found")
+      alert('Article was found');
       console.error('Failed to fetch article details');
     }
   } catch (error) {
     console.error('Error fetching article details:', error);
   }
 };
+
+
 
 
   return article && (
@@ -217,10 +273,10 @@ const fetchArticleDetails = async () => {
             </Col>
 
             <Col xs={12} lg={4}>
-            <FileInputWithPreview image={selectedFile} required id="image1" name="images" title="selectionner miniature" onChange={handleFileSubmit}/>
+            <FileInputWithPreview imageInvalid={imageInvalid} imageName={selectedImage && selectedImage.imageName} src={selectedImage && selectedImage.imageBlob} onClick={() => handleOpenFileManagerModal('miniature')} required id="thumbnail" name="thumbnail" title="selectionner miniature" />
             </Col>
             <Col xs={12}>
-            <FileInputWithPreview image={selectedFile2}  required id="image2" name="images2" title="selectionner image principal" onChange={handleFile2Submit}/>
+            <FileInputWithPreview imageInvalid={imageInvalid2} imageName={selectedImage && selectedImage.imageName} src={selectedImage2 && selectedImage2.imageBlob} onClick={() => handleOpenFileManagerModal2('image principale')} required id="principal_image" name="principal_image" title="selectionner image principale" />
             </Col>
 
             <Col xs={12} lg={8}>
@@ -242,8 +298,16 @@ const fetchArticleDetails = async () => {
           </Row>
           <Row>
             <Col xs={12} className="d-flex justify-content-center">
-             <ActionButton variant="primary" onClick={validate}>
-                Enregistrer
+             <ActionButton active={!loading}  variant="primary" onClick={validate}>
+                
+                {loading ? (
+            <>
+              <Spinner animation="border" size="sm" className="mr-2" />
+              Enregistrement...
+            </>
+          ) : (
+            'Enregistrer'
+          )}
              </ActionButton>
             </Col>
           </Row>
@@ -261,8 +325,19 @@ const fetchArticleDetails = async () => {
  
       </div>
 
- 
+      <ImageSelectorModal
+        show={showFileManager}
+        handleClose={handleClose}
+        imageName={selectedImageName}
+        setSelectedImage={handleImageSelect}
+      />
 
+      <ImageSelectorModal
+        show={showFileManager2}
+        handleClose={handleClose2}
+        imageName={selectedImageName}
+        setSelectedImage={handleImageSelect2}
+      />
       </Card.Body>
     </Card>
   );

@@ -1,78 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { FaTrash } from 'react-icons/fa';
 import './FileInputWithPreview.css';
 
-function FileInputWithPreview({ onChange, image, id, title, name }) {
-  const [selectedFile, setSelectedFile] = useState(null);
-
-  useEffect(() => {
-    if (image) {
-      setSelectedFile(image);
-    }
-  }, [image]);
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      handleSelectedFile(file);
-    }
-  };
-
-  const handleSelectedFile = (file) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setSelectedFile(reader.result);
-    };
-    reader.readAsDataURL(file);
-    onChange(file); // Passes the file to the parent component
-  };
-
-  const handleDelete = () => {
-    setSelectedFile(null);
-    onChange(null); // Informs the parent component of file deletion
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) {
-      handleSelectedFile(file);
-    }
-  };
-
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
-
+function FileInputWithPreview({ onClick, imageName,imageInvalid, src, id, title, name }) { 
   return (
-    <div className="FileInputWithPreview position-relative mb-3">
+    <div onClick={onClick} className="FileInputWithPreview position-relative mb-3">
       <label
         htmlFor={id}
         className="file-input-wrapper d-inline-block position-relative"
         style={{
-          backgroundImage: selectedFile ? `url(${selectedFile})` : 'none',
-        }}
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
+          backgroundImage:  (src ? `url(${src})`:'none'),
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          borderColor: (imageInvalid ? 'red' : ''),
+        }} 
       >
         <input
           id={id}
-          type="file"
-          accept="image/*"
+          type="text"
+          value={imageName}
           className="position-absolute overflow-hidden d-none"
-          onChange={handleFileChange}
           name={name}
         />
         <div className="image-container">
-          {!selectedFile && <span>{title}</span>}
-          {selectedFile && (
-            <button
-              className="delete-button btn btn-danger rounded-circle"
-              onClick={handleDelete}
-            >
-              <FaTrash />
-            </button>
-          )}
+         <span>{title}</span>
+          
         </div>
       </label>
     </div>

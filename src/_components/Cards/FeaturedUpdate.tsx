@@ -8,15 +8,43 @@ import {
 import {
     ParagraphStd,
 } from '../ToolBox/Paragraphs';
+import { useEffect, useState } from 'react';
 
+import {getDefaultFile, getFile, getPublicFile} from '../../_api/uploads'
 
 const FeaturedUpdate = ({ article }:any) => {
-    const { principal_image, thumbnail, title, description } = article
+    const { principal_image, title, description } = article
 
+    const [principalImage, setPrincipalImage] = useState('');
 
-    const handleImageError = (event: any) => {
-        event.target.src = config.development.API_URL+'/api_blog/uploads/default-thumbnail-featured.png';
-    };
+    useEffect(() => {
+      const fetchPrincipalImage = async () => {
+        try {
+            console.log(principal_image)
+            let img:string;
+            if (principal_image === undefined || principal_image === null) {
+                
+                img = await getDefaultFile('default-thumbnail-featured.png');
+            }else{
+                img = (await getPublicFile(principal_image)).toString();
+            }
+              
+          if(img)
+          setPrincipalImage(img);
+        } catch (error) {
+          console.error('Error fetching principal image:', error);
+        }
+      };
+  
+      fetchPrincipalImage();
+  
+      // Specify the cleanup function to avoid potential memory leaks
+      return () => {
+        // Cleanup logic if needed
+      };
+    }, []); // Empty dependency array means the effect runs once on mount
+  
+
 
     return (
         <Card
@@ -63,9 +91,8 @@ const FeaturedUpdate = ({ article }:any) => {
                     </Col>
                     <Col xs={12} lg={6}>
                         <div className="image-container">
-                            <Image
-                                onError={handleImageError}
-                                src={config.development.API_URL+'/api_blog/uploads/'+principal_image}
+                            {principal_image && (<Image
+                                src={principalImage}
                                 className="img-fluid"
                                 alt="Card"
                                 style={{
@@ -76,7 +103,7 @@ const FeaturedUpdate = ({ article }:any) => {
 
                                 }}
 
-                            />
+                            />)}
                         </div>
                     </Col>
                 </Row>

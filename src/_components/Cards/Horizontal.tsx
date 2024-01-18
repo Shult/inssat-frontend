@@ -1,4 +1,4 @@
-import { Card, Row, Col, Image } from 'react-bootstrap';
+import { Card, Row, Col,  Image, Spinner  } from 'react-bootstrap';
 import Tag from '../ToolBox/Tag';
 
 import {
@@ -7,17 +7,70 @@ import {
 
 import { getTimeDifference } from '../../_helpers/DateTime.functions';
 
-import { GetFileFromURL } from '../../_helpers/GetFileFromURL.function';
+// import { GetFileFromURL } from '../../_helpers/GetFileFromURL.function';
+import { getDefaultFile, getPublicFile } from '../../_api/uploads';
 import {extractFirstImageLink} from "../Article/Services/articleServices";
+import { useState, useEffect } from 'react';
+
+
+  //================================================================================================
+  //================================================================================================
+  //================================================================================================
 
 const HorizontalCard = ({ article }: any) => {
   const { id, thumbnail, article_tags, title, author, published_at } = article;
-  const avatar = GetFileFromURL('default-avatar.png');
+  //TODO : Zak - all default files should be fetched once in the parent component to avoid fetching the same file n times "n articles"
+  const [thumbnailImage, setThumbnailImage] = useState('');
 
-  const handleImageError = (event: any) => {
-    event.target.src = GetFileFromURL('default-thumbnail-horizontal.png');
-  };
+  const [avatarImage, setAvatarImage] = useState('');
 
+  const [avatarEnssatImage, setAvatarEnssatImage] = useState('');
+
+  //================================================================================================
+
+  useEffect(() => {
+    
+    if(!article?.fromEnssat)
+    fetchImage(setThumbnailImage, thumbnail, 'default-thumbnail-horizontal.png');
+    fetchImage(setAvatarImage, null, 'default-avatar.png');
+    fetchImage(setAvatarEnssatImage, null, 'default-enssat-avatar.png');
+
+    
+    // Specify the cleanup function to avoid potential memory leaks
+    return () => {
+      // Cleanup logic if needed
+    };
+  }, []); // Empty dependency array means the effect runs once on mount
+
+  //================================================================================================
+
+  type ImageSetterFunction = React.Dispatch<React.SetStateAction<string>>;
+
+  const fetchImage = async (
+    setImageFunction: ImageSetterFunction,
+    fileName: string | null | undefined,
+    fallbackFileName: string
+    ) => {
+    try {
+        let img;
+
+        if (!fileName) {
+            img = await getDefaultFile(fallbackFileName);
+        } else {
+            img = (await getPublicFile(fileName)).toString();
+        }
+
+        if (img) {
+            setImageFunction(img);
+        }
+    } catch (error) {
+        console.error(`Error fetching ${fallbackFileName} image:`, error);
+    }
+};
+
+ 
+
+  //================================================================================================
   const fitImageStyles = {};
 
   // condition
@@ -26,11 +79,13 @@ const HorizontalCard = ({ article }: any) => {
     article.author.LAST_NAME = "ENSSAT"
   }
 
+  //================================================================================================
   return (
       <a href={
         article?.fromEnssat ? article.link : `/article/${id}`
          }
         target={article?.fromEnssat ? "_blank" : "_self"}
+        rel="noreferrer"
         style={{ textDecoration: 'none', color: 'inherit' }
       }>
         <Card className="horizontal-card mb-3" style={{ borderRadius: '8px', boxShadow: 'var(--box-shadow)' }}>
@@ -41,7 +96,21 @@ const HorizontalCard = ({ article }: any) => {
                 {article?.fromEnssat ? (
                   <Image
                     srcSet={extractFirstImageLink(article.thumbnail)}
-                    onError={handleImageError}
+                    className="img-fluid"
+                    alt="Card"
+                    style={{
+                      borderRadius: '8px',
+                      maxHeight: '130px',
+                      minHeight: '130px',
+                      objectFit: 'cover',
+                      cursor: 'progress',
+                      ...fitImageStyles,
+                    }}
+                  />
+                ) : ( 
+                  thumbnailImage ? 
+                    <Image
+                    src={thumbnailImage}
                     className="img-fluid"
                     alt="Card"
                     style={{
@@ -52,20 +121,9 @@ const HorizontalCard = ({ article }: any) => {
                       ...fitImageStyles,
                     }}
                   />
-                ) : (
-                  <Image
-                    onError={handleImageError}
-                    src={GetFileFromURL(thumbnail)}
-                    className="img-fluid"
-                    alt="Card"
-                    style={{
-                      borderRadius: '8px',
-                      maxHeight: '130px',
-                      minHeight: '130px',
-                      objectFit: 'cover',
-                      ...fitImageStyles,
-                    }}
-                  />
+                  : 
+                  <Image src='/loading.gif' roundedCircle style={{ width: '40px', height: '40px', transform: 'scale(2)'}} />
+                  
                 )}
               </div>
               </Col>
@@ -76,7 +134,7 @@ const HorizontalCard = ({ article }: any) => {
                   <Tag key={index} text={tag}></Tag>
                 ))}
               </div>
-            </Row>
+            </Row> 
                 <Row className="title-row">
                   <Heading6 style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                     {title}
@@ -84,7 +142,12 @@ const HorizontalCard = ({ article }: any) => {
                 </Row>
                 <Row className="mb-3 align-items-center">
                   <Col className="d-flex align-items-center">
-                    <Image src={avatar} alt="Author Avatar" roundedCircle style={{ width: '40px', height: '40px' }} />
+                    {
+                                   (avatarEnssatImage || avatarImage)   ?    
+                                   <Image src={article?.fromEnssat ? avatarEnssatImage : avatarImage} alt="Author Avatar" roundedCircle style={{ width: '40px', height: '40px' }} />
+                                   :
+                                   <Image src='/loading.gif' alt="Author Avatar" roundedCircle style={{ width: '40px', height: '40px', transform: 'scale(2)'}} />
+                    }
                     <div className="ms-3">
                       <p className="fw-bold mb-0">
                         {author?.FIRST_NAME} {author?.LAST_NAME}

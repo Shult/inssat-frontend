@@ -35,6 +35,7 @@ const Article = () => {
     try {
       const categoriesResponse = await getCategoriesByArticleCount();
       if (categoriesResponse.ok) {
+        console.log(categoriesResponse.data)
         setCategories(categoriesResponse.data);
       } else {
         console.error('Error fetching categories:', categoriesResponse);
