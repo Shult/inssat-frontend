@@ -9,16 +9,12 @@ import {
 } from '../ToolBox/Paragraphs';
 import { useEffect, useState } from 'react';
 
-import {getDefaultFile, getPublicFile} from '../../_api/uploads'
-import { useNavigate } from 'react-router-dom';
+import {getDefaultFile, getFile, getPublicFile} from '../../_api/uploads'
 
 const FeaturedUpdate = ({ article }:any) => {
-    const navigate = useNavigate();
-    const { id, principal_image, title, description } = article
+    const { principal_image, title, description } = article
 
     const [principalImage, setPrincipalImage] = useState('');
-
-  //================================================================================================
 
     useEffect(() => {
       const fetchPrincipalImage = async () => {
@@ -29,7 +25,7 @@ const FeaturedUpdate = ({ article }:any) => {
                 
                 img = await getDefaultFile('default-thumbnail-featured.png');
             }else{
-                img = (await getPublicFile(principal_image));
+                img = (await getPublicFile(principal_image)).toString();
             }
               
           if(img)
@@ -41,17 +37,14 @@ const FeaturedUpdate = ({ article }:any) => {
   
       fetchPrincipalImage();
   
+      // Specify the cleanup function to avoid potential memory leaks
       return () => {
+        // Cleanup logic if needed
       };
-    }, [principal_image]); 
+    }, []); // Empty dependency array means the effect runs once on mount
   
-  //================================================================================================
 
-    const handleClick = ()=>{
-        navigate('/article/'+id)
-    }
 
-  //================================================================================================
     return (
         <Card
             className="horizontal-card mb-3"
@@ -98,25 +91,21 @@ const FeaturedUpdate = ({ article }:any) => {
                         </Row>
                     </Col>
                     <Col xs={12} lg={6}>
-                    <div className="image-container">
-                    {principal_image && (
-                        <Image
-                        src={principalImage}
-                        className="img-fluid mx-auto d-block d-sm-block w-100"
-                        alt="Card"
-                        style={{
-                            borderRadius: '8px',
-                            height: '176px',
-                            objectFit: 'cover',
-                        }}
-                        onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            target.src = '/loading.gif'; 
-                          }}
-                        />
-                    )}
-                    </div>
+                        <div className="image-container">
+                            {principal_image && (<Image
+                                src={principalImage}
+                                className="img-fluid"
+                                alt="Card"
+                                style={{
+                                    borderRadius: '8px',
+                                    height:'176px',
+                                    objectFit: 'cover',
+                                    float: 'right', // Apply float to move the image to the right
 
+                                }}
+
+                            />)}
+                        </div>
                     </Col>
                 </Row>
             </Card.Body>

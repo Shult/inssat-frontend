@@ -3,7 +3,7 @@ import Keycloak, {KeycloakConfig} from "keycloak-js";
 let initOptions : KeycloakConfig = {
   //TODO: please create a file for dev and prod instead of hard coding the links
   //url: 'https://auth.dapi-services.fr/',
-  url: 'http://localhost:8080',
+   url: 'http://localhost:8080',
   realm: 'intranet',
   clientId: 'intranet-front',
 }

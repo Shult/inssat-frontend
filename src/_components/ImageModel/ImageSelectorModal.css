@@ -59,17 +59,3 @@
     height: 70vh;
     overflow-y: scroll;
 }
-
-
-
-.removeUpload > input[type="file"]::-webkit-file-upload-button {
-    font-size: 0;
-    background:none!important;
-    border:0px;
-  }
-  
-  .removeUpload > input[type="file"]::-webkit-file-upload-button::before {
-    font-size: initial;
-    content: 'Name : ';
-    background:none!important;
-  }

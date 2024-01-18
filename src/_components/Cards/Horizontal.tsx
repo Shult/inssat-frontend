@@ -1,4 +1,4 @@
-import { Card, Row, Col,  Image  } from 'react-bootstrap';
+import { Card, Row, Col,  Image, Spinner  } from 'react-bootstrap';
 import Tag from '../ToolBox/Tag';
 
 import {
@@ -12,8 +12,6 @@ import { getDefaultFile, getPublicFile } from '../../_api/uploads';
 import {extractFirstImageLink} from "../Article/Services/articleServices";
 import { useState, useEffect } from 'react';
 
-
-import { useNavigate } from 'react-router-dom';
 
   //================================================================================================
   //================================================================================================
@@ -32,30 +30,7 @@ const HorizontalCard = ({ article }: any) => {
   //================================================================================================
 
   useEffect(() => {
-    type ImageSetterFunction = React.Dispatch<React.SetStateAction<string>>;
-
-    const fetchImage = async (
-      setImageFunction: ImageSetterFunction,
-      fileName: string | null | undefined,
-      fallbackFileName: string
-      ) => {
-      try {
-          let img;
-
-          if (!fileName) {
-              img = await getDefaultFile(fallbackFileName);
-          } else {
-              img = (await getPublicFile(fileName)).toString();
-          }
-
-          if (img) {
-              setImageFunction(img);
-          }
-      } catch (error) {
-          console.error(`Error fetching ${fallbackFileName} image:`, error);
-      }
-  };
-
+    
     if(!article?.fromEnssat)
     fetchImage(setThumbnailImage, thumbnail, 'default-thumbnail-horizontal.png');
     fetchImage(setAvatarImage, null, 'default-avatar.png');
@@ -66,11 +41,33 @@ const HorizontalCard = ({ article }: any) => {
     return () => {
       // Cleanup logic if needed
     };
-  }, [article, thumbnail]); //to avoid eslint warning i added thumbnail  ==> article is sufficient 
+  }, []); // Empty dependency array means the effect runs once on mount
 
   //================================================================================================
 
-  
+  type ImageSetterFunction = React.Dispatch<React.SetStateAction<string>>;
+
+  const fetchImage = async (
+    setImageFunction: ImageSetterFunction,
+    fileName: string | null | undefined,
+    fallbackFileName: string
+    ) => {
+    try {
+        let img;
+
+        if (!fileName) {
+            img = await getDefaultFile(fallbackFileName);
+        } else {
+            img = (await getPublicFile(fileName)).toString();
+        }
+
+        if (img) {
+            setImageFunction(img);
+        }
+    } catch (error) {
+        console.error(`Error fetching ${fallbackFileName} image:`, error);
+    }
+};
 
  
 
@@ -85,23 +82,17 @@ const HorizontalCard = ({ article }: any) => {
 
   //================================================================================================
   return (
-    <div
-      role="button"
-      tabIndex={0}
-      style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
-      onClick={() => {
-        if (article?.fromEnssat) {
-          window.open(article.link, '_blank');
-        } else {
-          navigate(`/article/${id}`);
-        }
-      }}
-    >
-      <Card className="horizontal-card mb-3" style={{ borderRadius: '8px', boxShadow: 'var(--box-shadow)' }}>
-        <Card.Body>
-          <Row>
-            {/* Image on top for small screens */}
-            <Col xs={12} className="d-md-none">
+      <a href={
+        article?.fromEnssat ? article.link : `/article/${id}`
+         }
+        target={article?.fromEnssat ? "_blank" : "_self"}
+        rel="noreferrer"
+        style={{ textDecoration: 'none', color: 'inherit' }
+      }>
+        <Card className="horizontal-card mb-3" style={{ borderRadius: '8px', boxShadow: 'var(--box-shadow)' }}>
+          <Card.Body>
+            <Row>
+              <Col xs={4}>
               <div className="image-container d-flex justify-content-center align-items-center">
                 {article?.fromEnssat ? (
                   <Image
@@ -117,35 +108,10 @@ const HorizontalCard = ({ article }: any) => {
                       ...fitImageStyles,
                     }}
                   />
-                ) : (
+                ) : ( 
                   thumbnailImage ? 
                     <Image
-                      src={thumbnailImage}
-                      className="img-fluid"
-                      alt="Card"
-                      style={{
-                        borderRadius: '8px',
-                        maxHeight: '130px',
-                        minHeight: '130px',
-                        objectFit: 'cover',
-                        ...fitImageStyles,
-                      }}
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = '/loading.gif'; 
-                      }}
-                    />
-                    : 
-                    <Image src='/loading.gif' roundedCircle style={{ width: '40px', height: '40px', transform: 'scale(2)'}} />
-                )}
-              </div>
-            </Col>
-            {/* Image on the left for larger screens */}
-            <Col xs={12} md={4} className="order-md-1 mb-1">
-              <div className="image-container d-flex justify-content-center align-items-center d-md-flex d-none">
-                {article?.fromEnssat ? (
-                  <Image
-                    srcSet={extractFirstImageLink(article.thumbnail)}
+                    src={thumbnailImage}
                     className="img-fluid"
                     alt="Card"
                     style={{
@@ -157,64 +123,48 @@ const HorizontalCard = ({ article }: any) => {
                       ...fitImageStyles,
                     }}
                   />
-                ) : (
-                  thumbnailImage ? 
-                    <Image
-                      src={thumbnailImage}
-                      className="img-fluid"
-                      alt="Card"
-                      style={{
-                        borderRadius: '8px',
-                        maxHeight: '130px',
-                        minHeight: '130px',
-                        objectFit: 'cover',
-                        ...fitImageStyles,
-                      }}
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = '/loading.gif'; 
-                      }}
-                    />
-                    : 
-                    <Image src='/loading.gif' roundedCircle style={{ width: '40px', height: '40px', transform: 'scale(2)'}} />
+                  : 
+                  <Image src='/loading.gif' roundedCircle style={{ width: '40px', height: '40px', transform: 'scale(2)'}} />
+                  
                 )}
               </div>
             </Col>
             <Col xs={12} md={8}  className="order-md-2">
               <Row className="tags-row">
-                <div className="mb-2">
-                  {article_tags.slice(0, 2).map((tag: any, index: any) => (
-                    <Tag key={index} text={tag}></Tag>
-                  ))}
-                </div>
-              </Row>
-              <Row className="title-row">
-                <Heading6 style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                  {title}
-                </Heading6>
-              </Row>
-              <Row className="mb-3 align-items-center">
-                <Col className="d-flex align-items-center">
-                  {(avatarEnssatImage || avatarImage) ? (
-                    <Image src={article?.fromEnssat ? avatarEnssatImage : avatarImage} alt="Author Avatar" roundedCircle style={{ width: '40px', height: '40px' }} />
-                  ) : (
-                    <Image src='/loading.gif' alt="Author Avatar" roundedCircle style={{ width: '40px', height: '40px', transform: 'scale(2)'}} />
-                  )}
-                  <div className="ms-3">
-                    <p className="fw-bold mb-0">
-                      {author?.FIRST_NAME} {author?.LAST_NAME}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="m-0 ms-3 text-muted small">Posted {getTimeDifference(published_at)} ago</p>
-                  </div>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Card.Body>
-      </Card>
-    </div>
+              <div className="mb-3">
+                {article_tags.slice(0, 2).map((tag: any, index: any) => (
+                  <Tag key={index} text={tag}></Tag>
+                ))}
+              </div>
+            </Row> 
+                <Row className="title-row">
+                  <Heading6 style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                    {title}
+                  </Heading6>
+                </Row>
+                <Row className="mb-3 align-items-center">
+                  <Col className="d-flex align-items-center">
+                    {
+                                   (avatarEnssatImage || avatarImage)   ?    
+                                   <Image src={article?.fromEnssat ? avatarEnssatImage : avatarImage} alt="Author Avatar" roundedCircle style={{ width: '40px', height: '40px' }} />
+                                   :
+                                   <Image src='/loading.gif' alt="Author Avatar" roundedCircle style={{ width: '40px', height: '40px', transform: 'scale(2)'}} />
+                    }
+                    <div className="ms-3">
+                      <p className="fw-bold mb-0">
+                        {author?.FIRST_NAME} {author?.LAST_NAME}
+                      </p>
+                    </div>
+                    <div >
+                      <p className="m-0 ms-3 text-muted small">Posted {getTimeDifference(published_at)} ago</p>
+                    </div>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Card.Body>
+        </Card>
+      </a>
   );
   
 };

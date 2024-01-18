@@ -33,10 +33,10 @@ const ArticleDetailsComponent = ({ article }: any) => {
 
   
   const [showModal, setShowModal] = useState(false);
-  //const [selectedImage, setSelectedImage] = useState('');
+  const [selectedImage, setSelectedImage] = useState('');
 
   const handleImageClick = (imageName:any) => {
-    //setSelectedImage(imageName);
+    setSelectedImage(imageName);
     setShowModal(true);
   };
 
@@ -47,9 +47,9 @@ const ArticleDetailsComponent = ({ article }: any) => {
 
 const ImageModal = ({ show, onHide, imageUrl }:any) => {
   return (
-    <Modal size={'xl'} show={show} onHide={onHide} centered>
+    <Modal show={show} onHide={onHide} centered>
       <Modal.Body>
-        <img  src={imageUrl} alt="Full-size" style={{ width: '100%' }} />
+        <img src={imageUrl} alt="Full-size" style={{ width: '100%' }} />
       </Modal.Body>
     </Modal>
   );
@@ -61,32 +61,37 @@ const ImageModal = ({ show, onHide, imageUrl }:any) => {
   const [principalImage, setPrincipalImage] = useState('');
 
   useEffect(() => {
+    const fetchAvatarImage = async () => {
+      try {
+          let _avatar:string;
+         
+          _avatar = await getDefaultFile('default-avatar.png');
+          
+        if(_avatar)
+        setAvatarImage(_avatar);
+      } catch (error) {
+        console.error('Error fetching principal image:', error);
+      }
+    };
+
+   
+
     fetchPrincipalImage();
     fetchAvatarImage();
 
     // Specify the cleanup function to avoid potential memory leaks
     return () => {
+      // Cleanup logic if needed
     };
-  }, []);
+  }, []); // Empty dependency array means the effect runs once on mount
+
 
   useEffect(()=>{
+
     fetchPrincipalImage();
   }, [principal_image])
 
-
-  const fetchAvatarImage = async () => {
-    try {
-        let _avatar:string;
-       
-        _avatar = await getDefaultFile('default-avatar.png');
-        
-      if(_avatar)
-      setAvatarImage(_avatar);
-    } catch (error) {
-      console.error('Error fetching principal image:', error);
-    }
-  };
-
+  
 
   const fetchPrincipalImage = async () => {
     try {
@@ -94,23 +99,18 @@ const ImageModal = ({ show, onHide, imageUrl }:any) => {
         let img:string;
         if (principal_image === undefined || principal_image === null) {
             
-            //img = await getDefaultFile('default-thumbnail-featured.png');
+            img = await getDefaultFile('default-thumbnail-featured.png');
         }else{
-            img = (await getPublicFile(principal_image));
-            console.log(principal_image);
-            if (img && typeof img === 'string' && !img.includes('Error:')) {
-              setPrincipalImage(img);
-            } else {
-              console.error('Invalid image format received.');
-            }
+            img = (await getPublicFile(principal_image)).toString();
              
         }
           
+      if(img)
+      setPrincipalImage(img);
     } catch (error) {
       console.error('Error fetching principal image:', error);
     }
   };
-
 
   const views = 0;
   const comments = 0;
@@ -134,29 +134,22 @@ const ImageModal = ({ show, onHide, imageUrl }:any) => {
 
           <div className="mb-3" dangerouslySetInnerHTML={{ __html: content }}></div>
 
-          {(principalImage &&  <Image src={principalImage} fluid className="mb-4 w-100" 
+          {principalImage &&  <Image srcSet={principalImage} fluid className="mb-4 w-100" 
                                 style={{
                                   height: '400px',
                                   objectFit: 'cover',
-                                  borderRadius: '8px',
-                                  cursor:'pointer'
+                                  borderRadius: '8px'
                                 }}
                                 onClick={() => handleImageClick(principalImage)}
-                                
-                                onError={(e) => {
-                                  const target = e.target as HTMLImageElement;
-                                  target.src = '/loading.gif'; 
-                                }}
                              />
-                             
-                             )}
+            }
             <ImageModal show={showModal} onHide={handleCloseModal} imageUrl={principalImage} />
 
 
-        <div className="mb-2"> 
-          {article_tags && article_tags.map((tag: any, index: any) => ( 
-            <Tag key={index} text={tag}></Tag> 
-          ))}
+        <div className="mb-3"> 
+            {article_tags && article_tags.map((tag: any, index: any) => ( 
+                <Tag text={tag}></Tag> 
+            ))}
 
         </div>
 

@@ -1,6 +1,6 @@
 import './FileInputWithPreview.css';
 
-function FileInputWithPreview({ onClick, imageName,imageInvalid, src, id, title, name, cadreStyle }) { 
+function FileInputWithPreview({ onClick, imageName,imageInvalid, src, id, title, name }) { 
   return (
     <div onClick={onClick} className="FileInputWithPreview position-relative mb-3">
       <label
@@ -12,8 +12,7 @@ function FileInputWithPreview({ onClick, imageName,imageInvalid, src, id, title,
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           borderColor: (imageInvalid ? 'red' : ''),
-          ...cadreStyle
-        } } 
+        }} 
       >
         <input
           id={id}

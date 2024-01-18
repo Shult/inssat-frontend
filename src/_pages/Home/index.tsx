@@ -18,7 +18,10 @@ const Home = () => {
         getLastArticle().then(result => setLastArticle(result))
     }, []);
 
-   
+    useEffect(() => {
+        console.log("_________")
+        console.log(lastArticle)
+    }, [articles]);
 
     return (
         <Container fluid className="w-100">
