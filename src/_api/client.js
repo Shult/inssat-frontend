@@ -18,7 +18,7 @@ apiClient.addRequestTransform((request) => {
     }
   
     const token = UserService.getToken();
-    if (token) { 
+    if (token) {
         request.headers['Authorization'] = `Bearer ${token}`;
     }
 });

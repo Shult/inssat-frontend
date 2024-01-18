@@ -73,3 +73,11 @@
     }
   }
   
+
+  /* add media query for small screen */
+  @media only screen and (max-width: 600px){
+    #loading-animation svg{
+      scale: 0.7;
+    }
+
+  }

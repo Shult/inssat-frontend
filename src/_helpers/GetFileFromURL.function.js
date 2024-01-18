@@ -1,6 +1,9 @@
 import config from '../config.json'
+import userServices from "../services/UserServices";
+
 
  function GetFileFromURL(fileName) {
+  console.log("userServices.getTokenParsed : "+userServices.getTokenParsed)
     return config.development.API_URL + '/api_blog/uploads/' + fileName
 }
 async function getImageAsBase64(filename) {

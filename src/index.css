@@ -4,6 +4,18 @@
   --gold: #BF9E4E;
   --goldDark: #a48231;
 
+  /* erasing bootstrap default color */
+  --bs-pagination-active-bg: var(--gold);
+
+  --pagination-background: #fff;
+  --pagination-border: #ddd;
+  --pagination-active-background: var(--goldDark);;
+  --pagination-active-color: #fff;
+  --pagination-disabled-background: #f8f9fa;
+  --pagination-disabled-color: #6c757d;
+  --pagination-link-color:  var(--goldDark);;
+
+
   --enssatGrey: #556A68;
   --enssatGreyDark: #334442;
 
@@ -29,6 +41,10 @@
   --font-family: 'Inter', 'Roboto', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
   Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
   'Noto Color Emoji';
+}
+/* Must use only one font */
+*{
+  font-family: var(--font-family);
 }
 
 /* Reusable class */
@@ -63,7 +79,7 @@
 .float-left { float: left }
 
 /* Imported fonts */
-
+/* 
 @font-face {
   src: url("_assets/fonts/OpenSans/OpenSans-Regular.ttf");
   font-family: "Open Sans";
@@ -72,7 +88,7 @@
 @font-face {
   src: url("_assets/fonts/Sansation/Sansation-Regular.ttf");
   font-family: "Sansation";
-}
+} */
 
 
 /* Container */
@@ -83,8 +99,8 @@ html,
   height: 100%;
   width: 100%;
 }
-
-body { font-family: var(--fontText); }
+/* 
+body { font-family: var(--fontText); } */
 
 .line {
   display: flex;
@@ -93,14 +109,14 @@ body { font-family: var(--fontText); }
 
 /* Items */
 
-h1,
+/* h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
   font-family: var(--fontTitle);
-}
+} */
 
 h1,
 h3,
@@ -205,3 +221,148 @@ input, textarea {
 .hide-scroller::-webkit-scrollbar {
   display: none;
 }
+
+
+
+
+
+
+/* //===================================Pagination======================================== */
+.pagination {
+  background-color: var(--pagination-background);
+  border: 1px solid var(--pagination-border);
+  border-radius: 0.25rem;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: var(--pagination-active-background);
+  color: var(--pagination-active-color);
+  border-color: var(--pagination-active-background);
+}
+
+.pagination .page-item.disabled .page-link {
+  background-color: var(--pagination-disabled-background);
+  color: var(--pagination-disabled-color);
+  border-color: var(--pagination-disabled-background);
+}
+
+.pagination .page-link {
+  color: var(--pagination-link-color);
+}
+
+.pagination .page-link:hover {
+  color: black;
+}
+
+
+
+
+
+
+/* /========================================== */
+.alert-info {
+  color: var(--goldDark)!important;  
+  background-color: #E7D8A8!important;  
+  border-color: #D4BD8C!important;  
+}
+
+
+
+/* ===================== Fixing side nav responsiveness (mobile version style) ======================= */
+
+
+
+@media (max-width: 600px){
+  
+  body{
+     padding-bottom:100px; 
+    }
+  #divSideNav{
+    position: fixed!important;
+    bottom: 0!important;
+    width: 100%;
+    margin-bottom: 12px;
+    z-index:9999;
+    overflow: scroll;
+  }
+  
+  .sidebar-container{
+    padding-top:0;
+    height: 100px!important;
+    position: fixed;
+    bottom: 0!important; 
+    overflow: scroll;
+    width: 100%; 
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+   
+    
+    
+  }
+    
+    .sc-fBWQRz.fRhOkl.pro-sidebar-content.sidebar-content{
+       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+      
+      
+      overflow: scroll;
+    }
+    #divSideNav > .sidebar-container .toggled
+    {
+      background:none!important;
+    }
+  .hkaJrM{
+    background:none!important;
+    width: 100%;
+    width:auto;
+    overflow: scroll!important;
+  }
+  .sc-hknOHE.jGeaPm{
+    display:none;
+  }
+  .pro-sidebar-footer{
+    display:none;
+  }
+   
+  .sc-bbSZdi.eETGfq {
+    position: fixed; 
+    
+    width:100%;
+      overflow-x:scroll!important;
+  }
+  .pro-menu>ul{
+    display: flex; 
+    overflow: scroll;
+    padding-right:20px;
+    padding-left:20px;
+  }
+  
+    .sc-Nxspf.gmeTLe{
+      padding-right: 25px;
+      padding-left: 20px;
+      
+    }
+    .sc-cfxfcM.hQSxZz{
+      margin:5px;
+    }
+  
+  .sc-hCPjZK.gvLSFM{
+     overflow-x: scroll;
+  display: inline-flex;  
+  }
+  
+  .gmeTLe .side-icon{
+   padding:0!important;     margin:auto!important;
+  }
+  
+  .activeClicked{
+    background: none!important;
+  }
+  
+   
+  
+  }
+  

@@ -15,6 +15,7 @@ import ApprenticeshipManagement from "../_pages/ApprenticeshipManagement/Apprent
 import ActivityReport from "../_pages/ActivityReport/ActivityReport"
 import ActivityReportView from "../_pages/ActivityReport/ActivityReportView/ActivityReportView"
 import ApprenticeshipTickets from "../_pages/ApprenticeshipTickets/ApprenticeshipTickets";
+import _404 from "../_pages/404";
 
 const Router = () => {
     const roleManager = RoleManager()
@@ -49,12 +50,14 @@ const Router = () => {
 
             <Route path="/apprenticeshipTickets" Component={ApprenticeshipTickets}/>
 
-            <Route path="/category/:name" Component={Category.Details} />
+            {/* <Route path="/category/:name" Component={Category.Details} /> */}
+            <Route path="/article" Component={Article.AllWithFilter}/>
 
             <Route path="/myaccount" Component={MyAccount}/>
             <Route path="/news" Component={News}/>
 
             {/* PageNotFound */}
+            <Route path="/page-not-found" Component={_404}/>
             <Route path="*" Component={PageNotFound}/>
 
         </Routes>

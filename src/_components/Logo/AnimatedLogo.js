@@ -3,7 +3,7 @@ import './AnimatedLogo.css'; // Import the CSS file containing the animation sty
 
 const AnimatedLogo = () => {
   return (
-    <div className="d-flex justify-content-center align-items-center">
+    <div id="loading-animation" className="d-flex justify-content-center align-items-center">
         <svg
             className="logo"
             width="396"

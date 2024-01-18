@@ -8,7 +8,6 @@ import { Card, Modal } from 'react-bootstrap'; // Import React Bootstrap compone
 import {loadCalendar, selectCalendar} from './Calendar.slice';
 import { useAppDispatch, useAppSelector } from '../../_store/hook';
 import frLocale from '@fullcalendar/core/locales/fr';
-// import UserServices from "../../services/UserServices";
 
 
 const CalendarCustom = ({ calendarType = 'timeGridWeek', Height = "100vh"}) => {
@@ -32,8 +31,8 @@ const CalendarCustom = ({ calendarType = 'timeGridWeek', Height = "100vh"}) => {
 
 
   return (
-      <Card className='p-0 mb-3' style={{  boxShadow: 'var(--box-shadow)', border: 0 }}>
-        <Card.Body className='p-2'>
+      <Card style={{ padding: '20px', boxShadow: 'var(--box-shadow)', border: 0 }}>
+        <Card.Body>
           <FullCalendar
               plugins={[timeGridPlugin, iCalendarPlugin]}
               initialView={initialView}
@@ -53,6 +52,7 @@ const CalendarCustom = ({ calendarType = 'timeGridWeek', Height = "100vh"}) => {
               locale="fr" // Set the locale to French
 
               eventClick={handleEventClick} // Add the event click handler
+              
           />
 
           <Modal show={showEventDetails} onClick={handleClose} onHide={handleClose}>

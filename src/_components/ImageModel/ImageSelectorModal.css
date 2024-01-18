@@ -1,0 +1,75 @@
+/* ImageSelectorModal.css */
+.card-box {
+    padding: 20px;
+    border-radius: 3px;
+    margin-bottom: 30px;
+    background-color: #fff;
+}
+
+.file-man-box {
+    cursor: pointer;
+    padding: 20px;
+    border: 1px solid #e3eaef;
+    border-radius: 5px;
+    position: relative;
+    margin-bottom: 20px;
+    /*add transition*/
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+ 
+
+.file-man-box .file-img-box {
+    line-height: 120px;
+    text-align: center
+}
+
+.file-man-box .file-img-box img {
+    width: 100%
+}
+ 
+ 
+
+.file-man-box .file-man-title {
+    padding-right: 22px
+}
+
+.file-man-box:hover {
+    -webkit-box-shadow: 0 0 24px 0 rgba(0, 0, 0, .16), 0 1px 0 0 rgba(0, 0, 0, .12)!important;
+    box-shadow: 0 0 24px 0 rgba(0, 0, 0, .16), 0 1px 0 0 rgba(0, 0, 0, .12)!important;
+    background:rgba(0, 0, 0, .1)!important;
+    border: 1px solid #313a46;
+}
+
+.file-man-box:hover .file-close {
+    visibility: visible
+}
+.text-overflow {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+}
+
+.scrblList{
+    height: 70vh;
+    overflow-y: scroll;
+}
+
+
+
+.removeUpload > input[type="file"]::-webkit-file-upload-button {
+    font-size: 0;
+    background:none!important;
+    border:0px;
+  }
+  
+  .removeUpload > input[type="file"]::-webkit-file-upload-button::before {
+    font-size: initial;
+    content: 'Name : ';
+    background:none!important;
+  }

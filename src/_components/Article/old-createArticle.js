@@ -1,5 +1,4 @@
-//TODO : zak --> WARNING This file needs to be refactored ==> didn't have enough time to do so so it's up to you @Front_Team
-import { Card, Form, Row, Col, Toast, Spinner } from 'react-bootstrap';
+import { Card, Form, Row, Col, Button, Toast } from 'react-bootstrap';
 import React, { useRef, useState } from 'react';
 import FileInputWithPreview from '../../_components/ToolBox/Forms/FileInputWithPreview';
 import DraftEditor from '../ToolBox/Forms/DraftEditor';
@@ -9,10 +8,7 @@ import{Heading5} from '../../_components/ToolBox/Headings'
 import { ActionButton } from '../ToolBox/Forms';
 
 import { createArticle } from '../../_api/article';
-import { useNavigate } from 'react-router-dom';
-
-
-import ImageSelectorModal from '../ImageModel/ImageSelectorModal'
+ 
 
 function CreateArticle() {
   const formRef = useRef(null);
@@ -23,70 +19,23 @@ function CreateArticle() {
   const [titleFocused, setTitleFocused] = useState(false);
   const [descriptionFocused, setDescriptionFocused] = useState(false);
 
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile2, setSelectedFile2] = useState(null);
 
- 
-
-
-
-  // ---------------------------------------------------------------------------------------------
-  
-  const [showFileManager, setShowFileManager] = useState(false);
-  const [showFileManager2, setShowFileManager2] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [selectedImage2, setSelectedImage2] = useState(null);
-  const [selectedImageName, setSelectedImageName] = useState('');
-  const [imageInvalid, setImageInvalid] = useState(false);
-  const [imageInvalid2, setImageInvalid2] = useState(false);
-
-  const [loading, setLoading] = useState(false);
-
-  const navigate = useNavigate();
-
-  const handleOpenFileManagerModal = (imageName) => {
-    setSelectedImageName(imageName);
-    setShowFileManager(true);
+  const handleFileSubmit = (file) => {
+    setSelectedFile(file);
   };
-  const handleOpenFileManagerModal2 = (imageName) => {
-    setSelectedImageName(imageName);
-    setShowFileManager2(true);
-  };
-
-  const handleClose = () => setShowFileManager(false);
-
-  const handleImageSelect = (file) => {
-    if(!file)
-      return handleClose();
-
-
-    setSelectedImage(file);
-    setSelectedImageName(file.imageName);
-    handleClose();
+  const handleFile2Submit = (file) => {
+      setSelectedFile2(file);
   };
 
 
-  const handleClose2 = () => setShowFileManager2(false);
-
-  const handleImageSelect2 = (file) => {
-    if(!file)
-      return handleClose();
-    setSelectedImage2(file);
-    setSelectedImageName(file.imageName);
-    handleClose2();
-  };
-
-  // ---------------------------------------------------------------------------------------------
 
   const validate = (event)=>{
-    setLoading(true);
     const form = formRef.current;
     if (form) {
-        setImageInvalid(!selectedImage ? true:false)
-        setImageInvalid2(!selectedImage2 ? true:false)
-    
-      if (form.checkValidity() && selectedImage && selectedImage2) { 
-
-        if(selectedImage || selectedImage2)
-          handleSubmit();
+      if (form.checkValidity()) {
+        handleSubmit();
       } else {
         form.classList.add('was-validated');
         setShowToast(true); // Show the toast for validation errors
@@ -95,19 +44,21 @@ function CreateArticle() {
         }, 3000);
         console.log('Form is invalid. Please fill in required fields.');
        }
-    } 
-
-    setTimeout(()=>{
-      setLoading(false);
-    }, 1000)
+    }
 
   }
   const handleSubmit = async (event) => {
 
 
-    setLoading(true);
     const form = formRef.current;
     if (form.checkValidity()) {
+    // console.log(document.querySelector('input[name="title"]').value)
+    // console.log(document.querySelector('textarea[name="Description"]').value)
+    // console.log(document.querySelector('textarea[name="content"]').value)
+    // console.log(document.querySelector('select[name="category"]').value)
+    // console.log(document.querySelector('input[name="tags"]').value.split('|'))
+    // console.log(selectedFile)
+    // console.log(selectedFile2)
 
     const formData = new FormData();
     formData.append('title', document.querySelector('input[name="title"]').value);
@@ -117,15 +68,11 @@ function CreateArticle() {
 
     formData.append('tags',  document.querySelector('input[name="tags"]').value);
 
-    formData.append('thumbnail', selectedImage.imageName);
-    formData.append('principal_image', selectedImage2.imageName); 
+    formData.append('images', selectedFile);
+    formData.append('images', selectedFile2);
 
     console.log('Form is valid. Ready to submit.');
     try {
-      // Log FormData entries
-      for (const entry of formData.entries()) {
-        console.log(entry);
-      }
       const response = await createArticle(formData);
     
       if (response.ok) {
@@ -136,16 +83,13 @@ function CreateArticle() {
         const newArticleId = response.data.id;
         const articleLink = `/article/${newArticleId}`; // Adjust the route path as needed
         setNewArticlePath(articleLink)
-        // Redirect to the new article page
-        navigate(articleLink);
+    
         // Handle success - maybe redirect, display a success message, etc.
       } else {
         console.error('Failed to create article:', response.problem);
         // Handle error display or other actions based on response.problem
         setShowSuccessToast(false);
       }
-
- 
     } catch (error) {
       console.error('Error creating article:', error);
       // Handle unexpected errors, such as network issues, etc.
@@ -161,10 +105,6 @@ function CreateArticle() {
     }, 3000);
     console.log('Form is invalid. Please fill in required fields.');
   }
-
-  setTimeout(()=>{
-    setLoading(false);
-  }, 1000)
 };
 
 
@@ -173,7 +113,7 @@ function CreateArticle() {
   return (
     <Card className="mb-4">
       <Card.Body>
-        <Card.Title className="mb-3">Creer un Article</Card.Title>
+        <Card.Title className="mb-3">Create Article</Card.Title>
         
         {showSuccessToast ? ( <div className="d-flex align-items-center">
           <div className="me-3">
@@ -222,12 +162,10 @@ function CreateArticle() {
             </Col>
 
             <Col xs={12} lg={4}>
-            <FileInputWithPreview imageInvalid={imageInvalid} imageName={selectedImage && selectedImage.imageName} src={selectedImage && selectedImage.imageBlob} onClick={() => handleOpenFileManagerModal('miniature')} required id="thumbnail" name="thumbnail" title="selectionner miniature" />
+            <FileInputWithPreview required id="image1" name="images" title="selectionner miniature" onChange={handleFileSubmit}/>
             </Col>
             <Col xs={12}>
-            <FileInputWithPreview cadreStyle={{
-              height:"250px",
-            }} imageInvalid={imageInvalid2} imageName={selectedImage && selectedImage.imageName} src={selectedImage2 && selectedImage2.imageBlob} onClick={() => handleOpenFileManagerModal2('image principale')} required id="principal_image" name="principal_image" title="selectionner image principale" />
+            <FileInputWithPreview required id="image2" name="images2" title="selectionner image principal" onChange={handleFile2Submit}/>
             </Col>
 
             <Col xs={12} lg={8}>
@@ -237,7 +175,7 @@ function CreateArticle() {
             <Col xs={12} lg={4}>
               <Row className="align-items-center justify-content-center h-100">
                 <Col xs={12}>
-                  <Heading5 >Etiquettes & Categories</Heading5>
+                  <Heading5 >Tags & Categories</Heading5>
                   <TagsInput/>
                   <Categories required/>
                 </Col>
@@ -247,18 +185,9 @@ function CreateArticle() {
           </Row>
           <Row>
             <Col xs={12} className="d-flex justify-content-center">
-             <ActionButton active={!loading}  variant="primary" onClick={validate}>
-                
-                {loading ? (
-            <>
-              <Spinner animation="border" size="sm" className="me-2" />
-              Enregistrement...
-            </>
-          ) : (
-            'Enregistrer'
-          )}
+             <ActionButton variant="primary" onClick={validate}>
+                Enregistrer
              </ActionButton>
-    
             </Col>
           </Row>
         </Form>)
@@ -268,26 +197,14 @@ function CreateArticle() {
         {/* Bootstrap Toast for showing validation errors */}
         <Toast show={showToast} onClose={() => setShowToast(false)} className="bg-danger text-white">
           <Toast.Header closeButton={true}>
-            <strong className="me-auto">Erreur de validation</strong>
+            <strong className="me-auto">Validation Error</strong>
           </Toast.Header>
-          <Toast.Body>Veuillez remplir les champs obligatoires.</Toast.Body>
+          <Toast.Body>Please fill in required fields.</Toast.Body>
         </Toast>
  
       </div>
 
-      <ImageSelectorModal
-        show={showFileManager}
-        handleClose={handleClose}
-        imageName={selectedImageName}
-        setSelectedImage={handleImageSelect}
-      />
-
-      <ImageSelectorModal
-        show={showFileManager2}
-        handleClose={handleClose2}
-        imageName={selectedImageName}
-        setSelectedImage={handleImageSelect2}
-      />
+ 
 
       </Card.Body>
     </Card>

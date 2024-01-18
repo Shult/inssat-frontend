@@ -18,16 +18,14 @@ const Home = () => {
         getLastArticle().then(result => setLastArticle(result))
     }, []);
 
-    useEffect(() => {
-        // console.log(articles)
-    }, [articles]);
+   
 
     return (
         <Container fluid className="w-100">
 
             <Row className="justify-content-center">
                 <Col xs={12} md={12} lg={12}>
-                    <FeaturedUpdate article={lastArticle} />
+               { lastArticle && <FeaturedUpdate article={lastArticle} />}
                 </Col>
             </Row>
 

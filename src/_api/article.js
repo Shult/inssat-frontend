@@ -15,13 +15,31 @@ const getArticleWithDetails =  (id) => client.get(`/articles/details/${id}`)
 
 
 
+const getFilteredArticles = async (filterOptions) => {
+  try {
+    const response = await client.post('/articles/filter', filterOptions);
 
-const getArticlesByCategory =  (id) => client.get(`/articles/category/${id}`)
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+const getArticlesByCategory = async (id, page = 1, pageSize = 10) => {
+  try {
+    const response = await client.get(`/articles/category/${id}?pageSize=${pageSize}&page=${page}`);
+
+    return response; 
+  } catch (error) {
+    throw error;
+  }
+};
 
 const createArticle = (formData) => {
     return client.post('/articles', formData, {
       headers: {
-        'Content-Type': 'multipart/form-data', // Ensure correct headers for form data
+        'Content-Type': 'multipart/form-data',
       },
     })
   };
@@ -29,11 +47,31 @@ const createArticle = (formData) => {
 const deleteArticle = (id) => {
     return client.delete(`/articles/${id}`, id, {
       headers: {
-        'Content-Type': 'multipart/form-data', // Ensure correct headers for form data
+        'Content-Type': 'multipart/form-data',
       },
     })
   };
 
+
+  const getCommentsForArticle = async (id) => {
+    try {
+      const response = await client.get(`/articles/${id}/comments`);
+  
+      if (response.ok) {
+        // Extract the comments from the response data
+        const comments = response.data;
+        return comments;
+      } else {
+        // Handle errors when the request is not successful
+        console.error('Error fetching comments:', response.problem);
+        return null;
+      }
+    } catch (error) {
+      // Handle other errors (e.g., network issues)
+      console.error('Error fetching comments:', error);
+      return null;
+    }
+  };
 
 export {
     getArticleById,
@@ -43,5 +81,8 @@ export {
     createArticle,
     deleteArticle,
     getArticlesByCategory,
-    update
+    update,
+    getFilteredArticles,
+    getCommentsForArticle
+    
 }
