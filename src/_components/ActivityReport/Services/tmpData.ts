@@ -11,19 +11,19 @@ export const studentData2 = {
 };
 
 
-
-export const periodData1 : IPeriod = {
-    id: 1,
-    name: "Période entreprise 1",
-    created_at: new Date(2022,1, 2, 3,4,5),
-    updated_at: new Date(2023,1, 2, 3,4,5)
-}
-export const periodData2 : IPeriod = {
-    id: 2,
-    name: "Période entreprise 2",
-    created_at: new Date(2022, 6, 15, 9, 45),
-    updated_at: new Date(2023, 6, 15, 9, 45)
-};
+//
+// export const periodData1 : IPeriod = {
+//     id: 1,
+//     name: "Période entreprise 1",
+//     createdAt: new Date(2022,1, 2, 3,4,5),
+//     updatedAt: new Date(2023,1, 2, 3,4,5)
+// }
+// export const periodData2 : IPeriod = {
+//     id: 2,
+//     name: "Période entreprise 2",
+//     createdAt: new Date(2022, 6, 15, 9, 45),
+//     updatedAt: new Date(2023, 6, 15, 9, 45)
+// };
 
 
 
@@ -176,7 +176,7 @@ export const assessmentData3 : IAssessment = {
 
 const activityReportData = {
     impressions: [impressionData1_1, impressionData1_2, impressionData2_1],
-    periods: [periodData1, periodData2],
+    // periods: [periodData1, periodData2],
     activities: [activityData1_1, activityData1_2, activityData2_1],
     sections: [sectionData1, sectionData2],
     grades: [gradeData1, gradeData2, gradeData3],

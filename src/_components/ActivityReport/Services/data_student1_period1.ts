@@ -6,12 +6,12 @@ export const studentData1 = {
     name: "Sylvain"
 }
 
-export const periodData1 : IPeriod = {
-    id: 1,
-    name: "Période entreprise 1",
-    created_at: new Date(2022,1, 2, 3,4,5),
-    updated_at: new Date(2023,1, 2, 3,4,5)
-}
+// export const periodData1 : IPeriod = {
+//     id: 1,
+//     name: "Période entreprise 1",
+//     created_at: new Date(2022,1, 2, 3,4,5),
+//     updated_at: new Date(2023,1, 2, 3,4,5)
+// }
 
 export const sectionData1 : ISection = {
     id: 1,
@@ -168,7 +168,7 @@ export const gradeData3 : IGrade = {
 
 const student1_period1 = {
     student: studentData1,
-    period: periodData1,
+    // period: periodData1,
     sections: [sectionData1, sectionData2],
 
     activities: [activityData1_1, activityData1_2, activityData2_1, activityData2_2],

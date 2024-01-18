@@ -40,8 +40,10 @@ export interface IActivity2 {
 export interface IPeriod {
     id: number,
     name: string,
-    created_at: Date,
-    updated_at: Date
+    description: string,
+    number:number,
+    createdAt: Date,
+    updatedAt: Date
 }
 
 export interface ISection {
@@ -50,6 +52,15 @@ export interface ISection {
     description: string,
     created_at: Date,
     updated_at: Date
+}
+
+export interface ISectionApi {
+    id: number;
+    title: string;
+    "description": string;
+    "created_at": Date;
+    "updated_at": Date;
+    "activities": IActivity2[]
 }
 
 export interface IGrade {

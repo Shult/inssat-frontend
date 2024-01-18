@@ -65,13 +65,13 @@ function Impression(data : any) {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <Dropdown.Item eventKey="Excellent" href="#/action-1">Excellent</Dropdown.Item>
-                            <Dropdown.Item eventKey="Très bien" href="#/action-2">Très bien</Dropdown.Item>
-                            <Dropdown.Item eventKey="Bien" href="#/action-3">Bien</Dropdown.Item>
-                            <Dropdown.Item eventKey="Assez bien" href="#/action-3">Assez bien</Dropdown.Item>
-                            <Dropdown.Item eventKey="Passable" href="#/action-3">Passable</Dropdown.Item>
-                            <Dropdown.Item eventKey="Insuffisant" href="#/action-3">Insuffisant</Dropdown.Item>
-                            <Dropdown.Item eventKey="Non évaluable" href="#/action-3">Non évaluable</Dropdown.Item>
+                            <Dropdown.Item eventKey="Excellent" href="#/impression-1">Excellent</Dropdown.Item>
+                            <Dropdown.Item eventKey="Très bien" href="#/impression-2">Très bien</Dropdown.Item>
+                            <Dropdown.Item eventKey="Bien" href="#/impression-3">Bien</Dropdown.Item>
+                            <Dropdown.Item eventKey="Assez bien" href="#/impression-4">Assez bien</Dropdown.Item>
+                            <Dropdown.Item eventKey="Passable" href="#/impression-5">Passable</Dropdown.Item>
+                            <Dropdown.Item eventKey="Insuffisant" href="#/impression-6">Insuffisant</Dropdown.Item>
+                            <Dropdown.Item eventKey="Non évaluable" href="#/impression-7">Non évaluable</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </Col>

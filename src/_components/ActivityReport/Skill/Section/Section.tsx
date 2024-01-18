@@ -8,10 +8,9 @@ import "./section.css"
 interface SectionProps {
     section: ISection;
     activities: IActivity2[];
-    impressions: IImpression[];
 }
 
-function Section({section, activities, impressions} : SectionProps) {
+function Section({section, activities} : SectionProps) {
     const [title, setTitle] = useState('Évaluer la compétence');
     const handleSelect = (eventKey : any) => {
         setTitle(eventKey);
@@ -31,7 +30,6 @@ function Section({section, activities, impressions} : SectionProps) {
                                         <Impression
                                             key={activity.id}
                                             activity={activity}
-                                            impression={impressions.find(impression => impression.activity_id === activity.id)}
                                         />
                                     ))
                                 }
