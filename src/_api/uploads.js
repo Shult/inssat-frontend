@@ -47,7 +47,7 @@ const getFilesPaginated = async (pageNumber = 1) => {
 
   const uploadFile = async (file) => {
     try {
-      const userID = UserServices.getTokenParsed().sub;
+      // const userID = UserServices.getTokenParsed().sub;
   
       const formData = new FormData();
       formData.append('file', file);

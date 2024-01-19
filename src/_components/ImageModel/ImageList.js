@@ -1,23 +1,42 @@
-import React from 'react';
+import { Card, Row, Col, Image } from 'react-bootstrap';
 
-const ImageList = ({ fileNames, currentIndex, setCurrentIndex, setSelectedImage }) => {
+const ImageList = ({ fileNames, setSelectedImage }) => {
   return (
-    <div className="scrblList">
-      <div className="row">
+    <div className="scrblList mt-3">
+      <Row>
         {fileNames.map((file, index) => (
-          <div key={index} className="col-sm-6 col-md-3">
-            <div className="file-man-box" onClick={() => setSelectedImage(file)}>
-              <div className="file-img-box">
-                <img src={file.imageBlob} alt="icon" />
-              </div>
-              <div className="file-man-title">
-                <h5 className="mb-0 text-overflow">{file.imageName}</h5>
-                <p className="mb-0"><small>{file.imageBlob ? 'Image' : 'Error'}</small></p>
-              </div>
-            </div>
-          </div>
+          <Col key={index} sm={6} md={4} lg={3}>
+            <Card className="file-man-box" onClick={() => setSelectedImage(file)}>
+              <Card.Body className="m-none">
+                <div className="file-img-box">
+                  <Image
+                    className="mb-4 w-100"
+                    style={{
+                      height: '200px',
+                      objectFit: 'cover',
+                      borderRadius: '8px',
+                    }}
+                    src={file.imageBlob}
+                    alt="icon"
+                    onError={(e) => {
+                      const target = e.target;
+                      target.src = '/loading.gif'; 
+                    }
+                      
+                    }
+                  />
+                </div>
+                <div className="file-man-title">
+                  <h5 className="mb-0 text-overflow">{file.imageName}</h5>
+                  <p className="mb-0">
+                    <small>{file.imageBlob ? 'Image' : 'Error'}</small>
+                  </p>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
         ))}
-      </div>
+      </Row>
     </div>
   );
 };

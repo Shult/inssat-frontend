@@ -178,40 +178,47 @@ function EditArticle(props) {
 };
 
 
+  //---------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------
 
 useEffect(() => {
-  fetchArticleDetails();
-}, []);
 
-const fetchArticleDetails = async () => {
-  try {
-    const response = await getArticleWithDetails(id);
-    if (response.ok) {
-      setArticle(response.data);
-
-      // Fetch and set principal_image
-      const principalImageBlobURL = await getPublicFile(response.data.principal_image);
-      setSelectedImage2({
-        imageName: response.data.principal_image,
-        imageBlob: principalImageBlobURL,
-      });
-
-      // Fetch and set thumbnail
-      const thumbnailBlobURL = await getPublicFile(response.data.thumbnail);
-      setSelectedImage({
-        imageName: response.data.thumbnail,
-        imageBlob: thumbnailBlobURL,
-      });
-    } else {
-      alert('Article was found');
-      console.error('Failed to fetch article details');
+  const fetchArticleDetails = async () => {
+    try {
+      const response = await getArticleWithDetails(id);
+      if (response.ok) {
+        setArticle(response.data);
+  
+        // Fetch and set principal_image
+        const principalImageBlobURL = await getPublicFile(response.data.principal_image);
+        setSelectedImage2({
+          imageName: response.data.principal_image,
+          imageBlob: principalImageBlobURL,
+        });
+  
+        // Fetch and set thumbnail
+        const thumbnailBlobURL = await getPublicFile(response.data.thumbnail);
+        setSelectedImage({
+          imageName: response.data.thumbnail,
+          imageBlob: thumbnailBlobURL,
+        });
+      } else {
+        navigate('/page-not-found')
+        // alert('Article was not found');
+        console.error('Failed to fetch article details');
+      }
+    } catch (error) {
+      console.error('Error fetching article details:', error);
     }
-  } catch (error) {
-    console.error('Error fetching article details:', error);
-  }
-};
+  };
 
 
+  fetchArticleDetails();
+}, [id, navigate]);
+
+
+  //---------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------
 
 
   return article && (
@@ -302,7 +309,7 @@ const fetchArticleDetails = async () => {
                 
                 {loading ? (
             <>
-              <Spinner animation="border" size="sm" className="mr-2" />
+              <Spinner animation="border" size="sm" className="me-2" />
               Enregistrement...
             </>
           ) : (
@@ -318,9 +325,9 @@ const fetchArticleDetails = async () => {
         {/* Bootstrap Toast for showing validation errors */}
         <Toast show={showToast} onClose={() => setShowToast(false)} className="bg-danger text-white">
           <Toast.Header closeButton={true}>
-            <strong className="me-auto">Validation Error</strong>
+            <strong className="me-auto">Erreur de validation</strong>
           </Toast.Header>
-          <Toast.Body>Please fill in required fields.</Toast.Body>
+          <Toast.Body>Veuillez remplir les champs obligatoires.</Toast.Body>
         </Toast>
  
       </div>

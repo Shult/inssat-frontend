@@ -16,7 +16,21 @@ const getArticleWithDetails =  (id) => client.get(`/articles/details/${id}`)
 
 
 
-const getArticlesByCategory =  (id) => client.get(`/articles/category/${id}`)
+const getArticlesByCategory = async (id, page = 1, pageSize = 10) => {
+  console.log("äsdasdasdasdasdsa")
+  console.log(id)
+  console.log(page)
+  console.log(pageSize)
+  console.log(id)
+  console.log("äsdasdasdasdasdsa")
+  try {
+    const response = await client.get(`/articles/category/${id}?pageSize=${pageSize}&page=${page}`);
+
+    return response; 
+  } catch (error) {
+    throw error;
+  }
+};
 
 const createArticle = (formData) => {
     return client.post('/articles', formData, {

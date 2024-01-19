@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { EditorState, convertFromHTML, ContentState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+import { EditorState, convertFromHTML, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { stateToHTML } from 'draft-js-export-html';
@@ -16,6 +16,13 @@ const DraftEditor = ({ title, name, content, required }) => {
     const [htmlContent, setHtmlContent] = useState(''); // State to hold HTML content
   
     useEffect(() => {
+  
+      const convertToHTML = () => {
+        const contentState = editorState.getCurrentContent();
+        const html = stateToHTML(contentState);
+        setHtmlContent(html); // Update HTML content state
+      };
+   
       convertToHTML(); // Convert to HTML initially
     }, [editorState]); // Trigger when editorState changes
 
@@ -34,13 +41,6 @@ const DraftEditor = ({ title, name, content, required }) => {
     const onEditorStateChange = (newEditorState) => {
       setEditorState(newEditorState);
     };
-  
-    const convertToHTML = () => {
-      const contentState = editorState.getCurrentContent();
-      const html = stateToHTML(contentState);
-      setHtmlContent(html); // Update HTML content state
-    };
- 
   
     return (
       <div className="mt-4">

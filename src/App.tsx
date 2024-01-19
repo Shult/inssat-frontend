@@ -5,6 +5,7 @@ import './App.css';
 import Sidebar from './_components/SideNavBar';
 import LoadingAnimation from './_components/Loading/index';
 import apiClient  from './_api/client';
+import {debounce} from 'lodash';
 
 
 interface Styles {
@@ -33,6 +34,8 @@ const styles:Styles = {
 function App() {
   const [loading, setLoading] = useState(false);
 
+  const setLoadingDebounced = debounce(setLoading, 300);
+
 
 
   useEffect(() => {
@@ -40,19 +43,19 @@ function App() {
     const clearInterceptors = () => {
 
         apiClient.addRequestTransform(request => {
-            setLoading(true);
-          });
+          setLoadingDebounced(true);
+        });
 
         apiClient.addResponseTransform(response => {
-            //TODO: for testing purpose i am adding delay to Loading so that the animation take its time to finish '3s'
-            setTimeout(() => {
-                setLoading(false);
-              }, 2500);
-          });
-    };
+          //TODO: for testing purpose i am adding delay to Loading so that the animation take its time to finish '3s'
+          setTimeout(() => {
+            setLoading(false);
+          }, 500);
+        });
+      };
 
     return clearInterceptors;
-  }, []);
+  }, [setLoadingDebounced]);
 
 
 

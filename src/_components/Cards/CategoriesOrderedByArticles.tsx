@@ -1,6 +1,5 @@
-import React from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
-import CategoryItem from './SimpleTextBothSide'; // Import your CategoryItem component
+import CategoryItem from './SimpleTextBothSide';
 
 const CategoriesCard = ({ categories }: { categories: any[] }) => {
   return (

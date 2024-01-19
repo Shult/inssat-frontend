@@ -1,4 +1,4 @@
-import { Card, Row, Col,  Image, Spinner  } from 'react-bootstrap';
+import { Card, Row, Col,  Image  } from 'react-bootstrap';
 import Tag from '../ToolBox/Tag';
 
 import {
@@ -29,7 +29,30 @@ const HorizontalCard = ({ article }: any) => {
   //================================================================================================
 
   useEffect(() => {
-    
+    type ImageSetterFunction = React.Dispatch<React.SetStateAction<string>>;
+
+    const fetchImage = async (
+      setImageFunction: ImageSetterFunction,
+      fileName: string | null | undefined,
+      fallbackFileName: string
+      ) => {
+      try {
+          let img;
+
+          if (!fileName) {
+              img = await getDefaultFile(fallbackFileName);
+          } else {
+              img = (await getPublicFile(fileName)).toString();
+          }
+
+          if (img) {
+              setImageFunction(img);
+          }
+      } catch (error) {
+          console.error(`Error fetching ${fallbackFileName} image:`, error);
+      }
+  };
+
     if(!article?.fromEnssat)
     fetchImage(setThumbnailImage, thumbnail, 'default-thumbnail-horizontal.png');
     fetchImage(setAvatarImage, null, 'default-avatar.png');
@@ -40,33 +63,11 @@ const HorizontalCard = ({ article }: any) => {
     return () => {
       // Cleanup logic if needed
     };
-  }, []); // Empty dependency array means the effect runs once on mount
+  }, [article, thumbnail]); //to avoid eslint warning i added thumbnail  ==> article is sufficient 
 
   //================================================================================================
 
-  type ImageSetterFunction = React.Dispatch<React.SetStateAction<string>>;
-
-  const fetchImage = async (
-    setImageFunction: ImageSetterFunction,
-    fileName: string | null | undefined,
-    fallbackFileName: string
-    ) => {
-    try {
-        let img;
-
-        if (!fileName) {
-            img = await getDefaultFile(fallbackFileName);
-        } else {
-            img = (await getPublicFile(fileName)).toString();
-        }
-
-        if (img) {
-            setImageFunction(img);
-        }
-    } catch (error) {
-        console.error(`Error fetching ${fallbackFileName} image:`, error);
-    }
-};
+  
 
  
 
@@ -106,6 +107,7 @@ const HorizontalCard = ({ article }: any) => {
                       cursor: 'progress',
                       ...fitImageStyles,
                     }}
+                  
                   />
                 ) : ( 
                   thumbnailImage ? 
@@ -120,6 +122,10 @@ const HorizontalCard = ({ article }: any) => {
                       objectFit: 'cover',
                       ...fitImageStyles,
                     }}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = '/loading.gif'; 
+                    }}
                   />
                   : 
                   <Image src='/loading.gif' roundedCircle style={{ width: '40px', height: '40px', transform: 'scale(2)'}} />
@@ -129,7 +135,7 @@ const HorizontalCard = ({ article }: any) => {
               </Col>
               <Col xs={8}>
               <Row className="tags-row">
-              <div className="mb-3">
+              <div className="mb-2">
                 {article_tags.slice(0, 2).map((tag: any, index: any) => (
                   <Tag key={index} text={tag}></Tag>
                 ))}

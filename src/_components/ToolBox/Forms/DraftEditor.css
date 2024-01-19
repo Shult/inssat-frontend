@@ -11,3 +11,7 @@
 .public-DraftStyleDefault-block {
     margin-top:0;
 }
+
+.rdw-option-active{
+    background:var(--gold);
+  }

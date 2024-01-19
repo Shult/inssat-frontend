@@ -1,5 +1,4 @@
 import { Card, Row, Col, Image } from 'react-bootstrap';
-import config from "../../config.json"
 
 import {
     Heading2,
@@ -10,12 +9,16 @@ import {
 } from '../ToolBox/Paragraphs';
 import { useEffect, useState } from 'react';
 
-import {getDefaultFile, getFile, getPublicFile} from '../../_api/uploads'
+import {getDefaultFile, getPublicFile} from '../../_api/uploads'
+import { useNavigate } from 'react-router-dom';
 
 const FeaturedUpdate = ({ article }:any) => {
-    const { principal_image, title, description } = article
+    const navigate = useNavigate();
+    const { id, principal_image, title, description } = article
 
     const [principalImage, setPrincipalImage] = useState('');
+
+  //================================================================================================
 
     useEffect(() => {
       const fetchPrincipalImage = async () => {
@@ -26,7 +29,7 @@ const FeaturedUpdate = ({ article }:any) => {
                 
                 img = await getDefaultFile('default-thumbnail-featured.png');
             }else{
-                img = (await getPublicFile(principal_image)).toString();
+                img = (await getPublicFile(principal_image));
             }
               
           if(img)
@@ -38,14 +41,17 @@ const FeaturedUpdate = ({ article }:any) => {
   
       fetchPrincipalImage();
   
-      // Specify the cleanup function to avoid potential memory leaks
       return () => {
-        // Cleanup logic if needed
       };
-    }, []); // Empty dependency array means the effect runs once on mount
+    }, [principal_image]); 
   
+  //================================================================================================
 
+    const handleClick = ()=>{
+        navigate('/article/'+id)
+    }
 
+  //================================================================================================
     return (
         <Card
             className="horizontal-card mb-3"
@@ -55,7 +61,9 @@ const FeaturedUpdate = ({ article }:any) => {
                 background: 'var(--featured-gradient)',
                 boxShadow: 'var(--box-shadow)',
                 color: 'white', // Set the text color to white
+                cursor: 'pointer'
             }}
+            onClick={handleClick}
         >
             <Card.Body>
                 <Row>
@@ -90,21 +98,21 @@ const FeaturedUpdate = ({ article }:any) => {
                         </Row>
                     </Col>
                     <Col xs={12} lg={6}>
-                        <div className="image-container">
-                            {principal_image && (<Image
-                                src={principalImage}
-                                className="img-fluid"
-                                alt="Card"
-                                style={{
-                                    borderRadius: '8px',
-                                    height:'176px',
-                                    objectFit: 'cover',
-                                    float: 'right', // Apply float to move the image to the right
+                    <div className="image-container">
+                    {principal_image && (
+                        <Image
+                        src={principalImage}
+                        className="img-fluid mx-auto d-block d-sm-block w-100"
+                        alt="Card"
+                        style={{
+                            borderRadius: '8px',
+                            height: '176px',
+                            objectFit: 'cover',
+                        }}
+                        />
+                    )}
+                    </div>
 
-                                }}
-
-                            />)}
-                        </div>
                     </Col>
                 </Row>
             </Card.Body>
