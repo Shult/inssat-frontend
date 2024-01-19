@@ -31,52 +31,50 @@ const Article = () => {
   const [commentsCounter, setCommentsCounter] = useState(articleDetails.comment_count ? articleDetails.comment_count : 0);
   
   useEffect(() => {
-    setArticleDetails((prevDetails) => ({ ...prevDetails, comment_count: commentsCounter }));
-  }, [commentsCounter]);
+
+    //------------_> getCategories
+    const fetchData = async () => {
+      try {
+        const categoriesResponse = await getCategoriesByArticleCount();
+        if (categoriesResponse.ok) {
+          console.log(categoriesResponse.data)
+          setCategories(categoriesResponse.data);
+        } else {
+          console.error('Error fetching categories:', categoriesResponse);
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
   
-
-
-  useEffect(() => {
-
-  //------------_> getCategories
-  const fetchData = async () => {
-    try {
-      const categoriesResponse = await getCategoriesByArticleCount();
-      if (categoriesResponse.ok) {
-        console.log(categoriesResponse.data)
-        setCategories(categoriesResponse.data);
-      } else {
-        console.error('Error fetching categories:', categoriesResponse);
+      //------------_> getArticleById
+      try {
+        const articleResponse = await getArticleWithDetails(id);
+        if (articleResponse.ok) {
+          setArticleDetails(articleResponse.data);
+          console.log(articleResponse.data)
+        } else {
+          console.error('Error fetching categories:', articleResponse);
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error);
       }
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-    }
-
-    //------------_> getArticleById
-    try {
-      const articleResponse = await getArticleWithDetails(id);
-      if (articleResponse.ok) {
-        setArticleDetails(articleResponse.data);
-        console.log(articleResponse.data)
-      } else {
-        console.error('Error fetching categories:', articleResponse);
+  
+      //------------_> getArticlesWithDetails
+      try {
+        const articlesResponse = await getArticlesWithDetails();
+        if (articlesResponse.ok) {
+          setArticles(articlesResponse.data);
+        } else {
+          console.error('Error fetching articles:', articlesResponse);
+        }
+      } catch (error) {
+        console.error('Error fetching articles:', error);
       }
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-    }
-
-    //------------_> getArticlesWithDetails
-    try {
-      const articlesResponse = await getArticlesWithDetails();
-      if (articlesResponse.ok) {
-        setArticles(articlesResponse.data);
-      } else {
-        console.error('Error fetching articles:', articlesResponse);
-      }
-    } catch (error) {
-      console.error('Error fetching articles:', error);
-    }
-  };
+    };
+    // Now 'id' contains the value from the URL
+    console.log('Article ID:', id);
+    fetchData();
+  }, [id]);
 
   return (
       <Container fluid className="w-100">

@@ -33,10 +33,10 @@ const ArticleDetailsComponent = ({ article }: any) => {
 
   
   const [showModal, setShowModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState('');
+  //const [selectedImage, setSelectedImage] = useState('');
 
   const handleImageClick = (imageName:any) => {
-    setSelectedImage(imageName);
+    //setSelectedImage(imageName);
     setShowModal(true);
   };
 
@@ -47,7 +47,7 @@ const ArticleDetailsComponent = ({ article }: any) => {
 
 const ImageModal = ({ show, onHide, imageUrl }:any) => {
   return (
-    <Modal show={show} onHide={onHide} centered>
+    <Modal size={'xl'} show={show} onHide={onHide} centered>
       <Modal.Body>
         <img src={imageUrl} alt="Full-size" style={{ width: '100%' }} />
       </Modal.Body>
@@ -61,36 +61,31 @@ const ImageModal = ({ show, onHide, imageUrl }:any) => {
   const [principalImage, setPrincipalImage] = useState('');
 
   useEffect(() => {
-    const fetchAvatarImage = async () => {
-      try {
-          let _avatar:string;
-         
-          _avatar = await getDefaultFile('default-avatar.png');
-          
-        if(_avatar)
-        setAvatarImage(_avatar);
-      } catch (error) {
-        console.error('Error fetching principal image:', error);
-      }
-    };
-
-   
-
     fetchPrincipalImage();
     fetchAvatarImage();
 
     // Specify the cleanup function to avoid potential memory leaks
     return () => {
-      // Cleanup logic if needed
     };
-  }, []); // Empty dependency array means the effect runs once on mount
-
+  }, []);
 
   useEffect(()=>{
-
     fetchPrincipalImage();
   }, [principal_image])
 
+
+  const fetchAvatarImage = async () => {
+    try {
+        let _avatar:string;
+       
+        _avatar = await getDefaultFile('default-avatar.png');
+        
+      if(_avatar)
+      setAvatarImage(_avatar);
+    } catch (error) {
+      console.error('Error fetching principal image:', error);
+    }
+  };
   
 
   const fetchPrincipalImage = async () => {
@@ -146,10 +141,10 @@ const ImageModal = ({ show, onHide, imageUrl }:any) => {
             <ImageModal show={showModal} onHide={handleCloseModal} imageUrl={principalImage} />
 
 
-        <div className="mb-3"> 
-            {article_tags && article_tags.map((tag: any, index: any) => ( 
-                <Tag text={tag}></Tag> 
-            ))}
+        <div className="mb-2"> 
+          {article_tags && article_tags.map((tag: any, index: any) => ( 
+            <Tag key={index} text={tag}></Tag> 
+          ))}
 
         </div>
 

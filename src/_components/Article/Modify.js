@@ -183,35 +183,42 @@ function EditArticle(props) {
 
 useEffect(() => {
 
-const fetchArticleDetails = async () => {
-  try {
-    const response = await getArticleWithDetails(id);
-    if (response.ok) {
-      setArticle(response.data);
-
-      // Fetch and set principal_image
-      const principalImageBlobURL = await getPublicFile(response.data.principal_image);
-      setSelectedImage2({
-        imageName: response.data.principal_image,
-        imageBlob: principalImageBlobURL,
-      });
-
-      // Fetch and set thumbnail
-      const thumbnailBlobURL = await getPublicFile(response.data.thumbnail);
-      setSelectedImage({
-        imageName: response.data.thumbnail,
-        imageBlob: thumbnailBlobURL,
-      });
-    } else {
-      alert('Article was found');
-      console.error('Failed to fetch article details');
+  const fetchArticleDetails = async () => {
+    try {
+      const response = await getArticleWithDetails(id);
+      if (response.ok) {
+        setArticle(response.data);
+  
+        // Fetch and set principal_image
+        const principalImageBlobURL = await getPublicFile(response.data.principal_image);
+        setSelectedImage2({
+          imageName: response.data.principal_image,
+          imageBlob: principalImageBlobURL,
+        });
+  
+        // Fetch and set thumbnail
+        const thumbnailBlobURL = await getPublicFile(response.data.thumbnail);
+        setSelectedImage({
+          imageName: response.data.thumbnail,
+          imageBlob: thumbnailBlobURL,
+        });
+      } else {
+        navigate('/page-not-found')
+        // alert('Article was not found');
+        console.error('Failed to fetch article details');
+      }
+    } catch (error) {
+      console.error('Error fetching article details:', error);
     }
-  } catch (error) {
-    console.error('Error fetching article details:', error);
-  }
-};
+  };
 
 
+  fetchArticleDetails();
+}, [id, navigate]);
+
+
+  //---------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------
 
 
   fetchArticleDetails();
@@ -310,7 +317,7 @@ const fetchArticleDetails = async () => {
                 
                 {loading ? (
             <>
-              <Spinner animation="border" size="sm" className="mr-2" />
+              <Spinner animation="border" size="sm" className="me-2" />
               Enregistrement...
             </>
           ) : (

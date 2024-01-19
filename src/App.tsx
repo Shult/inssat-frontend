@@ -33,6 +33,8 @@ const styles:Styles = {
 function App() {
   const [loading, setLoading] = useState(false);
 
+  const setLoadingDebounced = debounce(setLoading, 300);
+
 
 
   useEffect(() => {
@@ -65,7 +67,7 @@ function App() {
     };
 
     return clearInterceptors;
-  }, []);
+  }, [setLoadingDebounced]);
 
 
 
