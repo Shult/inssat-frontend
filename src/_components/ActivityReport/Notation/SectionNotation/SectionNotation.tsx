@@ -18,7 +18,10 @@ function SectionNotation({assessments, periodId} : SectionProps) {
                 assessments.map((assessment, index) =>
                     <Assessment
                         assessment={assessment}
-                        key={index}></Assessment>
+                        key={index}
+                        periodId={periodId}
+                        studentId={"b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e"}
+                    />
                 )
             }
         </Row>
