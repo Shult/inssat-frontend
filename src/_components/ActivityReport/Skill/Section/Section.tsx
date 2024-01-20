@@ -28,12 +28,12 @@ function Section({section, activities} : SectionProps) {
                                 {
                                     activities.map(activity => (
                                         <Impression
-                                            // key={activity.id}
+                                            key={activity.id}
                                             activity={activity}
-                                            studentId={"b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e"}
+                                            studentId={"b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e"} // NEED RECUP LE STUDENT EN QUESTION
                                             // 73222561-c889-42c9-9643-ee3ce74ca515 local
                                             // b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e dapi
-                                            periodId={1}
+                                            periodId={1} // NEED RECUP LA PERIOD
                                         />
                                     ))
                                 }

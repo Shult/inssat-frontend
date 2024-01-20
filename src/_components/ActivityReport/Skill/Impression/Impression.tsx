@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState } from 'react';
-import { Row, Col, Dropdown, Form } from 'react-bootstrap';
+import { Row, Col, Dropdown, Form, Spinner } from 'react-bootstrap';
 import {getImpressions, getLevels, postImpression, updateImpression } from '../../../../_api/ActivityReportServices';
 import "../../../ToolBox/styles.css"
 import {FormImpressions, IActivity2, IImpression, ILevel} from '../../Services/activityReportInterfaces';
@@ -8,6 +8,7 @@ import Activity from "../Activity/Activity"
 import "./impression.css"
 
 import debounce from 'lodash/debounce';
+import { FaCheck, FaTimes } from 'react-icons/fa';
 
 // interface IImpression {
 //     activity: string,
@@ -52,6 +53,7 @@ function Impression({ activity, studentId, periodId } : any) {
     // Récupérez toutes les impressions au montage du composant
     const fetchAllImpressions = async () => {
         try {
+            console.log("GETALLIMPRESSIONS");
             const response = await getImpressions();
             if (response.ok && response.data) {
                 setAllImpressions(response.data);
@@ -94,10 +96,10 @@ function Impression({ activity, studentId, periodId } : any) {
             try {
                 const response = await postImpression(impressionData);
                 console.log('Impression enregistrée:', response.data);
-                setSaveStatus('Sauvegardé avec succès!');
+                setSaveStatus('success');
                 fetchAllImpressions();
             } catch (error) {
-                setSaveStatus('Erreur lors de la sauvegarde.');
+                setSaveStatus('error');
                 console.error('Erreur lors de l\'enregistrement de l\'impression:', error);
             }
         }
@@ -112,7 +114,8 @@ function Impression({ activity, studentId, periodId } : any) {
     };
 
     const handleSelect = (eventKey : any) => {
-        setSaveStatus('Sauvegarde en cours...');
+        fetchAllImpressions();
+        setSaveStatus('loading');
         // setTitle(levelName);
         const levelName = eventKey;
         const selectedLevelId = levels.find(level => level.name === levelName)?.id;
@@ -183,7 +186,7 @@ function Impression({ activity, studentId, periodId } : any) {
 
     // Gère le changement dans le commentaire
     const handleCommentChange = (event : any) => {
-        setSaveStatus('Sauvegarde en cours...');
+        setSaveStatus('loading');
         const newComment = event.target.value;
         console.log("Handle Select textField : comment = "+newComment);
         setComment(newComment);
@@ -194,7 +197,19 @@ function Impression({ activity, studentId, periodId } : any) {
         }
     };
 
-
+    // Fonction pour choisir l'icône en fonction de l'état de sauvegarde
+    const renderStatusIcon = () => {
+        switch (saveStatus) {
+            case 'loading':
+                return <Spinner animation="border" />;
+            case 'success':
+                return <FaCheck color="green" />;
+            case 'error':
+                return <FaTimes color="red" />;
+            default:
+                return null;
+        }
+    };
     // AUTO SAVE END
 
 
@@ -209,7 +224,7 @@ function Impression({ activity, studentId, periodId } : any) {
     if(!activity.is_free){
         return(
             <Row>
-                <Col xs={12} md={12} lg={12} xl={9}>
+                <Col xs={12} md={12} lg={12} xl={8}>
                     <Activity activity={ activity.name }></Activity>
                 </Col>
                 <Col xs={12} md={12} lg={12} xl={3}>
@@ -220,17 +235,16 @@ function Impression({ activity, studentId, periodId } : any) {
 
                         <Dropdown.Menu>
                             {
-                                // .slice(0, 6)
                                 levels.slice(0, 7).map((level, index) => (
-
-                                        <Dropdown.Item key={index} eventKey={ level.name } href={`#/levels-${level.id}`}>{level.name}</Dropdown.Item>
-
+                                    <Dropdown.Item key={index} eventKey={ level.name } href={`#/levels-${level.id}`}>{level.name}</Dropdown.Item>
                                 ))
                             }
                         </Dropdown.Menu>
                     </Dropdown>
-                    <div>
-                        <p>{saveStatus}</p> {/* Afficher le message de statut ici */}
+                </Col>
+                <Col xs={12} md={12} lg={12} xl={1}>
+                    <div key={activity.id}>
+                        {renderStatusIcon()}
                     </div>
                 </Col>
                 <hr className="separator" id={'separator'}/>
@@ -242,7 +256,7 @@ function Impression({ activity, studentId, periodId } : any) {
                 <Col xs={12} md={12} lg={12} xl={4}>
                     <Activity activity={ activity.name }></Activity>
                 </Col>
-                <Col xs={12} md={12} lg={12} xl={8}>
+                <Col xs={12} md={12} lg={12} xl={7}>
                     <Form.Control
                         as="textarea"
                         rows={3}
@@ -250,8 +264,11 @@ function Impression({ activity, studentId, periodId } : any) {
                         id={"text-form"}
                         value={comment}
                         onChange={handleCommentChange}/>
-                    <div>
-                        <p>{saveStatus}</p> {/* Afficher le message de statut ici */}
+
+                </Col>
+                <Col xs={12} md={12} lg={12} xl={1}>
+                    <div key={activity.id}>
+                        {renderStatusIcon()}
                     </div>
                 </Col>
                 <hr className="separator" id={'separator'}/>
