@@ -14,6 +14,17 @@
         const [title, setTitle] = useState('Sélectionner une période');
         const assessments = activityReportData.assessments;
 
+        const defaultPeriod: IPeriod = {
+            id: 0,
+            name: "default",
+            description: "default",
+            number: 0,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        }
+        const [periodSelected, setPeriodSelected] = useState<number>(0);
+        const isDefaultPeriodSelected = periodSelected === defaultPeriod.id;
+
         // GET
         const [sections, setSections] = useState<ISectionApi[]>([]);
         const [periods, setPeriods] = useState<IPeriod[]>([]);
@@ -24,17 +35,10 @@
         // État pour stocker les données du formulaire pour les notes
         const [gradeData, setGradeData] = useState<FormGrades[]>([]);
 
-        const handleSelect = (eventKey : any) => {
-            setTitle(eventKey);
-
-            switch (eventKey) {
-                case '1':
-                    break;
-                case '2':
-                    break;
-                default:
-                    //...
-            }
+        const handleSelect = (period : any) => {
+            setTitle(period);
+            setPeriodSelected(period)
+            // console.log("Selected period = " + periodSelected)
         };
 
         const fetchPeriods = async () : Promise<IPeriod[]> => {
@@ -87,11 +91,11 @@
         return(
             <div className="container" id={"activityReport"}>
                     <Row>
-                        <Col xs={12} md={12} lg={3} xl={3}>
-                            <h2 className="heading2">Bilan d'activités </h2>
+                        <Col xs={12} md={12} lg={3} xl={4}>
+                            <h2 className="heading2">Bilan d'activités - Période : </h2>
                         </Col>
 
-                        <Col xs={12} md={12} lg={9} xl={9}>
+                        <Col xs={12} md={12} lg={9} xl={8}>
                             <Dropdown onSelect={handleSelect}>
                                 <Dropdown.Toggle variant="success" id="dropdown-basic" className={"shadow activity-report-title"}>
                                     { title }
@@ -100,42 +104,46 @@
                                 <Dropdown.Menu>
                                     {
                                         periods.slice(0, 6).map((period, index) => (
-                                            <Dropdown.Item key={index} eventKey={period.name} href={`#/period-${period.id}`}>{period.name}</Dropdown.Item>
+                                            <Dropdown.Item key={index} eventKey={period.id}>{period.id}</Dropdown.Item>
                                         ))
                                     }
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Col>
                     </Row>
+                {!isDefaultPeriodSelected && (
+                    <>
+                        <Card className="horizontal-card mb-3" style={{ borderRadius: '8px', boxShadow: 'var(--box-shadow)' }}>
+                            <Card.Body id={"skill-container"}>
+                                {
+                                    sections.map((section, index) => {
+                                        if (section.title !== "Notation") {
+                                            return (
+                                                <div key={section.id}>
+                                                    <Section
+                                                        section={section}
+                                                        activities={section.activities}
+                                                        periodId={periodSelected}
+                                                    />
+                                                </div>
+                                            );
+                                        }
+                                        return null;
+                                    })
+                                }
+                            </Card.Body>
+                        </Card>
 
-                    <Card className="horizontal-card mb-3" style={{ borderRadius: '8px', boxShadow: 'var(--box-shadow)' }}>
-                        <Card.Body id={"skill-container"}>
-                            {
-                                sections.map((section, index) => {
-                                    if (section.title !== "Notation") {
-                                        return (
-                                            <div key={section.id}>
-                                                <Section
-                                                    section={section}
-                                                    activities={section.activities}
-                                                />
-                                            </div>
-                                        );
-                                    }
-                                    return null;
-                                })
-                            }
-                        </Card.Body>
-                    </Card>
-
-                    <Card className="horizontal-card mb-3" style={{ borderRadius: '8px', boxShadow: 'var(--box-shadow)' }}>
-                        <Card.Body id={"skill-container"}>
-                            <SectionNotation
-                                assessments={assessments}
-                            />
-                        </Card.Body>
-                    </Card>
-
+                        <Card className="horizontal-card mb-3" style={{ borderRadius: '8px', boxShadow: 'var(--box-shadow)' }}>
+                            <Card.Body id={"skill-container"}>
+                                <SectionNotation
+                                    assessments={assessments}
+                                    periodId={periodSelected}
+                                />
+                            </Card.Body>
+                        </Card>
+                    </>
+                )}
             </div>
         )
     }

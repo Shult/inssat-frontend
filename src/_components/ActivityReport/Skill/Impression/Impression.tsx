@@ -10,18 +10,12 @@ import "./impression.css"
 import debounce from 'lodash/debounce';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 
-// interface IImpression {
-//     activity: string,
-//     studentId: number,
-//     periodId: number
-// }
 
-
-// function Impression(data : any) {
 function Impression({ activity, studentId, periodId } : any) {
     // const activity = data.activity;
     // const impression = data.impression;
 
+    // console.log("PeriodId Impressions = "+ periodId);
     const [title, setTitle] = useState('Évaluer la compétence');
     const [level, setLevel] = useState<number>(0);
 
@@ -53,7 +47,7 @@ function Impression({ activity, studentId, periodId } : any) {
     // Récupérez toutes les impressions au montage du composant
     const fetchAllImpressions = async () => {
         try {
-            console.log("GETALLIMPRESSIONS");
+            // console.log("GETALLIMPRESSIONS");
             const response = await getImpressions();
             if (response.ok && response.data) {
                 setAllImpressions(response.data);
@@ -68,16 +62,20 @@ function Impression({ activity, studentId, periodId } : any) {
     const [saveStatus, setSaveStatus] = useState(''); // Pour stocker le statut de sauvegarde
 
     const handleSave = async (impressionData: FormImpressions) => {
-        console.log("Data ready to be send : "
-            + "Content " +  impressionData.content + ", "
-            + "student_id " +  impressionData.student_id + ", "
-            + "activity_id " +  impressionData.activity_id + ", "
-            + "level_id " +  impressionData.level_id + ", "
-            + "period_id " +  impressionData.period_id
+        console.log('All Impressions:', allImpressions);
+        console.log('Looking for impression with ' +
+            'activity_id:', impressionData.activity_id,
+            'student_id:', impressionData.student_id,
+            'period_id:', impressionData.period_id
         );
 
         // Vérifiez si une impression existe déjà
-        const existingImpression = allImpressions.find(imp => imp.activity_id === impressionData.activity_id && imp.student_id === impressionData.student_id && imp.period_id === impressionData.period_id);
+        const existingImpression = allImpressions.find(imp =>
+            imp.activity_id === impressionData.activity_id &&
+            imp.student_id === impressionData.student_id &&
+            imp.period_id == impressionData.period_id
+        );
+        console.log('Existing Impression:', existingImpression);
 
         if (existingImpression) {
             console.log("PUT");
@@ -86,9 +84,10 @@ function Impression({ activity, studentId, periodId } : any) {
                 const response = await updateImpression(existingImpression.id, impressionData);
                 setSaveStatus('Sauvegardé avec succès!');
                 console.log('Impression mise à jour avec succès : ', response.data);
+                loadData();
             } catch (error) {
                 setSaveStatus('Erreur lors de la sauvegarde.');
-                console.error('Erreur lors de l\'enregistrement de l\'impression:', error);
+                // console.error('Erreur lors de l\'enregistrement de l\'impression:', error);
             }
         } else {
             console.log("POST");
@@ -97,31 +96,28 @@ function Impression({ activity, studentId, periodId } : any) {
                 const response = await postImpression(impressionData);
                 console.log('Impression enregistrée:', response.data);
                 setSaveStatus('success');
-                fetchAllImpressions();
+                // fetchAllImpressions();
+
+                loadData();
             } catch (error) {
                 setSaveStatus('error');
-                console.error('Erreur lors de l\'enregistrement de l\'impression:', error);
+                // console.error('Erreur lors de l\'enregistrement de l\'impression:', error);
             }
         }
-
-
-        // try {
-        //     const response = await postImpression(impressionData);
-        //     console.log('Impression enregistrée:', response.data);
-        // } catch (error) {
-        //     console.error('Erreur lors de l\'enregistrement de l\'impression:', error);
-        // }
+    };
+    const loadData = async () => {
+        await fetchAllImpressions(); // Attendre que les impressions soient chargées
+        // Ici vous pouvez continuer avec d'autres opérations qui dépendent des impressions
     };
 
     const handleSelect = (eventKey : any) => {
-        fetchAllImpressions();
         setSaveStatus('loading');
         // setTitle(levelName);
         const levelName = eventKey;
         const selectedLevelId = levels.find(level => level.name === levelName)?.id;
-        console.log("Handle Select dropdown : Name = "+levelName+", id = "+selectedLevelId);
+        // console.log("Handle Select dropdown : Name = "+levelName+", id = "+selectedLevelId);
         if (selectedLevelId) {
-            console.log("Handle Select dropdown : Levelid");
+            // console.log("Handle Select dropdown : Levelid");
             setTitle(levelName);
             setLevel(selectedLevelId); // Supposons que vous stockez l'ID du niveau sélectionné
             setComment("selectedItem/"+levelName);
@@ -170,6 +166,7 @@ function Impression({ activity, studentId, periodId } : any) {
 
     // Fonction pour sauvegarder l'impression
     const saveImpression = async (levelId : any, comment : any) => {
+        // console.log("Period saveImpressions = " + periodId);
         const impressionData: FormImpressions = {
             content: comment,
             level_id: levelId, // Supposons que level_id correspond à un identifiant de niveau
@@ -188,11 +185,11 @@ function Impression({ activity, studentId, periodId } : any) {
     const handleCommentChange = (event : any) => {
         setSaveStatus('loading');
         const newComment = event.target.value;
-        console.log("Handle Select textField : comment = "+newComment);
+        // console.log("Handle Select textField : comment = "+newComment);
         setComment(newComment);
         setLevel(8);
         if (level) {
-            console.log("Level OK")
+            // console.log("Level OK")
             debouncedSaveImpression(level, newComment);
         }
     };
@@ -215,7 +212,7 @@ function Impression({ activity, studentId, periodId } : any) {
 
 
     useEffect(() => {
-        fetchAllImpressions();
+        loadData(); // Exécuter la fonction de chargement des données
         fetchLevels().then(fetchedLevels => {
             setLevels(fetchedLevels);
         });
