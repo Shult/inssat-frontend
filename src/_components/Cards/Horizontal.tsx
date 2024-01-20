@@ -13,11 +13,14 @@ import {extractFirstImageLink} from "../Article/Services/articleServices";
 import { useState, useEffect } from 'react';
 
 
+import { useNavigate } from 'react-router-dom';
+
   //================================================================================================
   //================================================================================================
   //================================================================================================
 
 const HorizontalCard = ({ article }: any) => {
+  const navigate = useNavigate();
   const { id, thumbnail, article_tags, title, author, published_at } = article;
   //TODO : Zak - all default files should be fetched once in the parent component to avoid fetching the same file n times "n articles"
   const [thumbnailImage, setThumbnailImage] = useState('');
@@ -82,13 +85,18 @@ const HorizontalCard = ({ article }: any) => {
 
   //================================================================================================
   return (
-      <a href={
-        article?.fromEnssat ? article.link : `/article/${id}`
-         }
-        target={article?.fromEnssat ? "_blank" : "_self"}
-        rel="noreferrer"
-        style={{ textDecoration: 'none', color: 'inherit' }
-      }>
+        <div
+        role="button"
+        tabIndex={0}
+        style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
+        onClick={() => {
+          if (article?.fromEnssat) {
+            window.open(article.link, '_blank');
+          } else {
+            navigate(`/article/${id}`);
+          }
+        }}
+        >
         <Card className="horizontal-card mb-3" style={{ borderRadius: '8px', boxShadow: 'var(--box-shadow)' }}>
           <Card.Body>
             <Row>
@@ -168,7 +176,7 @@ const HorizontalCard = ({ article }: any) => {
             </Row>
           </Card.Body>
         </Card>
-      </a>
+      </div>
   );
 };
 

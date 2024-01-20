@@ -8,7 +8,7 @@ const CreateArticle = () => {
     return (
         <Container fluid className="w-100">
             <Row className="justify-content-center">
-                <Col xs={12} md={12} lg={12} xl={12}>
+                <Col xs={12}>
                     <ArticleForm />
                 </Col>
                 

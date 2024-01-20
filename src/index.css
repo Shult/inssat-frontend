@@ -253,3 +253,18 @@ input, textarea {
 .pagination .page-link:hover {
   color: black;
 }
+
+
+
+
+
+
+/* /========================================== */
+.alert-info {
+  color: var(--goldDark)!important;  
+  background-color: #E7D8A8!important;  
+  border-color: #D4BD8C!important;  
+}
+
+
+

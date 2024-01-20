@@ -41,7 +41,18 @@ const DraftEditor = ({ title, name, content, required }) => {
     const onEditorStateChange = (newEditorState) => {
       setEditorState(newEditorState);
     };
-  
+    const uploadImageCallBack = (file) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          resolve({ data: { link: e.target.result } });
+        };
+        reader.onerror = (e) => {
+          reject(e);
+        };
+        reader.readAsDataURL(file);
+      });
+    };
     return (
       <div className="mt-4">
         <Heading5>{title}</Heading5>
@@ -53,7 +64,10 @@ const DraftEditor = ({ title, name, content, required }) => {
             options: ['blockType', 'inline', 'list'],
             list: { inDropdown: false, options: ['unordered', 'ordered'] },
             blockType: { inDropdown: false, options: ['Normal', 'H2',  'H3',  'H4', 'H5', 'Blockquote', 'Code','atomic','unstyled'] },
-            
+            image: {
+              uploadCallback: uploadImageCallBack,
+              alt: { present: true, mandatory: false },
+            },
           }}
         /> 
        

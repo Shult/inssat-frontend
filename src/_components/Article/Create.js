@@ -237,7 +237,7 @@ function CreateArticle() {
             <Col xs={12} lg={4}>
               <Row className="align-items-center justify-content-center h-100">
                 <Col xs={12}>
-                  <Heading5 >Tags & Categories</Heading5>
+                  <Heading5 >Etiquettes & Categories</Heading5>
                   <TagsInput/>
                   <Categories required/>
                 </Col>

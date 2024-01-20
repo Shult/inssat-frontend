@@ -14,6 +14,15 @@ const getArticlesWithDetails =  () => client.get('/articles/details')
 const getArticleWithDetails =  (id) => client.get(`/articles/details/${id}`)
 
 
+const getFilteredArticles = async (filterOptions) => {
+  try {
+    const response = await client.post('/articles/filter', filterOptions);
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 
 
 const getArticlesByCategory = async (id, page = 1, pageSize = 10) => {
@@ -57,5 +66,7 @@ export {
     createArticle,
     deleteArticle,
     getArticlesByCategory,
-    update
+    update,
+    getFilteredArticles,
+    
 }

@@ -1,25 +1,39 @@
 import React, { useState, useEffect } from 'react';
+import "./index.css"
 import { Container, Row, Col, Alert } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
 
-import { getArticlesByCategory } from '../../_api/article';
+import { getFilteredArticles } from '../../_api/article';
+import ArticlesFilter from '../../_components/Filter/ArticlesFilter';
 import HorizontalCard from '../../_components/Cards/Horizontal';
 
-const ByCategory = () => {
-  const { id, name } = useParams();
+const AllWithFilter = () => {
+  //zak--> front : you get the name/title of the page form the url for example filter name : filtrer vos articles ...  Hint==> { useParams } of 'react-router-dom'
+  const name = "Filtre d'articles";
   const [articles, setArticles] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [pageSize, setPageSize] = useState(4); // Set the default pageSize to 10
+  const [pageSize, setPageSize] = useState(4); // TODO : Zak --> Front : you can add a select to the pagination to select number of elements per page. 
+  const [filterOptions, setFilterOptions] = useState({
+    category: '',
+    tags: [],
+    dateRange: { startDate: null, endDate: null },
+    search: '',
+  });
 
-  //================================================================================================
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchArticlesByCategory = async () => {
+    setLoading(true)
+    const fetchFilteredArticles = async () => {
       try {
-        const response = await getArticlesByCategory(id, currentPage, pageSize); // Pass currentPage to API
-        console.log(response)
+        const response = await getFilteredArticles({
+          ...filterOptions,
+          page: currentPage,
+          pageSize,
+        });
+
         if (response.ok) {
+            console.log(response.data)
           setArticles(response.data.articles);
           setTotalPages(response.data.totalPages);
         } else {
@@ -28,12 +42,12 @@ const ByCategory = () => {
       } catch (error) {
         console.error('Error fetching articles:', error);
       }
+
+    setLoading(false)
     };
 
-    fetchArticlesByCategory();
-  }, [id, currentPage, pageSize]);
-
-  //================================================================================================
+    fetchFilteredArticles();
+  }, [filterOptions, currentPage, pageSize]);
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
@@ -41,21 +55,25 @@ const ByCategory = () => {
     }
   };
 
-  //================================================================================================
+  const handleFilterChange = (newFilterOptions) => {
+    setFilterOptions(newFilterOptions);
+    setCurrentPage(1);
+  };
 
   return (
     <Container>
       <Row className="justify-content-center">
         <Col xs={12}>
           <h2>{name}</h2>
-          <Row>
-          {articles.length === 0 ? 
-           <Alert variant="info" className="mt-3">
-           <p className="mb-0">Nothing found</p>
-         </Alert>
-          
-          : null}
-            {articles.map((article, index) => (
+          <ArticlesFilter loading={loading} onFilter={handleFilterChange} />
+          <hr/>
+          <Row className="mt-5">
+            {articles && articles.length === 0 ? (
+              <Alert variant="info" className="mt-3">
+                <p className="mb-0">Rien trouve</p>
+              </Alert>
+            ) : null}
+            {articles && articles.map((article, index) => (
               <Col key={index} sm={12} md={12} lg={6} className="mb-4">
                 <HorizontalCard article={article} />
               </Col>
@@ -85,7 +103,7 @@ const ByCategory = () => {
                   </button>
                 </li>
               ))}
-              <li className={`page-item ${(currentPage === totalPages || articles.length === 0 ) ? 'disabled' : ''}`}>
+              <li className={`page-item ${articles && (currentPage === totalPages || articles.length === 0 ) ? 'disabled' : ''}`}>
                 <button
                   className="page-link"
                   onClick={() => handlePageChange(currentPage + 1)}
@@ -102,4 +120,4 @@ const ByCategory = () => {
   );
 };
 
-export default ByCategory;
+export default AllWithFilter;

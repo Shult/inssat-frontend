@@ -85,7 +85,7 @@ const ImageModal = ({ show, onHide, imageUrl }:any) => {
       console.error('Error fetching principal image:', error);
     }
   };
-  
+
 
   const fetchPrincipalImage = async () => {
     try {
@@ -93,18 +93,23 @@ const ImageModal = ({ show, onHide, imageUrl }:any) => {
         let img:string;
         if (principal_image === undefined || principal_image === null) {
             
-            img = await getDefaultFile('default-thumbnail-featured.png');
+            //img = await getDefaultFile('default-thumbnail-featured.png');
         }else{
-            img = (await getPublicFile(principal_image)).toString();
+            img = (await getPublicFile(principal_image));
+            console.log(principal_image);
+            if (img && typeof img === 'string' && !img.includes('Error:')) {
+              setPrincipalImage(img);
+            } else {
+              console.error('Invalid image format received.');
+            }
              
         }
           
-      if(img)
-      setPrincipalImage(img);
     } catch (error) {
       console.error('Error fetching principal image:', error);
     }
   };
+
 
   const views = 0;
   const comments = 0;
@@ -128,15 +133,21 @@ const ImageModal = ({ show, onHide, imageUrl }:any) => {
 
           <div className="mb-3" dangerouslySetInnerHTML={{ __html: content }}></div>
 
-          {principalImage &&  <Image srcSet={principalImage} fluid className="mb-4 w-100" 
+          {(principalImage &&  <Image src={principalImage} fluid className="mb-4 w-100" 
                                 style={{
                                   height: '400px',
                                   objectFit: 'cover',
                                   borderRadius: '8px'
                                 }}
                                 onClick={() => handleImageClick(principalImage)}
+                                
+                                onError={(e) => {
+                                  const target = e.target as HTMLImageElement;
+                                  target.src = '/loading.gif'; 
+                                }}
                              />
-            }
+                             
+                             )}
             <ImageModal show={showModal} onHide={handleCloseModal} imageUrl={principalImage} />
 
 
