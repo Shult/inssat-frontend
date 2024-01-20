@@ -60,8 +60,8 @@ function Impression({ activity, studentId, periodId } : any) {
         // Vérifiez si une impression existe déjà
         const existingImpression = allImpressions.find(imp =>
             imp.activity_id === impressionData.activity_id &&
-            imp.student_id === impressionData.student_id &&
-            imp.period_id == impressionData.period_id
+            // imp.student_id === impressionData.student_id &&
+            imp.period_id === impressionData.period_id
         );
 
         if (existingImpression) {
