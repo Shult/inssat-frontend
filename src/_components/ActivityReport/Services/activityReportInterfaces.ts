@@ -8,6 +8,11 @@ export enum Level {
     EMPTY = ""
 }
 
+export interface ILevel {
+    id: number,
+    name: string
+}
+
 export interface IImpression {
     id: number,
     content: string,
@@ -18,7 +23,13 @@ export interface IImpression {
     created_at: Date,
     updated_at: Date
 }
-
+export interface FormImpressions {
+    content: string,
+    level_id: number,
+    activity_id: number,
+    period_id: number,
+    student_id: number,
+}
 export interface IActivity {
     id: number,
     name: string,
@@ -73,7 +84,14 @@ export interface IGrade {
     created_at: Date,
     updated_at: Date
 }
-
+export interface FormGrades {
+    student_id: number,
+    grade: number,
+    assessment_id: number,
+    period_id: number,
+    comment: string,
+    section_id: number,
+}
 export interface IAssessment {
     id: number,
     name: string,

@@ -16,7 +16,9 @@ function Assessment({ assessment } : any) {
                     <Heading2>/20</Heading2>
                 </Col>
             </Row>
-            <p id={"coef"}><ParagraphSm>Coef. {assessment.coefficient}</ParagraphSm></p>
+            <div className="d-flex justify-content-center ">
+                <ParagraphSm>Coef. {assessment.coefficient}</ParagraphSm>
+            </div>
         </Col>
     )
 }

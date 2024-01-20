@@ -1,17 +1,52 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { Row, Col, Dropdown, Form } from 'react-bootstrap';
+import {getLevels, postImpression } from '../../../../_api/ActivityReportServices';
 import "../../../ToolBox/styles.css"
+import {FormImpressions, IActivity2, ILevel} from '../../Services/activityReportInterfaces';
 import { getButtonColor } from '../../Services/ActivityReportServices';
 import Activity from "../Activity/Activity"
 import "./impression.css"
 
+
 function Impression(data : any) {
     const activity = data.activity;
-    //const impression = data.impression;
+    const impression = data.impression;
 
     const [title, setTitle] = useState('Évaluer la compétence');
+    const [level, setLevel] = useState<string>('');
 
     const [dropdownBackground, setDropdownBackground] = useState('#889795'); // Ajout de l'état pour la couleur de fond
+    
+    // GET 
+    const [levels, setLevels] = useState<ILevel[]>([]);
+
+    const fetchLevels = async () : Promise<ILevel[]> => {
+        try {
+            const response = await getLevels();
+            if (response.ok && response.data) {
+                const dataApi : ILevel[] = response.data;
+                // console.log("dataApi Levels : " + dataApi);
+                // Traitez et affichez les données ici
+                return dataApi
+            } else {
+                // Gérez les erreurs ici (par exemple, réponse non ok)
+                console.error('Erreur lors de la récupération des sections 2');
+                return [];
+            }
+        } catch (error) {
+            console.error('Erreur lors de la récupération des sections 1 :', error);
+            return [];
+        }
+    };
+
+    const handleSave = async (impressionData: FormImpressions) => {
+        try {
+            const response = await postImpression(impressionData);
+            console.log('Impression enregistrée:', response.data);
+        } catch (error) {
+            console.error('Erreur lors de l\'enregistrement de l\'impression:', error);
+        }
+    };
 
     const handleSelect = (eventKey : any) => {
         setTitle(eventKey);
@@ -51,10 +86,15 @@ function Impression(data : any) {
         // Ajoutez d'autres styles si nécessaire
     };
 
+    useEffect(() => {
+        fetchLevels().then(fetchedLevels => {
+            setLevels(fetchedLevels);
+        });
+    }, []);
+
     if(!activity.is_free){
         return(
             <Row>
-                {/*xs={12} md={12} lg={12} xl={5}*/}
                 <Col xs={12} md={12} lg={12} xl={9}>
                     <Activity activity={ activity.name }></Activity>
                 </Col>
@@ -65,13 +105,12 @@ function Impression(data : any) {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <Dropdown.Item eventKey="Excellent" href="#/impression-1">Excellent</Dropdown.Item>
-                            <Dropdown.Item eventKey="Très bien" href="#/impression-2">Très bien</Dropdown.Item>
-                            <Dropdown.Item eventKey="Bien" href="#/impression-3">Bien</Dropdown.Item>
-                            <Dropdown.Item eventKey="Assez bien" href="#/impression-4">Assez bien</Dropdown.Item>
-                            <Dropdown.Item eventKey="Passable" href="#/impression-5">Passable</Dropdown.Item>
-                            <Dropdown.Item eventKey="Insuffisant" href="#/impression-6">Insuffisant</Dropdown.Item>
-                            <Dropdown.Item eventKey="Non évaluable" href="#/impression-7">Non évaluable</Dropdown.Item>
+                            {
+                                // .slice(0, 6)
+                                levels.map((level, index) => (
+                                    <Dropdown.Item key={index} eventKey={level.name} href={`#/levels-${level.id}`}>{level.name}</Dropdown.Item>
+                                ))
+                            }
                         </Dropdown.Menu>
                     </Dropdown>
                 </Col>

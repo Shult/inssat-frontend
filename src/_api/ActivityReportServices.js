@@ -13,19 +13,38 @@ const getPeriods = () => {
     return apiClientAcademy.get('/periods');
 };
 
+const getImpressions = () => {
+    return apiClientAcademy.get('/impressions');
+};
+
 const postImpression = (formData) => {
     return apiClientAcademy.post('/impressions/', formData);
+};
+
+const getGrades = () => {
+    return apiClientAcademy.get('/grades');
 };
 
 const postGrade = (formData) => {
     return apiClientAcademy.post('/grades/', formData);
 };
 
+const getLevels = () => {
+    return apiClientAcademy.get('/levels');
+};
+
 export {
     getSections,
     getSectionsWithActivities,
+
     getPeriods,
+
+    getImpressions,
     postImpression,
-    postGrade
+
+    getGrades,
+    postGrade,
+
+    getLevels
     // Exportez les autres fonctions ici
 };
