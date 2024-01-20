@@ -291,7 +291,9 @@ useEffect(() => {
             <FileInputWithPreview imageInvalid={imageInvalid} imageName={selectedImage && selectedImage.imageName} src={selectedImage && selectedImage.imageBlob} onClick={() => handleOpenFileManagerModal('miniature')} required id="thumbnail" name="thumbnail" title="selectionner miniature" />
             </Col>
             <Col xs={12}>
-            <FileInputWithPreview imageInvalid={imageInvalid2} imageName={selectedImage && selectedImage.imageName} src={selectedImage2 && selectedImage2.imageBlob} onClick={() => handleOpenFileManagerModal2('image principale')} required id="principal_image" name="principal_image" title="selectionner image principale" />
+            <FileInputWithPreview  cadreStyle={{
+              height:"250px",
+            }} imageInvalid={imageInvalid2} imageName={selectedImage && selectedImage.imageName} src={selectedImage2 && selectedImage2.imageBlob} onClick={() => handleOpenFileManagerModal2('image principale')} required id="principal_image" name="principal_image" title="selectionner image principale" />
             </Col>
 
             <Col xs={12} lg={8}>

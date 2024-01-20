@@ -109,6 +109,10 @@ const FeaturedUpdate = ({ article }:any) => {
                             height: '176px',
                             objectFit: 'cover',
                         }}
+                        onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = '/loading.gif'; 
+                          }}
                         />
                     )}
                     </div>

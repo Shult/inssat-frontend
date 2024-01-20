@@ -10,7 +10,7 @@ const ByCategory = () => {
   const [articles, setArticles] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [pageSize, setPageSize] = useState(2); // Set the default pageSize to 10
+  const [pageSize, setPageSize] = useState(4); // Set the default pageSize to 10
 
   //================================================================================================
 
@@ -31,7 +31,7 @@ const ByCategory = () => {
     };
 
     fetchArticlesByCategory();
-  }, [id, currentPage]);
+  }, [id, currentPage, pageSize]);
 
   //================================================================================================
 
@@ -49,6 +49,12 @@ const ByCategory = () => {
         <Col xs={12}>
           <h2>{name}</h2>
           <Row>
+          {articles.length === 0 ? 
+           <Alert variant="info" className="mt-3">
+           <p className="mb-0">Nothing found</p>
+         </Alert>
+          
+          : null}
             {articles.map((article, index) => (
               <Col key={index} sm={12} md={12} lg={6} className="mb-4">
                 <HorizontalCard article={article} />
@@ -79,7 +85,7 @@ const ByCategory = () => {
                   </button>
                 </li>
               ))}
-              <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+              <li className={`page-item ${(currentPage === totalPages || articles.length === 0 ) ? 'disabled' : ''}`}>
                 <button
                   className="page-link"
                   onClick={() => handlePageChange(currentPage + 1)}
