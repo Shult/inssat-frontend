@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
 
 import { Card, Col, Dropdown, Row } from 'react-bootstrap';
 import SectionSkillView from "../../../_components/ActivityReport/View/Skill/SectionSkillView/SectionSkillView"
@@ -13,8 +13,12 @@ import {
 
 import data from "../../../_components/ActivityReport/Services/tmpData"
 import student1_period1 from '../../../_components/ActivityReport/Services/data_student1_period1'
+import { getSectionsWithActivitiesAndImpressionsByPeriodAndUserId } from '../../../_api/ActivityReportServices';
 
 const ActivityReportView = () => {
+    const [data, setData] = useState([]);
+
+
     const student = student1_period1.student;
 
     const sections = student1_period1.sections;
@@ -25,6 +29,9 @@ const ActivityReportView = () => {
     const grades = student1_period1.grades;
 
     const [title, setTitle] = useState('Sélectionner une période');
+
+    const [periodId, setPeriodId] = useState(1);
+    const [userId, setUserId] = useState("b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e");
 
     const handleSelect = (eventKey : any) => {
         setTitle(eventKey);
@@ -38,6 +45,27 @@ const ActivityReportView = () => {
             //...
         }
     };
+
+    useEffect(() => {
+        setUserId("b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e");
+        setPeriodId(1);
+        getSectionsWithActivitiesAndImpressionsByPeriodAndUserId(periodId, userId)
+            .then(response => {
+                if (response.ok && response.data) {
+                    // Traitez les données reçues ici
+                    console.log("getSectionsWithActivitiesAndImpressionsByPeriodAndUserId = "+response.data);
+                    setData(response.data);
+                } else {
+                    // Gérez les erreurs ici
+                    console.error('Erreur lors de la récupération des données');
+                }
+            })
+            .catch(error => {
+                // Gérez les erreurs ici
+                console.error('Erreur lors de la connexion à l\'API:', error);
+            });
+    }, []);
+    
     return(
         <div className="container" id={"activityReport"}>
             <Row>

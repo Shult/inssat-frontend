@@ -17,6 +17,7 @@ function Section({section, activities, periodId} : SectionProps) {
         setTitle(eventKey);
     };
 
+
     // console.log("Periode sélectionné dans Section = ", periodId);
 
     return(

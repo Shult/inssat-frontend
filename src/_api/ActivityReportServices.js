@@ -7,7 +7,10 @@ const getSections = () => {
 const getSectionsWithActivities = () => {
     return apiClientAcademy.get('/activities/groupedBySection');
 };
-// Ajoutez d'autres fonctions si nécessaire
+
+const getSectionsWithActivitiesAndImpressionsByPeriodAndUserId = (periodId, userId) => {
+    return apiClientAcademy.get(`/activities/sectionsAndImpressions?periodId=${periodId}&userId=${userId}`);
+};
 
 const getPeriods = () => {
     return apiClientAcademy.get('/periods');
@@ -49,6 +52,7 @@ const getAssessments = () => {
 };
 
 export {
+    getSectionsWithActivitiesAndImpressionsByPeriodAndUserId,
     getSections,
     getSectionsWithActivities,
 

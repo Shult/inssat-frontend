@@ -11,7 +11,9 @@ function AssessmentView({ assessment, grade } : any) {
                 <Grade
                     grade={grade.grade}
                 ></Grade>
-            <p id={"coef"}><ParagraphSm>Coef. {assessment.coefficient}</ParagraphSm></p>
+            <div className="d-flex justify-content-center ">
+                <ParagraphSm>Coef. {assessment.coefficient}</ParagraphSm>
+            </div>
         </Col>
     )
 }
