@@ -37,11 +37,15 @@ const postGrade = (formData) => {
 
 const updateGrade = (impressionId, impressionData) => {
     console.log("putImpression");
-    return apiClientAcademy.put(`/impressions/${impressionId}`, impressionData);
+    return apiClientAcademy.put(`/grades/${impressionId}`, impressionData);
 };
 
 const getLevels = () => {
     return apiClientAcademy.get('/levels');
+};
+
+const getAssessments = () => {
+    return apiClientAcademy.get('/assessments');
 };
 
 export {
@@ -53,6 +57,8 @@ export {
     getImpressions,
     postImpression,
     updateImpression,
+
+    getAssessments,
 
     getGrades,
     postGrade,

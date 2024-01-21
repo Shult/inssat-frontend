@@ -5,14 +5,23 @@
     import { Card, Col, Dropdown, Row } from 'react-bootstrap';
     import "./ActivityReport.css";
     import SectionNotation from "../../_components/ActivityReport/Notation/SectionNotation/SectionNotation";
-    import { getSections, getSectionsWithActivities, getPeriods, postImpression, postGrade } from '../../_api/ActivityReportServices';
-    import {FormGrades, FormImpressions, IActivity, IActivity2, IPeriod, ISection, ISectionApi} from "../../_components/ActivityReport/Services/activityReportInterfaces";
+    import { getSections, getSectionsWithActivities, getPeriods, postImpression, postGrade, getAssessments } from '../../_api/ActivityReportServices';
+    import {
+    FormGrades,
+    FormImpressions,
+    IActivity,
+    IActivity2,
+        IAssessment,
+    IPeriod,
+    ISection,
+    ISectionApi
+} from "../../_components/ActivityReport/Services/activityReportInterfaces";
 
     
     const ActivityReport = () => {
         const [blogText, setBlogText] = React.useState('hello world');
         const [title, setTitle] = useState('Sélectionner une période');
-        const assessments = activityReportData.assessments;
+        //const assessments = activityReportData.assessments;
 
         const defaultPeriod: IPeriod = {
             id: 0,
@@ -28,6 +37,7 @@
         // GET
         const [sections, setSections] = useState<ISectionApi[]>([]);
         const [periods, setPeriods] = useState<IPeriod[]>([]);
+        const [assessments, setAssessments] = useState<IAssessment[]>([]);
 
         // État pour stocker les données du formulaire pour les impressions
         const [impressionData, setImpressionData] = useState<FormImpressions[]>([]);
@@ -39,6 +49,25 @@
             setTitle(period);
             setPeriodSelected(period)
             // console.log("Selected period = " + periodSelected)
+        };
+
+        const fetchAssessment = async () : Promise<IAssessment[]> => {
+            try {
+                const response = await getAssessments();
+                if (response.ok && response.data) {
+                    const dataApi : IAssessment[] = response.data;
+                    // console.log("dataApi Period : " + dataApi);
+                    // Traitez et affichez les données ici
+                    return dataApi
+                } else {
+                    // Gérez les erreurs ici (par exemple, réponse non ok)
+                    console.error('Erreur lors de la récupération des sections 2');
+                    return [];
+                }
+            } catch (error) {
+                console.error('Erreur lors de la récupération des sections 1 :', error);
+                return [];
+            }
         };
 
         const fetchPeriods = async () : Promise<IPeriod[]> => {
@@ -80,6 +109,9 @@
         };
 
         useEffect(() => {
+            fetchAssessment().then(fetchedAssessments => {
+                setAssessments(fetchedAssessments);
+            });
             fetchPeriods().then(fetchedPeriods => {
                 setPeriods(fetchedPeriods);
             });
@@ -137,7 +169,7 @@
                         <Card className="horizontal-card mb-3" style={{ borderRadius: '8px', boxShadow: 'var(--box-shadow)' }}>
                             <Card.Body id={"skill-container"}>
                                 <SectionNotation
-                                    assessments={assessments}
+                                    assessments={assessments.slice(0,3)}
                                     periodId={periodSelected}
                                 />
                             </Card.Body>
