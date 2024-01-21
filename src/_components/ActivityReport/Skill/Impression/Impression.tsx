@@ -25,6 +25,9 @@ function Impression({ activity, studentId, periodId } : any) {
     const [levels, setLevels] = useState<ILevel[]>([]);
     const [allImpressions, setAllImpressions] = useState<IImpression[]>([]); // Ajoutez cet état pour stocker toutes les impressions
 
+    const [lastTyped, setLastTyped] = useState(Date.now());
+    const [isReadyToSave, setIsReadyToSave] = useState(false);
+
     const fetchLevels = async () : Promise<ILevel[]> => {
         try {
             const response = await getLevels();
@@ -62,42 +65,43 @@ function Impression({ activity, studentId, periodId } : any) {
     const [saveStatus, setSaveStatus] = useState(''); // Pour stocker le statut de sauvegarde
 
     const handleSave = async (impressionData: FormImpressions) => {
-        console.log('All Impressions:', allImpressions);
-        console.log('Looking for impression with ' +
-            'activity_id:', impressionData.activity_id,
-            'student_id:', impressionData.student_id,
-            'period_id:', impressionData.period_id
-        );
+        // Appel asynchrone pour charger les données
+        loadData();
+
+        // console.log('All Impressions:', allImpressions);
+        // console.log('Looking for impression with :\n' +
+        //     'activity_id:', impressionData.activity_id,'\n',
+        //     'student_id:', impressionData.student_id,'\n',
+        //     'period_id:', impressionData.period_id,'\n'
+        // );
 
         // Vérifiez si une impression existe déjà
         const existingImpression = allImpressions.find(imp =>
             imp.activity_id === impressionData.activity_id &&
-            // imp.student_id === impressionData.student_id &&
-            imp.period_id === impressionData.period_id
+            imp.student_id === impressionData.student_id &&
+            imp.period_id == impressionData.period_id
         );
-        console.log('Existing Impression:', existingImpression);
+        // console.log('Existing Impression:', existingImpression);
 
         if (existingImpression) {
-            console.log("PUT");
+            // console.log("PUT");
             // Si une impression existe, mettez-la à jour avec un PUT
             try {
                 const response = await updateImpression(existingImpression.id, impressionData);
-                setSaveStatus('Sauvegardé avec succès!');
-                console.log('Impression mise à jour avec succès : ', response.data);
+                setSaveStatus('success');
+                // console.log('Impression mise à jour avec succès : ', response.data);
                 loadData();
             } catch (error) {
-                setSaveStatus('Erreur lors de la sauvegarde.');
+                setSaveStatus('error');
                 // console.error('Erreur lors de l\'enregistrement de l\'impression:', error);
             }
         } else {
-            console.log("POST");
+            // console.log("POST");
             // Si aucune impression n'existe, créez-en une nouvelle avec un POST
             try {
                 const response = await postImpression(impressionData);
-                console.log('Impression enregistrée:', response.data);
+                // console.log('Impression enregistrée:', response.data);
                 setSaveStatus('success');
-                // fetchAllImpressions();
-
                 loadData();
             } catch (error) {
                 setSaveStatus('error');
@@ -110,18 +114,28 @@ function Impression({ activity, studentId, periodId } : any) {
         // Ici vous pouvez continuer avec d'autres opérations qui dépendent des impressions
     };
 
+    // Gère le changement dans le commentaire
+    const handleCommentChange = (event : any) => {
+        setSaveStatus('loading');
+        const newComment = event.target.value;
+        setComment(newComment);
+        setLevel(8);    // 8 is for the impressions with a comment
+        setIsReadyToSave(true); // Indiquez qu'une sauvegarde est nécessaire
+        setLastTyped(Date.now()); // Mettez à jour le temps de la dernière frappe
+    };
     const handleSelect = (eventKey : any) => {
         setSaveStatus('loading');
-        // setTitle(levelName);
+        // console.log("EventKey = " + eventKey);
         const levelName = eventKey;
         const selectedLevelId = levels.find(level => level.name === levelName)?.id;
-        // console.log("Handle Select dropdown : Name = "+levelName+", id = "+selectedLevelId);
+        // console.log("selectedLevelId = " + selectedLevelId);
         if (selectedLevelId) {
-            // console.log("Handle Select dropdown : Levelid");
             setTitle(levelName);
-            setLevel(selectedLevelId); // Supposons que vous stockez l'ID du niveau sélectionné
+
             setComment("selectedItem/"+levelName);
-            debouncedSaveImpression(selectedLevelId, "selectedItem/"+levelName);
+            setLevel(selectedLevelId); // Supposons que vous stockez l'ID du niveau sélectionné
+            setIsReadyToSave(true); // Indiquez qu'une sauvegarde est nécessaire
+            setLastTyped(Date.now()); // Mettez à jour le temps de la dernière frappe
         }
 
         // Mettre à jour la couleur de fond en fonction de la sélection
@@ -165,11 +179,11 @@ function Impression({ activity, studentId, periodId } : any) {
     const [comment, setComment] = useState('');
 
     // Fonction pour sauvegarder l'impression
-    const saveImpression = async (levelId : any, comment : any) => {
+    const saveImpression = async () => {
         // console.log("Period saveImpressions = " + periodId);
         const impressionData: FormImpressions = {
             content: comment,
-            level_id: levelId, // Supposons que level_id correspond à un identifiant de niveau
+            level_id: level, // Supposons que level_id correspond à un identifiant de niveau
             activity_id: activity.id,
             period_id: periodId,
             student_id: studentId,
@@ -178,21 +192,11 @@ function Impression({ activity, studentId, periodId } : any) {
     };
 
     // Fonction debounce pour sauvegarder l'impression
-    const debouncedSaveImpression = useCallback(debounce(saveImpression, 3000), []);
-
-
-    // Gère le changement dans le commentaire
-    const handleCommentChange = (event : any) => {
-        setSaveStatus('loading');
-        const newComment = event.target.value;
-        // console.log("Handle Select textField : comment = "+newComment);
-        setComment(newComment);
-        setLevel(8);
-        if (level) {
-            // console.log("Level OK")
-            debouncedSaveImpression(level, newComment);
+    const debouncedSaveImpression = useCallback(debounce(() => {
+        if (isReadyToSave) {
+            saveImpression();
         }
-    };
+    }, 3000), [isReadyToSave, level, comment]);
 
     // Fonction pour choisir l'icône en fonction de l'état de sauvegarde
     const renderStatusIcon = () => {
@@ -210,13 +214,18 @@ function Impression({ activity, studentId, periodId } : any) {
     // AUTO SAVE END
 
 
-
     useEffect(() => {
-        loadData(); // Exécuter la fonction de chargement des données
         fetchLevels().then(fetchedLevels => {
             setLevels(fetchedLevels);
         });
-    }, []);
+        const handle = setTimeout(() => {
+            if (Date.now() - lastTyped >= 3000 && isReadyToSave) {
+                debouncedSaveImpression(); // Utilisez la fonction debounced ici
+            }
+        }, 3000);
+        return () => clearTimeout(handle);
+    }, [lastTyped, isReadyToSave, debouncedSaveImpression]);
+
 
     if(!activity.is_free){
         return(
@@ -233,7 +242,7 @@ function Impression({ activity, studentId, periodId } : any) {
                         <Dropdown.Menu>
                             {
                                 levels.slice(0, 7).map((level, index) => (
-                                    <Dropdown.Item key={index} eventKey={ level.name } href={`#/levels-${level.id}`}>{level.name}</Dropdown.Item>
+                                    <Dropdown.Item key={index} eventKey={ level.name }>{level.name}</Dropdown.Item>
                                 ))
                             }
                         </Dropdown.Menu>

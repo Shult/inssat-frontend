@@ -18,12 +18,12 @@ const getImpressions = () => {
 };
 
 const postImpression = (formData) => {
-    console.log("postImpression");
+    // console.log("postImpression");
     return apiClientAcademy.post('/impressions/', formData);
 };
 
 const updateImpression = (impressionId, impressionData) => {
-    console.log("putImpression");
+    // console.log("putImpression");
     return apiClientAcademy.put(`/impressions/${impressionId}`, impressionData);
 };
 

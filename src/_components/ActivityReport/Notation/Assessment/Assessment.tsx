@@ -21,10 +21,10 @@ function Assessment({ assessment, periodId, studentId } : any) {
     // Fonction pour sauvegarder l'impression
     const saveAssessment = async () => {
         if(grade == null || comment == ''){
-            console.log("Grade ou comment vide. \n"+
-                "Grade = "+grade+", \n"+
-                "Comment = "+comment+", \n"
-            );
+            // console.log("Grade ou comment vide. \n"+
+            //     "Grade = "+grade+", \n"+
+            //     "Comment = "+comment+", \n"
+            // );
         }else {
             const gradeData: FormGrades = {
                 student_id: studentId,
@@ -34,22 +34,22 @@ function Assessment({ assessment, periodId, studentId } : any) {
                 comment: comment,
                 section_id: 5 // Supposons que vous avez un identifiant de section
             };
-            console.log("Assessment data = " +
-                "student_id = " + gradeData.student_id + ", \n" +
-                "grade = " + gradeData.grade + ", \n" +
-                "assessment_id = " + gradeData.assessment_id + ", \n" +
-                "period_id = " + gradeData.period_id + ", \n" +
-                "comment = " + gradeData.comment + ", \n" +
-                "section_id = " + gradeData.section_id
-            );
+            // console.log("Assessment data = " +
+            //     "student_id = " + gradeData.student_id + ", \n" +
+            //     "grade = " + gradeData.grade + ", \n" +
+            //     "assessment_id = " + gradeData.assessment_id + ", \n" +
+            //     "period_id = " + gradeData.period_id + ", \n" +
+            //     "comment = " + gradeData.comment + ", \n" +
+            //     "section_id = " + gradeData.section_id
+            // );
             handleSave(gradeData);
         }
     };
 
     const debouncedSaveAssessment = useCallback(debounce(() => {
-        console.log("debouncedSaveAssessment : \n"+
-            "Comment : " + comment + " \n"+
-            "Grade : " + grade + " \n");
+        // console.log("debouncedSaveAssessment : \n"+
+        //     "Comment : " + comment + " \n"+
+        //     "Grade : " + grade + " \n");
 
         if (comment !== '' && grade !== -1) { // Vérifiez si comment est non-vide et grade n'est pas vide ou zéro
             saveAssessment();
@@ -60,40 +60,40 @@ function Assessment({ assessment, periodId, studentId } : any) {
         // Mettez à jour la liste des grades avant de chercher une impression existante
         loadData();
 
-        console.log('All Grades:', allGrades);
+        // console.log('All Grades:', allGrades);
         const existingImpression = allGrades.find(imp =>
             imp.student_id === gradeData.student_id &&
             imp.assessment_id === gradeData.assessment_id &&
             imp.period_id == gradeData.period_id
         );
-        console.log('Existing Impression:', existingImpression);
+        // console.log('Existing Impression:', existingImpression);
 
         if (existingImpression) {
-            console.log("PUT");
+            // console.log("PUT");
             // Si une impression existe, mettez-la à jour avec un PUT
             try {
-                console.log("GradeData in PUT : \n"
-                    + "assessment_id: " +gradeData.assessment_id +", \n"
-                    + "period_id: " +gradeData.period_id +", \n"
-                    + "student_id: " +gradeData.student_id +", \n"
-                    + "comment: " +gradeData.comment +", \n"
-                    + "grade: " +gradeData.grade +", \n"
-                    + "section_id: " +gradeData.section_id +", \n"
-                );
+                // console.log("GradeData in PUT : \n"
+                //     + "assessment_id: " +gradeData.assessment_id +", \n"
+                //     + "period_id: " +gradeData.period_id +", \n"
+                //     + "student_id: " +gradeData.student_id +", \n"
+                //     + "comment: " +gradeData.comment +", \n"
+                //     + "grade: " +gradeData.grade +", \n"
+                //     + "section_id: " +gradeData.section_id +", \n"
+                // );
                 const response = await updateGrade(existingImpression.id, gradeData);
-                setSaveStatus('Sauvegardé avec succès!');
-                console.log('Impression mise à jour avec succès : ', response.data);
+                setSaveStatus('success');
+                // console.log('Impression mise à jour avec succès : ', response.data);
                 loadData();
             } catch (error) {
-                setSaveStatus('Erreur lors de la sauvegarde.');
+                setSaveStatus('error');
                 console.error('Erreur lors de l\'enregistrement de l\'impression:', error);
             }
         } else {
-            console.log("POST");
+            // console.log("POST");
             // Si aucune impression n'existe, créez-en une nouvelle avec un POST
             try {
                 const response = await postGrade(gradeData);
-                console.log('Impression enregistrée:', response.data);
+                // console.log('Impression enregistrée:', response.data);
                 setSaveStatus('success');
                 loadData();
             } catch (error) {
@@ -108,7 +108,7 @@ function Assessment({ assessment, periodId, studentId } : any) {
         try {
             // console.log("GETALLIMPRESSIONS");
             const response = await getGrades();
-            console.log("Response from getGrades = " + response);
+            // console.log("Response from getGrades = " + response);
             if (response.ok && response.data) {
                 setAllGrades(response.data);
             } else {
@@ -120,7 +120,6 @@ function Assessment({ assessment, periodId, studentId } : any) {
     };
     const loadData = async () => {
         await fetchAllGrades(); // Attendre que les impressions soient chargées
-        // Ici vous pouvez continuer avec d'autres opérations qui dépendent des impressions
     };
 
     // Fonction pour choisir l'icône en fonction de l'état de sauvegarde
@@ -139,19 +138,19 @@ function Assessment({ assessment, periodId, studentId } : any) {
 
     // Gère le changement dans le champ de commentaire
     const handleCommentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setSaveStatus('loading');
         setComment(event.target.value);
         setLastTyped(Date.now());
         setIsReadyToSave(true); // Indiquez qu'une sauvegarde est nécessaire
-        // debouncedSaveAssessment();
     };
 
     // Gère le changement dans le champ de note
     const handleGradeChange = (event: any) => {
+        setSaveStatus('loading');
         const newGrade: number = event.target.value;
         setGrade(newGrade);
         setLastTyped(Date.now());
         setIsReadyToSave(true); // Indiquez qu'une sauvegarde est nécessaire
-        // debouncedSaveAssessment();
     };
 
     // Utilisez useEffect pour déclencher la sauvegarde après un délai d'inactivité
