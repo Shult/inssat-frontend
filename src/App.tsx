@@ -50,7 +50,7 @@ function App() {
           //TODO: for testing purpose i am adding delay to Loading so that the animation take its time to finish '3s'
           setTimeout(() => {
             setLoading(false);
-          }, 500);
+          }, 800);
         });
       };
 
