@@ -1,9 +1,9 @@
 import "./ApprenticeshipManagement.modal.css"
 import UserDropdown from "../../../_components/User/UserDropdown";
 import Button from "../../../_components/Clickable/Button";
-import {createAssociationMock} from "../../../_components/User/ApprenticeshipAssociation/Association.mock";
-import React, {useRef, useState} from "react";
+import React from "react";
 import {ModalCreateAssociationProps} from "../../../_components/User/ApprenticeshipAssociation/Association.interface";
+import {createAssociation} from "../../../_components/User/ApprenticeshipAssociation/Association.api";
 
 
 
@@ -24,11 +24,11 @@ const ModalAssociationCreation: React.FC<ModalCreateAssociationProps> = ({ onVal
                         name={"createApprenticeshipAssociation"}
                         content={"Valider"}
                         onclick={ () => {
-                            createAssociationMock(
+                            createAssociation([
                                 (document.getElementById("select-student") as HTMLSelectElement).value,
                                 (document.getElementById("select-tutor") as HTMLSelectElement).value,
                                 (document.getElementById("select-supervisor") as HTMLSelectElement).value
-                            )
+                            ])
                             onValidate()
                         }}
                 />

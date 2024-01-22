@@ -1,31 +1,173 @@
+import {
+    getUsers,
+    getUserByUUID,
+    postUser,
+    putUser,
+    deleteUser,
+} from "../../_api/userServices";
 import {UserInterface} from "./User.interface";
-import {usersMock} from "./User.mock";
+import {randomUUID} from "node:crypto";
 
-export function fetchUsersAPI(data: any){
-    const url = 'https://api.dapi-services.fr/api_blog/users/'+data
-    return new Promise<{ users: UserInterface[] }> (
-        () => fetch(url).then(response => response.blob())
-    );
+
+// TO REMOVE LATER
+const getAllEmails = async () => {
+    let emails = []
+
+    const users: UserInterface[] = await getAllUsers()
+
+    for (let i = 0; i < users.length ; i++){
+        emails.push(users[i].email)
+    }
+
+    return emails
 }
 
-export function importUserAPI(data: any){}
 
-export function updateUserAPI(data: any){}
+// GETTER
+const getAllUsers = () => fetchUsers()
+const getUserByID = (id: string) => fetchUserByID(id)
 
-export function deleteUserAPI(data: any){}
+async function fetchUsers() {
+    let users : UserInterface[] = []
+    const request = await getUsers()
+    if (request.ok){
+        users = request.data
+    }
+    return users
+}
 
-export function getUsersMock (key: any, value: any){
-    const userlist: UserInterface[] = []
+async function fetchUserByID(id: string){
+    let user : UserInterface = {
+        uuid: '',
+        firstname: '',
+        lastname: '',
+        email: '',
+        group: '',
+        status: 'idle'
+    }
+    const request = await getUserByUUID(id)
+    if (request.ok){
+        user = request.data
+    }
+    return user
+}
 
-    for (let i = 0; i < usersMock.length; i++) {
-        if (usersMock[i]["uuid"].includes(value)
-            || usersMock[i]["firstname"].includes(value)
-            || usersMock[i]["lastname"].includes(value)
-            || usersMock[i]["email"].includes(value)
-            || usersMock[i]["group"].includes(value)
-        ) {
-            userlist.push(usersMock[i])
+// CRUD
+const createUser = async (info : Array<string>) => {
+
+    // Length === 3 : firstname, lastname and group required
+    if (info.length === 3) {
+
+        let user: UserInterface = {
+            uuid: generateUUID(),
+            firstname: '',
+            lastname: '',
+            email: '',
+            group: '',
+            status: 'idle'
+        }
+
+        const firstname = info[0]
+        const lastname = info[1]
+        const email = await generateEmail(firstname, lastname)
+        const group = info[2]
+
+        if (firstname !== null && lastname !== null && group != null) {
+            user.firstname = firstname
+            user.lastname = lastname
+            user.email = email
+            user.group = group
+        }
+
+        try {
+            const response = await postUser(user);
+            response.ok ? console.log('Created') : console.error('Failed', response.problem);
+        }
+        catch (error) { console.error('Error:', error) }
+    }
+    else { console.log('User is invalid') }
+}
+
+const updateUser = async (info : Array<string>) => {
+
+    // Length === 5 : uuid, firstname, lastname, email and group required
+    if (info.length === 5) {
+
+        let user: UserInterface = {
+            uuid: '',
+            firstname: '',
+            lastname: '',
+            email: '',
+            group: '',
+            status: 'idle'
+        }
+
+        const uuid = info[0]
+        const firstname = info[1]
+        const lastname = info[2]
+        const email = info[3]
+        const group = info[4]
+
+        if (uuid !== null && firstname !== null && lastname !== null && email !== null && group != null) {
+            user.uuid = uuid
+            user.firstname = firstname
+            user.lastname = lastname
+            user.email = email
+            user.group = group
+        }
+
+        try {
+            const response = await putUser(uuid, user);
+            response.ok ? console.log('Created') : console.error('Failed', response.problem);
+        }
+        catch (error) { console.error('Error:', error) }
+    }
+    else { console.log('User is invalid') }
+}
+
+const removeUser = async (id: string) => await deleteUser(id)
+
+function generateUUID(){
+    let uuid: string = randomUUID()
+    return uuid
+}
+
+function generateEmail(firstname: string, lastname: string){
+
+    // construct : s.name@enssat.fr
+    const firstLetterFirstname: string = firstname.charAt(0)
+    lastname = lastname.replace( /\s/g, '')
+
+    let newEmail: string = `${firstLetterFirstname}.${lastname}@enssat.fr`
+
+    return checkEmail(newEmail)
+}
+
+async function checkEmail(email: string) {
+    const emails = await getAllEmails()
+
+    for (let i = 0; i < emails.length; i++) {
+        // while not found keep searching
+        if (emails[i] !== email) {
+            continue
+        }
+
+        // if s.name@enssat.fr already exists, new email's format like: s.name1@enssat.fr
+        else {
+            const frags = email.split("@")
+            frags[0] += 1
+            email = frags[0].concat(frags[1])
+            break
         }
     }
-    return userlist
+
+    return email
+}
+
+export {
+    getAllUsers,
+    getUserByID,
+    createUser,
+    updateUser,
+    removeUser
 }
