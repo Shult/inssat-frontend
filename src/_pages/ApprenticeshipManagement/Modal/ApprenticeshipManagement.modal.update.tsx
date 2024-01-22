@@ -7,9 +7,12 @@ import {updateAssociationMock} from '../../../_components/User/ApprenticeshipAss
 import './ApprenticeshipManagement.modal.css'
 import React from "react";
 import {ModalUpdateAssociationProps} from "../../../_components/User/ApprenticeshipAssociation/Association.interface";
+import {updateAssociation} from "../../../_components/User/ApprenticeshipAssociation/Association.api";
 
 const ModalAssociationUpdate: React.FC<ModalUpdateAssociationProps> = ({ onValidate, show, studentUUID }) => {
-    if (!show) return null;    return (
+    if (!show) return null;
+
+    return (
         <>
             <article className={'line w100 space-between ApprenticeshipManagementModal'}>
                 <h2 className={'w100'}>Mettre à jour l'association</h2>
@@ -29,11 +32,11 @@ const ModalAssociationUpdate: React.FC<ModalUpdateAssociationProps> = ({ onValid
                             name={'updateApprenticeshipAssociation'}
                             content={'Valider'}
                             onclick={ () => {
-                                updateAssociationMock(
+                                updateAssociation([
                                     (document.getElementById('studentKey') as HTMLSelectElement).value,
                                     (document.getElementById('select-tutor') as HTMLSelectElement).value,
                                     (document.getElementById('select-supervisor') as HTMLSelectElement).value
-                                )
+                                ])
                                 onValidate()
                             }
                     }

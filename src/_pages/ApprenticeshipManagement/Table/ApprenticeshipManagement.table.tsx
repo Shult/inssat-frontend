@@ -5,11 +5,10 @@ import Modal from "../../../_components/Modal/Modal";
 import Button from "../../../_components/Clickable/Button";
 import ModalAssociationUpdate from "../Modal/ApprenticeshipManagement.modal.update";
 
-import { getUsersMock } from "../../../_components/User/User.api";
-import { deleteAssociationMock } from "../../../_components/User/ApprenticeshipAssociation/Association.mock";
-
 import "./ApprenticeshipManagement.table.css"
 import {AssociationInterface} from "../../../_components/User/ApprenticeshipAssociation/Association.interface";
+import {removeAssociation} from "../../../_components/User/ApprenticeshipAssociation/Association.api";
+import {UserInterface} from "../../../_components/User/User.interface";
 
 const ApprenticeshipManagementTable = ({associations}: any) => {
     const [showModalUpdate, setShowModalUpdate] = useState(false);
@@ -40,7 +39,10 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                     </thead>
                     <tbody>
                     { associations.map(
-                        (association: AssociationInterface) =>
+                        (association: AssociationInterface,
+                         student: UserInterface,
+                         tutor: UserInterface,
+                         supervisor: UserInterface) =>
                             <tr>
                                 <td className={"txtCenter"}>
                                     <input
@@ -51,20 +53,20 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                                 </td>
                                 <td>
                                     <div className={"line w100"}>
-                                        <p>{ getUsersMock("uuid", association.studentUUID).pop()?.firstname }</p>
-                                        <p>{ getUsersMock("uuid", association.studentUUID).pop()?.lastname.toUpperCase() }</p>
+                                        <p>{ student.firstname }</p>
+                                        <p>{ student.lastname.toUpperCase() }</p>
                                     </div>
                                 </td>
                                 <td>
                                     <div className={"line w100"}>
-                                        <p>{ getUsersMock("uuid", association.tutorUUID).pop()?.firstname }</p>
-                                        <p>{ getUsersMock("uuid", association.tutorUUID).pop()?.lastname.toUpperCase() }</p>
+                                        <p>{ tutor.firstname }</p>
+                                        <p>{ tutor.lastname.toUpperCase() }</p>
                                     </div>
                                 </td>
                                 <td>
                                     <div className={"line w100"}>
-                                        <p>{ getUsersMock("uuid", association.supervisorUUID).pop()?.firstname }</p>
-                                        <p>{ getUsersMock("uuid", association.supervisorUUID).pop()?.lastname.toUpperCase() }</p>
+                                        <p>{ supervisor.firstname }</p>
+                                        <p>{ supervisor.lastname.toUpperCase() }</p>
                                     </div>
                                 </td>
                                 <td>
@@ -78,7 +80,7 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                                 <td>
                                     <button id="delete-button"  onClick={() => {
                                         window.confirm("Confirmez-vous la suppression de cette association ?") ?
-                                            deleteAssociationMock(association.studentUUID) : console.log()
+                                            removeAssociation(association.studentUUID) : console.log()
                                     }}>
                                         <CDBSidebarMenuItem icon={"trash"}/>
                                     </button>
@@ -126,7 +128,7 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                 const id = checkbox.getAttribute("value")
                 console.log(id)
                 // id ? deleteAssociation(id) : console.log("id null")
-                id ? deleteAssociationMock(id) : console.log("id null")
+                id ? removeAssociation(id) : console.log("id null")
             }
         }
     }
