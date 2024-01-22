@@ -72,7 +72,7 @@ const CommentComponent = ({ id, setCommentsCounter }) => {
   };
 
   return (
-    <div className="row mb-4" >
+    <div className="row">
     <div className="col-md-12">
       <div className="card">
         <div className="card-header">

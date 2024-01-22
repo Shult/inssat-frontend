@@ -49,7 +49,7 @@ const ImageModal = ({ show, onHide, imageUrl }:any) => {
   return (
     <Modal size={'xl'} show={show} onHide={onHide} centered>
       <Modal.Body>
-        <img src={imageUrl} alt="Full-size" style={{ width: '100%' }} />
+        <img  src={imageUrl} alt="Full-size" style={{ width: '100%' }} />
       </Modal.Body>
     </Modal>
   );
@@ -138,7 +138,8 @@ const ImageModal = ({ show, onHide, imageUrl }:any) => {
                                 style={{
                                   height: '400px',
                                   objectFit: 'cover',
-                                  borderRadius: '8px'
+                                  borderRadius: '8px',
+                                  cursor:'pointer'
                                 }}
                                 onClick={() => handleImageClick(principalImage)}
                                 

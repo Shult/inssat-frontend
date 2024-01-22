@@ -31,6 +31,12 @@ const Article = () => {
   const [commentsCounter, setCommentsCounter] = useState(articleDetails.comment_count ? articleDetails.comment_count : 0);
   
   useEffect(() => {
+    setArticleDetails((prevDetails) => ({ ...prevDetails, comment_count: commentsCounter }));
+  }, [commentsCounter]);
+  
+
+
+  useEffect(() => {
 
     //------------_> getCategories
     const fetchData = async () => {
@@ -54,6 +60,8 @@ const Article = () => {
           console.log(articleResponse.data)
         } else {
           console.error('Error fetching categories:', articleResponse);
+
+          navigate('/page-not-found')
         }
       } catch (error) {
         console.error('Error fetching categories:', error);
