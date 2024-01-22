@@ -24,6 +24,7 @@ const ArticleDetailsComponent = ({ article }: any) => {
     principal_image,
     article_tags,
     like_count,
+    comment_count,
     // category,
     author,
     published_at: publishedAt,
@@ -48,7 +49,7 @@ const ImageModal = ({ show, onHide, imageUrl }:any) => {
   return (
     <Modal size={'xl'} show={show} onHide={onHide} centered>
       <Modal.Body>
-        <img src={imageUrl} alt="Full-size" style={{ width: '100%' }} />
+        <img  src={imageUrl} alt="Full-size" style={{ width: '100%' }} />
       </Modal.Body>
     </Modal>
   );
@@ -137,7 +138,8 @@ const ImageModal = ({ show, onHide, imageUrl }:any) => {
                                 style={{
                                   height: '400px',
                                   objectFit: 'cover',
-                                  borderRadius: '8px'
+                                  borderRadius: '8px',
+                                  cursor:'pointer'
                                 }}
                                 onClick={() => handleImageClick(principalImage)}
                                 
@@ -176,12 +178,14 @@ const ImageModal = ({ show, onHide, imageUrl }:any) => {
             </div>
             <div className="d-flex align-items-center">
               <FaComment className="me-1" /> {/* Comment icon */}
-              <span>{comments}</span> {/* Number of comments */}
+              <span>{comment_count}</span> {/* Number of comments */}
             </div>
           </Col>
         </Row>
+
       </Card.Body>
     </Card>
+    
   );
 };
 

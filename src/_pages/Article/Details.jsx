@@ -12,7 +12,12 @@ import CategoriesCard from '../../_components/Cards/CategoriesOrderedByArticles'
 import {getArticleWithDetails, getArticlesWithDetails} from '../../_api/article'
 import { useParams } from 'react-router-dom';
 
+import CommentComponent from '../../_components/Comment/CommentComponent';
+
+import {useNavigate} from 'react-router-dom';
+
 const Article = () => {
+  const navigate = useNavigate()
   // Access the parameters from the URL
   const { id } = useParams();
 
@@ -23,6 +28,13 @@ const Article = () => {
   const [articles, setArticles] = useState([]);
 
   const [articleDetails, setArticleDetails] = useState([]);
+  const [commentsCounter, setCommentsCounter] = useState(articleDetails.comment_count ? articleDetails.comment_count : 0);
+  
+  useEffect(() => {
+    setArticleDetails((prevDetails) => ({ ...prevDetails, comment_count: commentsCounter }));
+  }, [commentsCounter]);
+  
+
 
   useEffect(() => {
 
@@ -48,6 +60,8 @@ const Article = () => {
           console.log(articleResponse.data)
         } else {
           console.error('Error fetching categories:', articleResponse);
+
+          navigate('/page-not-found')
         }
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -75,6 +89,8 @@ const Article = () => {
         <Row className="justify-content-center">
           <Col xs={12} md={12} lg={7} xl={8}>
             <ArticleDetails article={articleDetails} />
+            <CommentComponent id={id} setCommentsCounter={setCommentsCounter}/> 
+          
           </Col>
           <Col xs={12} md={12} lg={5} xl={4}>
             <CategoriesCard  categories={categories} />

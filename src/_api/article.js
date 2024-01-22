@@ -14,6 +14,7 @@ const getArticlesWithDetails =  () => client.get('/articles/details')
 const getArticleWithDetails =  (id) => client.get(`/articles/details/${id}`)
 
 
+
 const getFilteredArticles = async (filterOptions) => {
   try {
     const response = await client.post('/articles/filter', filterOptions);
@@ -26,12 +27,6 @@ const getFilteredArticles = async (filterOptions) => {
 
 
 const getArticlesByCategory = async (id, page = 1, pageSize = 10) => {
-  console.log("äsdasdasdasdasdsa")
-  console.log(id)
-  console.log(page)
-  console.log(pageSize)
-  console.log(id)
-  console.log("äsdasdasdasdasdsa")
   try {
     const response = await client.get(`/articles/category/${id}?pageSize=${pageSize}&page=${page}`);
 
@@ -44,7 +39,7 @@ const getArticlesByCategory = async (id, page = 1, pageSize = 10) => {
 const createArticle = (formData) => {
     return client.post('/articles', formData, {
       headers: {
-        'Content-Type': 'multipart/form-data', // Ensure correct headers for form data
+        'Content-Type': 'multipart/form-data',
       },
     })
   };
@@ -52,11 +47,31 @@ const createArticle = (formData) => {
 const deleteArticle = (id) => {
     return client.delete(`/articles/${id}`, id, {
       headers: {
-        'Content-Type': 'multipart/form-data', // Ensure correct headers for form data
+        'Content-Type': 'multipart/form-data',
       },
     })
   };
 
+
+  const getCommentsForArticle = async (id) => {
+    try {
+      const response = await client.get(`/articles/${id}/comments`);
+  
+      if (response.ok) {
+        // Extract the comments from the response data
+        const comments = response.data;
+        return comments;
+      } else {
+        // Handle errors when the request is not successful
+        console.error('Error fetching comments:', response.problem);
+        return null;
+      }
+    } catch (error) {
+      // Handle other errors (e.g., network issues)
+      console.error('Error fetching comments:', error);
+      return null;
+    }
+  };
 
 export {
     getArticleById,
@@ -68,5 +83,6 @@ export {
     getArticlesByCategory,
     update,
     getFilteredArticles,
+    getCommentsForArticle
     
 }
