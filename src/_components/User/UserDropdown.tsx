@@ -1,22 +1,30 @@
 import {UserInterface} from "./User.interface";
-import {getUsersMock} from "./User.api";
-import React, {useState} from "react";
+import {getAllUsersByGroup} from "./User.api";
+import React, {useEffect, useState} from "react";
 
 import "./UserDropdown.css"
 
 const UserDropdown = ({className = "w33", id = "select-user", usertype = "user"}) => {
+
+    useEffect(() => {
+        getAllUsersByGroup(usertype).then(fetchedUsers => setUsers(fetchedUsers))
+    }, []);
+
+    const [fetchedUsers, setUsers] = useState<UserInterface[]>([])
+
     const [searched, setSearched] = useState("");
     const [searchedValue, setValue] = useState<UserInterface | null>(null);
+
     const users = getUserBySearch(searched)
 
-    function getUserBySearch(searched: string, users: UserInterface[] = getUsersMock("group", usertype)){
+    function getUserBySearch(searched: string, users: UserInterface[] = fetchedUsers){
         if (searched.length > 1){
             let newList = []
             searched = searched.toUpperCase()
             for (let i = 0; i < users.length; i++) {
 
-                let userFirstname = getUsersMock("uuid", users[i].uuid).pop()?.firstname.toUpperCase()
-                let userLastname = getUsersMock("uuid", users[i].uuid).pop()?.lastname.toUpperCase()
+                let userFirstname = fetchedUsers[i].firstname.toUpperCase()
+                let userLastname =  fetchedUsers[i].lastname.toUpperCase()
 
                 if (userFirstname?.includes(searched) || userLastname?.includes(searched)) {
                     newList.push(users[i])
