@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import { Row, Col, Button, Form } from 'react-bootstrap';
 import CustomButton from "../../../../ToolBox/Forms/ActionButton"
 import "./ImpressionSkillView.css"
-import { IActivity, IImpression } from '../../../Services/activityReportInterfaces';
+import { IActivity, IActivityApi, IImpression } from '../../../Services/activityReportInterfaces';
 import activityReportData from "../../../Services/tmpData"
 
 interface IImpressionProps {
     activity: IActivity;
     impression: IImpression;
 }
-
-function ImpressionSkillView({activity, impression} : any) {
+interface ActivitySkillViewProps {
+    activity: IActivityApi; // Cette interface doit correspondre à la structure de vos données section.
+}
+function ImpressionSkillView({activity} : ActivitySkillViewProps) {
     const [buttonText, setButtonText] = useState('Non évalué');
 
     const getButtonColor = (text : any) => {
@@ -34,7 +36,7 @@ function ImpressionSkillView({activity, impression} : any) {
         }
     };
 
-    if(!activity.is_free){
+    if(activity.impressions[0].level.name != "free_impression"){
         return(
             <Row>
                 <Col xs={12} md={12} lg={9} xl={9}>
@@ -42,8 +44,8 @@ function ImpressionSkillView({activity, impression} : any) {
                 </Col>
                 <Col xs={12} md={12} lg={3} xl={3}>
                     <>
-                        <Button variant="primary" disabled id={'appreciation'} style={{ borderColor: getButtonColor(impression.level_id), color: getButtonColor(impression.level_id) }}>
-                            {impression.level_id}
+                        <Button variant="primary" disabled id={'appreciation'} style={{ borderColor: getButtonColor(activity.impressions[0].level.name), color: getButtonColor(activity.impressions[0].level.name) }}>
+                            {activity.impressions[0].level.name}
                         </Button>{' '}
                     </>
                 </Col>
@@ -58,7 +60,7 @@ function ImpressionSkillView({activity, impression} : any) {
                     <p>{activity.name}</p>
                 </Col>
                 <Col xs={12} md={12} lg={8} xl={8}>
-                    <p>{impression.content}</p>
+                    <p>{activity.impressions[0].content}</p>
                 </Col>
                 <hr className="separator" id={'separator'}/>
             </Row>

@@ -100,3 +100,36 @@ export interface IAssessment {
     created_at: Date,
     updated_at: Date
 }
+
+// BIG TRUC
+export interface ILevelApi {
+    id: number;
+    name: string;
+}
+
+export interface IImpressionApi {
+    id: number;
+    content: string;
+    level: ILevelApi;
+}
+
+export interface IActivityApi {
+    id: number;
+    name: string;
+    position: number;
+    impressions: IImpressionApi[];
+}
+
+export interface ISectionApi2 {
+    id: number;
+    title: string;
+    description: string | null;
+    createdAt: string;
+    updatedAt: string;
+    activities: IActivityApi[];
+}
+
+// Si vous avez besoin de représenter l'ensemble du tableau de sections :
+export interface IDataApi {
+    sections: ISectionApi2[];
+}

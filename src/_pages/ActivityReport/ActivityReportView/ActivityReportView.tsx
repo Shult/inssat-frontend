@@ -8,25 +8,15 @@ import {
     ISection,
     IGrade,
     IImpression,
-    IActivity
+    IActivity,
+    IDataApi,
+    ISectionApi2
 } from "../../../_components/ActivityReport/Services/activityReportInterfaces"
 
-import data from "../../../_components/ActivityReport/Services/tmpData"
-import student1_period1 from '../../../_components/ActivityReport/Services/data_student1_period1'
 import { getSectionsWithActivitiesAndImpressionsByPeriodAndUserId } from '../../../_api/ActivityReportServices';
 
 const ActivityReportView = () => {
-    const [data, setData] = useState([]);
-
-
-    const student = student1_period1.student;
-
-    const sections = student1_period1.sections;
-    const activies = student1_period1.activities;
-    const impressions = student1_period1.impressions;
-
-    const assessments = student1_period1.assessments;
-    const grades = student1_period1.grades;
+    const [data, setData] = useState<IDataApi>({ sections: [] });
 
     const [title, setTitle] = useState('Sélectionner une période');
 
@@ -45,16 +35,37 @@ const ActivityReportView = () => {
             //...
         }
     };
+    
 
     useEffect(() => {
         setUserId("b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e");
-        setPeriodId(1);
+        setPeriodId(2);
         getSectionsWithActivitiesAndImpressionsByPeriodAndUserId(periodId, userId)
             .then(response => {
                 if (response.ok && response.data) {
                     // Traitez les données reçues ici
-                    console.log("getSectionsWithActivitiesAndImpressionsByPeriodAndUserId = "+response.data);
-                    setData(response.data);
+                    //console.log("getSectionsWithActivitiesAndImpressionsByPeriodAndUserId = "+response.data);
+                    // setData(response.data);
+                    setData({ sections: response.data });
+
+                    // sections.map((section, index) =>
+                    data.sections && data.sections.length > 0
+                        ? console.log(true) : console.log(false)
+
+                        response.data.map((section : any, index : number) =>
+                        // console.log("Section "+ index+" = " + section.title)
+                        section.activities.map((activity : any, index : number) =>
+                            //console.log("Section "+ section.title +"\nActivity "+ index + " = " + activity.name)
+                            activity.impressions.map((impression : any, index : number) =>
+                                console.log(
+                                    "Section = "+ section.title +"\n" +
+                                    "Activity = " + activity.name+"\n" +
+                                    "Impressions = "+ impression.level.id
+                                )
+                            )
+                        )
+                    )
+                    console.log()
                 } else {
                     // Gérez les erreurs ici
                     console.error('Erreur lors de la récupération des données');
@@ -64,8 +75,8 @@ const ActivityReportView = () => {
                 // Gérez les erreurs ici
                 console.error('Erreur lors de la connexion à l\'API:', error);
             });
-    }, []);
-    
+        }, [periodId, userId]
+    );
     return(
         <div className="container" id={"activityReport"}>
             <Row>
@@ -91,28 +102,51 @@ const ActivityReportView = () => {
             <Card className="horizontal-card mb-3" style={{ borderRadius: '8px', boxShadow: 'var(--box-shadow)' }}>
                 <Card.Body id={"skill-container"}>
                     <div>
+                        {/*{*/}
+                        {/*    sections.map((section, index) =>*/}
+                        {/*        <SectionSkillView*/}
+                        {/*            key = {index}*/}
+                        {/*            section = {section}*/}
+                        {/*            activities={ activies.filter(activity => activity.section_id === section.id)}*/}
+                        {/*            impressions={ impressions.filter(impression => (impression.student_id === student.id)) }*/}
+                        {/*        />*/}
+                        {/*    )*/}
+                        {/*}*/}
                         {
-                            sections.map((section, index) =>
+                            data.sections && data.sections.length > 0
+                            ? data.sections.map((section : ISectionApi2, index : number) =>
+                                // console.log("Section "+ index+" = " + section.title)
                                 <SectionSkillView
                                     key = {index}
                                     section = {section}
-                                    activities={ activies.filter(activity => activity.section_id === section.id)}
-                                    impressions={ impressions.filter(impression => (impression.student_id === student.id)) }
+                                    // activities={ section.activities }
+                                    // impressions={ impressions.filter(impression => (impression.student_id === student.id)) }
                                 />
+                                // section.activities.map((activity : any, index : number) =>
+                                //     //console.log("Section "+ section.title +"\nActivity "+ index + " = " + activity.name)
+                                //     activity.impressions.map((impression : any, index : number) =>
+                                //         // console.log(
+                                //         //     "Section = "+ section.title +"\n" +
+                                //         //     "Activity = " + activity.name+"\n" +
+                                //         //     "Impressions = "+ impression.level.id
+                                //         // )
+                                //
+                                //     )
+                                // )
                             )
+                            : <p>Aucune activité à afficher.</p> // Ou gérer autrement le cas où il n'y a pas d'activités.
                         }
                     </div>
-
                 </Card.Body>
             </Card>
 
             {/* Notation */}
             <Card className="horizontal-card mb-3" style={{ borderRadius: '8px', boxShadow: 'var(--box-shadow)' }}>
                 <Card.Body id={"skill-container"}>
-                    <SectionNotationView
-                        assessments = {assessments}
-                        grades = {grades}
-                    ></SectionNotationView>
+                    {/*<SectionNotationView*/}
+                    {/*    assessments = {assessments}*/}
+                    {/*    grades = {grades}*/}
+                    {/*></SectionNotationView>*/}
                 </Card.Body>
             </Card>
 
