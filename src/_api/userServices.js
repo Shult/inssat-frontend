@@ -3,6 +3,7 @@ import apiClientUser from './userClient'
 
 
 const getUsers = () => apiClientUser.get(`/users/`)
+const getUsersByGroup = (group) => apiClientUser.get(`/users/${group}`)
 const getUserByUUID = (id) => apiClientUser.get(`/users/${id}`)
 
 const postUser = (userData) => {
@@ -32,6 +33,7 @@ const deleteUser = (id) => {
 
 export {
     getUsers,
+    getUsersByGroup,
     getUserByUUID,
     postUser,
     putUser,

@@ -3,7 +3,7 @@ import {
     getUserByUUID,
     postUser,
     putUser,
-    deleteUser,
+    deleteUser, getUsersByGroup,
 } from "../../_api/userServices";
 import {UserInterface} from "./User.interface";
 import {randomUUID} from "node:crypto";
@@ -25,6 +25,7 @@ const getAllEmails = async () => {
 
 // GETTER
 const getAllUsers = () => fetchUsers()
+const getAllUsersByGroup = (group: string) => fetchUsersByGroup(group)
 const getUserByID = (id: string) => fetchUserByID(id)
 
 async function fetchUsers() {
@@ -35,6 +36,16 @@ async function fetchUsers() {
     }
     return users
 }
+
+async function fetchUsersByGroup(group: string) {
+    let users : UserInterface[] = []
+    const request = await getUsersByGroup(group)
+    if (request.ok){
+        users = request.data
+    }
+    return users
+}
+
 
 async function fetchUserByID(id: string){
     let user : UserInterface = {
@@ -166,6 +177,7 @@ async function checkEmail(email: string) {
 
 export {
     getAllUsers,
+    getAllUsersByGroup,
     getUserByID,
     createUser,
     updateUser,
