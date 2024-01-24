@@ -12,8 +12,8 @@ function getAssociationsMock(student?: string, tutor?: string, supervisor?: stri
 
     let i = 0;
     if (student){
-        while ( i < associations.length && associations[i].studentUUID !== student) {
-            if (associations[i].studentUUID === student) {
+        while ( i < associations.length && associations[i].student_id !== student) {
+            if (associations[i].student_id === student) {
                 newList.push(associations[i])
             }
         }
@@ -22,8 +22,8 @@ function getAssociationsMock(student?: string, tutor?: string, supervisor?: stri
 
     i = 0;
     if (tutor){
-        while ( i < associations.length && associations[i].tutorUUID !== tutor) {
-            if (associations[i].tutorUUID === tutor) {
+        while ( i < associations.length && associations[i].tutor_id !== tutor) {
+            if (associations[i].tutor_id === tutor) {
                 newList.push(associations[i])
             }
         }
@@ -32,8 +32,8 @@ function getAssociationsMock(student?: string, tutor?: string, supervisor?: stri
 
     i = 0;
     if (supervisor){
-        while ( i < associations.length && associations[i].supervisorUUID !== supervisor) {
-            if (associations[i].supervisorUUID === supervisor) {
+        while ( i < associations.length && associations[i].ma_id !== supervisor) {
+            if (associations[i].ma_id === supervisor) {
                 newList.push(associations[i])
             }
         }
@@ -53,12 +53,12 @@ function createAssociationMock(student: string, tutor: string, supervisor: strin
 
     while ( i < associations.length && !found) {
         console.log("looking for association...")
-        associations[i].studentUUID === student ? found = true : i++
+        associations[i].student_id === student ? found = true : i++
     }
 
     if (!found){
         console.log("creating new association...")
-        associationMock.push({studentUUID: student, tutorUUID: tutor, supervisorUUID: supervisor})
+        associationMock.push({student_id: student, tutor_id: tutor, ma_id: supervisor})
     }
 }
 
@@ -72,17 +72,17 @@ function updateAssociationMock(student: string, tutor: string, supervisor: strin
 
     while ( i < associations.length && !found) {
         console.log("looking for association...")
-        associations[i].studentUUID === student ? found = true :  i++
+        associations[i].student_id === student ? found = true :  i++
     }
 
     if (found){
         console.log("updating association...")
 
-        if (associations[i].tutorUUID !== tutor) {
-            associations[i].tutorUUID = tutor
+        if (associations[i].tutor_id !== tutor) {
+            associations[i].tutor_id = tutor
         }
-        if (associations[i].supervisorUUID !== supervisor) {
-            associations[i].supervisorUUID = supervisor
+        if (associations[i].ma_id !== supervisor) {
+            associations[i].ma_id = supervisor
         }
     }
 }
@@ -97,7 +97,7 @@ function deleteAssociationMock(student: string){
 
     while ( i < associations.length && !found) {
         console.log("looking for association...")
-        associations[i].studentUUID === student ? found = true :  i++
+        associations[i].student_id === student ? found = true :  i++
     }
 
     if (found) {

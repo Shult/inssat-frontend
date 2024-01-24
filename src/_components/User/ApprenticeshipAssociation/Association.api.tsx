@@ -1,6 +1,5 @@
 import {AssociationInterface} from "./Association.interface";
-import {apiBlog} from "../../../_api/client";
-import {associationMock} from "../User.mock";
+import {MutableRefObject} from "react";
 
 /*
  * Mock functions
@@ -20,15 +19,14 @@ function getAssociationsMock(student?: string, tutor?: string, supervisor?: stri
         i++
     }
 
-    i = 0;
-    if (tutor){
-        while ( i < associations.length && associations[i].tutorUUID !== tutor) {
-            if (associations[i].tutorUUID === tutor) {
-                newList.push(associations[i])
-            }
-        }
-        i++
+async function fetchAssociationByStudent(){
+    let association : AssociationInterface = { studentUUID: "", tutorUUID: "", supervisorUUID: ""}
+    const request = await getAssociationByStudentID()
+    if (request.ok){
+        association = request.data
     }
+    return association
+}
 
     i = 0;
     if (supervisor){
@@ -45,16 +43,15 @@ function getAssociationsMock(student?: string, tutor?: string, supervisor?: stri
 // function createAssociationMock(student: UserInterface, tutor: UserInterface, supervisor: UserInterface){
 function createAssociationMock(student: string, tutor: string, supervisor: string){
 
-    let associations: AssociationInterface[] = associationMock
-    let i = 0
-    let found = false
+        let association: AssociationInterface = { "studentUUID" : "", "tutorUUID" : "", "supervisorUUID" : "" }
 
     // console.log(student, tutor, supervisor)
 
-    while ( i < associations.length && !found) {
-        console.log("looking for association...")
-        associations[i].studentUUID === student ? found = true : i++
-    }
+        if (student !== null  && tutor !== null && supervisor !== null) {
+            association.supervisorUUID = student
+            association.tutorUUID = tutor
+            association.supervisorUUID = supervisor
+        }
 
     if (!found){
         console.log("creating new association...")
@@ -95,16 +92,12 @@ function deleteAssociationMock(student: string){
 
     // console.log(student, tutor, supervisor)
 
-    while ( i < associations.length && !found) {
-        console.log("looking for association...")
-        associations[i].studentUUID === student ? found = true :  i++
-    }
+        let association: AssociationInterface = { "studentUUID" : student, "tutorUUID" : "", "supervisorUUID" : "" }
 
-    if (found) {
-        console.log("deleting association...")
-        associationMock.splice(i, 1)
-    }
-}
+        if (tutor !== null && supervisor !== null) {
+            association.tutorUUID = tutor
+            association.supervisorUUID = supervisor
+        }
 
 /*
  * Database functions
@@ -145,14 +138,8 @@ const deleteAssociation = (id: string) => {
 
 
 export {
-    // Mock
-    getAssociationsMock,
-    createAssociationMock,
-    updateAssociationMock,
-    deleteAssociationMock,
-
-    // Database
     getAssociations,
+    getAssociationByStudent,
     createAssociation,
     updateAssociation,
     deleteAssociation

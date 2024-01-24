@@ -10,16 +10,37 @@ import {AssociationInterface} from "../../../_components/User/ApprenticeshipAsso
 import {removeAssociation} from "../../../_components/User/ApprenticeshipAssociation/Association.api";
 import {UserInterface} from "../../../_components/User/User.interface";
 
-const ApprenticeshipManagementTable = ({associations}: any) => {
+const ApprenticeshipManagementTable = ({ associations, students, tutors, supervisors }: any) => {
     const [showModalUpdate, setShowModalUpdate] = useState(false);
-    const [studentUUID, setStudentUUID] = useState("");
+    const [student_id, setStudentUUID] = useState("");
+
+    function solveUserThroughID(id: string){
+        let user: UserInterface = {
+            uuid: "",
+            firstname: "",
+            lastname: "",
+            email: "",
+            group: "",
+            status: "idle"
+        }
+
+        for (let i = 0; i < students; i++) {
+            if (students[i].uuid.matches(id)){
+                user = students[i]
+            }
+        }
+        return user
+    }
 
     return (
         <>
             <article className={"line w100 space-around"} id={"ApprenticeshipManagementTable"}>
 
                 <Modal show={showModalUpdate} onClose={() => setShowModalUpdate(false)}>
-                    <ModalAssociationUpdate onValidate={() => setShowModalUpdate(false)} show={showModalUpdate} studentUUID={studentUUID}/>
+                    <ModalAssociationUpdate onValidate={() => setShowModalUpdate(false)}
+                                            show={showModalUpdate}
+                                            student={solveUserThroughID(student_id)}
+                    />
                 </Modal>
 
                 <table className={"w100"}>
@@ -48,7 +69,7 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                                     <input
                                         type={'checkbox'}
                                         name={'AssociationCheckbox'}
-                                        value={association.studentUUID}
+                                        value={association.student_id}
                                     />
                                 </td>
                                 <td>
@@ -72,7 +93,7 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                                 <td>
                                     <button id="edit-button" onClick={() => {
                                         setShowModalUpdate(!showModalUpdate)
-                                        setStudentUUID(association.studentUUID)
+                                        setStudentUUID(association.student_id)
                                     }}>
                                         <CDBSidebarMenuItem icon={"edit"}/>
                                     </button>
@@ -80,7 +101,7 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                                 <td>
                                     <button id="delete-button"  onClick={() => {
                                         window.confirm("Confirmez-vous la suppression de cette association ?") ?
-                                            removeAssociation(association.studentUUID) : console.log()
+                                            removeAssociation(association.student_id) : console.log()
                                     }}>
                                         <CDBSidebarMenuItem icon={"trash"}/>
                                     </button>
@@ -121,13 +142,10 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
     }
 
     function deleteAssociationSelected() {
-        console.log("delete all on going")
         const checkboxes = document.getElementsByName('AssociationCheckbox');
         for (const checkbox of checkboxes) {
             if ((checkbox as HTMLInputElement).checked) {
                 const id = checkbox.getAttribute("value")
-                console.log(id)
-                // id ? deleteAssociation(id) : console.log("id null")
                 id ? removeAssociation(id) : console.log("id null")
             }
         }

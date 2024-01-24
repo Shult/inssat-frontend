@@ -2,9 +2,9 @@ import {AssociationInterface} from "./Association.interface";
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState: AssociationInterface = {
-    studentUUID: "",
-    tutorUUID: "",
-    supervisorUUID: ""
+    student_id: "",
+    tutor_id: "",
+    ma_id: ""
 }
 
 export const associationSlice = createSlice({

@@ -1,20 +1,20 @@
- 
+
 import { Card, Form, Row, Col, Toast, Spinner } from 'react-bootstrap';
 import React, { useState, useEffect, useRef } from 'react';
 import FileInputWithPreview from '../../_components/ToolBox/Forms/FileInputWithPreview';
 import DraftEditor from '../ToolBox/Forms/DraftEditor';
 import TagsInput from '../ToolBox/Forms/TagsInput';
 import Categories from '../ToolBox/Categories';
-import{Heading5} from '../../_components/ToolBox/Headings'
+import{ Heading5 } from '../../_components/ToolBox/Headings'
 import { ActionButton } from '../ToolBox/Forms';
 
 import { update, getArticleWithDetails } from '../../_api/article';
-import { useParams } from 'react-router-dom'; 
+import { useParams } from 'react-router-dom';
 
 import { useNavigate } from 'react-router-dom';
 import ImageSelectorModal from '../ImageModel/ImageSelectorModal'
 import { getPublicFile } from '../../_api/uploads';
- 
+
 
 function EditArticle(props) {
   const { id } = useParams();
@@ -88,15 +88,15 @@ function EditArticle(props) {
   //---------------------------------------------------------------------------------
 
 
- 
+
   const validate = (event)=>{
     setLoading(true);
     const form = formRef.current;
     if (form) {
         setImageInvalid(!selectedImage ? true:false)
         setImageInvalid2(!selectedImage2 ? true:false)
-    
-      if (form.checkValidity() && selectedImage && selectedImage2) { 
+
+      if (form.checkValidity() && selectedImage && selectedImage2) {
 
         if(selectedImage || selectedImage2)
           handleSubmit();
@@ -108,7 +108,7 @@ function EditArticle(props) {
         }, 3000);
         console.log('Form is invalid. Please fill in required fields.');
        }
-    } 
+    }
 
     setTimeout(()=>{
       setLoading(false);
@@ -124,7 +124,7 @@ function EditArticle(props) {
       console.log(document.querySelector('textarea[name="content"]').value)
       console.log(document.querySelector('select[name="category"]').value)
       console.log(document.querySelector('input[name="tags"]').value.split('|'))
-      
+
 
     const formData = new FormData();
     formData.append('title', document.querySelector('input[name="title"]').value);
@@ -134,21 +134,21 @@ function EditArticle(props) {
 
     formData.append('tags',  document.querySelector('input[name="tags"]').value);
 
-   
+
     formData.append('thumbnail', selectedImage.imageName);
-    formData.append('principal_image', selectedImage2.imageName); 
+    formData.append('principal_image', selectedImage2.imageName);
 
 
     console.log('Form is valid. Ready to submit.');
-   
+
     try {
       const response = await update(id, formData);
-      
-    
+
+
       if (response.ok) {
         console.log('Article updated successfully');
         setShowSuccessToast(true);
-    
+
         // Assuming response.data.id contains the ID of the newly updated article
         const newArticleId = response.data.id;
         const articleLink = `/article/${newArticleId}`; // Adjust the route path as needed
@@ -188,14 +188,14 @@ useEffect(() => {
       const response = await getArticleWithDetails(id);
       if (response.ok) {
         setArticle(response.data);
-  
+
         // Fetch and set principal_image
         const principalImageBlobURL = await getPublicFile(response.data.principal_image);
         setSelectedImage2({
           imageName: response.data.principal_image,
           imageBlob: principalImageBlobURL,
         });
-  
+
         // Fetch and set thumbnail
         const thumbnailBlobURL = await getPublicFile(response.data.thumbnail);
         setSelectedImage({
@@ -225,10 +225,10 @@ useEffect(() => {
     <Card className="mb-4">
       <Card.Body>
         <Card.Title className="mb-3">Create Article</Card.Title>
-        
+
         {showSuccessToast ? ( <div className="d-flex align-items-center">
           <div className="me-3">
-            
+
           </div>
           <div>
             <p style={{ marginBottom: '5px' }}>Article was updated!</p>
@@ -237,7 +237,7 @@ useEffect(() => {
           </div>
         </div>
         ) :
-        (<Form ref={formRef} 
+        (<Form ref={formRef}
 
         noValidate>
           <Row className="justify-content-center">
@@ -254,7 +254,7 @@ useEffect(() => {
                       if (!e.target.value) setTitleFocused(false);
                     }}
                     required
-                    value={article.title} 
+                    value={article.title}
                     onChange={(e) => setArticle({ ...article, title: e.target.value })}
                   />
                </div>
@@ -308,7 +308,7 @@ useEffect(() => {
           <Row>
             <Col xs={12} className="d-flex justify-content-center">
              <ActionButton active={!loading}  variant="primary" onClick={validate}>
-                
+
                 {loading ? (
             <>
               <Spinner animation="border" size="sm" className="me-2" />
@@ -331,7 +331,7 @@ useEffect(() => {
           </Toast.Header>
           <Toast.Body>Veuillez remplir les champs obligatoires.</Toast.Body>
         </Toast>
- 
+
       </div>
 
       <ImageSelectorModal

@@ -6,8 +6,6 @@ import {
     deleteUser, getUsersByGroup,
 } from "../../_api/userServices";
 import {UserInterface} from "./User.interface";
-import {randomUUID} from "node:crypto";
-
 
 // TO REMOVE LATER
 const getAllEmails = async () => {
@@ -139,7 +137,15 @@ const updateUser = async (info : Array<string>) => {
 const removeUser = async (id: string) => await deleteUser(id)
 
 function generateUUID(){
-    let uuid: string = randomUUID()
+    let uuid:any = Math.floor(Math.random() * 10)
+    for (let i = 1; i < 32; i++) {
+        if (i===7 || i===11 || i===15 || i===19){
+            uuid +=  Math.floor(Math.random() * 10)+"-"
+        }
+        else {
+            uuid +=  Math.floor(Math.random() * 10)+""
+        }
+    }
     return uuid
 }
 

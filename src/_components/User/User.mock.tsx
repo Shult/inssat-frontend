@@ -196,26 +196,26 @@ export let associationMock: AssociationInterface[]
 
 associationMock = []
 
-const associationMock01: AssociationInterface = {studentUUID: "000-000-001", tutorUUID: "100-200-001", supervisorUUID: "000-100-001"}
-const associationMock02: AssociationInterface = {studentUUID: "000-000-032", tutorUUID: "100-200-002", supervisorUUID: "000-100-002"}
-const associationMock03: AssociationInterface = {studentUUID: "000-000-003", tutorUUID: "100-200-003", supervisorUUID: "000-100-003"}
-const associationMock04: AssociationInterface = {studentUUID: "000-000-034", tutorUUID: "100-200-004", supervisorUUID: "000-100-004"}
-const associationMock05: AssociationInterface = {studentUUID: "000-000-002", tutorUUID: "100-200-005", supervisorUUID: "000-100-005"}
-const associationMock06: AssociationInterface = {studentUUID: "000-000-033", tutorUUID: "100-200-006", supervisorUUID: "000-100-006"}
-const associationMock07: AssociationInterface = {studentUUID: "000-000-004", tutorUUID: "100-200-007", supervisorUUID: "000-100-007"}
-const associationMock08: AssociationInterface = {studentUUID: "000-000-035", tutorUUID: "100-200-008", supervisorUUID: "000-100-008"}
-const associationMock09: AssociationInterface = {studentUUID: "000-000-003", tutorUUID: "100-200-009", supervisorUUID: "000-100-009"}
-const associationMock10: AssociationInterface = {studentUUID: "000-000-034", tutorUUID: "100-200-010", supervisorUUID: "000-100-010"}
-const associationMock11: AssociationInterface = {studentUUID: "000-000-005", tutorUUID: "100-200-001", supervisorUUID: "000-100-001"}
-const associationMock12: AssociationInterface = {studentUUID: "000-000-036", tutorUUID: "100-200-002", supervisorUUID: "000-100-002"}
-const associationMock13: AssociationInterface = {studentUUID: "000-000-004", tutorUUID: "100-200-003", supervisorUUID: "000-100-003"}
-const associationMock14: AssociationInterface = {studentUUID: "000-000-035", tutorUUID: "100-200-004", supervisorUUID: "000-100-004"}
-const associationMock15: AssociationInterface = {studentUUID: "000-000-006", tutorUUID: "100-200-005", supervisorUUID: "000-100-005"}
-const associationMock16: AssociationInterface = {studentUUID: "000-000-037", tutorUUID: "100-200-006", supervisorUUID: "000-100-006"}
-const associationMock17: AssociationInterface = {studentUUID: "000-000-005", tutorUUID: "100-200-007", supervisorUUID: "000-100-007"}
-const associationMock18: AssociationInterface = {studentUUID: "000-000-036", tutorUUID: "100-200-008", supervisorUUID: "000-100-008"}
-const associationMock19: AssociationInterface = {studentUUID: "000-000-007", tutorUUID: "100-200-009", supervisorUUID: "000-100-009"}
-const associationMock20: AssociationInterface = {studentUUID: "000-000-038", tutorUUID: "100-200-010", supervisorUUID: "000-100-010"}
+const associationMock01: AssociationInterface = {student_id: "000-000-001", tutor_id: "100-200-001", ma_id: "000-100-001"}
+const associationMock02: AssociationInterface = {student_id: "000-000-032", tutor_id: "100-200-002", ma_id: "000-100-002"}
+const associationMock03: AssociationInterface = {student_id: "000-000-003", tutor_id: "100-200-003", ma_id: "000-100-003"}
+const associationMock04: AssociationInterface = {student_id: "000-000-034", tutor_id: "100-200-004", ma_id: "000-100-004"}
+const associationMock05: AssociationInterface = {student_id: "000-000-002", tutor_id: "100-200-005", ma_id: "000-100-005"}
+const associationMock06: AssociationInterface = {student_id: "000-000-033", tutor_id: "100-200-006", ma_id: "000-100-006"}
+const associationMock07: AssociationInterface = {student_id: "000-000-004", tutor_id: "100-200-007", ma_id: "000-100-007"}
+const associationMock08: AssociationInterface = {student_id: "000-000-035", tutor_id: "100-200-008", ma_id: "000-100-008"}
+const associationMock09: AssociationInterface = {student_id: "000-000-003", tutor_id: "100-200-009", ma_id: "000-100-009"}
+const associationMock10: AssociationInterface = {student_id: "000-000-034", tutor_id: "100-200-010", ma_id: "000-100-010"}
+const associationMock11: AssociationInterface = {student_id: "000-000-005", tutor_id: "100-200-001", ma_id: "000-100-001"}
+const associationMock12: AssociationInterface = {student_id: "000-000-036", tutor_id: "100-200-002", ma_id: "000-100-002"}
+const associationMock13: AssociationInterface = {student_id: "000-000-004", tutor_id: "100-200-003", ma_id: "000-100-003"}
+const associationMock14: AssociationInterface = {student_id: "000-000-035", tutor_id: "100-200-004", ma_id: "000-100-004"}
+const associationMock15: AssociationInterface = {student_id: "000-000-006", tutor_id: "100-200-005", ma_id: "000-100-005"}
+const associationMock16: AssociationInterface = {student_id: "000-000-037", tutor_id: "100-200-006", ma_id: "000-100-006"}
+const associationMock17: AssociationInterface = {student_id: "000-000-005", tutor_id: "100-200-007", ma_id: "000-100-007"}
+const associationMock18: AssociationInterface = {student_id: "000-000-036", tutor_id: "100-200-008", ma_id: "000-100-008"}
+const associationMock19: AssociationInterface = {student_id: "000-000-007", tutor_id: "100-200-009", ma_id: "000-100-009"}
+const associationMock20: AssociationInterface = {student_id: "000-000-038", tutor_id: "100-200-010", ma_id: "000-100-010"}
 
 associationMock.push(associationMock01)
 associationMock.push(associationMock02)
