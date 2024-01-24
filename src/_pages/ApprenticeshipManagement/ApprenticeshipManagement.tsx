@@ -5,24 +5,38 @@ import Button from "../../_components/Clickable/Button";
 import ApprenticeshipManagementTable from "./Table/ApprenticeshipManagement.table";
 import ModalAssociationCreation from "./Modal/ApprenticeshipManagement.modal.create";
 
-import {getUsersMock} from "../../_components/User/User.api";
 import {AssociationInterface} from "../../_components/User/ApprenticeshipAssociation/Association.interface";
-import {associationMock} from "../../_components/User/User.mock";
 
 import "./ApprenticeshipManagement.css"
+
+import {getUserByID} from "../../_components/User/User.api";
+import {UserInterface} from "../../_components/User/User.interface";
+import {getAllAssociations} from "../../_components/User/ApprenticeshipAssociation/Association.api";
+import {getUsersByGroup} from "../../_api/userServices";
 
 const ApprenticeshipManagement = () => {
 
 
     const [showModalCreation, setShowModalCreation] = useState(false);
     const [searched, setSearched] = useState("");
-    // const [associations, setAssociation] = useState<any>([])
 
-    const associations = associationMock
+    const [associations, setAssociation] = useState<any>([])
+
+    const [students, setStudentList] = useState<UserInterface[]>([])
+    const [tutors, setTutorList] = useState<UserInterface[]>([])
+    const [supervisors, setSupervisorList] = useState<UserInterface[]>([])
+
+    const [searchedStudent, setStudent] = useState<UserInterface | null>(null)
+    const [searchedTutor, setTutor] = useState<UserInterface | null>(null)
+    const [searchedSupervisor, setSupervisor] = useState<UserInterface | null>(null)
 
     useEffect(() => {
-        // getAssociations().then((result: any) => setAssociation(result))
-        // setAssociation(getAssociationsMock)
+        getAllAssociations().then((result: any) => setAssociation(result))
+
+        getUsersByGroup("student").then( (result: any) => setStudentList(result))
+        getUsersByGroup("tutor").then( (result: any) => setTutorList(result))
+        getUsersByGroup("supervisor").then( (result: any) => setSupervisorList(result))
+
     }, []);
 
     function getAssociationsBySearch(searched: string, associations: AssociationInterface[]){
@@ -32,15 +46,20 @@ const ApprenticeshipManagement = () => {
             searched = searched.toUpperCase()
             for (let i = 0; i < associations.length; i++) {
 
-                let studentFirstname = getUsersMock("uuid", associations[i].studentUUID).pop()?.firstname.toUpperCase()
-                let studentLastname = getUsersMock("uuid", associations[i].studentUUID).pop()?.lastname.toUpperCase()
+                // From ID in association to all user information
+                getUserByID(associations[i].student_id).then((result: any) => setStudent(result))
+                getUserByID(associations[i].tutor_id).then((result: any) => setTutor(result))
+                getUserByID(associations[i].ma_id).then((result: any) => setSupervisor(result))
 
-                let tutorFirstname = getUsersMock("uuid", associations[i].tutorUUID).pop()?.firstname.toUpperCase()
-                let tutorLastname = getUsersMock("uuid", associations[i].tutorUUID).pop()?.lastname.toUpperCase()
+                // Split information for treatment
+                let studentFirstname = searchedStudent?.firstname.toUpperCase()
+                let studentLastname = searchedStudent?.lastname.toUpperCase()
+                let tutorFirstname = searchedTutor?.firstname.toUpperCase()
+                let tutorLastname = searchedTutor?.lastname.toUpperCase()
+                let supervisorFirstname = searchedSupervisor?.firstname.toUpperCase()
+                let supervisorLastname = searchedSupervisor?.lastname.toUpperCase()
 
-                let supervisorFirstname = getUsersMock("uuid", associations[i].supervisorUUID).pop()?.firstname.toUpperCase()
-                let supervisorLastname = getUsersMock("uuid", associations[i].supervisorUUID).pop()?.lastname.toUpperCase()
-
+                // If one of the pieces match the search, add it to newList
                 if (studentFirstname?.includes(searched) || studentLastname?.includes(searched) ||
                     tutorFirstname?.includes(searched) || tutorLastname?.includes(searched) ||
                     supervisorFirstname?.includes(searched) || supervisorLastname?.includes(searched)
@@ -64,15 +83,22 @@ const ApprenticeshipManagement = () => {
                            onChange={ e => setSearched(e.target.value) }
                     />
                     <Button className={"buttonWhite txtCenter"}
-                            content={"+ Nouvelle association"} onclick={() => setShowModalCreation(!showModalCreation)}/>
+                            content={"+ Nouvelle association"}
+                            onclick={() => setShowModalCreation(!showModalCreation)}/>
                 </div>
             </section>
 
             <Modal show={showModalCreation} onClose={() => setShowModalCreation(false)}>
-                <ModalAssociationCreation onValidate={() => setShowModalCreation(false)} show={showModalCreation}/>
+                <ModalAssociationCreation onValidate={() => setShowModalCreation(false)}
+                                          show={showModalCreation}
+                />
             </Modal>
 
-            <ApprenticeshipManagementTable associations={getAssociationsBySearch(searched, associations)}/>
+            <ApprenticeshipManagementTable associations={getAssociationsBySearch(searched, associations)}
+                                           students={students}
+                                           tutors={tutors}
+                                           supervisors={supervisors}
+            />
         </div>
     )
 }

@@ -1,10 +1,10 @@
 import apiClientAssociation from './associationClient'
 
-const getAssociations = () => apiClientAssociation.get(`/associations/`)
-const getAssociationByStudentID = (id) => apiClientAssociation.get(`/associations/${id}`)
+const getAssociations = () => apiClientAssociation.get(`/student-ma-tutors/`)
+const getAssociationByStudentID = (id) => apiClientAssociation.get(`/student-ma-tutors/${id}`)
 
 const postAssociation = (associationData) => {
-    return apiClientAssociation.post('/associations', associationData, {
+    return apiClientAssociation.post('/student-ma-tutors', associationData, {
         headers: {
             'Content-Type': 'multipart/form-data', // Ensure correct headers for form data
         },
@@ -12,7 +12,7 @@ const postAssociation = (associationData) => {
 };
 
 const putAssociation = (id, associationData) => {
-    return apiClientAssociation.put(`/associations/${id}`, associationData, {
+    return apiClientAssociation.put(`/student-ma-tutors/${id}`, associationData, {
         headers: {
             'Content-Type': 'application/json', // Ensure correct headers for form data
         },
@@ -20,7 +20,7 @@ const putAssociation = (id, associationData) => {
 };
 
 const deleteAssociation = (id) => {
-    return apiClientAssociation.delete(`/associations/${id}`, id, {
+    return apiClientAssociation.delete(`/student-ma-tutors/${id}`, id, {
         headers: {
             'Content-Type': 'multipart/form-data', // Ensure correct headers for form data
         },

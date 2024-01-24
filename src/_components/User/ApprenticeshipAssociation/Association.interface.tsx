@@ -1,7 +1,9 @@
+import {UserInterface} from "../User.interface";
+
 export interface AssociationInterface {
-    studentUUID: string,
-    tutorUUID: string,
-    supervisorUUID: string
+    student_id: string,
+    tutor_id: string,
+    ma_id: string
 }
 
 export interface ModalCreateAssociationProps {
@@ -12,5 +14,5 @@ export interface ModalCreateAssociationProps {
 export interface ModalUpdateAssociationProps {
     onValidate: () => void;
     show: boolean;
-    studentUUID: string;
+    student: UserInterface;
 }

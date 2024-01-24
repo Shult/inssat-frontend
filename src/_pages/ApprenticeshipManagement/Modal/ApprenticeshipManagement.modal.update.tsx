@@ -1,15 +1,13 @@
 import UserDropdown from '../../../_components/User/UserDropdown';
 import Button from '../../../_components/Clickable/Button';
 
-import {getUsersMock} from '../../../_components/User/User.api';
-import {updateAssociationMock} from '../../../_components/User/ApprenticeshipAssociation/Association.mock';
-
 import './ApprenticeshipManagement.modal.css'
+
 import React from "react";
 import {ModalUpdateAssociationProps} from "../../../_components/User/ApprenticeshipAssociation/Association.interface";
 import {updateAssociation} from "../../../_components/User/ApprenticeshipAssociation/Association.api";
 
-const ModalAssociationUpdate: React.FC<ModalUpdateAssociationProps> = ({ onValidate, show, studentUUID }) => {
+const ModalAssociationUpdate: React.FC<ModalUpdateAssociationProps> = ({ onValidate, show, student }) => {
     if (!show) return null;
 
     return (
@@ -20,9 +18,9 @@ const ModalAssociationUpdate: React.FC<ModalUpdateAssociationProps> = ({ onValid
                 <div className={'line w100 items-center space-around'} id={'readOnly'}>
                     <input id={'studentKey'}
                            hidden={true}
-                           value={studentUUID}
+                           value={student.uuid}
                     />
-                    <h6>Student : {getUsersMock('uuid', studentUUID)?.pop()?.firstname} {getUsersMock('uuid', studentUUID)?.pop()?.lastname}</h6>
+                    <h6>Student : {student.firstname} {student?.lastname}</h6>
                 </div>
                 <UserDropdown className={'w100'} id={'select-tutor'} usertype={'teacher'}/>
                 <UserDropdown className={'w100'} id={'select-supervisor'} usertype={'supervisor'}/>

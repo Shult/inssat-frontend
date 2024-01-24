@@ -6,7 +6,6 @@ import {
     deleteAssociation,
 } from "../../../_api/associationServices";
 import {AssociationInterface} from "./Association.interface";
-import {MutableRefObject} from "react";
 
 
 // GETTER
@@ -23,7 +22,7 @@ async function fetchAssociations() {
 }
 
 async function fetchAssociationByStudent(){
-    let association : AssociationInterface = { studentUUID: "", tutorUUID: "", supervisorUUID: ""}
+    let association : AssociationInterface = { student_id: "", tutor_id: "", ma_id: ""}
     const request = await getAssociationByStudentID()
     if (request.ok){
         association = request.data
@@ -37,16 +36,16 @@ const createAssociation = async (info : Array<string>) => {
     // 3 items required : student, tutor and supervisor IDs
     if (info.length === 3) {
 
-        let association: AssociationInterface = { "studentUUID" : "", "tutorUUID" : "", "supervisorUUID" : "" }
+        let association: AssociationInterface = { "student_id" : "", "tutor_id" : "", "ma_id" : "" }
 
         const student = info[0]
         const tutor = info[1]
         const supervisor = info[2]
 
         if (student !== null  && tutor !== null && supervisor !== null) {
-            association.supervisorUUID = student
-            association.tutorUUID = tutor
-            association.supervisorUUID = supervisor
+            association.student_id = student
+            association.tutor_id = tutor
+            association.ma_id = supervisor
         }
 
         try {
@@ -66,11 +65,11 @@ const updateAssociation = async (info : Array<string>) => {
         const tutor = info[1]
         const supervisor = info[2]
 
-        let association: AssociationInterface = { "studentUUID" : student, "tutorUUID" : "", "supervisorUUID" : "" }
+        let association: AssociationInterface = { "student_id" : student, "tutor_id" : "", "ma_id" : "" }
 
         if (tutor !== null && supervisor !== null) {
-            association.tutorUUID = tutor
-            association.supervisorUUID = supervisor
+            association.tutor_id = tutor
+            association.ma_id = supervisor
         }
 
         try {
@@ -86,7 +85,7 @@ const removeAssociation = async (id: string) => await deleteAssociation(id)
 
 
 export {
-    getAssociations,
+    getAllAssociations,
     getAssociationByStudent,
     createAssociation,
     updateAssociation,

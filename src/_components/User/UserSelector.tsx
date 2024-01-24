@@ -1,8 +1,13 @@
 import {UserInterface} from "./User.interface";
-import {getUsersMock} from "./User.api";
-
+import {useEffect, useState} from "react";
+import {getUsersByGroup} from "../../_api/userServices";
 const UserSelector = ({className = "w33", id = "select-student", usertype = "student"}) => {
-    const users: UserInterface[] = getUsersMock("group", usertype)
+
+    useEffect(() => {
+        getUsersByGroup(usertype).then((result: any) => setUsers(result))
+    }, []);
+
+    const [users, setUsers] = useState<UserInterface[]>([])
 
     return (
         <div className={className}>
