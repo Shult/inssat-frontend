@@ -2,7 +2,7 @@
     import "../../_components/ToolBox/styles.css";
     import Section from "../../_components/ActivityReport/Skill/Section/Section";
     import activityReportData from "../../_components/ActivityReport/Services/tmpData";
-    import { Card, Col, Dropdown, Row } from 'react-bootstrap';
+    import {Button, Card, Col, Dropdown, Row } from 'react-bootstrap';
     import "./ActivityReport.css";
     import SectionNotation from "../../_components/ActivityReport/Notation/SectionNotation/SectionNotation";
     import { getSections, getSectionsWithActivities, getPeriods, postImpression, postGrade, getAssessments } from '../../_api/ActivityReportServices';
@@ -16,6 +16,7 @@
     ISection,
     ISectionApi
 } from "../../_components/ActivityReport/Services/activityReportInterfaces";
+    import { useNavigate } from 'react-router-dom';
 
     
     const ActivityReport = () => {
@@ -45,6 +46,10 @@
         // État pour stocker les données du formulaire pour les notes
         const [gradeData, setGradeData] = useState<FormGrades[]>([]);
 
+        const navigate = useNavigate();
+        const navigateToActivityReport = (path : string) => {
+            navigate(path);
+        };
         const handleSelect = (period : any) => {
             setTitle(period);
             setPeriodSelected(period)
@@ -123,11 +128,11 @@
         return(
             <div className="container" id={"activityReport"}>
                     <Row>
-                        <Col xs={12} md={12} lg={3} xl={4}>
+                        <Col xs={12} md={12} lg={4} xl={4}>
                             <h2 className="heading2">Bilan d'activités - Période : </h2>
                         </Col>
 
-                        <Col xs={12} md={12} lg={9} xl={8}>
+                        <Col xs={12} md={12} lg={7} xl={7}>
                             <Dropdown onSelect={handleSelect}>
                                 <Dropdown.Toggle variant="success" id="dropdown-basic" className={"shadow activity-report-title"}>
                                     { title }
@@ -141,6 +146,16 @@
                                     }
                                 </Dropdown.Menu>
                             </Dropdown>
+                        </Col>
+                        <Col xs={12} md={12} lg={1} xl={1}>
+                            <Button
+                                variant="secondary"
+                                content={"Retour"}
+                                onClick={() => navigateToActivityReport('/apprenticeshipTickets')}
+                            >
+                                Retour
+                            </Button>{' '}
+
                         </Col>
                     </Row>
                 {!isDefaultPeriodSelected && (

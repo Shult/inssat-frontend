@@ -1,6 +1,7 @@
 import React, {useEffect, useState } from 'react';
+// import Button from "../../../_components/Clickable/Button";
 
-import { Card, Col, Dropdown, Row } from 'react-bootstrap';
+import {Button, Card, Col, Dropdown, Row } from 'react-bootstrap';
 import SectionSkillView from "../../../_components/ActivityReport/View/Skill/SectionSkillView/SectionSkillView"
 import SectionNotationView from "../../../_components/ActivityReport/View/Notation/SectionNotationView/SectionNotationView"
 import {
@@ -15,6 +16,7 @@ import {
 } from "../../../_components/ActivityReport/Services/activityReportInterfaces"
 
 import {getAssessments, getPeriods, getSectionsWithActivitiesAndImpressionsByPeriodAndUserId } from '../../../_api/ActivityReportServices';
+import { useNavigate } from 'react-router-dom';
 
 const ActivityReportView = () => {
     const [data, setData] = useState<IDataApi>({ sections: [] });
@@ -139,14 +141,19 @@ const ActivityReportView = () => {
         dataGradeTmp3
     ]
 
+    const navigate = useNavigate();
+    const navigateToActivityReport = (path : string) => {
+        navigate(path);
+    };
+
     // console.log("Period Selected = "+ periodSelected);
     return(
         <div className="container" id={"activityReport"}>
             <Row>
-                <Col xs={12} md={12} lg={3} xl={3}>
-                    <h2 className="heading2">Bilan d'activités </h2>
+                <Col xs={12} md={12} lg={4} xl={4}>
+                    <h2 className="heading2">Bilan d'activités - Période : </h2>
                 </Col>
-                <Col xs={12} md={12} lg={9} xl={9}>
+                <Col xs={12} md={12} lg={7} xl={7}>
                     <Dropdown onSelect={handleSelect}>
                         <Dropdown.Toggle variant="success" id="dropdown-basic" className={"shadow activity-report-title"}>
                             { title }
@@ -160,6 +167,16 @@ const ActivityReportView = () => {
                             }
                         </Dropdown.Menu>
                     </Dropdown>
+                </Col>
+                <Col xs={12} md={12} lg={1} xl={1}>
+                    <Button
+                        variant="secondary"
+                        content={"Retour"}
+                        onClick={() => navigateToActivityReport('/apprenticeshipTickets')}
+                    >
+                        Retour
+                    </Button>{' '}
+
                 </Col>
             </Row>
             {!isDefaultPeriodSelected && (
