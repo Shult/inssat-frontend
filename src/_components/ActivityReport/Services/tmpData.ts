@@ -114,32 +114,32 @@ export const impressionData2_1 : IImpression = {
 export const gradeData1 : IGrade = {
     id: 1,
     grade: 18,
-    student_id: 1,
+    student_id: "1",
     assessment_id: 1,
     period_id: 1,
     comment: "Excellente performance",
-    created_at: new Date(2022, 9, 30, 12, 30),
-    updated_at: new Date(2023, 9, 30, 12, 30)
+    // created_at: new Date(2022, 9, 30, 12, 30),
+    // updated_at: new Date(2023, 9, 30, 12, 30)
 };
 export const gradeData2 : IGrade = {
     id: 2,
     grade: 12,
-    student_id: 1,
+    student_id: "1",
     assessment_id: 2,
     period_id: 1,
     comment: "Moyen moyen",
-    created_at: new Date(2022, 9, 30, 12, 30),
-    updated_at: new Date(2023, 9, 30, 12, 30)
+    // created_at: new Date(2022, 9, 30, 12, 30),
+    // updated_at: new Date(2023, 9, 30, 12, 30)
 };
 export const gradeData3 : IGrade = {
     id: 3,
     grade: 19,
-    student_id: 1,
+    student_id: "1",
     assessment_id: 3,
     period_id: 1,
     comment: "Excellent",
-    created_at: new Date(2022, 9, 30, 12, 30),
-    updated_at: new Date(2023, 9, 30, 12, 30)
+    // created_at: new Date(2022, 9, 30, 12, 30),
+    // updated_at: new Date(2023, 9, 30, 12, 30)
 };
 
 

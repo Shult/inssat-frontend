@@ -10,7 +10,7 @@ interface SectionProps {
 }
 
 function SectionNotationView({assessments, grades} : SectionProps) {
-
+    
     return(
         <Row>
             {
@@ -18,7 +18,7 @@ function SectionNotationView({assessments, grades} : SectionProps) {
                     <AssessmentView
                         key={index}
                         assessment={assessment}
-                        grade={grades.find(grade => grade.assessment_id == assessment.id)}
+                        grade={grades[index]}
                     ></AssessmentView>
                 )
             }

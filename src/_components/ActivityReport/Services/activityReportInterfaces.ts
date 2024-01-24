@@ -77,15 +77,15 @@ export interface ISectionApi {
 export interface IGrade {
     id: number,
     grade: number,
-    student_id: number,
+    student_id: string,
     assessment_id: number,
     period_id: number,
     comment: string,
-    created_at: Date,
-    updated_at: Date
+    // created_at: Date,
+    // updated_at: Date
 }
 export interface FormGrades {
-    student_id: number,
+    student_id: string,
     grade: number,
     assessment_id: number,
     period_id: number,

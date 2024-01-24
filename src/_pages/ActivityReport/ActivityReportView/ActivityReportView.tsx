@@ -14,7 +14,7 @@ import {
     IPeriod
 } from "../../../_components/ActivityReport/Services/activityReportInterfaces"
 
-import {getPeriods, getSectionsWithActivitiesAndImpressionsByPeriodAndUserId } from '../../../_api/ActivityReportServices';
+import {getAssessments, getPeriods, getSectionsWithActivitiesAndImpressionsByPeriodAndUserId } from '../../../_api/ActivityReportServices';
 
 const ActivityReportView = () => {
     const [data, setData] = useState<IDataApi>({ sections: [] });
@@ -24,6 +24,7 @@ const ActivityReportView = () => {
     const [periodId, setPeriodId] = useState(1);
     const [userId, setUserId] = useState("b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e");
     const [periods, setPeriods] = useState<IPeriod[]>([]);
+    const [assessments, setAssessments] = useState<IAssessment[]>([]);
 
     const defaultPeriod: IPeriod = {
         id: 0,
@@ -36,7 +37,26 @@ const ActivityReportView = () => {
 
     const [periodSelected, setPeriodSelected] = useState<number>(0);
     const isDefaultPeriodSelected = periodSelected === defaultPeriod.id;
-    
+
+    const fetchAssessment = async () : Promise<IAssessment[]> => {
+        try {
+            const response = await getAssessments();
+            if (response.ok && response.data) {
+                const dataApi : IAssessment[] = response.data;
+                // console.log("dataApi Period : " + dataApi);
+                // Traitez et affichez les données ici
+                return dataApi
+            } else {
+                // Gérez les erreurs ici (par exemple, réponse non ok)
+                console.error('Erreur lors de la récupération des sections 2');
+                return [];
+            }
+        } catch (error) {
+            console.error('Erreur lors de la récupération des sections 1 :', error);
+            return [];
+        }
+    };
+
     const fetchPeriods = async () : Promise<IPeriod[]> => {
         try {
             const response = await getPeriods();
@@ -60,6 +80,9 @@ const ActivityReportView = () => {
 
     useEffect(() => {
         setUserId("b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e");
+        fetchAssessment().then(fetchedAssessments => {
+            setAssessments(fetchedAssessments);
+        });
         fetchPeriods().then(fetchedPeriods => {
             setPeriods(fetchedPeriods);
         });
@@ -79,7 +102,44 @@ const ActivityReportView = () => {
         }, [periodSelected, userId]
     );
 
-    console.log("Period Selected = "+ periodSelected);
+
+    const dataGradeTmp1 : IGrade = {
+        id: 1,
+        grade: 20,
+        student_id: "b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e",
+        assessment_id: 1,
+        period_id: 1,
+        comment: "string",
+        // created_at: Date,
+        // updated_at: Date
+    }
+    const dataGradeTmp2 : IGrade = {
+        id: 1,
+        grade: 19,
+        student_id: "b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e",
+        assessment_id: 2,
+        period_id: 1,
+        comment: "string",
+        // created_at: Date,
+        // updated_at: Date
+    }
+    const dataGradeTmp3 : IGrade = {
+        id: 1,
+        grade: 18,
+        student_id: "b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e",
+        assessment_id: 3,
+        period_id: 1,
+        comment: "string",
+        // created_at: Date,
+        // updated_at: Date
+    }
+    const dataGradeTmpList : IGrade[] = [
+        dataGradeTmp1,
+        dataGradeTmp2,
+        dataGradeTmp3
+    ]
+
+    // console.log("Period Selected = "+ periodSelected);
     return(
         <div className="container" id={"activityReport"}>
             <Row>
@@ -125,10 +185,10 @@ const ActivityReportView = () => {
                     {/* Notation */}
                     <Card className="horizontal-card mb-3" style={{ borderRadius: '8px', boxShadow: 'var(--box-shadow)' }}>
                         <Card.Body id={"skill-container"}>
-                            {/*<SectionNotationView*/}
-                            {/*    assessments = {assessments}*/}
-                            {/*    grades = {grades}*/}
-                            {/*></SectionNotationView>*/}
+                            <SectionNotationView
+                                assessments = {assessments.slice(0,3)}
+                                grades = {dataGradeTmpList}
+                            ></SectionNotationView>
                         </Card.Body>
                     </Card>
                 </>

@@ -9,9 +9,7 @@ export const AssessmentFinal = (grades : any): JSX.Element => {
 
     const meanFixed = mean.toFixed(1).toString(); // Convert to string to manipulate
     const [entier, decimal] = meanFixed.split('.');
-
-    console.log("Moyenne =", mean);
-
+    
     return (
         <Row className={"assessmentFinal"}>
             <h2 className={"heading4"}>Note finale</h2>
