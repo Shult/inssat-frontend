@@ -1,5 +1,4 @@
 import UserServices from "../services/UserServices";
-import {isExternal} from "util/types";
 
 export const RoleManager = () => {
 
@@ -46,6 +45,7 @@ export const RoleManager = () => {
         return UserServices.hasRole("teacher")
     }
 
+    /*
     function hasAll (required: any) {
         let hasAllKeys = true
         for (let key in required) {
@@ -65,4 +65,5 @@ export const RoleManager = () => {
         }
         return hasAnyKeys
     }
+     */
 }
