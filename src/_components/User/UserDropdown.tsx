@@ -8,8 +8,13 @@ const UserDropdown = ({className = "w33", id = "select-user", usertype = "user"}
 
     useEffect(() => {
         getAllUsersByGroup(usertype).then(fetchedUsers => setUsers(fetchedUsers))
-    }, []);
 
+        if (usertype === "student"){ setLabel("Etudiant")}
+        if (usertype === "tutor" || usertype === "teacher"){ setLabel("Tuteur")}
+        if (usertype === "supervisor"){ setLabel("Maître d'apprentissage")}
+    }, [usertype]);
+
+    const [label, setLabel] = useState("")
     const [fetchedUsers, setUsers] = useState<UserInterface[]>([])
 
     const [searched, setSearched] = useState("");
@@ -35,10 +40,9 @@ const UserDropdown = ({className = "w33", id = "select-user", usertype = "user"}
         else { return [] }
     }
 
-
     return (
         <div className="w100 UserDropdown">
-            <h5>{usertype}</h5>
+            <h5>{label}</h5>
             <input
                    className="w100"
                    type={"text"}
