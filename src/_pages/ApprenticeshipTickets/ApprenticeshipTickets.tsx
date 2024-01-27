@@ -1,6 +1,5 @@
 import { Card, Col, Row } from "react-bootstrap"
 import React, { useEffect, useState } from "react";
-import React, { useEffect, useState } from "react";
 import Button from "../../_components/Clickable/Button";
 
 import "./ApprenticeshipTickets.css"
