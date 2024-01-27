@@ -1,5 +1,4 @@
 import { UserInterface, User_EntityInterface } from "../../User/User.interface"
-import { UserInterface, User_EntityInterface } from "../../User/User.interface"
 
 export interface IPeriod {
     id: number,

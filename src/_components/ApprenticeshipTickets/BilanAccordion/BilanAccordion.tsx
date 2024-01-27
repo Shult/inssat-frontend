@@ -15,9 +15,6 @@ const ToggleActivationLien = false;
 const BilanAccordion: React.FC<BilanAccordionProps> = ({ bilans, studentId }) => {
 
     const ToggleActivationLien = false;
-const BilanAccordion: React.FC<BilanAccordionProps> = ({ bilans, studentId }) => {
-
-    const ToggleActivationLien = false;
 
     // Méthode pour calculer la note finale
     const calculateFinalGrade = (grades: GradeInterface[]): number => {
