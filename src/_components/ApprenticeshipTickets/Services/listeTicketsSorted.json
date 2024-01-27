@@ -1,11 +1,5 @@
-{
-    "ID": "d34249e7-129f-4d18-afb3-510f0cb12a79",
-    "USERNAME": "fsaidoun",
-    "FIRST_NAME": "Ferhat",
-    "LAST_NAME": "SAIDOUN",
-    "EMAIL": "ferhatte10@gmail.com",
-    "USER_ATTRIBUTES": [],
-    "grades": [
+{  
+    "1": [
         {
             "id": 1,
             "student_id": "d34249e7-129f-4d18-afb3-510f0cb12a79",
@@ -39,7 +33,112 @@
                 "createdAt": "2024-01-29T23:23:37.000Z",
                 "updatedAt": "2024-01-29T23:23:37.000Z"
             }
-        },{
+        },
+        {
+            "id": 2,
+            "student_id": "d34249e7-129f-4d18-afb3-510f0cb12a79",
+            "grade": 10,
+            "assessment_id": 2,
+            "period_id": 1,
+            "comment": "",
+            "section_id": 5,
+            "createdAt": "2024-01-30T21:26:54.000Z",
+            "updatedAt": "2024-01-30T21:26:54.000Z",
+            "assessment": {
+                "id": 2,
+                "name": "Rapport ecrit",
+                "coefficient": 1,
+                "position": 2,
+                "createdAt": "2024-01-29T23:23:37.000Z",
+                "updatedAt": "2024-01-29T23:23:37.000Z"
+            },
+            "period": {
+                "id": 1,
+                "name": "Bilan d'activités - Période entreprise 5",
+                "description": "Cette évaluation est réalisée par le maître d'apprentissage en tenant compte de la réalisation des objectifs attendus pour le travail à réaliser par l'apprenti(e) durant cette période en entreprise et du niveau d'expertise attendu de l'apprenti(e) à cette période de sa formation.",
+                "number": 5,
+                "createdAt": "2024-01-29T23:23:37.000Z",
+                "updatedAt": "2024-01-29T23:23:37.000Z"
+            },
+            "section": {
+                "id": 5,
+                "title": "Notation",
+                "description": "Le niveau minimum requis pour valider le travail en entreprise et obtenir les points ECTS correspondants est de 10/20 en moyenne sur chaque période. Les notes ci-dessous sont définies après concertation entre le maître d'apprentissage et le tuteur école.",
+                "createdAt": "2024-01-29T23:23:37.000Z",
+                "updatedAt": "2024-01-29T23:23:37.000Z"
+            }
+        },
+      {
+        "id": 3,
+        "student_id": "d34249e7-129f-4d18-afb3-510f0cb12a79",
+        "grade": 16,
+        "assessment_id": 3,
+        "period_id": 1,
+        "comment": "",
+        "section_id": 5,
+        "createdAt": "2024-01-30T21:26:54.000Z",
+        "updatedAt": "2024-01-30T21:26:54.000Z",
+        "assessment": {
+          "id": 3,
+          "name": "Soutenance oral",
+          "coefficient": 1,
+          "position": 2,
+          "createdAt": "2024-01-29T23:23:37.000Z",
+          "updatedAt": "2024-01-29T23:23:37.000Z"
+        },
+        "period": {
+          "id": 1,
+          "name": "Bilan d'activités - Période entreprise 5",
+          "description": "Cette évaluation est réalisée par le maître d'apprentissage en tenant compte de la réalisation des objectifs attendus pour le travail à réaliser par l'apprenti(e) durant cette période en entreprise et du niveau d'expertise attendu de l'apprenti(e) à cette période de sa formation.",
+          "number": 5,
+          "createdAt": "2024-01-29T23:23:37.000Z",
+          "updatedAt": "2024-01-29T23:23:37.000Z"
+        },
+        "section": {
+          "id": 5,
+          "title": "Notation",
+          "description": "Le niveau minimum requis pour valider le travail en entreprise et obtenir les points ECTS correspondants est de 10/20 en moyenne sur chaque période. Les notes ci-dessous sont définies après concertation entre le maître d'apprentissage et le tuteur école.",
+          "createdAt": "2024-01-29T23:23:37.000Z",
+          "updatedAt": "2024-01-29T23:23:37.000Z"
+        }
+      }
+        ],
+    "2": [
+        {
+            "id": 4,
+            "student_id": "d34249e7-129f-4d18-afb3-510f0cb12a79",
+            "grade": 12,
+            "assessment_id": 1,
+            "period_id": 2,
+            "comment": "",
+            "section_id": 5,
+            "createdAt": "2024-01-30T21:26:54.000Z",
+            "updatedAt": "2024-01-30T21:26:54.000Z",
+            "assessment": {
+                "id": 1,
+                "name": "Travail réalisé en entreprise",
+                "coefficient": 6,
+                "position": 1,
+                "createdAt": "2024-01-29T23:23:37.000Z",
+                "updatedAt": "2024-01-29T23:23:37.000Z"
+            },
+            "period": {
+                "id": 2,
+                "name": "Bilan d'activités - Période entreprise 2",
+                "description": "Cette évaluation est réalisée par le maître d'apprentissage en tenant compte de la réalisation des objectifs attendus pour le travail à réaliser par l'apprenti(e) durant cette période en entreprise et du niveau d'expertise attendu de l'apprenti(e) à cette période de sa formation.",
+                "number": 1,
+                "createdAt": "2024-01-29T23:23:37.000Z",
+                "updatedAt": "2024-01-29T23:23:37.000Z"
+            },
+            "section": {
+                "id": 5,
+                "title": "Notation",
+                "description": "Le niveau minimum requis pour valider le travail en entreprise et obtenir les points ECTS correspondants est de 10/20 en moyenne sur chaque période. Les notes ci-dessous sont définies après concertation entre le maître d'apprentissage et le tuteur école.",
+                "createdAt": "2024-01-29T23:23:37.000Z",
+                "updatedAt": "2024-01-29T23:23:37.000Z"
+            }
+        },
+        {
             "id": 5,
             "student_id": "d34249e7-129f-4d18-afb3-510f0cb12a79",
             "grade": 17,
@@ -106,109 +205,5 @@
                 "createdAt": "2024-01-29T23:23:37.000Z",
                 "updatedAt": "2024-01-29T23:23:37.000Z"
             }
-        },
-        {
-            "id": 2,
-            "student_id": "d34249e7-129f-4d18-afb3-510f0cb12a79",
-            "grade": 10,
-            "assessment_id": 2,
-            "period_id": 1,
-            "comment": "",
-            "section_id": 5,
-            "createdAt": "2024-01-30T21:26:54.000Z",
-            "updatedAt": "2024-01-30T21:26:54.000Z",
-            "assessment": {
-                "id": 2,
-                "name": "Rapport ecrit",
-                "coefficient": 1,
-                "position": 2,
-                "createdAt": "2024-01-29T23:23:37.000Z",
-                "updatedAt": "2024-01-29T23:23:37.000Z"
-            },
-            "period": {
-                "id": 1,
-                "name": "Bilan d'activités - Période entreprise 5",
-                "description": "Cette évaluation est réalisée par le maître d'apprentissage en tenant compte de la réalisation des objectifs attendus pour le travail à réaliser par l'apprenti(e) durant cette période en entreprise et du niveau d'expertise attendu de l'apprenti(e) à cette période de sa formation.",
-                "number": 5,
-                "createdAt": "2024-01-29T23:23:37.000Z",
-                "updatedAt": "2024-01-29T23:23:37.000Z"
-            },
-            "section": {
-                "id": 5,
-                "title": "Notation",
-                "description": "Le niveau minimum requis pour valider le travail en entreprise et obtenir les points ECTS correspondants est de 10/20 en moyenne sur chaque période. Les notes ci-dessous sont définies après concertation entre le maître d'apprentissage et le tuteur école.",
-                "createdAt": "2024-01-29T23:23:37.000Z",
-                "updatedAt": "2024-01-29T23:23:37.000Z"
-            }
-        },
-        {
-            "id": 3,
-            "student_id": "d34249e7-129f-4d18-afb3-510f0cb12a79",
-            "grade": 16,
-            "assessment_id": 3,
-            "period_id": 1,
-            "comment": "",
-            "section_id": 5,
-            "createdAt": "2024-01-30T21:26:54.000Z",
-            "updatedAt": "2024-01-30T21:26:54.000Z",
-            "assessment": {
-                "id": 3,
-                "name": "Soutenance oral",
-                "coefficient": 1,
-                "position": 2,
-                "createdAt": "2024-01-29T23:23:37.000Z",
-                "updatedAt": "2024-01-29T23:23:37.000Z"
-            },
-            "period": {
-                "id": 1,
-                "name": "Bilan d'activités - Période entreprise 5",
-                "description": "Cette évaluation est réalisée par le maître d'apprentissage en tenant compte de la réalisation des objectifs attendus pour le travail à réaliser par l'apprenti(e) durant cette période en entreprise et du niveau d'expertise attendu de l'apprenti(e) à cette période de sa formation.",
-                "number": 5,
-                "createdAt": "2024-01-29T23:23:37.000Z",
-                "updatedAt": "2024-01-29T23:23:37.000Z"
-            },
-            "section": {
-                "id": 5,
-                "title": "Notation",
-                "description": "Le niveau minimum requis pour valider le travail en entreprise et obtenir les points ECTS correspondants est de 10/20 en moyenne sur chaque période. Les notes ci-dessous sont définies après concertation entre le maître d'apprentissage et le tuteur école.",
-                "createdAt": "2024-01-29T23:23:37.000Z",
-                "updatedAt": "2024-01-29T23:23:37.000Z"
-            }
-        },
-        {
-            "id": 4,
-            "student_id": "d34249e7-129f-4d18-afb3-510f0cb12a79",
-            "grade": 12,
-            "assessment_id": 1,
-            "period_id": 2,
-            "comment": "",
-            "section_id": 5,
-            "createdAt": "2024-01-30T21:26:54.000Z",
-            "updatedAt": "2024-01-30T21:26:54.000Z",
-            "assessment": {
-                "id": 1,
-                "name": "Travail réalisé en entreprise",
-                "coefficient": 6,
-                "position": 1,
-                "createdAt": "2024-01-29T23:23:37.000Z",
-                "updatedAt": "2024-01-29T23:23:37.000Z"
-            },
-            "period": {
-                "id": 2,
-                "name": "Bilan d'activités - Période entreprise 2",
-                "description": "Cette évaluation est réalisée par le maître d'apprentissage en tenant compte de la réalisation des objectifs attendus pour le travail à réaliser par l'apprenti(e) durant cette période en entreprise et du niveau d'expertise attendu de l'apprenti(e) à cette période de sa formation.",
-                "number": 1,
-                "createdAt": "2024-01-29T23:23:37.000Z",
-                "updatedAt": "2024-01-29T23:23:37.000Z"
-            },
-            "section": {
-                "id": 5,
-                "title": "Notation",
-                "description": "Le niveau minimum requis pour valider le travail en entreprise et obtenir les points ECTS correspondants est de 10/20 en moyenne sur chaque période. Les notes ci-dessous sont définies après concertation entre le maître d'apprentissage et le tuteur école.",
-                "createdAt": "2024-01-29T23:23:37.000Z",
-                "updatedAt": "2024-01-29T23:23:37.000Z"
-            }
-        }
-        
-    ]
-}
+        }]}
+  
