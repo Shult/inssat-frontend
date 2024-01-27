@@ -1,8 +1,8 @@
-import client from './client'
+import {apiBlog} from './client'
 
-const getCategories = () => client.get('/categories')
-const getCategoryById = (id) => client.get(`/categories/${id}`)
-const getCategoriesByArticleCount = () => client.get('/categories/top-categories')
+const getCategories = () => apiBlog.get('/categories')
+const getCategoryById = (id) => apiBlog.get(`/categories/${id}`)
+const getCategoriesByArticleCount = () => apiBlog.get('/categories/top-categories')
 
 export {
     getCategories,

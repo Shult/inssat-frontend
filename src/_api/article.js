@@ -1,23 +1,22 @@
-import client from './client'
+import {apiBlog} from './client'
 
-const getArticleById = (id) => client.get(`/articles/${id}`)
+const getArticleById = (id) => apiBlog.get(`/articles/${id}`)
 const update = (id, articleData) => {
-  return client.put(`/articles/${id}`, articleData, {
+  return apiBlog.put(`/articles/${id}`, articleData, {
     headers: {
       'Content-Type': 'application/json', // Ensure correct headers for form data
     },
   });
 };
 
-const getLastSharedArticle = () => client.get('/articles/last-shared-article')
-const getArticlesWithDetails =  () => client.get('/articles/details')
-const getArticleWithDetails =  (id) => client.get(`/articles/details/${id}`)
-
+const getLastSharedArticle = () => apiBlog.get('/articles/last-shared-article')
+const getArticlesWithDetails =  () => apiBlog.get('/articles/details')
+const getArticleWithDetails =  (id) => apiBlog.get(`/articles/details/${id}`)
 
 
 const getFilteredArticles = async (filterOptions) => {
   try {
-    const response = await client.post('/articles/filter', filterOptions);
+    const response = await apiBlog.post('/articles/filter', filterOptions);
 
     return response;
   } catch (error) {
@@ -28,7 +27,7 @@ const getFilteredArticles = async (filterOptions) => {
 
 const getArticlesByCategory = async (id, page = 1, pageSize = 10) => {
   try {
-    const response = await client.get(`/articles/category/${id}?pageSize=${pageSize}&page=${page}`);
+    const response = await apiBlog.get(`/articles/category/${id}?pageSize=${pageSize}&page=${page}`);
 
     return response; 
   } catch (error) {
@@ -37,7 +36,7 @@ const getArticlesByCategory = async (id, page = 1, pageSize = 10) => {
 };
 
 const createArticle = (formData) => {
-    return client.post('/articles', formData, {
+    return apiBlog.post('/articles', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -45,7 +44,7 @@ const createArticle = (formData) => {
   };
 
 const deleteArticle = (id) => {
-    return client.delete(`/articles/${id}`, id, {
+    return apiBlog.delete(`/articles/${id}`, id, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

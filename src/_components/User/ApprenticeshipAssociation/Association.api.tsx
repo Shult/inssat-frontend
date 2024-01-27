@@ -1,5 +1,5 @@
 import {AssociationInterface} from "./Association.interface";
-import client from "../../../_api/client";
+import {apiBlog} from "../../../_api/client";
 import {associationMock} from "../User.mock";
 
 /*
@@ -117,10 +117,10 @@ async function fetchAssociations (key?: string, value?: any): Promise<Associatio
     return response.data as AssociationInterface[]
 }
 
-const fetchAssociationsDB = (key?: string, value?: any) => key? client.get(`/associations/details/${value}`) : client.get(`/associations/details`)
+const fetchAssociationsDB = (key?: string, value?: any) => key? apiBlog.get(`/associations/details/${value}`) : apiBlog.get(`/associations/details`)
 
 const createAssociation = (formData: any) => {
-    return client.post('/associations', formData, {
+    return apiBlog.post('/associations', formData, {
         headers: {
             'Content-Type': 'multipart/form-data'
         },
@@ -128,7 +128,7 @@ const createAssociation = (formData: any) => {
 }
 
 const updateAssociation = (id: string, formData: any) => {
-    return client.put(`/associations/${id}`, formData, {
+    return apiBlog.put(`/associations/${id}`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data'
         },
@@ -136,7 +136,7 @@ const updateAssociation = (id: string, formData: any) => {
 }
 
 const deleteAssociation = (id: string) => {
-    return client.delete(`/associations/${id}`, id, {
+    return apiBlog.delete(`/associations/${id}`, id, {
         headers: {
             'Content-Type': 'multipart/form-data'
         },
