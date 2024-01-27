@@ -6,7 +6,6 @@ export interface UserInterface {
     group: string,
     status: 'idle' | 'pending' | 'fulfilled' | 'rejected'
 }
-// export const users: UserInterface[];
 
 export interface UserEntityInterface {
     uuid: string,
@@ -14,4 +13,12 @@ export interface UserEntityInterface {
     lastname: string,
     classe_name: string,
     classe_apprenticeship: string,
+}
+
+export interface User_EntityInterface{
+    ID: string,
+    USERNAME: string,
+    FIRST_NAME: string,
+    LAST_NAME: string,
+    EMAIL: string
 }

@@ -1,0 +1,42 @@
+{
+    "ID": "d34249e7-129f-4d18-afb3-510f0cb12a79",
+    "USERNAME": "john_doe",
+    "FIRST_NAME": "John",
+    "LAST_NAME": "Doe",
+    "EMAIL": "john.doe@example.com",
+    "CLASS": [
+      {
+        "id": 1,
+        "name": "Class A",
+        "apprenticeship": true
+      }
+    ],
+    "COMPANY": [
+      {
+        "id": 1,
+        "name": "Company X",
+        "address": "123 Main St",
+        "city": "Cityville",
+        "phone": "555-1234"
+      }
+    ],
+    "MA": [
+      {
+        "ID": "d34243e7-129f-4d18-afb3-510f0cb12a79",
+        "USERNAME": "ma_jane",
+        "FIRST_NAME": "Jane",
+        "LAST_NAME": "Doe",
+        "EMAIL": "jane.doe@example.com"
+      }
+    ],
+    "TUTOR": [
+      {
+        "ID": "d31249e7-129f-4d18-afb3-510f0cb12a79",
+        "USERNAME": "tutor_susan",
+        "FIRST_NAME": "Susan",
+        "LAST_NAME": "Johnson",
+        "EMAIL": "susan.johnson@example.com"
+      }
+    ]
+  }
+  
