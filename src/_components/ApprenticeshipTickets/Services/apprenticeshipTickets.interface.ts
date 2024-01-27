@@ -1,4 +1,5 @@
 import { UserInterface, User_EntityInterface } from "../../User/User.interface"
+import { UserInterface, User_EntityInterface } from "../../User/User.interface"
 
 export interface IPeriod {
     id: number,
@@ -131,4 +132,13 @@ export interface ListTickets{
     EMAIL: string,
     USER_ATTRIBUTES: any[],
     grades: GradeInterface[]
+}
+
+export interface ListTicketsInterface {
+    [key: string]: GradeInterface[];
+}
+
+export interface FollowStudent{
+    student: User_EntityInterface,
+    ma: User_EntityInterface
 }

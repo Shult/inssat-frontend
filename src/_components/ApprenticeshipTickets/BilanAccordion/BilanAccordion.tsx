@@ -1,34 +1,36 @@
 import React from "react";
 import { Accordion, Card, Col, Row } from "react-bootstrap";
-import { IApprentieceshipTickets, IGradeDto } from "../Services/apprenticeshipTickets.interface";
+import { GradeInterface, ListTicketsInterface } from "../Services/apprenticeshipTickets.interface";
 import Button from "../../Clickable/Button";
 
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 interface BilanAccordionProps {
-    bilans: IApprentieceshipTickets[];
+    bilans: ListTicketsInterface;
     studentId: any;
 }
 
 const BilanAccordion: React.FC<BilanAccordionProps> = ({ bilans, studentId }) => {
 
     const ToggleActivationLien = false;
+const BilanAccordion: React.FC<BilanAccordionProps> = ({ bilans, studentId }) => {
+
+    const ToggleActivationLien = false;
 
     // Méthode pour calculer la note finale
-    const calculateFinalGrade = (grades: IGradeDto[]): number => {
+    const calculateFinalGrade = (grades: GradeInterface[]): number => {
         // Assurez-vous que grades est non vide
         if (grades.length === 0) {
             return 0;
         }
 
         // Calcul de la moyenne pondérée en utilisant les notes et les coefficients
-        const totalCoefficient = grades.reduce((acc, grade) => acc + grade.assessment_coefficient, 0);
-        const totalWeightedGrade = grades.reduce((acc, grade) => acc + (grade.grade * grade.assessment_coefficient), 0);
+        const totalCoefficient = grades.reduce((acc, grade) => acc + grade.assessment.coefficient, 0);
+        const totalWeightedGrade = grades.reduce((acc, grade) => acc + (grade.grade * grade.assessment.coefficient), 0);
 
         return totalWeightedGrade / totalCoefficient;
     };
 
-    {/*LIEN TEMPORAIRE*/}
     const navigate = useNavigate();
     
     
@@ -43,48 +45,47 @@ const BilanAccordion: React.FC<BilanAccordionProps> = ({ bilans, studentId }) =>
     const navigateToActivityReport = (path : string) => {
         navigate(path);
     };
-    
+
+    console.log("AAAAAAAAAA");
+    console.log(bilans);
 
     return (
         <div className="container">
             <Accordion>
-                {bilans.map((bilan, index) => (
-                    <Accordion.Item key={index} eventKey={index.toString()}>
-                        <Accordion.Header>{`Bilan période ${bilan.period}`}</Accordion.Header>
-                        <Accordion.Body>
-                            <Row>
-                                {bilan.grades.map((grade, gradeIndex) => (
-                                    <Col key={gradeIndex}>
-                                        <div>
-                                            <p>{`${grade.assessment_name} : `}</p>
-                                            <span>{grade.grade} / 20</span>
-                                            
-                                        </div>
-                                    </Col>
-                                ))}
-                                <Col>
-                                        <div>
-                                            <p>Note finale : </p><span>{`${calculateFinalGrade(bilan.grades)} / 20`}</span>
-                                        </div>
-                                    </Col>
-                                <Col>
-                                {/*<Button
-                                        className={"buttonGold txtCenter"}
-                                        content={"Détail"}
-                                        // Ajouter redirection vers Sylvain
-                                        onclick={() => navigateToActivityReport(studentId, bilan.period)}
-                                    />*/}
-                                    <Button
-                                        className={"buttonGold txtCenter"}
-                                        content={"Détail"}
-                                        // Ajouter redirection vers Sylvain
-                                        onclick={() => navigateToActivityReport('/activityReportView')}
-                                    />
+            {bilans && Object.keys(bilans).map((key, index) => (
+                <Accordion.Item key={index} eventKey={index.toString()}>
+                    <Accordion.Header>{`Bilan période ${key}`}</Accordion.Header>
+                    <Accordion.Body>
+                        <Row>
+                            {Array.isArray(bilans[key]) && bilans[key].map((grade, gradeIndex) => (
+                                <Col key={gradeIndex}>
+                                    <div>
+                                        <p>{`${grade.assessment.name} : `}</p>
+                                        <span>{grade.grade} / 20</span>
+                                    </div>
                                 </Col>
-                            </Row>
-                        </Accordion.Body>
-                    </Accordion.Item>
-                ))}
+                            ))}
+                            <Col>
+                                {Array.isArray(bilans[key]) && bilans[key].length > 0 && (
+                                    <div>
+                                        <p>Note finale : </p>
+                                        <span>{`${calculateFinalGrade(bilans[key])} / 20`}</span>
+                                    </div>
+                                )}
+                            </Col>
+                            <Col>
+                            
+                                <Button
+                                    className={"buttonGold txtCenter"}
+                                    content={"Détail"}
+                                    onclick={() => navigateToActivityReport('/activityReportView')}
+                                />
+                            </Col>
+                        </Row>
+                    </Accordion.Body>
+                </Accordion.Item>
+            ))}
+
             </Accordion>
         </div>
     );

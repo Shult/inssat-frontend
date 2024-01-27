@@ -1,19 +1,18 @@
 import { Card, Col, Row } from "react-bootstrap"
 import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../_components/Clickable/Button";
 
 import "./ApprenticeshipTickets.css"
-import { apprenticeshipListTicketsMock, apprenticeshipSuiviStudentMock, apprenticeshipTicketsMock, dataSuiviMock, listStudentSuiviMock } from "../../_components/ApprenticeshipTickets/Services/apprenticeshipTickets.mock";
+import { apprenticeshipListStudentFollow, apprenticeshipListTicketsMock, apprenticeshipListeTicketsSortedMock, apprenticeshipSuiviStudentMock, apprenticeshipTicketsMock } from "../../_components/ApprenticeshipTickets/Services/apprenticeshipTickets.mock";
 import SuiviInfoCard from "../../_components/ApprenticeshipTickets/SuiviCard/SuiviInfoCard";
 import BilanAccordion from "../../_components/ApprenticeshipTickets/BilanAccordion/BilanAccordion";
 
 import {useNavigate} from 'react-router-dom';
 import { RoleManager } from "../../_navigation/RoleManager";
 import ButtonsMenu from "../../_components/ApprenticeshipTickets/ButtonsMenu/ButtonsMenu";
-import { getAllStudentMaTutors } from "../../_api/student-ma-tutors";
 import UserService from "../../services/UserServices";
-import { getDataStudentSuivi, getGradesTickets, getStudentMaForMa, getStudentMaForTutor } from "../../_components/ApprenticeshipTickets/Services/apprenticeshipTicket.services";
-import { User_EntityInterface } from "../../_components/User/User.interface";
+import { getDataStudentSuivi, getGradesTickets, getGradesTicketsSorted, getGradesTicketsSorted2, getStudentMaForMa, getStudentMaForTutor } from "../../_components/ApprenticeshipTickets/Services/apprenticeshipTicket.services";
 
 const ApprenticeshipTickets = () => {
 
@@ -33,48 +32,54 @@ const ApprenticeshipTickets = () => {
 
     const userId = ToggleRecuperationIdToken ? UserService.getTokenParsed() : ("b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e");
     
+    console.log("NOUVIOOOOOOOOOOOOOOOO");
+    console.log(apprenticeshipListeTicketsSortedMock);
+    
 
+    //console.log("ANCIENNNNNNNNNNNNNNNN");
+    //console.log(apprenticeshipTicketsMock);
 
     useEffect(() => {
         if(roleManager.isApprentice || roleManager.isStudent){
             console.log("je suis apprenti ou etudiant");
             setStudentDisplay(userId);
             //Gestion de la récupéarion des notes de l'étudiant
-            ToggleRecuperationListeTickets ? getGradesTickets(userId).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipTicketsMock);
+            ToggleRecuperationListeTickets ? getGradesTicketsSorted2(userId).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipListeTicketsSortedMock);
             //Gestion de la fiche de suivi
             ToggleRecuperationFicheSuivi ? getDataStudentSuivi(userId).then(result => setficheSuivi(result)) : setficheSuivi(apprenticeshipSuiviStudentMock);
         }
         else if(roleManager.isApprenticeshipManager){
             console.log("je suis ma");
             //gestion affichage des boutons si plusieurs etudiant
-            ToggleRecuperationListStudentFollow ? getStudentMaForMa(userId).then(result => setlistStudentFollow(result)) : setlistStudentFollow(listStudentSuiviMock);
+            ToggleRecuperationListStudentFollow ? getStudentMaForMa(userId).then(result => setlistStudentFollow(result)) : setlistStudentFollow(apprenticeshipListStudentFollow);
             // Ajouter méthode pour séléctionner un étudiant
-
+            setStudentDisplay(ListStudentFollow[0].student.ID);
             //Gestion de la récupéarion des notes de l'étudiant
-
-             //Gestion de la fiche de suivi
-             ToggleRecuperationFicheSuivi ? getDataStudentSuivi(StudentDisplay).then(result => setficheSuivi(result)) : setficheSuivi(apprenticeshipSuiviStudentMock);
-
-
+            ToggleRecuperationListeTickets ? getGradesTicketsSorted2(StudentDisplay).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipListeTicketsSortedMock);
+            //Gestion de la fiche de suivi
+            ToggleRecuperationFicheSuivi ? getDataStudentSuivi(StudentDisplay).then(result => setficheSuivi(result)) : setficheSuivi(apprenticeshipSuiviStudentMock);
 
         }
         else if(roleManager.isStudentTutor){
             console.log("je suis tutor");
             //gestion affichage des boutons si plusieurs etudiant
-            ToggleRecuperationListStudentFollow ? getStudentMaForTutor(userId).then(result => setlistStudentFollow(result)) : setlistStudentFollow(listStudentSuiviMock);
+            ToggleRecuperationListStudentFollow ? getStudentMaForTutor(userId).then(result => setlistStudentFollow(result)) : setlistStudentFollow(apprenticeshipListStudentFollow);
             // Ajouter méthode pour séléctionner un étudiant
-
+            setStudentDisplay(ListStudentFollow[0].student.ID);
             //Gestion de la récupéarion des notes de l'étudiant
-
-             //Gestion de la fiche de suivi
-             ToggleRecuperationFicheSuivi ? getDataStudentSuivi(StudentDisplay).then(result => setficheSuivi(result)) : setficheSuivi(apprenticeshipSuiviStudentMock);
+            ToggleRecuperationListeTickets ? getGradesTicketsSorted2(StudentDisplay).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipListeTicketsSortedMock);
+            //Gestion de la fiche de suivi
+            ToggleRecuperationFicheSuivi ? getDataStudentSuivi(StudentDisplay).then(result => setficheSuivi(result)) : setficheSuivi(apprenticeshipSuiviStudentMock);
 
         }        
       }, []);
       
     useEffect(() => {
-        console.log("changement de d'étudiant à afficher")
-        console.log(StudentDisplay)
+        // Mise à jours liste Tickets
+        ToggleRecuperationListeTickets ? getGradesTicketsSorted2(StudentDisplay).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipListeTicketsSortedMock);
+        // Mise à jours de la fiche de suivi
+        ToggleRecuperationFicheSuivi ? getDataStudentSuivi(StudentDisplay).then(result => setficheSuivi(result)) : setficheSuivi(apprenticeshipSuiviStudentMock);
+
     }, [StudentDisplay]);
 
 

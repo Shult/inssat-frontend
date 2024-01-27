@@ -1,5 +1,5 @@
 import { UserEntityInterface, UserInterface } from "../../User/User.interface";
-import { IApprentieceshipTickets, IDataSuivi, ICompany, IGradeDto, ListTickets, FicheSuiviInterface } from "./apprenticeshipTickets.interface";
+import { IApprentieceshipTickets, IDataSuivi, ICompany, IGradeDto, ListTickets, FicheSuiviInterface, FollowStudent } from "./apprenticeshipTickets.interface";
 
 
 export let dataSuiviMock: IDataSuivi
@@ -16,6 +16,13 @@ dataSuiviMock = { company: company, student: student, teacher: teacher, supervis
 export let apprenticeshipListTicketsMock: ListTickets = require('./listeTickets.json');
 
 export let apprenticeshipSuiviStudentMock: FicheSuiviInterface = require('./suiviStudent.json');
+
+export let apprenticeshipListStudentFollow: FollowStudent[] = require('./associationSMT.json');
+
+export let apprenticeshipListeTicketsSortedMock: ListTickets = require('./listeTicketsSorted.json');
+
+
+
 
 export let apprenticeshipTicketsMock: IApprentieceshipTickets[]
 apprenticeshipTicketsMock = []
