@@ -1,8 +1,8 @@
-import client from './client'
+import {apiBlog} from './client'
 
 const getFile = (fileName) =>{
     console.log(fileName)
-    return client.get('/uploads/'+fileName)
+    return apiBlog.get('/uploads/'+fileName)
 }
  
 export {

@@ -4,8 +4,7 @@ import Router from './_navigation/Router';
 import './App.css';
 import Sidebar from './_components/SideNavBar';
 import LoadingAnimation from './_components/Loading/index';
-import apiClient  from './_api/client';
-
+import { apiBlog, apiAcademy } from './_api/client';
 
 interface Styles {
   [key: string]: React.CSSProperties;
@@ -39,12 +38,24 @@ function App() {
 
     const clearInterceptors = () => {
 
-        apiClient.addRequestTransform(request => {
+          apiBlog.addRequestTransform(request => {
             setLoading(true);
 
           });
 
-        apiClient.addResponseTransform(response => {
+          apiBlog.addResponseTransform(response => {
+            //TODO: for testing purpose i am adding delay to Loading so that the animation take its time to finish '3s'
+            setTimeout(() => {
+                setLoading(false);
+              }, 2500);
+          });
+
+          apiAcademy.addRequestTransform(request => {
+            setLoading(true);
+
+          });
+
+          apiAcademy.addResponseTransform(response => {
             //TODO: for testing purpose i am adding delay to Loading so that the animation take its time to finish '3s'
             setTimeout(() => {
                 setLoading(false);

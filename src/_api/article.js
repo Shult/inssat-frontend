@@ -1,25 +1,25 @@
-import client from './client'
+import {apiBlog} from './client'
 
-const getArticleById = (id) => client.get(`/articles/${id}`)
+const getArticleById = (id) => apiBlog.get(`/articles/${id}`)
 const update = (id, articleData) => {
-  return client.put(`/articles/${id}`, articleData, {
+  return apiBlog.put(`/articles/${id}`, articleData, {
     headers: {
       'Content-Type': 'application/json', // Ensure correct headers for form data
     },
   });
 };
 
-const getLastSharedArticle = () => client.get('/articles/last-shared-article')
-const getArticlesWithDetails =  () => client.get('/articles/details')
-const getArticleWithDetails =  (id) => client.get(`/articles/details/${id}`)
+const getLastSharedArticle = () => apiBlog.get('/articles/last-shared-article')
+const getArticlesWithDetails =  () => apiBlog.get('/articles/details')
+const getArticleWithDetails =  (id) => apiBlog.get(`/articles/details/${id}`)
 
 
 
 
-const getArticlesByCategory =  (id) => client.get(`/articles/category/${id}`)
+const getArticlesByCategory =  (id) => apiBlog.get(`/articles/category/${id}`)
 
 const createArticle = (formData) => {
-    return client.post('/articles', formData, {
+    return apiBlog.post('/articles', formData, {
       headers: {
         'Content-Type': 'multipart/form-data', // Ensure correct headers for form data
       },
@@ -27,7 +27,7 @@ const createArticle = (formData) => {
   };
 
 const deleteArticle = (id) => {
-    return client.delete(`/articles/${id}`, id, {
+    return apiBlog.delete(`/articles/${id}`, id, {
       headers: {
         'Content-Type': 'multipart/form-data', // Ensure correct headers for form data
       },
