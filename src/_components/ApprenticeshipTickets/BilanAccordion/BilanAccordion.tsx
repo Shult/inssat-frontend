@@ -10,6 +10,8 @@ interface BilanAccordionProps {
     studentId: any;
 }
 
+const ToggleActivationLien = false;
+
 const BilanAccordion: React.FC<BilanAccordionProps> = ({ bilans, studentId }) => {
 
     const ToggleActivationLien = false;
