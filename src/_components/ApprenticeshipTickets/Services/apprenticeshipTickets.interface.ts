@@ -1,4 +1,4 @@
-import { UserInterface } from "../../User/User.interface"
+import { UserInterface, User_EntityInterface } from "../../User/User.interface"
 
 export interface IPeriod {
     id: number,
@@ -54,4 +54,81 @@ export interface IDataSuivi {
     student: UserInterface,
     teacher: UserInterface,
     supervisor: UserInterface
+}
+
+export interface CompanyInterface {
+    id: number,
+    name: string,
+    address: string,
+    city: string,
+    phone: string
+} 
+
+export interface ClassInterface {
+    id: number,
+    name: string,
+    apprenticeship: boolean
+}
+
+export interface FicheSuiviInterface {
+    ID: string,
+    USERNAME: string,
+    FIRST_NAME: string,
+    LAST_NAME: string,
+    EMAIL: string,
+    CLASS: ClassInterface,
+    COMPANY: CompanyInterface,
+    MA: User_EntityInterface,
+    TUTOR: User_EntityInterface
+}
+
+export interface PeriodInterface {
+    id: number,
+    name: string,
+    description: string,
+    number: number,
+    created_at: Date,
+    updated_at: Date
+}
+
+export interface SectionInterface {
+    id: number,
+    title: string,
+    description: string,
+    created_at: Date,
+    updated_at: Date
+}
+
+export interface AssesmentInterface {
+    id: number,
+    name: string,
+    coefficient: number,
+    position: number,
+    created_at: Date,
+    updated_at: Date
+}
+
+export interface GradeInterface {
+    id: number,
+    grade: number,
+    student_id: string,
+    assessment_id: number,
+    period_id: number,
+    comment: string,
+    section_id: number,
+    created_at: Date,
+    updated_at: Date,
+    assessment: AssesmentInterface,
+    period: PeriodInterface,
+    section: SectionInterface
+}
+
+export interface ListTickets{
+    ID: string,
+    USERNAME: string,
+    FIRST_NAME: string,
+    LAST_NAME: string,
+    EMAIL: string,
+    USER_ATTRIBUTES: any[],
+    grades: GradeInterface[]
 }

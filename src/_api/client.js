@@ -2,7 +2,7 @@ import { create } from 'apisauce';
 import UserService from '../services/UserServices';
 import config from '../config.json';
 
-const URL = config.development.API_URL;
+const URL = config.local.API_URL;
 
 // API pour l'API "api_blog"
 const apiBlog = create({

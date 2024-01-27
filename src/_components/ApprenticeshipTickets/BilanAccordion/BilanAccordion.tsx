@@ -7,9 +7,12 @@ import {Routes, Route, useNavigate} from 'react-router-dom';
 
 interface BilanAccordionProps {
     bilans: IApprentieceshipTickets[];
+    studentId: any;
 }
 
-const BilanAccordion: React.FC<BilanAccordionProps> = ({ bilans }) => {
+const BilanAccordion: React.FC<BilanAccordionProps> = ({ bilans, studentId }) => {
+
+    const ToggleActivationLien = false;
 
     // Méthode pour calculer la note finale
     const calculateFinalGrade = (grades: IGradeDto[]): number => {
@@ -27,10 +30,21 @@ const BilanAccordion: React.FC<BilanAccordionProps> = ({ bilans }) => {
 
     {/*LIEN TEMPORAIRE*/}
     const navigate = useNavigate();
+    
+    
+    /*
+    const navigateToActivityReport = (studentId: string, periodId: number) => {
+        const path = `/activityReport?param1=${studentId}&param2=${periodId}`;
+        navigate(path);
+    };
+    */
+
+    
     const navigateToActivityReport = (path : string) => {
         navigate(path);
     };
     
+
     return (
         <div className="container">
             <Accordion>
@@ -54,6 +68,12 @@ const BilanAccordion: React.FC<BilanAccordionProps> = ({ bilans }) => {
                                         </div>
                                     </Col>
                                 <Col>
+                                {/*<Button
+                                        className={"buttonGold txtCenter"}
+                                        content={"Détail"}
+                                        // Ajouter redirection vers Sylvain
+                                        onclick={() => navigateToActivityReport(studentId, bilan.period)}
+                                    />*/}
                                     <Button
                                         className={"buttonGold txtCenter"}
                                         content={"Détail"}
