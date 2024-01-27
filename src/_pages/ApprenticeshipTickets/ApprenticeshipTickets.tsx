@@ -10,6 +10,7 @@ import BilanAccordion from "../../_components/ApprenticeshipTickets/BilanAccordi
 import {useNavigate} from 'react-router-dom';
 import { RoleManager } from "../../_navigation/RoleManager";
 import ButtonsMenu from "../../_components/ApprenticeshipTickets/ButtonsMenu/ButtonsMenu";
+import { getGradesByUserId } from "../../_api/grade";
 
 const ApprenticeshipTickets = () => {
 
@@ -18,6 +19,11 @@ const ApprenticeshipTickets = () => {
     const listTickets = apprenticeshipTicketsMock;
     const listStudentSuivi = listStudentSuiviMock;
 
+    const activationRecuperationBack = false;
+    const userId = ("b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e");
+    //const listTickets = activationRecuperationBack? getGradesByUserId(userId) : apprenticeshipTicketsMock; 
+    const test = getGradesByUserId(userId);
+    console.log(test);
     const roleManager = RoleManager()
 
     {/*LIEN TEMPORAIRE*/}

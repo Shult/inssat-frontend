@@ -1,5 +1,5 @@
 import { getAllStudentMaTutors } from "../../../_api/student-ma-tutors"
-import { IDataSuivi } from "./apprenticeshipTickets.interface"
+import { IApprentieceshipTickets, IDataSuivi } from "./apprenticeshipTickets.interface"
 
 /*
 export const getArticles = () => fetchArticlesMultiOrigins()
@@ -25,5 +25,12 @@ async function fetchDataStudentExtended(){
 
 }
 
-export const aueddsg = []
+export const getTickets = () => fetchTickets()
+
+async function fetchTickets(){
+    let tickets: IApprentieceshipTickets[] = []
+    
+    return tickets
+
+}
 
