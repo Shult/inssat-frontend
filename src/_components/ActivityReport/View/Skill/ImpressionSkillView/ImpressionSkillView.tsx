@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
-import { Row, Col, Button, Form } from 'react-bootstrap';
-import CustomButton from "../../../../ToolBox/Forms/ActionButton"
+import { Row, Col, Button} from 'react-bootstrap';
 import "./ImpressionSkillView.css"
-import { IActivity, IImpression } from '../../../Services/activityReportInterfaces';
-import activityReportData from "../../../Services/tmpData"
+import { Activity } from '../../../Services/interfaces';
 
-interface IImpressionProps {
-    activity: IActivity;
-    impression: IImpression;
+interface ActivitySkillViewProps {
+    activity: Activity;
 }
-
-function ImpressionSkillView({activity, impression} : any) {
+function ImpressionSkillView(activityView : ActivitySkillViewProps) {
     const [buttonText, setButtonText] = useState('Non évalué');
 
     const getButtonColor = (text : any) => {
@@ -34,16 +30,16 @@ function ImpressionSkillView({activity, impression} : any) {
         }
     };
 
-    if(!activity.is_free){
+    if(activityView.activity.impressions[0].level.id != 7){
         return(
             <Row>
                 <Col xs={12} md={12} lg={9} xl={9}>
-                    <p>{activity.name}</p>
+                    <p>{activityView.activity.name}</p>
                 </Col>
                 <Col xs={12} md={12} lg={3} xl={3}>
                     <>
-                        <Button variant="primary" disabled id={'appreciation'} style={{ borderColor: getButtonColor(impression.level_id), color: getButtonColor(impression.level_id) }}>
-                            {impression.level_id}
+                        <Button variant="primary" disabled id={'appreciation'} style={{ borderColor: getButtonColor(activityView.activity.impressions[0].level.name), color: getButtonColor(activityView.activity.impressions[0].level.name) }}>
+                            {activityView.activity.impressions[0].level.name}
                         </Button>{' '}
                     </>
                 </Col>
@@ -54,11 +50,10 @@ function ImpressionSkillView({activity, impression} : any) {
         return(
             <Row>
                 <Col xs={12} md={12} lg={4} xl={4}>
-                    {/*<Activity activity={ activity.name }></Activity>*/}
-                    <p>{activity.name}</p>
+                    <p>{activityView.activity.name}</p>
                 </Col>
                 <Col xs={12} md={12} lg={8} xl={8}>
-                    <p>{impression.content}</p>
+                    <p>{activityView.activity.impressions[0].content}</p>
                 </Col>
                 <hr className="separator" id={'separator'}/>
             </Row>

@@ -1,23 +1,117 @@
-import React, { useState } from 'react';
-import { Row, Col, Dropdown, Form } from 'react-bootstrap';
+import React, {useCallback, useEffect, useState } from 'react';
+import { Row, Col, Dropdown, Form, Spinner } from 'react-bootstrap';
+import {getImpressions, getLevels, postImpression, updateImpression } from '../../../../_api/ActivityReportServices';
 import "../../../ToolBox/styles.css"
-import { getButtonColor } from '../../Services/ActivityReportServices';
+import {FormImpressions, IImpression, ILevel} from '../../Services/activityReportInterfaces';
 import Activity from "../Activity/Activity"
 import "./impression.css"
 
-function Impression(data : any) {
-    const activity = data.activity;
-    //const impression = data.impression;
+import debounce from 'lodash/debounce';
+import { FaCheck, FaTimes } from 'react-icons/fa';
 
+
+function Impression({ activity, studentId, periodId } : any) {
     const [title, setTitle] = useState('Évaluer la compétence');
+    const [level, setLevel] = useState<number>(0);
+    const [dropdownBackground, setDropdownBackground] = useState('#889795');
+    
+    // GET 
+    const [levels, setLevels] = useState<ILevel[]>([]);
+    const [allImpressions, setAllImpressions] = useState<IImpression[]>([]);
+    const [lastTyped, setLastTyped] = useState(Date.now());
+    const [isReadyToSave, setIsReadyToSave] = useState(false);
 
-    const [dropdownBackground, setDropdownBackground] = useState('#889795'); // Ajout de l'état pour la couleur de fond
+    const fetchLevels = async () : Promise<ILevel[]> => {
+        try {
+            const response = await getLevels();
+            if (response.ok && response.data) {
+                const dataApi : ILevel[] = response.data;
+                // console.log("dataApi Levels : " + dataApi);
+                return dataApi
+            } else {
+                console.error('Erreur lors de la récupération des sections 2');
+                return [];
+            }
+        } catch (error) {
+            console.error('Erreur lors de la récupération des sections 1 :', error);
+            return [];
+        }
+    };
 
+    // Récupérez toutes les impressions au montage du composant
+    const fetchAllImpressions = async () => {
+        try {
+            const response = await getImpressions();
+            if (response.ok && response.data) {
+                setAllImpressions(response.data);
+            } else {
+                console.error('Erreur lors de la récupération des impressions');
+            }
+        } catch (error) {
+            console.error('Erreur lors de la récupération des impressions:', error);
+        }
+    };
+
+    const [saveStatus, setSaveStatus] = useState(''); // Pour stocker le statut de sauvegarde
+
+    const handleSave = async (impressionData: FormImpressions) => {
+        loadData();
+
+        // Vérifiez si une impression existe déjà
+        const existingImpression = allImpressions.find(imp =>
+            imp.activity_id === impressionData.activity_id &&
+            imp.student_id === impressionData.student_id &&
+            imp.period_id == impressionData.period_id
+        );
+
+        if (existingImpression) {
+            // console.log("PUT");
+            try {
+                await updateImpression(existingImpression.id, impressionData);
+                setSaveStatus('success');
+                loadData();
+            } catch (error) {
+                setSaveStatus('error');
+            }
+        } else {
+            // console.log("POST");
+            try {
+                await postImpression(impressionData);
+                setSaveStatus('success');
+                loadData();
+            } catch (error) {
+                setSaveStatus('error');
+            }
+        }
+    };
+    const loadData = async () => {
+        await fetchAllImpressions();
+    };
+
+    // Gère le changement dans le commentaire
+    const handleCommentChange = (event : any) => {
+        setSaveStatus('loading');
+        const newComment = event.target.value;
+        setComment(newComment);
+        setLevel(7);
+        setIsReadyToSave(true);
+        setLastTyped(Date.now());
+    };
     const handleSelect = (eventKey : any) => {
-        setTitle(eventKey);
+        setSaveStatus('loading');
+        const levelName = eventKey;
+        const selectedLevelId = levels.find(level => level.name === levelName)?.id;
+        if (selectedLevelId) {
+            setTitle(levelName);
+
+            setComment("selectedItem/"+levelName);
+            setLevel(selectedLevelId);
+            setIsReadyToSave(true);
+            setLastTyped(Date.now());
+        }
 
         // Mettre à jour la couleur de fond en fonction de la sélection
-        switch (eventKey) {
+        switch (levelName) {
             case 'Excellent':
                 setDropdownBackground('#4caf50');
                 break;
@@ -45,17 +139,62 @@ function Impression(data : any) {
         }
     };
 
-    // Utilisez la couleur de fond stockée dans l'état pour le style
     const dropdownStyle = {
         backgroundColor: dropdownBackground,
-        // Ajoutez d'autres styles si nécessaire
     };
+
+    const [comment, setComment] = useState('');
+
+    // Fonction pour sauvegarder l'impression
+    const saveImpression = async () => {
+        const impressionData: FormImpressions = {
+            content: comment,
+            level_id: level,
+            activity_id: activity.id,
+            period_id: periodId,
+            student_id: studentId,
+        };
+        handleSave(impressionData);
+    };
+
+    // Fonction debounce pour sauvegarder l'impression
+    const debouncedSaveImpression = useCallback(debounce(() => {
+        if (isReadyToSave) {
+            saveImpression();
+        }
+    }, 3000), [isReadyToSave, level, comment]);
+
+    // Fonction pour choisir l'icône en fonction de l'état de sauvegarde
+    const renderStatusIcon = () => {
+        switch (saveStatus) {
+            case 'loading':
+                return <Spinner animation="border" />;
+            case 'success':
+                return <FaCheck color="green" />;
+            case 'error':
+                return <FaTimes color="red" />;
+            default:
+                return null;
+        }
+    };
+
+    useEffect(() => {
+        fetchLevels().then(fetchedLevels => {
+            setLevels(fetchedLevels);
+        });
+        const handle = setTimeout(() => {
+            if (Date.now() - lastTyped >= 3000 && isReadyToSave) {
+                debouncedSaveImpression();
+            }
+        }, 3000);
+        return () => clearTimeout(handle);
+    }, [lastTyped, isReadyToSave, debouncedSaveImpression]);
+
 
     if(!activity.is_free){
         return(
             <Row>
-                {/*xs={12} md={12} lg={12} xl={5}*/}
-                <Col xs={12} md={12} lg={12} xl={9}>
+                <Col xs={12} md={12} lg={12} xl={8}>
                     <Activity activity={ activity.name }></Activity>
                 </Col>
                 <Col xs={12} md={12} lg={12} xl={3}>
@@ -65,15 +204,18 @@ function Impression(data : any) {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <Dropdown.Item eventKey="Excellent" href="#/action-1">Excellent</Dropdown.Item>
-                            <Dropdown.Item eventKey="Très bien" href="#/action-2">Très bien</Dropdown.Item>
-                            <Dropdown.Item eventKey="Bien" href="#/action-3">Bien</Dropdown.Item>
-                            <Dropdown.Item eventKey="Assez bien" href="#/action-3">Assez bien</Dropdown.Item>
-                            <Dropdown.Item eventKey="Passable" href="#/action-3">Passable</Dropdown.Item>
-                            <Dropdown.Item eventKey="Insuffisant" href="#/action-3">Insuffisant</Dropdown.Item>
-                            <Dropdown.Item eventKey="Non évaluable" href="#/action-3">Non évaluable</Dropdown.Item>
+                            {
+                                levels.slice(0, 7).map((level, index) => (
+                                    <Dropdown.Item key={index} eventKey={ level.name }>{level.name}</Dropdown.Item>
+                                ))
+                            }
                         </Dropdown.Menu>
                     </Dropdown>
+                </Col>
+                <Col xs={12} md={12} lg={12} xl={1}>
+                    <div key={activity.id}>
+                        {renderStatusIcon()}
+                    </div>
                 </Col>
                 <hr className="separator" id={'separator'}/>
             </Row>
@@ -84,8 +226,20 @@ function Impression(data : any) {
                 <Col xs={12} md={12} lg={12} xl={4}>
                     <Activity activity={ activity.name }></Activity>
                 </Col>
-                <Col xs={12} md={12} lg={12} xl={8}>
-                    <Form.Control as="textarea" rows={3} placeholder="Commentaire" id={"text-form"}/>
+                <Col xs={12} md={12} lg={12} xl={7}>
+                    <Form.Control
+                        as="textarea"
+                        rows={3}
+                        placeholder="Commentaire"
+                        id={"text-form"}
+                        value={comment}
+                        onChange={handleCommentChange}/>
+
+                </Col>
+                <Col xs={12} md={12} lg={12} xl={1}>
+                    <div key={activity.id}>
+                        {renderStatusIcon()}
+                    </div>
                 </Col>
                 <hr className="separator" id={'separator'}/>
             </Row>

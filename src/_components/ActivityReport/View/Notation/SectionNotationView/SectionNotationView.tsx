@@ -1,30 +1,27 @@
-import React, { useState, useContext } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import {IAssessment, IGrade} from "../../../Services/activityReportInterfaces"
 import AssessmentView from "../AssessmentView/AssessmentView"
 import {AssessmentFinal} from "../AssessmentView/AssessmentFinal/AssessmentFinal"
+import { Grade } from '../../../Services/interfaces';
 
 interface SectionProps {
-    assessments: IAssessment[];
-    grades: IGrade[];
+    grades: Grade[];
 }
 
-function SectionNotationView({assessments, grades} : SectionProps) {
-
+function SectionNotationView(sectionNotationView : SectionProps) {
     return(
         <Row>
             {
-                assessments.map((assessment, index) =>
+                sectionNotationView.grades.map((grade : Grade, index) =>
                     <AssessmentView
                         key={index}
-                        assessment={assessment}
-                        grade={grades.find(grade => grade.assessment_id == assessment.id)}
+                        assessment={grade.assessment}
+                        grade={sectionNotationView.grades[index]}
                     ></AssessmentView>
                 )
             }
             <Col>
                 <AssessmentFinal
-                    grades={grades}
+                    grades={sectionNotationView.grades}
                 ></AssessmentFinal>
             </Col>
         </Row>

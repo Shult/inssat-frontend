@@ -30,9 +30,4 @@ export function getButtonColor(impression : string){
             setDropdownBackground('#BF9E4E');
     }
 
-    // Utilisez la couleur de fond stockée dans l'état pour le style
-    const dropdownStyle = {
-        backgroundColor: dropdownBackground,
-        // Ajoutez d'autres styles si nécessaire
-    };
 }

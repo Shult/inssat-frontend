@@ -1,17 +1,23 @@
 import React from "react";
 import { Row, Col } from 'react-bootstrap';
 import "./AssessmentFinal.css";
+import { Grade } from "../../../../Services/interfaces";
 
-export const AssessmentFinal = (grades : any): JSX.Element => {
+interface GradesViewProps {
+    grades: Grade[];
+}
 
-    const sum = grades.grades.reduce((acc : any, grade : any) => acc + grade.grade, 0);
-    const mean = sum / grades.grades.length;
+export const AssessmentFinal = (gradesView : GradesViewProps): JSX.Element => {
+    var average = 0;
 
-    const meanFixed = mean.toFixed(1).toString(); // Convert to string to manipulate
+    gradesView.grades.map((grade, index) => {
+        average += grade.grade
+    })
+    average = average / gradesView.grades.length;
+
+    const meanFixed = average.toFixed(1).toString(); // Convert to string to manipulate
     const [entier, decimal] = meanFixed.split('.');
-
-    console.log("Moyenne =", mean);
-
+    
     return (
         <Row className={"assessmentFinal"}>
             <h2 className={"heading4"}>Note finale</h2>
@@ -23,9 +29,6 @@ export const AssessmentFinal = (grades : any): JSX.Element => {
 
             <Col xs={12} md={12} lg={12} xl={5} className="under ">
                 <span className={"finalSpan"}>/20</span>
-            </Col>
-            <Col>
-                <h2 className={"heading4 finalComment"}>Bien</h2>
             </Col>
         </Row>
     );

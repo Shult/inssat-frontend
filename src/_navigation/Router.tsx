@@ -50,6 +50,13 @@ const Router = () => {
 
             <Route path="/apprenticeshipTickets" Component={ApprenticeshipTickets}/>
 
+            <Route path="/category/:name" Component={Category.Details} />
+
+            <Route path="/myaccount" Component={MyAccount}/>
+            <Route path="/news" Component={News}/>
+
+            <Route path="/apprenticeshipTickets" Component={ApprenticeshipTickets}/>
+
             {/* <Route path="/category/:name" Component={Category.Details} /> */}
             <Route path="/article" Component={Article.AllWithFilter}/>
 

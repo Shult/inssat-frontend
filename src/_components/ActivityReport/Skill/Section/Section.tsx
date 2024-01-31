@@ -2,23 +2,21 @@ import React, { useState } from 'react';
 import { Card, Accordion } from 'react-bootstrap';
 import "../../../ToolBox/styles.css"
 import Impression from "../Impression/Impression"
-import { ISection, IActivity, IImpression } from "../../Services/activityReportInterfaces"
+import { ISection, IActivity2 } from "../../Services/activityReportInterfaces"
 import "./section.css"
 
 interface SectionProps {
     section: ISection;
-    activities: IActivity[];
-    impressions: IImpression[];
+    activities: IActivity2[];
+    periodId: number;
 }
 
-function Section({section, activities, impressions} : SectionProps) {
+function Section({section, activities, periodId} : SectionProps) {
     const [title, setTitle] = useState('Évaluer la compétence');
     const handleSelect = (eventKey : any) => {
         setTitle(eventKey);
     };
-
-    // console.log(section);
-
+    
     return(
         <Accordion defaultActiveKey="0" flush>
             <Card>
@@ -31,7 +29,8 @@ function Section({section, activities, impressions} : SectionProps) {
                                         <Impression
                                             key={activity.id}
                                             activity={activity}
-                                            impression={impressions.find(impression => impression.activity_id === activity.id)}
+                                            studentId={"0cabe1b3-e680-4cac-8d19-0fbeab35134e"} // NEED RECUP LE STUDENT EN QUESTION
+                                            periodId={periodId}
                                         />
                                     ))
                                 }
