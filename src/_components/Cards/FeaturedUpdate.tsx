@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 
 const FeaturedUpdate = ({ article }:any) => {
     const navigate = useNavigate();
-    const { id, principal_image, title, description } = article
+    const { id, principal_image, title, description, author_id } = article
 
     const [principalImage, setPrincipalImage] = useState('');
 
@@ -29,7 +29,7 @@ const FeaturedUpdate = ({ article }:any) => {
                 
                 img = await getDefaultFile('default-thumbnail-featured.png');
             }else{
-                img = (await getPublicFile(principal_image));
+                img = (await getPublicFile(principal_image, author_id));
             }
               
           if(img)
