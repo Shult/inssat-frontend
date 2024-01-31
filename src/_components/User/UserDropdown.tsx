@@ -3,15 +3,16 @@ import {getAllUsersByGroup} from "./User.api";
 import React, {useEffect, useState} from "react";
 
 import "./UserDropdown.css"
+import {GROUP_ID_STUDENT, GROUP_ID_SUPERVISOR, GROUP_ID_TUTOR} from "../../_helpers/const";
 
-const UserDropdown = ({className = "w33", id = "select-user", usertype = "user"}) => {
+const UserDropdown = ({className = "w33", id = "select-user", usertype = ""}) => {
 
     useEffect(() => {
         getAllUsersByGroup(usertype).then(fetchedUsers => setUsers(fetchedUsers))
 
-        if (usertype === "student"){ setLabel("Etudiant")}
-        if (usertype === "tutor" || usertype === "teacher"){ setLabel("Tuteur")}
-        if (usertype === "supervisor"){ setLabel("Maître d'apprentissage")}
+        if (usertype === GROUP_ID_STUDENT){ setLabel("Etudiant")}
+        if (usertype === GROUP_ID_TUTOR || usertype === "teacher"){ setLabel("Tuteur")}
+        if (usertype === GROUP_ID_SUPERVISOR){ setLabel("Maître d'apprentissage")}
     }, [usertype]);
 
     const [label, setLabel] = useState("")
@@ -28,8 +29,8 @@ const UserDropdown = ({className = "w33", id = "select-user", usertype = "user"}
             searched = searched.toUpperCase()
             for (let i = 0; i < users.length; i++) {
 
-                let userFirstname = fetchedUsers[i].firstname.toUpperCase()
-                let userLastname =  fetchedUsers[i].lastname.toUpperCase()
+                let userFirstname = users[i].firstname.toUpperCase()
+                let userLastname =  users[i].lastname.toUpperCase()
 
                 if (userFirstname?.includes(searched) || userLastname?.includes(searched)) {
                     newList.push(users[i])

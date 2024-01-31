@@ -1,7 +1,7 @@
 import {UserInterface} from "./User.interface";
 import {useEffect, useState} from "react";
 import {getUsersByGroup} from "../../_api/userServices";
-const UserSelector = ({className = "w33", id = "select-student", usertype = "student"}) => {
+const UserSelector = ({className = "w33", id = "select-student", usertype = ""}) => {
 
     useEffect(() => {
         getUsersByGroup(usertype).then((result: any) => setUsers(result))
