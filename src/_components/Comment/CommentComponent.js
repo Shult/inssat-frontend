@@ -5,7 +5,7 @@ import UserServices from '../../services/UserServices';
 import { ActionButton } from '../ToolBox/Forms';
 import { Spinner } from 'react-bootstrap';
 
-const CommentComponent = ({ id, setCommentsCounter }) => { 
+const CommentComponent = ({ id, setCommentsCounter }) => {
   const {sub: user_id, family_name = "Me", given_name = "yu" } = UserServices.getTokenParsed();
   
   const [comment, setComment] = useState({

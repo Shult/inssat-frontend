@@ -16,8 +16,9 @@ const getDefaultFile = async (fileName) =>{
     return blobURL;
 }
 
-const getPublicFile = async (fileName) =>{
-    const resp =  await client.get('/uploads/'+UserServices.getTokenParsed().sub+'/publicFiles/'+fileName,{}, {
+const getPublicFile = async (fileName,id=UserServices.getTokenParsed().sub) =>{
+  console.log("__________"+id)
+    const resp =  await client.get('/uploads/'+id+'/publicFiles/'+fileName,{}, {
         responseType: 'blob' ,
       })
       const blobURL = URL.createObjectURL(resp.data);

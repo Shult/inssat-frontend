@@ -27,6 +27,7 @@ const ArticleDetailsComponent = ({ article }: any) => {
     comment_count,
     // category,
     author,
+    author_id,
     published_at: publishedAt,
   } = article;
 
@@ -96,7 +97,7 @@ const ImageModal = ({ show, onHide, imageUrl }:any) => {
             
             //img = await getDefaultFile('default-thumbnail-featured.png');
         }else{
-            img = (await getPublicFile(principal_image));
+            img = (await getPublicFile(principal_image, author_id));
             console.log(principal_image);
             if (img && typeof img === 'string' && !img.includes('Error:')) {
               setPrincipalImage(img);

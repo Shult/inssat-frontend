@@ -21,7 +21,7 @@ import { useNavigate } from 'react-router-dom';
 
 const HorizontalCard = ({ article }: any) => {
   const navigate = useNavigate();
-  const { id, thumbnail, article_tags, title, author, published_at } = article;
+  const { id, thumbnail, article_tags, title, author, published_at, author_id } = article;
   //TODO : Zak - all default files should be fetched once in the parent component to avoid fetching the same file n times "n articles"
   const [thumbnailImage, setThumbnailImage] = useState('');
 
@@ -45,7 +45,7 @@ const HorizontalCard = ({ article }: any) => {
           if (!fileName) {
               img = await getDefaultFile(fallbackFileName);
           } else {
-              img = (await getPublicFile(fileName)).toString();
+              img = (await getPublicFile(fileName, author_id)).toString();
           }
 
           if (img) {
