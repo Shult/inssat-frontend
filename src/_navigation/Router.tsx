@@ -39,8 +39,13 @@ const Router = () => {
             }
             <Route path="/blogEditor" Component={Blog}/>
 
-            <Route path="/activityReport/" Component={ActivityReport} />
-            <Route path="/activityReportView/" Component={ActivityReportView} />
+            {/*<Route path="/activityReport/" Component={ActivityReport} />
+            <Route path="/activityReportView/" Component={ActivityReportView} />*/}
+
+            <Route path="/activityReport/:studentId/:periodId" element={<ActivityReport/>}/>
+
+            <Route path="/activityReportView/:studentId/:periodId" element={<ActivityReportView />} />
+
 
             <Route path="/newPostEditor" Component={ArticleCreation}/>
             <Route path="/category/:name/:id" Component={Article.ByCategory}/>

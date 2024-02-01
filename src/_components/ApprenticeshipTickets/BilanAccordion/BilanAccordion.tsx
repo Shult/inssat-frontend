@@ -33,20 +33,17 @@ const BilanAccordion: React.FC<BilanAccordionProps> = ({ bilans, studentId }) =>
     const navigate = useNavigate();
     
     
-    /*
+    
     const navigateToActivityReport = (studentId: string, periodId: number) => {
-        const path = `/activityReport?param1=${studentId}&param2=${periodId}`;
+        const path = `/activityReportView/${studentId}/${periodId}`;
         navigate(path);
     };
-    */
-
     
+
+    /*
     const navigateToActivityReport = (path : string) => {
         navigate(path);
-    };
-
-    console.log("AAAAAAAAAA");
-    console.log(bilans);
+    };*/
 
     return (
         <div className="container">
@@ -77,7 +74,7 @@ const BilanAccordion: React.FC<BilanAccordionProps> = ({ bilans, studentId }) =>
                                 <Button
                                     className={"buttonGold txtCenter"}
                                     content={"Détail"}
-                                    onclick={() => navigateToActivityReport('/activityReportView')}
+                                    onclick={() => navigateToActivityReport(studentId, Number(key))}
                                 />
                             </Col>
                         </Row>

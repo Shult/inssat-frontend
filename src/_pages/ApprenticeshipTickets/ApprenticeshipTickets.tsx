@@ -33,6 +33,7 @@ const ApprenticeshipTickets = () => {
     
     console.log("NOUVIOOOOOOOOOOOOOOOO");
     console.log(apprenticeshipListeTicketsSortedMock);
+    console.log(Object.keys(apprenticeshipListeTicketsSortedMock).length)
     
 
     //console.log("ANCIENNNNNNNNNNNNNNNN");
@@ -43,7 +44,7 @@ const ApprenticeshipTickets = () => {
             console.log("je suis apprenti ou etudiant");
             setStudentDisplay(userId);
             //Gestion de la récupéarion des notes de l'étudiant
-            ToggleRecuperationListeTickets ? getGradesTicketsSorted2(userId).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipListeTicketsSortedMock);
+            ToggleRecuperationListeTickets ? getGradesTicketsSorted(userId).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipListeTicketsSortedMock);
             //Gestion de la fiche de suivi
             ToggleRecuperationFicheSuivi ? getDataStudentSuivi(userId).then(result => setficheSuivi(result)) : setficheSuivi(apprenticeshipSuiviStudentMock);
         }
@@ -54,7 +55,7 @@ const ApprenticeshipTickets = () => {
             // Ajouter méthode pour séléctionner un étudiant
             setStudentDisplay(ListStudentFollow[0].student.ID);
             //Gestion de la récupéarion des notes de l'étudiant
-            ToggleRecuperationListeTickets ? getGradesTicketsSorted2(StudentDisplay).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipListeTicketsSortedMock);
+            ToggleRecuperationListeTickets ? getGradesTicketsSorted(StudentDisplay).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipListeTicketsSortedMock);
             //Gestion de la fiche de suivi
             ToggleRecuperationFicheSuivi ? getDataStudentSuivi(StudentDisplay).then(result => setficheSuivi(result)) : setficheSuivi(apprenticeshipSuiviStudentMock);
 
@@ -66,7 +67,7 @@ const ApprenticeshipTickets = () => {
             // Ajouter méthode pour séléctionner un étudiant
             setStudentDisplay(ListStudentFollow[0].student.ID);
             //Gestion de la récupéarion des notes de l'étudiant
-            ToggleRecuperationListeTickets ? getGradesTicketsSorted2(StudentDisplay).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipListeTicketsSortedMock);
+            ToggleRecuperationListeTickets ? getGradesTicketsSorted(StudentDisplay).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipListeTicketsSortedMock);
             //Gestion de la fiche de suivi
             ToggleRecuperationFicheSuivi ? getDataStudentSuivi(StudentDisplay).then(result => setficheSuivi(result)) : setficheSuivi(apprenticeshipSuiviStudentMock);
 
@@ -75,7 +76,7 @@ const ApprenticeshipTickets = () => {
       
     useEffect(() => {
         // Mise à jours liste Tickets
-        ToggleRecuperationListeTickets ? getGradesTicketsSorted2(StudentDisplay).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipListeTicketsSortedMock);
+        ToggleRecuperationListeTickets ? getGradesTicketsSorted(StudentDisplay).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipListeTicketsSortedMock);
         // Mise à jours de la fiche de suivi
         ToggleRecuperationFicheSuivi ? getDataStudentSuivi(StudentDisplay).then(result => setficheSuivi(result)) : setficheSuivi(apprenticeshipSuiviStudentMock);
 
@@ -84,7 +85,13 @@ const ApprenticeshipTickets = () => {
 
     {/*LIEN TEMPORAIRE*/}
     const navigate = useNavigate();
+    /*
     const navigateToActivityReport = (path : string) => {
+        navigate(path);
+    };*/
+
+    const navigateToActivityReport = (studentId: string, periodId: number) => {
+        const path = `/activityReport/${studentId}/${periodId}`;
         navigate(path);
     };
 
@@ -161,13 +168,13 @@ const ApprenticeshipTickets = () => {
                 <Card.Body>
                     <Card.Title>Tickets d'évaluations</Card.Title>
 
-                    {(listTickets && listTickets.length > 0)&&
+                    {(listTickets && Object.keys(listTickets).length > 0)&&
                         <BilanAccordion bilans={listTickets} studentId={StudentDisplay}/>
                     }
 
-                    { (roleManager.isApprenticeshipManager || roleManager.isStudentSupervisor || roleManager.isStudentTutor) ?
+                    { (roleManager.isApprenticeshipManager || roleManager.isStudentSupervisor || roleManager.isStudentTutor || roleManager.isStudent) ?
                      <div className="container center">
-                        <Button className={"buttonWhite txtCenter"} content={"Créer un nouveau tickets"} onclick={() => navigateToActivityReport('/activityReport')}/>
+                        <Button className={"buttonWhite txtCenter"} content={"Créer un nouveau tickets"} onclick={() => navigateToActivityReport(StudentDisplay, ((Object.keys(listTickets).length + 1)))}/>
                     </div> : <></>
                     }
                 </Card.Body>

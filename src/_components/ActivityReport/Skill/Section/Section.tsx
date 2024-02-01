@@ -9,9 +9,10 @@ interface SectionProps {
     section: ISection;
     activities: IActivity2[];
     periodId: number;
+    studentId: string | undefined;
 }
 
-function Section({section, activities, periodId} : SectionProps) {
+function Section({section, activities, periodId, studentId} : SectionProps) {
     const [title, setTitle] = useState('Évaluer la compétence');
     const handleSelect = (eventKey : any) => {
         setTitle(eventKey);
@@ -29,7 +30,7 @@ function Section({section, activities, periodId} : SectionProps) {
                                         <Impression
                                             key={activity.id}
                                             activity={activity}
-                                            studentId={"0cabe1b3-e680-4cac-8d19-0fbeab35134e"} // NEED RECUP LE STUDENT EN QUESTION
+                                            studentId={studentId}
                                             periodId={periodId}
                                         />
                                     ))

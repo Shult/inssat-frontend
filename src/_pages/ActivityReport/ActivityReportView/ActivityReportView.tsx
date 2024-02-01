@@ -9,11 +9,16 @@ import {
 
 import {getAssessments,
     getGradesAndAssessmentsByPeriod, getPeriods } from '../../../_api/ActivityReportServices';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {Grade, Impression, Period, Section, UserData} from '../../../_components/ActivityReport/Services/interfaces';
 
 const ActivityReportView = () => {
-    const [userId, setUserId] = useState("0cabe1b3-e680-4cac-8d19-0fbeab35134e");
+    const { studentId, periodId } = useParams();
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    console.log(studentId);
+    console.log(periodId);
+
+    const [userId, setUserId] = useState<any>();
     const [data, setData] = useState<UserData>({
         ID: "",
         USERNAME: "",
@@ -25,10 +30,13 @@ const ActivityReportView = () => {
         impressions: []
     });
     const [sections, setSections] = useState<Section[]>();
-    const [title, setTitle] = useState('Sélectionner une période');
+    const [title, setTitle] = useState<any>('Sélectionner une période');
     const [periods, setPeriods] = useState<Period[]>([]);
     const [periodSelected, setPeriodSelected] = useState<number>(0);
     const isDefaultPeriodSelected = periodSelected === 0;
+
+
+
 
     const fetchPeriods = async () : Promise<Period[]> => {
         try {
@@ -51,6 +59,13 @@ const ActivityReportView = () => {
         setTitle(`Période ${periodNumber}`);
         setPeriodSelected(periodNumber);
     };
+
+    useEffect(() => {
+        setUserId(studentId);
+        setTitle(`Période ${periodId}`);
+        setPeriodSelected(Number(periodId));
+    }, []
+    );
 
     useEffect(() => {
         // setUserId("b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e"); // A MODIF EN ALLANT CHERCHER LE USER

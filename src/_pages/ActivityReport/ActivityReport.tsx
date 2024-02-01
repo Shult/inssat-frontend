@@ -10,11 +10,16 @@ import {
     IPeriod,
     ISectionApi
 } from "../../_components/ActivityReport/Services/activityReportInterfaces";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 const ActivityReport = () => {
-    const [title, setTitle] = useState('Sélectionner une période');
+    const { studentId, periodId } = useParams();
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    console.log(studentId);
+    console.log(periodId);
+    
+    const [title, setTitle] = useState<any>('Sélectionner une période');
     const defaultPeriod: IPeriod = {
         id: 0,
         name: "default",
@@ -23,7 +28,7 @@ const ActivityReport = () => {
         createdAt: new Date(),
         updatedAt: new Date()
     }
-    const [periodSelected, setPeriodSelected] = useState<number>(0);
+    const [periodSelected, setPeriodSelected] = useState<any>(0);
     const isDefaultPeriodSelected = periodSelected === defaultPeriod.id;
 
     // GET
@@ -91,6 +96,10 @@ const ActivityReport = () => {
     };
 
     useEffect(() => {
+        //setUserId(studentId);
+        setTitle(periodId);
+        setPeriodSelected(periodId)
+
         fetchAssessment().then(fetchedAssessments => {
             setAssessments(fetchedAssessments);
         });
@@ -148,6 +157,7 @@ const ActivityReport = () => {
                                                     section={section}
                                                     activities={section.activities}
                                                     periodId={periodSelected}
+                                                    studentId={studentId}
                                                 />
                                             </div>
                                         );
