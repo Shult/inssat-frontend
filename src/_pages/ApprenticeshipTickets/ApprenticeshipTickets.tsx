@@ -12,16 +12,18 @@ import { RoleManager } from "../../_navigation/RoleManager";
 import ButtonsMenu from "../../_components/ApprenticeshipTickets/ButtonsMenu/ButtonsMenu";
 import UserService from "../../services/UserServices";
 import { getDataStudentSuivi, getGradesTickets, getGradesTicketsSorted, getGradesTicketsSorted2, getStudentMaForMa, getStudentMaForTutor } from "../../_components/ApprenticeshipTickets/Services/apprenticeshipTicket.services";
+import { FollowStudent, ListFollowStudent } from "../../_components/ApprenticeshipTickets/Services/apprenticeshipTickets.interface";
+import { User_EntityInterface } from "../../_components/User/User.interface";
 
 const ApprenticeshipTickets = () => {
 
     const roleManager = RoleManager();
 
 
-    const ToggleRecuperationIdToken = false;
-    const ToggleRecuperationListeTickets = false;
-    const ToggleRecuperationFicheSuivi = false;
-    const ToggleRecuperationListStudentFollow = false;
+    const ToggleRecuperationIdToken = true;
+    const ToggleRecuperationListeTickets = true;
+    const ToggleRecuperationFicheSuivi = true;
+    const ToggleRecuperationListStudentFollow = true;
 
 
     const [listTickets, setlistTickets] = useState<any>([]);
@@ -31,57 +33,59 @@ const ApprenticeshipTickets = () => {
 
     const userId = ToggleRecuperationIdToken ? UserService.getTokenParsed() : ("0cabe1b3-e680-4cac-8d19-0fbeab35134e");
     
-    console.log("NOUVIOOOOOOOOOOOOOOOO");
-    console.log(apprenticeshipListeTicketsSortedMock);
-    console.log(Object.keys(apprenticeshipListeTicketsSortedMock).length)
-    
-
-    //console.log("ANCIENNNNNNNNNNNNNNNN");
-    //console.log(apprenticeshipTicketsMock);
 
     useEffect(() => {
         if(roleManager.isApprentice || roleManager.isStudent){
             console.log("je suis apprenti ou etudiant");
-            setStudentDisplay(userId);
+            setStudentDisplay(userId.sub);
             //Gestion de la récupéarion des notes de l'étudiant
-            ToggleRecuperationListeTickets ? getGradesTicketsSorted(userId).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipListeTicketsSortedMock);
-            //Gestion de la fiche de suivi
-            ToggleRecuperationFicheSuivi ? getDataStudentSuivi(userId).then(result => setficheSuivi(result)) : setficheSuivi(apprenticeshipSuiviStudentMock);
-        }
+            }
         else if(roleManager.isApprenticeshipManager){
             console.log("je suis ma");
             //gestion affichage des boutons si plusieurs etudiant
             ToggleRecuperationListStudentFollow ? getStudentMaForMa(userId).then(result => setlistStudentFollow(result)) : setlistStudentFollow(apprenticeshipListStudentFollow);
-            // Ajouter méthode pour séléctionner un étudiant
-            setStudentDisplay(ListStudentFollow[0].student.ID);
-            //Gestion de la récupéarion des notes de l'étudiant
-            ToggleRecuperationListeTickets ? getGradesTicketsSorted(StudentDisplay).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipListeTicketsSortedMock);
-            //Gestion de la fiche de suivi
-            ToggleRecuperationFicheSuivi ? getDataStudentSuivi(StudentDisplay).then(result => setficheSuivi(result)) : setficheSuivi(apprenticeshipSuiviStudentMock);
-
-        }
+            
+            }
         else if(roleManager.isStudentTutor){
             console.log("je suis tutor");
+            //console.log(userId.sub);
             //gestion affichage des boutons si plusieurs etudiant
-            ToggleRecuperationListStudentFollow ? getStudentMaForTutor(userId).then(result => setlistStudentFollow(result)) : setlistStudentFollow(apprenticeshipListStudentFollow);
+            ToggleRecuperationListStudentFollow ? getStudentMaForTutor(userId.sub).then(result => setlistStudentFollow(result)) : setlistStudentFollow(apprenticeshipListStudentFollow);
+            //console.log("Récupération liste student follow");
+            //console.log(ListStudentFollow);
             // Ajouter méthode pour séléctionner un étudiant
-            setStudentDisplay(ListStudentFollow[0].student.ID);
-            //Gestion de la récupéarion des notes de l'étudiant
-            ToggleRecuperationListeTickets ? getGradesTicketsSorted(StudentDisplay).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipListeTicketsSortedMock);
-            //Gestion de la fiche de suivi
-            ToggleRecuperationFicheSuivi ? getDataStudentSuivi(StudentDisplay).then(result => setficheSuivi(result)) : setficheSuivi(apprenticeshipSuiviStudentMock);
-
-        }        
+            //setStudentDisplay(ListStudentFollow[0].student.ID);
+            }        
       }, []);
       
     useEffect(() => {
-        // Mise à jours liste Tickets
-        ToggleRecuperationListeTickets ? getGradesTicketsSorted(StudentDisplay).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipListeTicketsSortedMock);
-        // Mise à jours de la fiche de suivi
+        // Récupération ou Mise à jours de la fiche de suivi
         ToggleRecuperationFicheSuivi ? getDataStudentSuivi(StudentDisplay).then(result => setficheSuivi(result)) : setficheSuivi(apprenticeshipSuiviStudentMock);
+        //console.log("OOOOOOOOOOOOOOOO");
+        //console.log(StudentDisplay)
+        //console.log(ficheSuivi)
 
+
+        // Récupération ou Mise à jours liste Tickets
+        //console.log("KKKKKKKKKKKKKKKK");
+
+        ToggleRecuperationListeTickets ? getGradesTicketsSorted(StudentDisplay).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipListeTicketsSortedMock);
+        
+        
     }, [StudentDisplay]);
 
+    useEffect(() => {
+        console.log("Liste student follow");
+        console.log(ListStudentFollow)
+        console.log("Information liste shhh")
+        console.log(ListStudentFollow[0]?.FIRST_NAME)
+        const firstFollow = Object.values<FollowStudent>(ListStudentFollow)[0];
+
+        const studentId = firstFollow?.student?.ID || "";
+        setStudentDisplay(studentId);
+        //console.log("ID de L'étudiant de liste student follow");
+        //console.log(StudentDisplay)  
+    }, [ListStudentFollow]);
 
     {/*LIEN TEMPORAIRE*/}
     const navigate = useNavigate();
@@ -105,13 +109,12 @@ const ApprenticeshipTickets = () => {
 
             
             <div className="container">
-            {hasRightMenu() && ListStudentFollow && ListStudentFollow.length === 1 ?
+            {hasRightMenu() && ListStudentFollow && Object.keys(ListStudentFollow).length === 1 ?
                 <>
                     <span>Elève suivi : </span>
                     <Button
                     className={"buttonGold txtCenter "}
-                    content={`${ListStudentFollow[0]?.firstname} ${ListStudentFollow[0]?.lastname}`} 
-                    />
+                    content={`${ListStudentFollow[Object.keys(ListStudentFollow)[0]]?.student.FIRST_NAME} ${ListStudentFollow[Object.keys(ListStudentFollow)[0]]?.student.LAST_NAME}`}                    />
                     
                 </> : <></>
             }
@@ -172,9 +175,9 @@ const ApprenticeshipTickets = () => {
                         <BilanAccordion bilans={listTickets} studentId={StudentDisplay}/>
                     }
 
-                    { (roleManager.isApprenticeshipManager || roleManager.isStudentSupervisor || roleManager.isStudentTutor || roleManager.isStudent) ?
+                    { ((roleManager.isApprenticeshipManager || roleManager.isStudentSupervisor || roleManager.isStudentTutor) && (listTickets && Object.keys(listTickets).length < 6)) ?
                      <div className="container center">
-                        <Button className={"buttonWhite txtCenter"} content={"Créer un nouveau tickets"} onclick={() => navigateToActivityReport(StudentDisplay, ((Object.keys(listTickets).length + 1)))}/>
+                        <Button className={"buttonWhite txtCenter"} content={"Créer un nouveau tickets"} onclick={() => navigateToActivityReport(String(StudentDisplay), ((Object.keys(listTickets).length + 1)))}/>
                     </div> : <></>
                     }
                 </Card.Body>

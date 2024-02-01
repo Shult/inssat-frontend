@@ -5,9 +5,10 @@ import { UserInterface } from "../../User/User.interface";
 import Button from "../../Clickable/Button";
 import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { ListFollowStudent } from "../Services/apprenticeshipTickets.interface";
 
 interface ButtonsMenuProps {
-    listStudentSuivi: UserInterface[];
+    listStudentSuivi: ListFollowStudent;
 }
 
 
@@ -23,12 +24,12 @@ const ButtonsMenu: React.FC<ButtonsMenuProps> = ({ listStudentSuivi }) => {
     return (
         <div className="container">
             <Row>
-            {listStudentSuivi.map((student, index) => (
+            {listStudentSuivi && Object.keys(listStudentSuivi).map((key, index) => (
                 <Col>
                     <Button
                     key={index}
                     className={"buttonGold txtCenter "}
-                    content={`${student.firstname} ${student.lastname}`}
+                    content={`${listStudentSuivi[key].student.FIRST_NAME} ${listStudentSuivi[key].student.LAST_NAME}`}
                     onclick={() => navigateToApprenticeshipTickets('/apprenticeshipTickets')}
                     />
                 </Col>
