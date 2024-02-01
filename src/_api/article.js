@@ -18,7 +18,7 @@ const getArticleWithDetails =  (id) => apiBlog.get(`/articles/details/${id}`)
 
 const getFilteredArticles = async (filterOptions) => {
   try {
-    const response = await client.post('/articles/filter', filterOptions);
+    const response = await apiBlog.post('/articles/filter', filterOptions);
 
     return response;
   } catch (error) {
