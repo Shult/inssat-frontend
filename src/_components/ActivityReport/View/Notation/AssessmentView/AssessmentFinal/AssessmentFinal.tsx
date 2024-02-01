@@ -4,20 +4,17 @@ import "./AssessmentFinal.css";
 import { Grade } from "../../../../Services/interfaces";
 
 interface GradesViewProps {
-    grades: Grade[];
+    average: Number;
 }
+export const AssessmentFinal = ({average} : GradesViewProps): JSX.Element => {
+    let entier = "0";
+    let decimal = "0";
 
-export const AssessmentFinal = (gradesView : GradesViewProps): JSX.Element => {
-    var average = 0;
+    if(average !== null){
+        const meanFixed = average.toFixed(1).toString(); // Convert to string to manipulate
+        [entier, decimal] = meanFixed.split('.');
+    }
 
-    gradesView.grades.map((grade, index) => {
-        average += grade.grade
-    })
-    average = average / gradesView.grades.length;
-
-    const meanFixed = average.toFixed(1).toString(); // Convert to string to manipulate
-    const [entier, decimal] = meanFixed.split('.');
-    
     return (
         <Row className={"assessmentFinal"}>
             <h2 className={"heading4"}>Note finale</h2>
