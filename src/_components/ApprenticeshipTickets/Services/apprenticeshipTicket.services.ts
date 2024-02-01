@@ -1,7 +1,7 @@
 import { getAllStudentMaTutors, getStudentsAndMAByTutorId, getStudentsAndTutorByMAId } from "../../../_api/student-ma-tutors"
 import { getGradesByPk, getSuivi } from "../../../_api/user"
 import { AssociationInterface } from "../../User/ApprenticeshipAssociation/Association.interface"
-import { IApprentieceshipTickets, IDataSuivi, IGrade, ListTickets } from "./apprenticeshipTickets.interface"
+import { IApprentieceshipTickets, IDataSuivi, IGrade, ListFollowStudent, ListTickets } from "./apprenticeshipTickets.interface"
 
 
 
@@ -13,10 +13,10 @@ export const getGradesTicketsSorted = async (id: any): Promise<any> => {
     const gradesTicketsResponse = await fetchGradesTickets(id);
   
     // Filtrer les notes avec le title "Notation"
-    const filteredNotes = gradesTicketsResponse.grades.filter((grade: any) => grade.section.title === "Notation");
+    const filteredNotes = gradesTicketsResponse?.grades?.filter((grade: any) => grade.section.title === "Notation");
   
     // Grouper les notes par période
-    const notesByPeriod = filteredNotes.reduce((acc: any, grade: any) => {
+    const notesByPeriod = filteredNotes?.reduce((acc: any, grade: any) => {
       const periodId = grade.period.id;
       if (!acc[periodId]) {
         acc[periodId] = [];
@@ -95,14 +95,14 @@ async function fetchAllStudentMaTutors(): Promise<AssociationInterface> {
 
 export const getStudentMaForTutor = (tutotId: any) => fetchStudentMaForTutor(tutotId)
 
-async function fetchStudentMaForTutor(tutotId: any): Promise<AssociationInterface> {
+async function fetchStudentMaForTutor(tutotId: any): Promise<ListFollowStudent> {
     const allStudentMaTutorsResponse = await getStudentsAndMAByTutorId(tutotId);
     return allStudentMaTutorsResponse.data
 }
 
 export const getStudentMaForMa = (maId: any) => fetchStudentMaForMa(maId)
 
-async function fetchStudentMaForMa(maId: any): Promise<AssociationInterface> {
+async function fetchStudentMaForMa(maId: any): Promise<ListFollowStudent> {
     const allStudentMaTutorsResponse = await getStudentsAndTutorByMAId(maId);
     return allStudentMaTutorsResponse.data
 }

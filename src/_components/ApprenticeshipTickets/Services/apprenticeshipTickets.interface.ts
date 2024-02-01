@@ -141,3 +141,7 @@ export interface FollowStudent{
     student: User_EntityInterface,
     ma: User_EntityInterface
 }
+
+export interface ListFollowStudent{
+    [key: string]: FollowStudent;
+}
