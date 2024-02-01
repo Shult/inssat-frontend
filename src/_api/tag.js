@@ -1,7 +1,7 @@
-import client from './client'
+import { apiBlog } from "./client"
 
-const getTags = () => client.get('/tags')
-const getTagById = (id) => client.get(`/tags/${id}`) 
+const getTags = () => apiBlog.get('/tags')
+const getTagById = (id) => apiBlog.get(`/tags/${id}`) 
 
 export {
     getTags, 

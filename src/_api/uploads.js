@@ -1,11 +1,13 @@
-import {apiBlog} from './client'
+import UserServices from "../services/UserServices";
+import { apiBlog } from "./client";
 
 const getFile = (fileName) =>{
     console.log(fileName)
     return apiBlog.get('/uploads/'+fileName)
 }
+
 const getDefaultFile = async (fileName) =>{
-    const resp =  await apiBlog.get('/uploads/default/'+fileName,{}, {
+    const resp = await apiBlog.get('/uploads/default/'+fileName,{}, {
         responseType: 'blob' ,
       })
     const blobURL = URL.createObjectURL(resp.data);

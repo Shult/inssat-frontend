@@ -1,8 +1,8 @@
-import client from './client'
+import {apiBlog} from './client'
 
 const createComment = async (commentData) => {
     try {
-      const response = await client.post('/comments', commentData);
+      const response = await apiBlog.post('/comments', commentData);
   
       if (response.ok) {
         return response.data;
@@ -21,7 +21,7 @@ const createComment = async (commentData) => {
 
 const deleteComment = async (commentId) => {
     try {
-      const response = await client.delete(`/comments/${commentId}`);
+      const response = await apiBlog.delete(`/comments/${commentId}`);
   
       if (response.ok) {
         return true;

@@ -14,9 +14,11 @@ const getArticlesWithDetails =  () => apiBlog.get('/articles/details')
 const getArticleWithDetails =  (id) => apiBlog.get(`/articles/details/${id}`)
 
 
+
+
 const getFilteredArticles = async (filterOptions) => {
   try {
-    const response = await apiBlog.post('/articles/filter', filterOptions);
+    const response = await client.post('/articles/filter', filterOptions);
 
     return response;
   } catch (error) {
@@ -54,7 +56,7 @@ const deleteArticle = (id) => {
 
   const getCommentsForArticle = async (id) => {
     try {
-      const response = await client.get(`/articles/${id}/comments`);
+      const response = await apiBlog.get(`/articles/${id}/comments`);
   
       if (response.ok) {
         // Extract the comments from the response data
