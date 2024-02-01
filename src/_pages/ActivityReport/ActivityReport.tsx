@@ -4,20 +4,18 @@ import Section from "../../_components/ActivityReport/Skill/Section/Section";
 import {Button, Card, Col, Dropdown, Row } from 'react-bootstrap';
 import "./ActivityReport.css";
 import SectionNotation from "../../_components/ActivityReport/Notation/SectionNotation/SectionNotation";
-import { getSectionsWithActivities, getPeriods, getAssessments } from '../../_api/ActivityReportServices';
+import { getSectionsWithActivities, getPeriods, getAssessments, getGradesAndAssessmentsByPeriod } from '../../_api/ActivityReportServices';
 import {
     IAssessment,
     IPeriod,
     ISectionApi
 } from "../../_components/ActivityReport/Services/activityReportInterfaces";
 import { useNavigate, useParams } from 'react-router-dom';
+import {Grade, Impression, Section as SectionI, UserData } from '../../_components/ActivityReport/Services/interfaces';
 
 
 const ActivityReport = () => {
     const { studentId, periodId } = useParams();
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    console.log(studentId);
-    console.log(periodId);
     
     const [title, setTitle] = useState<any>('Sélectionner une période');
     const defaultPeriod: IPeriod = {
@@ -35,11 +33,28 @@ const ActivityReport = () => {
     const [sections, setSections] = useState<ISectionApi[]>([]);
     const [periods, setPeriods] = useState<IPeriod[]>([]);
     const [assessments, setAssessments] = useState<IAssessment[]>([]);
+
+
+    const [userId, setUserId] = useState<string>();
+    const [existingSection, setExistingSection] = useState<SectionI[]>([]);
+    const [existingData, setExistingData] = useState<UserData>({
+        ID: "",
+        USERNAME: "",
+        FIRST_NAME: "",
+        LAST_NAME: "",
+        EMAIL: "",
+        USER_ATTRIBUTES: [],
+        grades: [],
+        impressions: []
+    });
+
+
     const navigate = useNavigate();
     const navigateToActivityReport = (path : string) => {
         navigate(path);
     };
     const handleSelect = (period : any) => {
+        console.log("Handle Select = " + period)
         setTitle(period);
         setPeriodSelected(period)
     };
@@ -95,8 +110,97 @@ const ActivityReport = () => {
         }
     };
 
+    console.log("UserId = " + userId + "\n" +
+        "Period = " + periodSelected + "\n")
+
+    useEffect(()=> {
+        console.log("Period selected (userEffect) = " + periodSelected)
+        
+        getGradesAndAssessmentsByPeriod(userId, periodSelected)
+            .then(response => {
+                if (response.ok && response.data) {
+                    // console.log("Data getGradesAndAssessmentsByPeriod = " + response.data)
+
+                    let sectionsMap = new Map();
+                    let activitiesMap = new Map();
+                    let impressionsMap = new Map();
+
+
+                    // Traiter les impressions pour extraire les sections
+                    response.data.impressions.forEach((impression : Impression)  => {
+                        sectionsMap.set(impression.activity.section.id, impression.activity.section);
+                    });
+                    // Traiter les grades pour extraire les sections (si applicable)
+                    response.data.grades.forEach((grade : Grade) => {
+                        sectionsMap.set(grade.section.id, grade.section);
+                    });
+
+
+                    // Traiter les impressions pour regrouper les activités par section
+                    response.data.impressions.forEach((impression : Impression) => {
+                        let section = sectionsMap.get(impression.activity.section.id);
+                        if (section) {
+                            if (!activitiesMap.has(section.id)) {
+                                activitiesMap.set(section.id, []);
+                            }
+                            activitiesMap.get(section.id).push(impression.activity);
+                        }
+                    });
+
+
+                    // Convertir les sectionsMap en tableau pour l'état
+                    let sectionsArray: SectionI[] = Array.from(sectionsMap.values()).filter((section : SectionI) => section.title !== "Notation");
+                    sectionsArray.forEach(section => {
+                        if (activitiesMap.has(section.id)) {
+                            section.activities = activitiesMap.get(section.id);
+                        } else {
+                            section.activities = [];
+                        }
+                    });
+
+
+                    // Traiter les impressions pour regrouper par activité
+                    response.data.impressions.forEach((impression: Impression) => {
+                        let activityId = impression.activity_id;
+                        if (!impressionsMap.has(activityId)) {
+                            impressionsMap.set(activityId, []);
+                        }
+                        impressionsMap.get(activityId).push(impression);
+                    });
+                    sectionsArray.forEach(section => {
+                        section.activities.forEach(activity => {
+                            if (impressionsMap.has(activity.id)) {
+                                activity.impressions = impressionsMap.get(activity.id);
+                            } else {
+                                activity.impressions = [];
+                            }
+                        });
+                    });
+
+
+                    sectionsArray.map((section, index) => {
+                        console.log("Section " + index + " : " + section.title)
+                    })
+                    setExistingSection(sectionsArray);
+                    setExistingData(prevData => ({
+                        ...prevData,
+                        impressions: response.data.impressions || prevData.impressions,
+                        grades: response.data.grades.map((grade : Grade) => ({
+                            ...grade,
+                            assessment: grade.assessment
+                        }))
+                    }));
+                } else {
+                    console.error('Erreur lors de la récupération des données');
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors de la connexion à l\'API:', error);
+            });
+    }, [periodSelected]);
+
     useEffect(() => {
-        //setUserId(studentId);
+        setUserId(studentId);
         setTitle(periodId);
         setPeriodSelected(periodId)
 
@@ -110,6 +214,11 @@ const ActivityReport = () => {
             setSections(fetchedSections);
         });
     }, []);
+
+    console.log("Existing data : \n"
+        + "existingData : " + existingData + "\n"
+        + "existingSection : " + existingSection + "\n"
+    )
 
     return(
         <div className="container" id={"activityReport"}>
@@ -158,6 +267,7 @@ const ActivityReport = () => {
                                                     activities={section.activities}
                                                     periodId={periodSelected}
                                                     studentId={studentId}
+                                                    existingData={existingData}
                                                 />
                                             </div>
                                         );

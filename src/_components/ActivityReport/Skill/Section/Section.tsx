@@ -4,15 +4,17 @@ import "../../../ToolBox/styles.css"
 import Impression from "../Impression/Impression"
 import { ISection, IActivity2 } from "../../Services/activityReportInterfaces"
 import "./section.css"
+import { UserData } from '../../Services/interfaces';
 
 interface SectionProps {
     section: ISection;
     activities: IActivity2[];
     periodId: number;
     studentId: string | undefined;
+    existingData: UserData;
 }
 
-function Section({section, activities, periodId, studentId} : SectionProps) {
+function Section({section, activities, periodId, studentId, existingData} : SectionProps) {
     const [title, setTitle] = useState('Évaluer la compétence');
     const handleSelect = (eventKey : any) => {
         setTitle(eventKey);
