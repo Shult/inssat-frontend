@@ -22,7 +22,7 @@ async function fetchAssociations() {
 }
 
 async function fetchAssociationByStudent(){
-    let association : AssociationInterface = { student_id: "", tutor_id: "", ma_id: ""}
+    let association : AssociationInterface = { id: "", student_id: "", tutor_id: "", ma_id: ""}
     const request = await getAssociationByStudentID()
     if (request.ok){
         association = request.data
@@ -43,12 +43,13 @@ const createAssociation = async (info : Array<string>) => {
         const supervisor = info[2]
 
         if (student !== null  && tutor !== null && supervisor !== null) {
-            association.ma_id = student
+            association.student_id = student
             association.tutor_id = tutor
             association.ma_id = supervisor
         }
 
         try {
+            console.log(association)
             const response = await postAssociation(association);
             response.ok ? console.log('Created') : console.error('Failed', response.problem);
         }
@@ -60,22 +61,24 @@ const createAssociation = async (info : Array<string>) => {
 const updateAssociation = async (info : Array<string>) => {
 
     // 3 items required : student, tutor and supervisor IDs
-    if (info.length === 3) {
+    if (info.length === 4) {
 
-        const student = info[0]
-        const tutor = info[1]
-        const supervisor = info[2]
+        const id = info[0]
+        const student = info[1]
+        const tutor = info[2]
+        const supervisor = info[3]
 
         let association: AssociationInterface = { "student_id" : student, "tutor_id" : "", "ma_id" : "" }
 
+
         if (student !== null  && tutor !== null && supervisor !== null) {
-            association.ma_id = student
+            association.student_id = student
             association.tutor_id = tutor
             association.ma_id = supervisor
         }
 
         try {
-            const response = await putAssociation(association);
+            const response = await putAssociation(id, association);
             response.ok ? console.log('Updated') : console.error('Failed', response.problem);
         }
         catch (error) { console.error('Error:', error) }
@@ -84,7 +87,7 @@ const updateAssociation = async (info : Array<string>) => {
 }
 
 
-const removeAssociation = async (id: string) => {
+const removeAssociation = async (id: any) => {
     try {
         const response = await deleteAssociation(id);
         response.ok ? console.log('Deleted') : console.error('Failed', response.problem);

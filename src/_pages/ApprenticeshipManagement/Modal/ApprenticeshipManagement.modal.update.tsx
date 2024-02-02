@@ -8,7 +8,7 @@ import {ModalUpdateAssociationProps} from "../../../_components/User/Apprentices
 import {updateAssociation} from "../../../_components/User/ApprenticeshipAssociation/Association.api";
 import {GROUP_ID_SUPERVISOR, GROUP_ID_TUTOR} from "../../../_helpers/constantes";
 
-const ModalAssociationUpdate: React.FC<ModalUpdateAssociationProps> = ({ onValidate, show, student }) => {
+const ModalAssociationUpdate: React.FC<ModalUpdateAssociationProps> = ({ onValidate, show, idAssociation, student }) => {
     if (!show) return null;
 
     return (
@@ -32,6 +32,7 @@ const ModalAssociationUpdate: React.FC<ModalUpdateAssociationProps> = ({ onValid
                             content={'Valider'}
                             onclick={ () => {
                                 updateAssociation([
+                                    idAssociation,
                                     (document.getElementById('studentKey') as HTMLSelectElement).value,
                                     (document.getElementById('select-tutor') as HTMLSelectElement).value,
                                     (document.getElementById('select-supervisor') as HTMLSelectElement).value

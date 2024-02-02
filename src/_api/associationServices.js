@@ -6,7 +6,7 @@ const getAssociationByStudentID = (id) => apiAcademy.get(`/student-ma-tutors/${i
 const postAssociation = (associationData) => {
     return apiAcademy.post('/student-ma-tutors', associationData, {
         headers: {
-            'Content-Type': 'multipart/form-data', // Ensure correct headers for form data
+            'Content-Type': 'application/json', // Ensure correct headers for form data
         },
     })
 };
@@ -22,7 +22,7 @@ const putAssociation = (id, associationData) => {
 const deleteAssociation = (id) => {
     return apiAcademy.delete(`/student-ma-tutors/${id}`, id, {
         headers: {
-            'Content-Type': 'multipart/form-data', // Ensure correct headers for form data
+            'Content-Type': 'application/json', // Ensure correct headers for form data
         },
     })
 };

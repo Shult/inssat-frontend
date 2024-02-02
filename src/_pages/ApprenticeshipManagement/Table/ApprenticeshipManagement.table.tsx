@@ -13,6 +13,7 @@ import {UserInterface} from "../../../_components/User/User.interface";
 const ApprenticeshipManagementTable = ({ associations, students, tutors, supervisors }: any) => {
     const [showModalUpdate, setShowModalUpdate] = useState(false);
     const [student_id, setStudentUUID] = useState("");
+    const [association_id, setAssociationID] = useState(null);
 
     function solveUserInformation(id: string): UserInterface{
 
@@ -49,6 +50,7 @@ const ApprenticeshipManagementTable = ({ associations, students, tutors, supervi
                 <Modal show={showModalUpdate} onClose={() => setShowModalUpdate(false)}>
                     <ModalAssociationUpdate onValidate={() => setShowModalUpdate(false)}
                                             show={showModalUpdate}
+                                            idAssociation={association_id}
                                             student={solveUserInformation(student_id)}
                     />
                 </Modal>
@@ -76,7 +78,7 @@ const ApprenticeshipManagementTable = ({ associations, students, tutors, supervi
                                     <input
                                         type={'checkbox'}
                                         name={'AssociationCheckbox'}
-                                        value={association.student_id}
+                                        value={association.id}
                                     />
                                 </td>
                                 <td>
@@ -100,6 +102,7 @@ const ApprenticeshipManagementTable = ({ associations, students, tutors, supervi
                                 <td>
                                     <button id="edit-button" onClick={() => {
                                         setShowModalUpdate(!showModalUpdate)
+                                        setAssociationID(association.id)
                                         setStudentUUID(association.student_id)
                                     }}>
                                         <CDBSidebarMenuItem icon={"edit"}/>
@@ -108,7 +111,7 @@ const ApprenticeshipManagementTable = ({ associations, students, tutors, supervi
                                 <td>
                                     <button id="delete-button"  onClick={() => {
                                         window.confirm("Confirmez-vous la suppression de cette association ?") ?
-                                            removeAssociation(association.student_id) : console.log()
+                                            removeAssociation(association.id) : console.log()
                                     }}>
                                         <CDBSidebarMenuItem icon={"trash"}/>
                                     </button>

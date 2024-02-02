@@ -40,6 +40,7 @@ const ApprenticeshipManagement = () => {
 
     }, []);
 
+
     function getAssociationsBySearch(searched: string, associations: AssociationInterface[]){
         if (searched.length < 2){ return associations }
         else {
