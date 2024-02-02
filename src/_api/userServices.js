@@ -3,7 +3,7 @@ import apiClientUser from './clientAcademy'
 
 
 const getUsers = () => apiClientUser.get(`/users/`)
-const getUsersByGroup = (group) => apiClientUser.get(`/groups/${group}/users`)
+const getUsersByGroup = (group) => apiClientUser.get(`/users/${group}`)
 const getUserByUUID = (id) => apiClientUser.get(`/users/${id}`)
 
 const postUser = (userData) => {
