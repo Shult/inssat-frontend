@@ -6,11 +6,10 @@ import {
     deleteAssociation,
 } from "../../../_api/associationServices";
 import {AssociationInterface} from "./Association.interface";
-import {MutableRefObject} from "react";
 
 
 // GETTER
-const getAllAssociations = () => fetchAssociations()
+export const getAllAssociations = () => fetchAssociations()
 const getAssociationByStudent = () => fetchAssociationByStudent()
 
 async function fetchAssociations() {
@@ -23,7 +22,7 @@ async function fetchAssociations() {
 }
 
 async function fetchAssociationByStudent(){
-    let association : AssociationInterface = { studentUUID: "", tutorUUID: "", supervisorUUID: ""}
+    let association : AssociationInterface = { student_id: "", tutor_id: "", ma_id: ""}
     const request = await getAssociationByStudentID()
     if (request.ok){
         association = request.data
@@ -37,16 +36,16 @@ const createAssociation = async (info : Array<string>) => {
     // 3 items required : student, tutor and supervisor IDs
     if (info.length === 3) {
 
-        let association: AssociationInterface = { "studentUUID" : "", "tutorUUID" : "", "supervisorUUID" : "" }
+        let association: AssociationInterface = { "student_id" : "", "tutor_id" : "", "ma_id" : "" }
 
         const student = info[0]
         const tutor = info[1]
         const supervisor = info[2]
 
         if (student !== null  && tutor !== null && supervisor !== null) {
-            association.supervisorUUID = student
-            association.tutorUUID = tutor
-            association.supervisorUUID = supervisor
+            association.ma_id = student
+            association.tutor_id = tutor
+            association.ma_id = supervisor
         }
 
         try {
@@ -57,6 +56,7 @@ const createAssociation = async (info : Array<string>) => {
     }
     else { console.log('Association is invalid') }
 }
+
 const updateAssociation = async (info : Array<string>) => {
 
     // 3 items required : student, tutor and supervisor IDs
@@ -66,50 +66,31 @@ const updateAssociation = async (info : Array<string>) => {
         const tutor = info[1]
         const supervisor = info[2]
 
-        let association: AssociationInterface = { "studentUUID" : student, "tutorUUID" : "", "supervisorUUID" : "" }
+        let association: AssociationInterface = { "student_id" : student, "tutor_id" : "", "ma_id" : "" }
 
-        if (tutor !== null && supervisor !== null) {
-            association.tutorUUID = tutor
-            association.supervisorUUID = supervisor
+        if (student !== null  && tutor !== null && supervisor !== null) {
+            association.ma_id = student
+            association.tutor_id = tutor
+            association.ma_id = supervisor
         }
 
-/*
- * Database functions
- */
-
-const getAssociations = (key?: string, value?: any) => fetchAssociations(key, value)
-
-async function fetchAssociations (key?: string, value?: any): Promise<AssociationInterface[]> {
-    const response = await fetchAssociationsDB(key, value)
-    return response.data as AssociationInterface[]
+        try {
+            const response = await putAssociation(association);
+            response.ok ? console.log('Updated') : console.error('Failed', response.problem);
+        }
+        catch (error) { console.error('Error:', error) }
+    }
+    else { console.log('Association is invalid') }
 }
 
-const fetchAssociationsDB = (key?: string, value?: any) => key? apiBlog.get(`/associations/details/${value}`) : apiBlog.get(`/associations/details`)
 
-const createAssociation = (formData: any) => {
-    return apiBlog.post('/associations', formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        },
-    })
+const removeAssociation = async (id: string) => {
+    try {
+        const response = await deleteAssociation(id);
+        response.ok ? console.log('Deleted') : console.error('Failed', response.problem);
+    }
+    catch (error) { console.error('Error:', error) }
 }
-
-const updateAssociation = (id: string, formData: any) => {
-    return apiBlog.put(`/associations/${id}`, formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        },
-    })
-}
-
-const deleteAssociation = (id: string) => {
-    return apiBlog.delete(`/associations/${id}`, id, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        },
-    })
-}
-
 
 export {
     getAssociations,

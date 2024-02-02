@@ -8,12 +8,11 @@ const URL = config.local.API_URL;
 const apiBlog = create({
     baseURL: `${URL}/api_blog`,
 });
-  
+
 // API pour l' API "api_academy"
 const apiAcademy = create({
-    baseURL: `${URL}/api_academy`,  
+    baseURL: `${URL}/api_academy`,
 });
-
 
 // Add a request interceptor to attach the Bearer token to every request
 apiBlog.addRequestTransform((request) => {
@@ -24,7 +23,7 @@ apiBlog.addRequestTransform((request) => {
         console.log('User is not authenticated');
         return null; // Or handle in some way based on your app's logic
     }
-  
+
     const token = UserService.getToken();
     if (token) {
         request.headers['Authorization'] = `Bearer ${token}`;
@@ -40,12 +39,15 @@ apiAcademy.addRequestTransform((request) => {
         console.log('User is not authenticated');
         return null; // Or handle in some way based on your app's logic
     }
-  
+
     const token = UserService.getToken();
-    if (token) { 
+    if (token) {
         request.headers['Authorization'] = `Bearer ${token}`;
     }
 });
- 
 
-export { apiBlog, apiAcademy };
+
+export {
+    apiBlog,
+    apiAcademy,
+};

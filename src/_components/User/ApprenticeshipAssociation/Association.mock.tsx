@@ -1,5 +1,4 @@
 import {AssociationInterface} from "./Association.interface";
-import client from "../../../_api/client";
 import {associationMock} from "../User.mock";
 
 /*

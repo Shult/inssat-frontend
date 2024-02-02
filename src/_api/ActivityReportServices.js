@@ -1,54 +1,54 @@
-import apiClientAcademy from './clientAcademy';
+import {apiAcademy} from './client';
 
 const getSections = () => {
-    return apiClientAcademy.get('/sections');
+    return apiAcademy.get('/sections');
 };
 
 const getSectionsWithActivities = () => {
-    return apiClientAcademy.get('/activities/groupedBySection');
+    return apiAcademy.get('/activities/groupedBySection');
 };
 
 const getSectionsWithActivitiesAndImpressionsByPeriodAndUserId = (periodId, userId) => {
-    return apiClientAcademy.get(`/activities/sectionsAndImpressions?periodId=${periodId}&userId=${userId}`);
+    return apiAcademy.get(`/activities/sectionsAndImpressions?periodId=${periodId}&userId=${userId}`);
 };
 
 const getPeriods = () => {
-    return apiClientAcademy.get('/periods');
+    return apiAcademy.get('/periods');
 };
 
 const getImpressions = () => {
-    return apiClientAcademy.get('/impressions');
+    return apiAcademy.get('/impressions');
 };
 
 const postImpression = (formData) => {
     // console.log("postImpression");
-    return apiClientAcademy.post('/impressions/', formData);
+    return apiAcademy.post('/impressions/', formData);
 };
 
 const updateImpression = (impressionId, impressionData) => {
     // console.log("putImpression");
-    return apiClientAcademy.put(`/impressions/${impressionId}`, impressionData);
+    return apiAcademy.put(`/impressions/${impressionId}`, impressionData);
 };
 
 const getGrades = () => {
-    return apiClientAcademy.get('/grades');
+    return apiAcademy.get('/grades');
 };
 
 const postGrade = (formData) => {
-    return apiClientAcademy.post('/grades/', formData);
+    return apiAcademy.post('/grades/', formData);
 };
 
 const updateGrade = (impressionId, impressionData) => {
     console.log("putImpression");
-    return apiClientAcademy.put(`/grades/${impressionId}`, impressionData);
+    return apiAcademy.put(`/grades/${impressionId}`, impressionData);
 };
 
 const getLevels = () => {
-    return apiClientAcademy.get('/levels');
+    return apiAcademy.get('/levels');
 };
 
 const getAssessments = () => {
-    return apiClientAcademy.get('/assessments');
+    return apiAcademy.get('/assessments');
 };
 
 export {

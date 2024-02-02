@@ -90,14 +90,14 @@ const ActivityReportView = () => {
         });
 
         getSectionsWithActivitiesAndImpressionsByPeriodAndUserId(periodSelected, userId)
-            .then(response => {
+            .then((response: any) => {
                 if (response.ok && response.data) {
                     setData({ sections: response.data });
                 } else {
                     console.error('Erreur lors de la récupération des données');
                 }
             })
-            .catch(error => {
+            .catch((error: any) => {
                 console.error('Erreur lors de la connexion à l\'API:', error);
             });
 

@@ -14,19 +14,29 @@ const ApprenticeshipManagementTable = ({ associations, students, tutors, supervi
     const [showModalUpdate, setShowModalUpdate] = useState(false);
     const [student_id, setStudentUUID] = useState("");
 
-    function solveUserThroughID(id: string){
-        let user: UserInterface = {
-            uuid: "",
-            firstname: "",
-            lastname: "",
-            email: "",
-            group: "",
-            status: "idle"
+    function solveUserInformation(id: string): UserInterface{
+
+        let user: UserInterface = {email: "", firstname: "", group: "", lastname: "", status: "idle", uuid: ""}
+
+        for (let i = 0; i < students.length; i++) {
+            if (students[i].uuid === id){
+                user = students[i]
+            }
         }
 
-        for (let i = 0; i < students; i++) {
-            if (students[i].uuid.matches(id)){
-                user = students[i]
+        if (user.uuid === ""){
+            for (let i = 0; i < tutors.length; i++) {
+                if (tutors[i].uuid === id){
+                    user = tutors[i]
+                }
+            }
+        }
+
+        if (user.uuid === ""){
+            for (let i = 0; i < supervisors.length; i++) {
+                if (supervisors[i].uuid === id){
+                    user = supervisors[i]
+                }
             }
         }
         return user
@@ -39,7 +49,7 @@ const ApprenticeshipManagementTable = ({ associations, students, tutors, supervi
                 <Modal show={showModalUpdate} onClose={() => setShowModalUpdate(false)}>
                     <ModalAssociationUpdate onValidate={() => setShowModalUpdate(false)}
                                             show={showModalUpdate}
-                                            student={solveUserThroughID(student_id)}
+                                            student={solveUserInformation(student_id)}
                     />
                 </Modal>
 
@@ -60,10 +70,7 @@ const ApprenticeshipManagementTable = ({ associations, students, tutors, supervi
                     </thead>
                     <tbody>
                     { associations.map(
-                        (association: AssociationInterface,
-                         student: UserInterface,
-                         tutor: UserInterface,
-                         supervisor: UserInterface) =>
+                        (association: AssociationInterface) =>
                             <tr>
                                 <td className={"txtCenter"}>
                                     <input
@@ -74,20 +81,20 @@ const ApprenticeshipManagementTable = ({ associations, students, tutors, supervi
                                 </td>
                                 <td>
                                     <div className={"line w100"}>
-                                        <p>{ student.firstname }</p>
-                                        <p>{ student.lastname.toUpperCase() }</p>
+                                        <p>{ solveUserInformation(association.student_id).firstname }</p>
+                                        <p>{ solveUserInformation( association.student_id).lastname.toUpperCase() }</p>
                                     </div>
                                 </td>
                                 <td>
                                     <div className={"line w100"}>
-                                        <p>{ tutor.firstname }</p>
-                                        <p>{ tutor.lastname.toUpperCase() }</p>
+                                        <p>{ solveUserInformation(association.tutor_id).firstname }</p>
+                                        <p>{ solveUserInformation( association.tutor_id).lastname.toUpperCase() }</p>
                                     </div>
                                 </td>
                                 <td>
                                     <div className={"line w100"}>
-                                        <p>{ supervisor.firstname }</p>
-                                        <p>{ supervisor.lastname.toUpperCase() }</p>
+                                        <p>{ solveUserInformation(association.ma_id).firstname }</p>
+                                        <p>{ solveUserInformation(association.ma_id).lastname.toUpperCase() }</p>
                                     </div>
                                 </td>
                                 <td>

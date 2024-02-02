@@ -1,13 +1,13 @@
-import apiClientUser from './clientAcademy'
+import {apiAcademy} from './client'
 
 
 
-const getUsers = () => apiClientUser.get(`/users/`)
-const getUsersByGroup = (group) => apiClientUser.get(`/users/${group}`)
-const getUserByUUID = (id) => apiClientUser.get(`/users/${id}`)
+const getUsers = () => apiAcademy.get(`/users/`)
+const getUsersByGroup = (group) => apiAcademy.get(`/groups/${group}/users`)
+const getUserByUUID = (id) => apiAcademy.get(`/users/${id}`)
 
 const postUser = (userData) => {
-    return apiClientUser.post('/users', userData, {
+    return apiAcademy.post('/users', userData, {
         headers: {
             'Content-Type': 'multipart/form-data', // Ensure correct headers for form data
         },
@@ -15,7 +15,7 @@ const postUser = (userData) => {
 };
 
 const putUser = (id, userData) => {
-    return apiClientUser.put(`/users/${id}`, userData, {
+    return apiAcademy.put(`/users/${id}`, userData, {
         headers: {
             'Content-Type': 'application/json', // Ensure correct headers for form data
         },
@@ -23,7 +23,7 @@ const putUser = (id, userData) => {
 };
 
 const deleteUser = (id) => {
-    return apiClientUser.delete(`/users/${id}`, id, {
+    return apiAcademy.delete(`/users/${id}`, id, {
         headers: {
             'Content-Type': 'multipart/form-data', // Ensure correct headers for form data
         },

@@ -13,6 +13,7 @@ import {getUserByID} from "../../_components/User/User.api";
 import {UserInterface} from "../../_components/User/User.interface";
 import {getAllAssociations} from "../../_components/User/ApprenticeshipAssociation/Association.api";
 import {getUsersByGroup} from "../../_api/userServices";
+import {GROUP_ID_STUDENT, GROUP_ID_SUPERVISOR, GROUP_ID_TUTOR} from "../../_helpers/constantes";
 
 const ApprenticeshipManagement = () => {
 
@@ -33,9 +34,9 @@ const ApprenticeshipManagement = () => {
     useEffect(() => {
         getAllAssociations().then((result: any) => setAssociation(result))
 
-        getUsersByGroup("student").then( (result: any) => setStudentList(result))
-        getUsersByGroup("tutor").then( (result: any) => setTutorList(result))
-        getUsersByGroup("supervisor").then( (result: any) => setSupervisorList(result))
+        getUsersByGroup(GROUP_ID_STUDENT).then( (result: any) => setStudentList(result.data))
+        getUsersByGroup(GROUP_ID_TUTOR).then( (result: any) => setTutorList(result.data))
+        getUsersByGroup(GROUP_ID_SUPERVISOR).then( (result: any) => setSupervisorList(result.data))
 
     }, []);
 

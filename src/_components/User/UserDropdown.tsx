@@ -3,15 +3,16 @@ import {getAllUsersByGroup} from "./User.api";
 import React, {useEffect, useState} from "react";
 
 import "./UserDropdown.css"
+import {GROUP_ID_STUDENT, GROUP_ID_SUPERVISOR, GROUP_ID_TUTOR} from "../../_helpers/constantes";
 
-const UserDropdown = ({className = "w33", id = "select-user", usertype = "user"}) => {
+const UserDropdown = ({className = "w33", id = "select-user", usertype = ""}) => {
 
     useEffect(() => {
         getAllUsersByGroup(usertype).then(fetchedUsers => setUsers(fetchedUsers))
 
-        if (usertype === "student"){ setLabel("Etudiant")}
-        if (usertype === "tutor" || usertype === "teacher"){ setLabel("Tuteur")}
-        if (usertype === "supervisor"){ setLabel("Maître d'apprentissage")}
+        if (usertype === GROUP_ID_STUDENT){ setLabel("Etudiant")}
+        if (usertype === GROUP_ID_TUTOR){ setLabel("Tuteur")}
+        if (usertype === GROUP_ID_SUPERVISOR){ setLabel("Maître d'apprentissage")}
     }, [usertype]);
 
     const [label, setLabel] = useState("")
