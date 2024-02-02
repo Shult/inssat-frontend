@@ -43,9 +43,7 @@ const Router = () => {
             <Route path="/activityReportView/" Component={ActivityReportView} />*/}
 
             <Route path="/activityReport/:studentId/:periodId" element={<ActivityReport/>}/>
-
             <Route path="/activityReportView/:studentId/:periodId" element={<ActivityReportView />} />
-
 
             <Route path="/newPostEditor" Component={ArticleCreation}/>
             <Route path="/category/:name/:id" Component={Article.ByCategory}/>
@@ -53,7 +51,9 @@ const Router = () => {
             <Route path="/article/:id/edit" Component={Article.Edit}/>
             <Route path="/article/new" Component={Article.New}/>
 
-            <Route path="/apprenticeshipTickets" Component={ApprenticeshipTickets}/>
+            { (roleManager.isTeacher) ?
+                <Route path="/apprenticeshipTickets" Component={ApprenticeshipTickets}/> : <></>
+            }
 
             {/* <Route path="/category/:name" Component={Category.Details} /> */}
             <Route path="/article" Component={Article.AllWithFilter}/>

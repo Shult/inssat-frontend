@@ -38,12 +38,16 @@ const Sidebar = () => {
     localSidebarItems.push({ path: '/courses', label: 'Cours', icon: 'book' })
   }
 
+  if (roleManager.isTeacher){
+    localSidebarItems.push({ path: '/apprenticeshipTickets', label: 'Tickets', icon: 'clipboard' })
+  }
+
   if (roleManager.isNewsManager){
     localSidebarItems.push( { path: '/blogEditor', label: 'Edition des actualités', icon: 'edit' })
   }
+
   localSidebarItems.push({ path: '/contact', label: 'Contact', icon: 'address-book' })
   localSidebarItems.push({ path: '/news', label: 'Actualités', icon: 'newspaper' })
-  localSidebarItems.push({ path: '/apprenticeshipTickets', label: 'Tickets', icon: 'clipboard' })
 
 
 

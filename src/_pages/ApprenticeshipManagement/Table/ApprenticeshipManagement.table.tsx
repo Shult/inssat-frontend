@@ -48,10 +48,14 @@ const ApprenticeshipManagementTable = ({ associations, students, tutors, supervi
             <article className={"line w100 space-around"} id={"ApprenticeshipManagementTable"}>
 
                 <Modal show={showModalUpdate} onClose={() => setShowModalUpdate(false)}>
-                    <ModalAssociationUpdate onValidate={() => setShowModalUpdate(false)}
-                                            show={showModalUpdate}
-                                            idAssociation={association_id}
-                                            student={solveUserInformation(student_id)}
+                    <ModalAssociationUpdate
+                        onValidate={() => {
+                            setShowModalUpdate(false)
+                            window.location.reload()
+                        }}
+                        show={showModalUpdate}
+                        idAssociation={association_id}
+                        student={solveUserInformation(student_id)}
                     />
                 </Modal>
 
@@ -110,8 +114,11 @@ const ApprenticeshipManagementTable = ({ associations, students, tutors, supervi
                                 </td>
                                 <td>
                                     <button id="delete-button"  onClick={() => {
-                                        window.confirm("Confirmez-vous la suppression de cette association ?") ?
-                                            removeAssociation(association.id) : console.log()
+                                        if (window.confirm("Confirmez-vous la suppression de cette association ?"))
+                                        {
+                                            removeAssociation(association.id)
+                                            window.location.reload()
+                                        }
                                     }}>
                                         <CDBSidebarMenuItem icon={"trash"}/>
                                     </button>
@@ -130,6 +137,7 @@ const ApprenticeshipManagementTable = ({ associations, students, tutors, supervi
                             if( window.confirm("Confirmez-vous la suppression de ces associations ?") ) {
                                 deleteAssociationSelected()
                             }
+                            window.location.reload()
                         }}
                 />
             </div>

@@ -37,7 +37,6 @@ const ApprenticeshipManagement = () => {
         getUsersByGroup(GROUP_ID_STUDENT).then( (result: any) => setStudentList(result.data))
         getUsersByGroup(GROUP_ID_TUTOR).then( (result: any) => setTutorList(result.data))
         getUsersByGroup(GROUP_ID_SUPERVISOR).then( (result: any) => setSupervisorList(result.data))
-
     }, []);
 
 
@@ -91,8 +90,14 @@ const ApprenticeshipManagement = () => {
             </section>
 
             <Modal show={showModalCreation} onClose={() => setShowModalCreation(false)}>
-                <ModalAssociationCreation onValidate={() => setShowModalCreation(false)}
-                                          show={showModalCreation}
+                <ModalAssociationCreation
+                    show={showModalCreation}
+                    onValidate={() => {
+                        setShowModalCreation(false)
+                        window.location.reload()
+                    }}
+
+
                 />
             </Modal>
 
