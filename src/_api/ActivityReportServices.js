@@ -51,10 +51,6 @@ const getAssessments = () => {
     return apiClientAcademy.get('/assessments');
 };
 
-const getGradesAndAssessmentsByPeriod = (userId, periodId) => {
-    return apiClientAcademy.get(`/users/${userId}/grades/${periodId}`);
-};
-
 export {
     getSectionsWithActivitiesAndImpressionsByPeriodAndUserId,
     getSections,
@@ -72,8 +68,6 @@ export {
     postGrade,
     updateGrade,
 
-    getLevels,
-
-    getGradesAndAssessmentsByPeriod
+    getLevels
     // Exportez les autres fonctions ici
 };

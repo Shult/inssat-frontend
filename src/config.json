@@ -6,7 +6,7 @@
         "API_URL": "https://api.dapi-services.fr"
     },
     "test": {
-        "API_URL": "https://api.dapi-services.fr"
+        "API_URL": "http://localhost:5001"
     },
     "local": {
         "API_URL": "http://localhost:5000"

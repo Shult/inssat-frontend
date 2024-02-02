@@ -26,4 +26,3 @@ apiClientAcademy.addRequestTransform((request) => {
 
 
 export default apiClientAcademy;
-    

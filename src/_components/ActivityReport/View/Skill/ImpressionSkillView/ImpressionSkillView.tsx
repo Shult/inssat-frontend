@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
-import { Row, Col, Button} from 'react-bootstrap';
+import { Row, Col, Button, Form } from 'react-bootstrap';
+import CustomButton from "../../../../ToolBox/Forms/ActionButton"
 import "./ImpressionSkillView.css"
-import { Activity } from '../../../Services/interfaces';
+import { IActivity, IActivityApi, IImpression } from '../../../Services/activityReportInterfaces';
+import activityReportData from "../../../Services/tmpData"
 
-interface ActivitySkillViewProps {
-    activity: Activity;
+interface IImpressionProps {
+    activity: IActivity;
+    impression: IImpression;
 }
-function ImpressionSkillView(activityView : ActivitySkillViewProps) {
+interface ActivitySkillViewProps {
+    activity: IActivityApi; // Cette interface doit correspondre à la structure de vos données section.
+}
+function ImpressionSkillView({activity} : ActivitySkillViewProps) {
     const [buttonText, setButtonText] = useState('Non évalué');
 
     const getButtonColor = (text : any) => {
@@ -30,16 +36,16 @@ function ImpressionSkillView(activityView : ActivitySkillViewProps) {
         }
     };
 
-    if(activityView.activity.impressions[0].level.id != 7){
+    if(activity.impressions[0].level.name != "free_impression"){
         return(
             <Row>
                 <Col xs={12} md={12} lg={9} xl={9}>
-                    <p>{activityView.activity.name}</p>
+                    <p>{activity.name}</p>
                 </Col>
                 <Col xs={12} md={12} lg={3} xl={3}>
                     <>
-                        <Button variant="primary" disabled id={'appreciation'} style={{ borderColor: getButtonColor(activityView.activity.impressions[0].level.name), color: getButtonColor(activityView.activity.impressions[0].level.name) }}>
-                            {activityView.activity.impressions[0].level.name}
+                        <Button variant="primary" disabled id={'appreciation'} style={{ borderColor: getButtonColor(activity.impressions[0].level.name), color: getButtonColor(activity.impressions[0].level.name) }}>
+                            {activity.impressions[0].level.name}
                         </Button>{' '}
                     </>
                 </Col>
@@ -50,10 +56,11 @@ function ImpressionSkillView(activityView : ActivitySkillViewProps) {
         return(
             <Row>
                 <Col xs={12} md={12} lg={4} xl={4}>
-                    <p>{activityView.activity.name}</p>
+                    {/*<Activity activity={ activity.name }></Activity>*/}
+                    <p>{activity.name}</p>
                 </Col>
                 <Col xs={12} md={12} lg={8} xl={8}>
-                    <p>{activityView.activity.impressions[0].content}</p>
+                    <p>{activity.impressions[0].content}</p>
                 </Col>
                 <hr className="separator" id={'separator'}/>
             </Row>

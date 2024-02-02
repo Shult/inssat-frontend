@@ -43,7 +43,6 @@ function App() {
 
           apiBlog.addRequestTransform(request => {
             setLoading(true);
-
           });
 
           apiBlog.addResponseTransform(response => {

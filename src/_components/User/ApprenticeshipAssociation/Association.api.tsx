@@ -1,23 +1,26 @@
+import {
+    getAssociations,
+    getAssociationByStudentID,
+    postAssociation,
+    putAssociation,
+    deleteAssociation,
+} from "../../../_api/associationServices";
 import {AssociationInterface} from "./Association.interface";
 import {MutableRefObject} from "react";
 
-/*
- * Mock functions
- */
 
-function getAssociationsMock(student?: string, tutor?: string, supervisor?: string){
-    let associations: AssociationInterface[] = associationMock
-    let newList: AssociationInterface[] = []
+// GETTER
+const getAllAssociations = () => fetchAssociations()
+const getAssociationByStudent = () => fetchAssociationByStudent()
 
-    let i = 0;
-    if (student){
-        while ( i < associations.length && associations[i].studentUUID !== student) {
-            if (associations[i].studentUUID === student) {
-                newList.push(associations[i])
-            }
-        }
-        i++
+async function fetchAssociations() {
+    let associations : AssociationInterface[] = []
+    const request = await getAssociations()
+    if (request.ok){
+        associations = request.data
     }
+    return associations
+}
 
 async function fetchAssociationByStudent(){
     let association : AssociationInterface = { studentUUID: "", tutorUUID: "", supervisorUUID: ""}
@@ -28,24 +31,17 @@ async function fetchAssociationByStudent(){
     return association
 }
 
-    i = 0;
-    if (supervisor){
-        while ( i < associations.length && associations[i].supervisorUUID !== supervisor) {
-            if (associations[i].supervisorUUID === supervisor) {
-                newList.push(associations[i])
-            }
-        }
-        i++
-    }
+// CRUD
+const createAssociation = async (info : Array<string>) => {
 
-    return newList.length > 0 ? newList : associations
-}
-// function createAssociationMock(student: UserInterface, tutor: UserInterface, supervisor: UserInterface){
-function createAssociationMock(student: string, tutor: string, supervisor: string){
+    // 3 items required : student, tutor and supervisor IDs
+    if (info.length === 3) {
 
         let association: AssociationInterface = { "studentUUID" : "", "tutorUUID" : "", "supervisorUUID" : "" }
 
-    // console.log(student, tutor, supervisor)
+        const student = info[0]
+        const tutor = info[1]
+        const supervisor = info[2]
 
         if (student !== null  && tutor !== null && supervisor !== null) {
             association.supervisorUUID = student
@@ -53,44 +49,22 @@ function createAssociationMock(student: string, tutor: string, supervisor: strin
             association.supervisorUUID = supervisor
         }
 
-    if (!found){
-        console.log("creating new association...")
-        associationMock.push({studentUUID: student, tutorUUID: tutor, supervisorUUID: supervisor})
-    }
-}
-
-
-function updateAssociationMock(student: string, tutor: string, supervisor: string){
-    let associations: AssociationInterface[] = associationMock
-    let i = 0
-    let found = false
-
-    // console.log(student, tutor, supervisor)
-
-    while ( i < associations.length && !found) {
-        console.log("looking for association...")
-        associations[i].studentUUID === student ? found = true :  i++
-    }
-
-    if (found){
-        console.log("updating association...")
-
-        if (associations[i].tutorUUID !== tutor) {
-            associations[i].tutorUUID = tutor
+        try {
+            const response = await postAssociation(association);
+            response.ok ? console.log('Created') : console.error('Failed', response.problem);
         }
-        if (associations[i].supervisorUUID !== supervisor) {
-            associations[i].supervisorUUID = supervisor
-        }
+        catch (error) { console.error('Error:', error) }
     }
+    else { console.log('Association is invalid') }
 }
+const updateAssociation = async (info : Array<string>) => {
 
+    // 3 items required : student, tutor and supervisor IDs
+    if (info.length === 3) {
 
-function deleteAssociationMock(student: string){
-    let associations: AssociationInterface[] = associationMock
-    let i = 0
-    let found = false
-
-    // console.log(student, tutor, supervisor)
+        const student = info[0]
+        const tutor = info[1]
+        const supervisor = info[2]
 
         let association: AssociationInterface = { "studentUUID" : student, "tutorUUID" : "", "supervisorUUID" : "" }
 
@@ -142,5 +116,5 @@ export {
     getAssociationByStudent,
     createAssociation,
     updateAssociation,
-    deleteAssociation
+    removeAssociation
 }

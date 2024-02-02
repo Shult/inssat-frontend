@@ -1,13 +1,15 @@
-import { Row } from 'react-bootstrap';
+import React, { useState, useContext } from 'react';
+import { Row, Col } from 'react-bootstrap';
 import "../../../ToolBox/styles.css"
 import "./SectionNotation.css"
 import Assessment from "../Assessment/Assessment"
-import {IAssessment} from "../../Services/activityReportInterfaces"
+import {IAssessment, IPeriod} from "../../Services/activityReportInterfaces"
 
 interface SectionProps {
     assessments: IAssessment[];
     periodId: number;
 }
+// assessments : IAssessment[]
 function SectionNotation({assessments, periodId} : SectionProps) {
 
     return(
@@ -18,7 +20,7 @@ function SectionNotation({assessments, periodId} : SectionProps) {
                         assessment={assessment}
                         key={index}
                         periodId={periodId}
-                        studentId={"0cabe1b3-e680-4cac-8d19-0fbeab35134e"}
+                        studentId={"b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e"}
                     />
                 )
             }

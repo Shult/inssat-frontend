@@ -1,48 +1,69 @@
 import React, {useEffect, useState } from 'react';
+// import Button from "../../../_components/Clickable/Button";
 
 import {Button, Card, Col, Dropdown, Row } from 'react-bootstrap';
 import SectionSkillView from "../../../_components/ActivityReport/View/Skill/SectionSkillView/SectionSkillView"
 import SectionNotationView from "../../../_components/ActivityReport/View/Notation/SectionNotationView/SectionNotationView"
 import {
+    IAssessment,
+    ISection,
+    IGrade,
+    IImpression,
+    IActivity,
+    IDataApi,
+    ISectionApi2,
     IPeriod
 } from "../../../_components/ActivityReport/Services/activityReportInterfaces"
 
-import {getAssessments,
-    getGradesAndAssessmentsByPeriod, getPeriods } from '../../../_api/ActivityReportServices';
-import { useNavigate, useParams } from 'react-router-dom';
-import {Grade, Impression, Period, Section, UserData} from '../../../_components/ActivityReport/Services/interfaces';
+import {getAssessments, getPeriods, getSectionsWithActivitiesAndImpressionsByPeriodAndUserId } from '../../../_api/ActivityReportServices';
+import { useNavigate } from 'react-router-dom';
 
 const ActivityReportView = () => {
-    const { studentId, periodId } = useParams();
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    console.log(studentId);
-    console.log(periodId);
+    const [data, setData] = useState<IDataApi>({ sections: [] });
 
-    const [userId, setUserId] = useState<any>();
-    const [data, setData] = useState<UserData>({
-        ID: "",
-        USERNAME: "",
-        FIRST_NAME: "",
-        LAST_NAME: "",
-        EMAIL: "",
-        USER_ATTRIBUTES: [],
-        grades: [],
-        impressions: []
-    });
-    const [sections, setSections] = useState<Section[]>();
-    const [title, setTitle] = useState<any>('Sélectionner une période');
-    const [periods, setPeriods] = useState<Period[]>([]);
+    const [title, setTitle] = useState('Sélectionner une période');
+
+    const [periodId, setPeriodId] = useState(1);
+    const [userId, setUserId] = useState("b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e");
+    const [periods, setPeriods] = useState<IPeriod[]>([]);
+    const [assessments, setAssessments] = useState<IAssessment[]>([]);
+
+    const defaultPeriod: IPeriod = {
+        id: 0,
+        name: "default",
+        description: "default",
+        number: 0,
+        createdAt: new Date(),
+        updatedAt: new Date()
+    }
+
     const [periodSelected, setPeriodSelected] = useState<number>(0);
-    const isDefaultPeriodSelected = periodSelected === 0;
+    const isDefaultPeriodSelected = periodSelected === defaultPeriod.id;
 
+    const fetchAssessment = async () : Promise<IAssessment[]> => {
+        try {
+            const response = await getAssessments();
+            if (response.ok && response.data) {
+                const dataApi : IAssessment[] = response.data;
+                // console.log("dataApi Period : " + dataApi);
+                // Traitez et affichez les données ici
+                return dataApi
+            } else {
+                // Gérez les erreurs ici (par exemple, réponse non ok)
+                console.error('Erreur lors de la récupération des sections 2');
+                return [];
+            }
+        } catch (error) {
+            console.error('Erreur lors de la récupération des sections 1 :', error);
+            return [];
+        }
+    };
 
-
-
-    const fetchPeriods = async () : Promise<Period[]> => {
+    const fetchPeriods = async () : Promise<IPeriod[]> => {
         try {
             const response = await getPeriods();
             if (response.ok && response.data) {
-                const dataApi : Period[] = response.data;
+                const dataApi : IPeriod[] = response.data;
                 return dataApi
             } else {
                 console.error('Erreur lors de la récupération des sections 2');
@@ -55,99 +76,23 @@ const ActivityReportView = () => {
     };
 
     const handleSelect = (period : any) => {
-        const periodNumber = Number(period); // Convertit en nombre si nécessaire
-        setTitle(`Période ${periodNumber}`);
-        setPeriodSelected(periodNumber);
+        setTitle(period);
+        setPeriodSelected(period)
     };
 
     useEffect(() => {
-        setUserId(studentId);
-        setTitle(`Période ${periodId}`);
-        setPeriodSelected(Number(periodId));
-    }, []
-    );
-
-    useEffect(() => {
-        // setUserId("b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e"); // A MODIF EN ALLANT CHERCHER LE USER
-
+        setUserId("b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e");
+        fetchAssessment().then(fetchedAssessments => {
+            setAssessments(fetchedAssessments);
+        });
         fetchPeriods().then(fetchedPeriods => {
             setPeriods(fetchedPeriods);
         });
 
-        getGradesAndAssessmentsByPeriod(userId, periodSelected)
+        getSectionsWithActivitiesAndImpressionsByPeriodAndUserId(periodSelected, userId)
             .then(response => {
                 if (response.ok && response.data) {
-                    // console.log("Data getGradesAndAssessmentsByPeriod = " + response.data)
-
-                    let sectionsMap = new Map();
-                    let activitiesMap = new Map();
-                    let impressionsMap = new Map();
-
-
-                    // Traiter les impressions pour extraire les sections
-                    response.data.impressions.forEach((impression : Impression)  => {
-                        sectionsMap.set(impression.activity.section.id, impression.activity.section);
-                    });
-                    // Traiter les grades pour extraire les sections (si applicable)
-                    response.data.grades.forEach((grade : Grade) => {
-                        sectionsMap.set(grade.section.id, grade.section);
-                    });
-
-
-                    // Traiter les impressions pour regrouper les activités par section
-                    response.data.impressions.forEach((impression : Impression) => {
-                        let section = sectionsMap.get(impression.activity.section.id);
-                        if (section) {
-                            if (!activitiesMap.has(section.id)) {
-                                activitiesMap.set(section.id, []);
-                            }
-                            activitiesMap.get(section.id).push(impression.activity);
-                        }
-                    });
-
-
-                    // Convertir les sectionsMap en tableau pour l'état
-                    let sectionsArray: Section[] = Array.from(sectionsMap.values()).filter((section : Section) => section.title !== "Notation");
-                    sectionsArray.forEach(section => {
-                        if (activitiesMap.has(section.id)) {
-                            section.activities = activitiesMap.get(section.id);
-                        } else {
-                            section.activities = [];
-                        }
-                    });
-
-
-                    // Traiter les impressions pour regrouper par activité
-                    response.data.impressions.forEach((impression: Impression) => {
-                        let activityId = impression.activity_id;
-                        if (!impressionsMap.has(activityId)) {
-                            impressionsMap.set(activityId, []);
-                        }
-                        impressionsMap.get(activityId).push(impression);
-                    });
-                    sectionsArray.forEach(section => {
-                        section.activities.forEach(activity => {
-                            if (impressionsMap.has(activity.id)) {
-                                activity.impressions = impressionsMap.get(activity.id);
-                            } else {
-                                activity.impressions = [];
-                            }
-                        });
-                    });
-
-
-                    sectionsArray.map((section, index) => {
-                        console.log("Section " + index + " : " + section.title)
-                    })
-                    setSections(sectionsArray);
-                    setData(prevData => ({
-                        ...prevData,
-                        impressions: response.data.impressions || prevData.impressions,
-                        grades: response.data.grades.map((grade : Grade) => ({
-                            ...grade,
-                            assessment: grade.assessment
-                        }))
-                    }));
+                    setData({ sections: response.data });
                 } else {
                     console.error('Erreur lors de la récupération des données');
                 }
@@ -159,16 +104,54 @@ const ActivityReportView = () => {
         }, [periodSelected, userId]
     );
 
+
+    const dataGradeTmp1 : IGrade = {
+        id: 1,
+        grade: 20,
+        student_id: "b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e",
+        assessment_id: 1,
+        period_id: 1,
+        comment: "string",
+        // created_at: Date,
+        // updated_at: Date
+    }
+    const dataGradeTmp2 : IGrade = {
+        id: 1,
+        grade: 19,
+        student_id: "b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e",
+        assessment_id: 2,
+        period_id: 1,
+        comment: "string",
+        // created_at: Date,
+        // updated_at: Date
+    }
+    const dataGradeTmp3 : IGrade = {
+        id: 1,
+        grade: 18,
+        student_id: "b307a9d1-21ec-4ad8-a53e-f72f14f5fb6e",
+        assessment_id: 3,
+        period_id: 1,
+        comment: "string",
+        // created_at: Date,
+        // updated_at: Date
+    }
+    const dataGradeTmpList : IGrade[] = [
+        dataGradeTmp1,
+        dataGradeTmp2,
+        dataGradeTmp3
+    ]
+
     const navigate = useNavigate();
     const navigateToActivityReport = (path : string) => {
         navigate(path);
     };
 
+    // console.log("Period Selected = "+ periodSelected);
     return(
         <div className="container" id={"activityReport"}>
             <Row>
                 <Col xs={12} md={12} lg={4} xl={4}>
-                    <h2 className="heading2">Bilan d'activités : </h2>
+                    <h2 className="heading2">Bilan d'activités - Période : </h2>
                 </Col>
                 <Col xs={12} md={12} lg={7} xl={7}>
                     <Dropdown onSelect={handleSelect}>
@@ -203,8 +186,8 @@ const ActivityReportView = () => {
                         <Card.Body id={"skill-container"}>
                             <div>
                                 {
-                                    sections && sections.length > 0
-                                    ? sections.map((section : Section, index : number) =>
+                                    data.sections && data.sections.length > 0
+                                    ? data.sections.map((section : ISectionApi2, index : number) =>
                                         <SectionSkillView
                                             key = {index}
                                             section = {section}
@@ -220,7 +203,8 @@ const ActivityReportView = () => {
                     <Card className="horizontal-card mb-3" style={{ borderRadius: '8px', boxShadow: 'var(--box-shadow)' }}>
                         <Card.Body id={"skill-container"}>
                             <SectionNotationView
-                                grades = {data.grades}
+                                assessments = {assessments.slice(0,3)}
+                                grades = {dataGradeTmpList}
                             ></SectionNotationView>
                         </Card.Body>
                     </Card>
