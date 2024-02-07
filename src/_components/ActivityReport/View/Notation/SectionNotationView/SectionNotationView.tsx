@@ -12,13 +12,13 @@ function SectionNotationView(sectionNotationView : SectionProps) {
     var average = 0.0;
     var nbCoeff = 0.0
     sectionNotationView.grades.map((grade, index) => {
-            console.log("sectionNotationView : \n"
-                + "Grade " + sectionNotationView.grades[index].grade
-                + "Coeff " + sectionNotationView.grades[index].assessment.coefficient);
+            // console.log("sectionNotationView : \n"
+            //     + "Grade " + sectionNotationView.grades[index].grade
+            //     + "Coeff " + sectionNotationView.grades[index].assessment.coefficient);
             average += sectionNotationView.grades[index].grade * sectionNotationView.grades[index].assessment.coefficient;
-            console.log("Calcul ("+average+") =  Grade ("+sectionNotationView.grades[index].grade+") * Coeff ("+sectionNotationView.grades[index].assessment.coefficient+")")
+            // console.log("Calcul ("+average+") =  Grade ("+sectionNotationView.grades[index].grade+") * Coeff ("+sectionNotationView.grades[index].assessment.coefficient+")")
             nbCoeff +=  sectionNotationView.grades[index].assessment.coefficient
-            console.log("Average = " + average / nbCoeff)
+            // console.log("Average = " + average / nbCoeff)
         }
     )
 

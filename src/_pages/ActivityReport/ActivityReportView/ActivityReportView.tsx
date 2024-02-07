@@ -77,7 +77,8 @@ const ActivityReportView = () => {
         getGradesAndAssessmentsByPeriod(userId, periodSelected)
             .then(response => {
                 if (response.ok && response.data) {
-                    // console.log("Data getGradesAndAssessmentsByPeriod = " + response.data)
+                    console.log("Data getGradesAndAssessmentsByPeriod = " + response.data)
+                    console.log(response.data)
 
                     let sectionsMap = new Map();
                     let activitiesMap = new Map();

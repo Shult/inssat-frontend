@@ -14,6 +14,8 @@ function Assessment({ assessment, periodId, studentId } : any) {
     const [saveStatus, setSaveStatus] = useState('');
     const [allGrades, setAllGrades] = useState<IGrade[]>([]);
 
+    const [isLoading, setIsLoading] = useState(true);
+
     // Fonction pour sauvegarder l'impression
     const saveAssessment = async () => {
         if(grade == null || comment == ''){
@@ -32,13 +34,24 @@ function Assessment({ assessment, periodId, studentId } : any) {
     };
 
     const handleSave = async (gradeData: FormGrades) => {
-        loadData();
+        if (isLoading) {
+            console.log("Les données ne sont pas encore chargées.");
+            return;
+        }
 
-        const existingImpression = allGrades.find(imp =>
-            imp.student_id === gradeData.student_id &&
-            imp.assessment_id === gradeData.assessment_id &&
-            imp.period_id == gradeData.period_id
-        );
+        console.log("Student Assessment : " + gradeData.student_id)
+        const existingImpression = allGrades.find(imp => {
+                console.log("Vérification de l'impression :",
+                    imp.assessment_id + " = " + gradeData.assessment_id + " ? \n" +
+                    imp.student_id + " = " + gradeData.student_id + " ? \n" +
+                    imp.period_id + " = " + gradeData.period_id + " ? \n"
+                );
+
+                return imp.student_id == gradeData.student_id &&
+                    imp.assessment_id == gradeData.assessment_id &&
+                    imp.period_id == gradeData.period_id;
+        });
+
 
         if (existingImpression) {
             try {
@@ -74,8 +87,11 @@ function Assessment({ assessment, periodId, studentId } : any) {
             console.error('Erreur lors de la récupération des impressions:', error);
         }
     };
+
     const loadData = async () => {
+        setIsLoading(true);
         await fetchAllGrades();
+        setIsLoading(false);
     };
 
     // Fonction pour choisir l'icône en fonction de l'état de sauvegarde
@@ -110,6 +126,10 @@ function Assessment({ assessment, periodId, studentId } : any) {
     };
 
     useEffect(() => {
+        loadData();
+    }, []);
+    
+    useEffect(() => {
         const handle = setTimeout(() => {
             // Si aucune touche n'a été pressée pendant 1 seconde, sauvegardez
             if (Date.now() - lastTyped >= 3000 && isReadyToSave) {
@@ -143,10 +163,13 @@ function Assessment({ assessment, periodId, studentId } : any) {
             <Row>
                 <Col xs={9}>
                     <Form.Control
-                        type="text"
+                        type="number"
                         placeholder="Note"
                         value={grade}
                         onChange={handleGradeChange}
+                        min="0"
+                        max="20"
+                        step="0.01" // Permet l'entrée de nombres à virgule flottante
                     />
                 </Col>
                 <Col xs={3}>

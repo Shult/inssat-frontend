@@ -7,8 +7,9 @@ import {IAssessment} from "../../Services/activityReportInterfaces"
 interface SectionProps {
     assessments: IAssessment[];
     periodId: number;
+    studentId: string | undefined;
 }
-function SectionNotation({assessments, periodId} : SectionProps) {
+function SectionNotation({assessments, periodId, studentId} : SectionProps) {
 
     return(
         <Row>
@@ -18,7 +19,7 @@ function SectionNotation({assessments, periodId} : SectionProps) {
                         assessment={assessment}
                         key={index}
                         periodId={periodId}
-                        studentId={"0cabe1b3-e680-4cac-8d19-0fbeab35134e"}
+                        studentId={studentId}
                     />
                 )
             }

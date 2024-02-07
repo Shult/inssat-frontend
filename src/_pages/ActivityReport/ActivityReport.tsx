@@ -173,6 +173,7 @@ const ActivityReport = () => {
                             <SectionNotation
                                 assessments={assessments.slice(0,3)}
                                 periodId={periodSelected}
+                                studentId={studentId}
                             />
                         </Card.Body>
                     </Card>
