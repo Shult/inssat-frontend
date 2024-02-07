@@ -38,7 +38,7 @@ const Sidebar = () => {
     localSidebarItems.push({ path: '/courses', label: 'Cours', icon: 'book' })
   }
 
-  if (roleManager.isTeacher){
+  if (roleManager.isStudentSupervisor || roleManager.isStudentTutor || roleManager.isApprentice || roleManager.isStudent){
     localSidebarItems.push({ path: '/apprenticeshipTickets', label: 'Tickets', icon: 'clipboard' })
   }
 
