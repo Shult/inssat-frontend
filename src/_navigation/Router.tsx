@@ -26,6 +26,8 @@ const Router = () => {
                 <>
                     <Route path="/" Component={Home}/>
                     <Route path="/schedule" Component={Schedule}/>
+                    <Route path="/courses" Component={Home}/>
+
                 </> : <></>
             }
             { (roleManager.isExternal) ?
