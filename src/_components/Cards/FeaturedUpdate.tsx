@@ -78,7 +78,7 @@ const FeaturedUpdate = ({ article }:any) => {
                                     fontWeight: '300'
                                 }}
                             >
-                                Latest Update
+                                Dernières publications
                             </Heading2>
                         </Row>
                         <Row className="mb-3 align-items-center">

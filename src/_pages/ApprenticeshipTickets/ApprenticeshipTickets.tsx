@@ -154,7 +154,7 @@ const ApprenticeshipTickets = () => {
                             <BilanAccordion bilans={listTickets} studentId={StudentDisplay}/>
                         }
 
-                        { ((roleManager.isApprenticeshipManager || roleManager.isStudentSupervisor || roleManager.isStudentTutor) && (listTickets && Object.keys(listTickets).length < 6)) ?
+                        { ((roleManager.isApprenticeshipManager || roleManager.isStudentSupervisor || roleManager.isStudentTutor) && (listTickets && Object.keys(listTickets).length < 7)) ?
                             <div className="container center">
                                 <Button className={"buttonWhite txtCenter"} content={"Créer un nouveau tickets"} onclick={() => navigateToActivityReport(String(StudentDisplay), ((Object.keys(listTickets).length + 1)))}/>
                             </div> : <></>

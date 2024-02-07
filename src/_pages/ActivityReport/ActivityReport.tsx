@@ -15,9 +15,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 const ActivityReport = () => {
     const { studentId, periodId } = useParams();
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    console.log(studentId);
-    console.log(periodId);
+    // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    // console.log(studentId);
+    // console.log(periodId);
     
     const [title, setTitle] = useState<any>('Sélectionner une période');
     const defaultPeriod: IPeriod = {
