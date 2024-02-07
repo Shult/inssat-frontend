@@ -74,23 +74,15 @@ function Impression({ activity, studentId, periodId } : any) {
 
     const [saveStatus, setSaveStatus] = useState(''); // Pour stocker le statut de sauvegarde
 
-
-
+    
     const handleSave = async (impressionData: FormImpressions) => {
-        // await loadData()
+        // console.log('handleSave')
+        await loadData()
         if (isLoading) {
-            // console.log("Les données ne sont pas encore chargées.");
+            console.log("Les données ne sont pas encore chargées.");
             return;
         }
 
-        // console.log("allImpressions : "+allImpressions)
-        // console.log(allImpressions)
-        // Vérifiez si une impression existe déjà
-        // const existingImpression = allImpressions.find(imp =>
-        //     imp.activity_id === impressionData.activity_id &&
-        //     imp.student_id === impressionData.student_id &&
-        //     imp.period_id === impressionData.period_id
-        // );
         const existingImpression = allImpressions.find(imp => {
             // Ajout d'un log pour imprimer les détails de l'impression actuelle
             // console.log("Vérification de l'impression :",
@@ -201,6 +193,7 @@ function Impression({ activity, studentId, periodId } : any) {
 
     // Fonction pour sauvegarder l'impression
     const saveImpression = async () => {
+        console.log("saveImpression")
         const impressionData: FormImpressions = {
             content: comment,
             level_id: level,
@@ -346,7 +339,7 @@ function Impression({ activity, studentId, periodId } : any) {
         // setTitle(`Période ${periodId}`);
         setPeriodSelected(Number(periodId));
         loadData();
-    }, []);
+    }, [periodSelected, periodId]);
 
 
     useEffect(() => {

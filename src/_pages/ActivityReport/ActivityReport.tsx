@@ -40,8 +40,12 @@ const ActivityReport = () => {
         navigate(path);
     };
     const handleSelect = (period : any) => {
+        // console.log("HANDLESELECT")
         setTitle(period);
         setPeriodSelected(period)
+
+        const url = `/activityReport/${studentId}/${period}`;
+        navigate(url);
     };
 
     const fetchAssessment = async () : Promise<IAssessment[]> => {
@@ -96,20 +100,27 @@ const ActivityReport = () => {
     };
 
     useEffect(() => {
-        //setUserId(studentId);
-        setTitle(periodId);
-        setPeriodSelected(periodId)
+        setTitle(periodId); // Cela configure le titre basé sur la période actuelle dans l'URL
+        setPeriodSelected(periodId); // Cela définit la période sélectionnée pour être utilisée dans les appels API
 
-        fetchAssessment().then(fetchedAssessments => {
-            setAssessments(fetchedAssessments);
-        });
-        fetchPeriods().then(fetchedPeriods => {
-            setPeriods(fetchedPeriods);
-        });
-        fetchAndDisplaySections().then(fetchedSections => {
-            setSections(fetchedSections);
-        });
-    }, []);
+        // Fonctions pour charger les données
+        const fetchData = async () => {
+            try {
+                const fetchedAssessments = await fetchAssessment();
+                setAssessments(fetchedAssessments);
+
+                const fetchedPeriods = await fetchPeriods();
+                setPeriods(fetchedPeriods);
+
+                const fetchedSections = await fetchAndDisplaySections();
+                setSections(fetchedSections);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des données: ', error);
+            }
+        };
+
+        fetchData();
+    }, [periodId]);
 
     return(
         <div className="container" id={"activityReport"}>

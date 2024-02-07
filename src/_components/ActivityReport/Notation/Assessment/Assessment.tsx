@@ -141,10 +141,6 @@ function Assessment({ assessment, periodId, studentId } : any) {
 
 
     useEffect(() => {
-        loadData();
-    }, []);
-
-    useEffect(() => {
         if (allGrades.length > 0) {
             const existingGrade = allGrades.find(grade =>
                 grade.assessment_id == assessment.id &&
