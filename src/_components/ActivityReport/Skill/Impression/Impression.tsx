@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState } from 'react';
 import { Row, Col, Dropdown, Form, Spinner } from 'react-bootstrap';
-import {getImpressions, getLevels, postImpression, updateImpression } from '../../../../_api/ActivityReportServices';
+import {getImpressions, getLevels, postImpression, updateImpression, updateImpressionOnlyLevel } from '../../../../_api/ActivityReportServices';
 import "../../../ToolBox/styles.css"
 import {FormImpressions, IImpression, ILevel} from '../../Services/activityReportInterfaces';
 import Activity from "../Activity/Activity"
@@ -20,6 +20,12 @@ function Impression({ activity, studentId, periodId } : any) {
     const [allImpressions, setAllImpressions] = useState<IImpression[]>([]);
     const [lastTyped, setLastTyped] = useState(Date.now());
     const [isReadyToSave, setIsReadyToSave] = useState(false);
+
+
+    const [isLoading, setIsLoading] = useState(true);
+
+
+
 
     const fetchLevels = async () : Promise<ILevel[]> => {
         try {
@@ -44,6 +50,8 @@ function Impression({ activity, studentId, periodId } : any) {
             const response = await getImpressions();
             if (response.ok && response.data) {
                 setAllImpressions(response.data);
+                console.log("response.data")
+                console.log(response.data)
             } else {
                 console.error('Erreur lors de la récupération des impressions');
             }
@@ -54,19 +62,46 @@ function Impression({ activity, studentId, periodId } : any) {
 
     const [saveStatus, setSaveStatus] = useState(''); // Pour stocker le statut de sauvegarde
 
+
+
     const handleSave = async (impressionData: FormImpressions) => {
-        loadData();
+        // await loadData()
+        if (isLoading) {
+            console.log("Les données ne sont pas encore chargées.");
+            return;
+        }
 
+        console.log("allImpressions : "+allImpressions)
+        console.log(allImpressions)
         // Vérifiez si une impression existe déjà
-        const existingImpression = allImpressions.find(imp =>
-            imp.activity_id === impressionData.activity_id &&
-            // imp.student_id === impressionData.student_id &&
-            imp.period_id === impressionData.period_id
-        );
+        // const existingImpression = allImpressions.find(imp =>
+        //     imp.activity_id === impressionData.activity_id &&
+        //     imp.student_id === impressionData.student_id &&
+        //     imp.period_id === impressionData.period_id
+        // );
+        const existingImpression = allImpressions.find(imp => {
+            // Ajout d'un log pour imprimer les détails de l'impression actuelle
+            console.log("Vérification de l'impression :",
+                imp.activity_id + " = " + impressionData.activity_id + " ? \n" +
+                imp.student_id + " = " + impressionData.student_id + " ? \n" +
+                imp.period_id + " = " + impressionData.period_id + " ? \n"
+            );
 
+            return imp.activity_id == impressionData.activity_id &&
+                imp.student_id == impressionData.student_id &&
+                imp.period_id == impressionData.period_id;
+        });
+        console.log(
+            impressionData.activity_id + ", \n" +
+            impressionData.student_id + ", \n" +
+            impressionData.period_id + ", \n"
+        )
+        console.log("existingImpression")
+        console.log(existingImpression)
         if (existingImpression) {
-            // console.log("PUT");
+            console.log("PUT");
             try {
+                // await updateImpressionOnlyLevel(existingImpression.id, impressionData.level_id);
                 await updateImpression(existingImpression.id, impressionData);
                 setSaveStatus('success');
                 loadData();
@@ -74,7 +109,7 @@ function Impression({ activity, studentId, periodId } : any) {
                 setSaveStatus('error');
             }
         } else {
-            // console.log("POST");
+            console.log("POST");
             try {
                 await postImpression(impressionData);
                 setSaveStatus('success');
@@ -84,8 +119,13 @@ function Impression({ activity, studentId, periodId } : any) {
             }
         }
     };
+    // const loadData = async () => {
+    //     await fetchAllImpressions();
+    // };
     const loadData = async () => {
+        setIsLoading(true);
         await fetchAllImpressions();
+        setIsLoading(false);
     };
 
     // Gère le changement dans le commentaire
@@ -104,7 +144,7 @@ function Impression({ activity, studentId, periodId } : any) {
         if (selectedLevelId) {
             setTitle(levelName);
 
-            setComment("selectedItem/"+levelName);
+            setComment(" ");
             setLevel(selectedLevelId);
             setIsReadyToSave(true);
             setLastTyped(Date.now());
@@ -177,6 +217,10 @@ function Impression({ activity, studentId, periodId } : any) {
                 return null;
         }
     };
+    useEffect(() => {
+        loadData();
+    }, []);
+
 
     useEffect(() => {
         fetchLevels().then(fetchedLevels => {

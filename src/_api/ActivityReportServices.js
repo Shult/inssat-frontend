@@ -30,6 +30,11 @@ const updateImpression = (impressionId, impressionData) => {
     return apiClientAcademy.put(`/impressions/${impressionId}`, impressionData);
 };
 
+const updateImpressionOnlyLevel = (impressionId, impressionData) => {
+    // console.log("putImpression");
+    return apiClientAcademy.put(`/impressions/${impressionId}`, impressionData);
+};
+
 const getGrades = () => {
     return apiClientAcademy.get('/grades');
 };
@@ -65,6 +70,7 @@ export {
     getImpressions,
     postImpression,
     updateImpression,
+    updateImpressionOnlyLevel,
 
     getAssessments,
 
