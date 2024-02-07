@@ -651,15 +651,15 @@
       "clientId": "intra-front",
       "name": "",
       "description": "",
-      "rootUrl": "https://api.dapi-services.fr",
-      "adminUrl": "https://api.dapi-services.fr",
-      "baseUrl": "https://api.dapi-services.fr",
+      "rootUrl": "http://localhost:8080",
+      "adminUrl": "http://localhost:8080",
+      "baseUrl": "http://localhost:8080",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "https://api.dapi-services.fr/*"
+        "http://localhost:8080/*"
       ],
       "webOrigins": [
         "+"
@@ -676,7 +676,7 @@
       "protocol": "openid-connect",
       "attributes": {
         "oidc.ciba.grant.enabled": "false",
-        "post.logout.redirect.uris": "https://api.dapi-services.fr/*",
+        "post.logout.redirect.uris": "http://localhost:8080/*",
         "oauth2.device.authorization.grant.enabled": "false",
         "backchannel.logout.session.required": "true",
         "backchannel.logout.revoke.offline.tokens": "false"

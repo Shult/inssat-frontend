@@ -4,6 +4,9 @@ import { createArticle } from '../Services/articleActions';
 import {Article} from "../Services/interfacesArticles";
 import articlesData from '../../../_data/articles.json';
 import "./ArticleCreation.css"
+import config from '../../../config.json';
+const URL = config.local.API_URL;
+
 
 interface ArticleCreationProps {
     onContentChange?: () => void; // Le '?' signifie que cette prop est optionnelle
@@ -49,7 +52,7 @@ const ArticleCreation: React.FC<ArticleCreationProps> = () => {
         );
 
         // Serveur Express temporaire
-        fetch('https://api.dapi-services.fr/create-article', {
+        fetch(`${URL}/create-article`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

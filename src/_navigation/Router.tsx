@@ -51,7 +51,7 @@ const Router = () => {
             <Route path="/article/:id/edit" Component={Article.Edit}/>
             <Route path="/article/new" Component={Article.New}/>
 
-            { (roleManager.isTeacher) ?
+            { (roleManager.isStudent || roleManager.isApprenticeshipManager || roleManager.isStudentSupervisor || roleManager.isApprentice) ?
                 <Route path="/apprenticeshipTickets" Component={ApprenticeshipTickets}/> : <></>
             }
 

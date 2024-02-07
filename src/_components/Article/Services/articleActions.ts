@@ -14,12 +14,14 @@ import {
     UpdateArticleAction,
     DeleteArticleAction
 } from './interfacesArticles';
+import config from '../../../config.json';
+const URL = config.local.API_URL;
 
 // API TEMPORAIRE
 export const getArticles = () : any => {
     return (dispatch: any) => {
         dispatch({ type: FETCH_ARTICLES_REQUEST });
-        axios.get('https://api.dapi-services.fr/articles')
+        axios.get(`${URL}/articles`)
             .then(response => {
                 dispatch({
                     type: FETCH_ARTICLES_SUCCESS,
@@ -38,7 +40,7 @@ export const getArticles = () : any => {
 export const getArticlesREALAPI = () : any => {
     return (dispatch: any) => {
         dispatch({ type: FETCH_ARTICLES_REQUEST });
-        axios.get('https://api.dapi-services.fr/api_blog/articles/details')
+        axios.get(`${URL}/api_blog/articles/details`)
             .then(response => {
                 dispatch({
                     type: FETCH_ARTICLES_SUCCESS,

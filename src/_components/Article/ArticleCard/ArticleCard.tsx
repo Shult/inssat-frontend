@@ -50,7 +50,7 @@ function ArticleCard(props : any) {
         return (
             <article className={"line space-between items-center"} id="styleArticle">
                 <div className={"w33 self-stretch"}>
-                    <img src={"https://api.dapi-services.fr/api_blog/uploads/"+article.thumbnail} alt={article.title} className={"styleImgSide"}/>
+                    <img src={"http://localhost:5000/api_blog/uploads/"+article.thumbnail} alt={article.title} className={"styleImgSide"}/>
                 </div>
 
                 <div className={"line w66"} id="styleDivContent">
