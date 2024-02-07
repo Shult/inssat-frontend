@@ -39,15 +39,17 @@ const ApprenticeshipTickets = () => {
             console.log("je suis ma");
             // Gestion affichage des boutons si plusieurs etudiants
             getStudentMaForMa(userId.sub).then(result => setlistStudentFollow(result));
+            setShouldUpdateStudentDisplay(true);
         } else if (roleManager.isStudentTutor) {
             console.log("je suis tutor");
             // Gestion affichage des boutons si plusieurs etudiants
             getStudentMaForTutor(userId.sub).then(result => setlistStudentFollow(result));
+            setShouldUpdateStudentDisplay(true);
         }
     }, []);
 
     useEffect(() => {
-        if (shouldUpdateStudentDisplay) {
+        if (shouldUpdateStudentDisplay && ListStudentFollow && Object.keys(ListStudentFollow).length > 0) {
             const firstFollow = Object.values<FollowStudent>(ListStudentFollow)[0];
             const studentId = firstFollow?.student?.ID || "";
             setStudentDisplay(studentId);
@@ -57,8 +59,6 @@ const ApprenticeshipTickets = () => {
 
     useEffect(() => {
         // Récupération ou Mise à jours de la fiche de suivi
-        console.log('StudentDisplay');
-        console.log(StudentDisplay);
 
         getDataStudentSuivi(StudentDisplay).then(result => setficheSuivi(result));
 
