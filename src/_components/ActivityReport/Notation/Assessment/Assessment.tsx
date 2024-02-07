@@ -8,7 +8,7 @@ import {FormGrades, IGrade} from '../../Services/activityReportInterfaces';
 
 function Assessment({ assessment, periodId, studentId } : any) {
     const [comment, setComment] = useState('');
-    const [grade, setGrade] = useState<number>();
+    const [grade, setGrade] = useState<number>(0); // initialiser avec zéro si c'est acceptable pour votre logique d'application
     const [isReadyToSave, setIsReadyToSave] = useState(false);
     const [lastTyped, setLastTyped] = useState(Date.now());
     const [saveStatus, setSaveStatus] = useState('');

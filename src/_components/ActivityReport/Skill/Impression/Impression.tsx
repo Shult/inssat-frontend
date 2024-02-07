@@ -135,9 +135,11 @@ function Impression({ activity, studentId, periodId } : any) {
     //     await fetchAllImpressions();
     // };
     const loadData = async () => {
-        setIsLoading(true);
-        await fetchAllImpressions();
-        setIsLoading(false);
+        if (userId && periodId) { // Assurez-vous que userId et periodId ne sont pas undefined
+            setIsLoading(true);
+            await fetchAllImpressions();
+            setIsLoading(false);
+        }
     };
 
     // Gère le changement dans le commentaire
@@ -248,89 +250,93 @@ function Impression({ activity, studentId, periodId } : any) {
             // fetchPeriods().then(fetchedPeriods => {
             //     setPeriods(fetchedPeriods);
             // });
+            if(userId==undefined && periodSelected == 0){
+                // console.log("UNDEFINED")
+            }else {
+                getGradesAndAssessmentsByPeriod(userId, periodSelected)
+                    .then(response => {
+                        if (response.ok && response.data) {
+                            // console.log("Data getGradesAndAssessmentsByPeriod = " + response.data)
+                            // console.log(response.data)
 
-            getGradesAndAssessmentsByPeriod(userId, periodSelected)
-                .then(response => {
-                    if (response.ok && response.data) {
-                        // console.log("Data getGradesAndAssessmentsByPeriod = " + response.data)
-                        // console.log(response.data)
-
-                        let sectionsMap = new Map();
-                        let activitiesMap = new Map();
-                        let impressionsMap = new Map();
-
-
-                        // Traiter les impressions pour extraire les sections
-                        response.data.impressions.forEach((impression : ImpressionInterface)  => {
-                            sectionsMap.set(impression.activity.section.id, impression.activity.section);
-                        });
-                        // Traiter les grades pour extraire les sections (si applicable)
-                        response.data.grades.forEach((grade : Grade) => {
-                            sectionsMap.set(grade.section.id, grade.section);
-                        });
+                            let sectionsMap = new Map();
+                            let activitiesMap = new Map();
+                            let impressionsMap = new Map();
 
 
-                        // Traiter les impressions pour regrouper les activités par section
-                        response.data.impressions.forEach((impression : ImpressionInterface) => {
-                            let section = sectionsMap.get(impression.activity.section.id);
-                            if (section) {
-                                if (!activitiesMap.has(section.id)) {
-                                    activitiesMap.set(section.id, []);
-                                }
-                                activitiesMap.get(section.id).push(impression.activity);
-                            }
-                        });
+                            // Traiter les impressions pour extraire les sections
+                            response.data.impressions.forEach((impression : ImpressionInterface)  => {
+                                sectionsMap.set(impression.activity.section.id, impression.activity.section);
+                            });
+                            // Traiter les grades pour extraire les sections (si applicable)
+                            response.data.grades.forEach((grade : Grade) => {
+                                sectionsMap.set(grade.section.id, grade.section);
+                            });
 
 
-                        // Convertir les sectionsMap en tableau pour l'état
-                        let sectionsArray: Section[] = Array.from(sectionsMap.values()).filter((section : Section) => section.title !== "Notation");
-                        sectionsArray.forEach(section => {
-                            if (activitiesMap.has(section.id)) {
-                                section.activities = activitiesMap.get(section.id);
-                            } else {
-                                section.activities = [];
-                            }
-                        });
-
-
-                        // Traiter les impressions pour regrouper par activité
-                        response.data.impressions.forEach((impression: ImpressionInterface) => {
-                            let activityId = impression.activity_id;
-                            if (!impressionsMap.has(activityId)) {
-                                impressionsMap.set(activityId, []);
-                            }
-                            impressionsMap.get(activityId).push(impression);
-                        });
-                        sectionsArray.forEach(section => {
-                            section.activities.forEach(activity => {
-                                if (impressionsMap.has(activity.id)) {
-                                    activity.impressions = impressionsMap.get(activity.id);
-                                } else {
-                                    activity.impressions = [];
+                            // Traiter les impressions pour regrouper les activités par section
+                            response.data.impressions.forEach((impression : ImpressionInterface) => {
+                                let section = sectionsMap.get(impression.activity.section.id);
+                                if (section) {
+                                    if (!activitiesMap.has(section.id)) {
+                                        activitiesMap.set(section.id, []);
+                                    }
+                                    activitiesMap.get(section.id).push(impression.activity);
                                 }
                             });
-                        });
 
 
-                        sectionsArray.map((section, index) => {
-                            // console.log("Section " + index + " : " + section.title)
-                        })
-                        setSections(sectionsArray);
-                        setData(prevData => ({
-                            ...prevData,
-                            impressions: response.data.impressions || prevData.impressions,
-                            grades: response.data.grades.map((grade : Grade) => ({
-                                ...grade,
-                                assessment: grade.assessment
-                            }))
-                        }));
-                    } else {
-                        console.error('Erreur lors de la récupération des données');
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur lors de la connexion à l\'API:', error);
-                });
+                            // Convertir les sectionsMap en tableau pour l'état
+                            let sectionsArray: Section[] = Array.from(sectionsMap.values()).filter((section : Section) => section.title !== "Notation");
+                            sectionsArray.forEach(section => {
+                                if (activitiesMap.has(section.id)) {
+                                    section.activities = activitiesMap.get(section.id);
+                                } else {
+                                    section.activities = [];
+                                }
+                            });
+
+
+                            // Traiter les impressions pour regrouper par activité
+                            response.data.impressions.forEach((impression: ImpressionInterface) => {
+                                let activityId = impression.activity_id;
+                                if (!impressionsMap.has(activityId)) {
+                                    impressionsMap.set(activityId, []);
+                                }
+                                impressionsMap.get(activityId).push(impression);
+                            });
+                            sectionsArray.forEach(section => {
+                                section.activities.forEach(activity => {
+                                    if (impressionsMap.has(activity.id)) {
+                                        activity.impressions = impressionsMap.get(activity.id);
+                                    } else {
+                                        activity.impressions = [];
+                                    }
+                                });
+                            });
+
+
+                            sectionsArray.map((section, index) => {
+                                // console.log("Section " + index + " : " + section.title)
+                            })
+                            setSections(sectionsArray);
+                            setData(prevData => ({
+                                ...prevData,
+                                impressions: response.data.impressions || prevData.impressions,
+                                grades: response.data.grades.map((grade : Grade) => ({
+                                    ...grade,
+                                    assessment: grade.assessment
+                                }))
+                            }));
+                        } else {
+                            // console.error('Erreur lors de la récupération des données');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur lors de la connexion à l\'API:', error);
+                    });
+            }
+
 
         }, [periodSelected, userId]
     );
