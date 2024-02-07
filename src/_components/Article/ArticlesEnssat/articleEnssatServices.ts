@@ -1,10 +1,12 @@
 import { xml2json } from 'xml-js';
 import {CategoryType, Article} from "./articleEnssatInterfaces";
+import config from '../../../config.json';
+const URL = config.development.API_URL;
 
 export const fetchRSSFeed = async () => {
 
     // Avoid CORS policy
-    const url = "https://api.dapi-services.fr/blogs_enssat";
+    const url = `${URL}/blogs_enssat`;
 
     // Classical RSS Flux
     // const url = "http://api.dapi-services.fr/blogs_enssat";
