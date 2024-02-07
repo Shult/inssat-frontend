@@ -35,21 +35,21 @@ function Assessment({ assessment, periodId, studentId } : any) {
 
     const handleSave = async (gradeData: FormGrades) => {
         if (isLoading) {
-            console.log("Les données ne sont pas encore chargées.");
+            // console.log("Les données ne sont pas encore chargées.");
             return;
         }
 
-        console.log("Student Assessment : " + gradeData.student_id)
+        // console.log("Student Assessment : " + gradeData.student_id)
         const existingImpression = allGrades.find(imp => {
-                console.log("Vérification de l'impression :",
-                    imp.assessment_id + " = " + gradeData.assessment_id + " ? \n" +
-                    imp.student_id + " = " + gradeData.student_id + " ? \n" +
-                    imp.period_id + " = " + gradeData.period_id + " ? \n"
-                );
+            // console.log("Vérification de l'impression :",
+            //     imp.assessment_id + " = " + gradeData.assessment_id + " ? \n" +
+            //     imp.student_id + " = " + gradeData.student_id + " ? \n" +
+            //     imp.period_id + " = " + gradeData.period_id + " ? \n"
+            // );
 
-                return imp.student_id == gradeData.student_id &&
-                    imp.assessment_id == gradeData.assessment_id &&
-                    imp.period_id == gradeData.period_id;
+            return imp.student_id == gradeData.student_id &&
+                imp.assessment_id == gradeData.assessment_id &&
+                imp.period_id == gradeData.period_id;
         });
 
 
@@ -128,7 +128,7 @@ function Assessment({ assessment, periodId, studentId } : any) {
     useEffect(() => {
         loadData();
     }, []);
-    
+
     useEffect(() => {
         const handle = setTimeout(() => {
             // Si aucune touche n'a été pressée pendant 1 seconde, sauvegardez
@@ -138,6 +138,26 @@ function Assessment({ assessment, periodId, studentId } : any) {
         }, 3000);
         return () => clearTimeout(handle);
     }, [lastTyped, isReadyToSave]);
+
+
+    useEffect(() => {
+        loadData();
+    }, []);
+
+    useEffect(() => {
+        if (allGrades.length > 0) {
+            const existingGrade = allGrades.find(grade =>
+                grade.assessment_id == assessment.id &&
+                grade.student_id == studentId &&
+                grade.period_id == periodId
+            );
+
+            if (existingGrade) {
+                setComment(existingGrade.comment || '');
+                setGrade(existingGrade.grade || 0);
+            }
+        }
+    }, [allGrades, assessment.id, studentId, periodId]);
 
     return (
         <Col xs={12} md={12} lg={12} xl={4}>

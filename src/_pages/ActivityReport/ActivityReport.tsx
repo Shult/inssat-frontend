@@ -18,7 +18,7 @@ const ActivityReport = () => {
     // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     // console.log(studentId);
     // console.log(periodId);
-    
+
     const [title, setTitle] = useState<any>('Sélectionner une période');
     const defaultPeriod: IPeriod = {
         id: 0,
@@ -113,37 +113,37 @@ const ActivityReport = () => {
 
     return(
         <div className="container" id={"activityReport"}>
-                <Row>
-                    <Col xs={12} md={12} lg={4} xl={4}>
-                        <h2 className="heading2">Bilan d'activités - Période : </h2>
-                    </Col>
+            <Row>
+                <Col xs={12} md={12} lg={4} xl={4}>
+                    <h2 className="heading2">Bilan d'activités - Période : </h2>
+                </Col>
 
-                    <Col xs={12} md={12} lg={7} xl={7}>
-                        <Dropdown onSelect={handleSelect}>
-                            <Dropdown.Toggle variant="success" id="dropdown-basic" className={"shadow activity-report-title"}>
-                                { title }
-                            </Dropdown.Toggle>
+                <Col xs={12} md={12} lg={7} xl={7}>
+                    <Dropdown onSelect={handleSelect}>
+                        <Dropdown.Toggle variant="success" id="dropdown-basic" className={"shadow activity-report-title"}>
+                            { title }
+                        </Dropdown.Toggle>
 
-                            <Dropdown.Menu>
-                                {
-                                    periods.slice(0, 6).map((period, index) => (
-                                        <Dropdown.Item key={index} eventKey={period.id}>{period.id}</Dropdown.Item>
-                                    ))
-                                }
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </Col>
-                    <Col xs={12} md={12} lg={1} xl={1}>
-                        <Button
-                            variant="secondary"
-                            content={"Retour"}
-                            onClick={() => navigateToActivityReport('/apprenticeshipTickets')}
-                        >
-                            Retour
-                        </Button>{' '}
+                        <Dropdown.Menu>
+                            {
+                                periods.slice(0, 6).map((period, index) => (
+                                    <Dropdown.Item key={index} eventKey={period.id}>{period.id}</Dropdown.Item>
+                                ))
+                            }
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Col>
+                <Col xs={12} md={12} lg={1} xl={1}>
+                    <Button
+                        variant="secondary"
+                        content={"Retour"}
+                        onClick={() => navigateToActivityReport('/apprenticeshipTickets')}
+                    >
+                        Retour
+                    </Button>{' '}
 
-                    </Col>
-                </Row>
+                </Col>
+            </Row>
             {!isDefaultPeriodSelected && (
                 <>
                     <Card className="horizontal-card mb-3" style={{ borderRadius: '8px', boxShadow: 'var(--box-shadow)' }}>
@@ -184,4 +184,3 @@ const ActivityReport = () => {
 }
 
 export default ActivityReport
-

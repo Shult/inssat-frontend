@@ -1,33 +1,47 @@
 import { useState } from "react";
 
 export function getButtonColor(impression : string){
-    const [dropdownBackground, setDropdownBackground] = useState('#889795'); // Ajout de l'état pour la couleur de fond
-
     switch (impression) {
         case 'Excellent':
-            setDropdownBackground('#4caf50');
-            break;
+            return '#4caf50';
         case 'Très bien':
-            setDropdownBackground('#90ee90');
-            break;
+            return '#90ee90';
         case 'Bien':
-            setDropdownBackground('#2196f3');
-            break;
+            return '#2196f3';
         case 'Assez bien':
-            setDropdownBackground('#ffc107');
-            break;
+            return '#ffc107';
         case 'Passable':
-            setDropdownBackground('#ff9800');
-            break;
+            return '#ff9800';
         case 'Insuffisant':
-            setDropdownBackground('#f44336');
-            break;
+            return '#f44336';
         case 'Non évaluable':
-            setDropdownBackground('#889795');
-            break;
+            return '#889795';
         // Ajoutez des cas pour les autres valeurs
         default:
-            setDropdownBackground('#BF9E4E');
+            return '#BF9E4E';
+    }
+
+}
+
+export function getButtonColorById(levelId : number){
+    switch (levelId) {
+        case 1:
+            return '#4caf50';
+        case 2:
+            return '#90ee90';
+        case 3:
+            return '#2196f3';
+        case 4:
+            return '#ffc107';
+        case 5:
+            return '#ff9800';
+        case 6:
+            return '#f44336';
+        case 7:
+            return '#889795';
+        // Ajoutez des cas pour les autres valeurs
+        default:
+            return '#BF9E4E';
     }
 
 }
