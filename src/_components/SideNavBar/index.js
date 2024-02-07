@@ -17,7 +17,7 @@ import UserService from "../../services/UserServices";
 const sidebarItems = [
   { path: '/', label: 'Dashboard', icon: 'columns' },
   { path: '/schedule', label: 'Emploi du temps', icon: 'calendar-alt' },
-  { path: '/apprenticeshipTickets', label: 'Tickets', icon: 'clipboard' },
+  { path: '/apprenticeshipTickets', label: 'Notation', icon: 'clipboard' },
   { path: '/courses', label: 'Cours', icon: 'book' },
   { path: '/chat', label: 'Chat', icon: 'comment-alt' },
   { path: '/contact', label: 'Contact', icon: 'address-book' },
@@ -35,7 +35,7 @@ const Sidebar = () => {
   if (roleManager.isStudent || roleManager.isTeacher){
     localSidebarItems.push({ path: '/', label: 'Dashboard', icon: 'columns' })
     localSidebarItems.push({ path: '/schedule', label: 'Emploi du temps', icon: 'calendar-alt' })
-    localSidebarItems.push({ path: '/courses', label: 'Cours', icon: 'book' })
+    localSidebarItems.push({ path: window.open('https://foad.univ-rennes.fr/my/'), label: 'Cours', icon: 'book' })
   }
 
   if (roleManager.isNewsManager){
@@ -43,7 +43,7 @@ const Sidebar = () => {
   }
   localSidebarItems.push({ path: '/contact', label: 'Contact', icon: 'address-book' })
   localSidebarItems.push({ path: '/news', label: 'Actualités', icon: 'newspaper' })
-  localSidebarItems.push({ path: '/apprenticeshipTickets', label: 'Tickets', icon: 'clipboard' })
+  localSidebarItems.push({ path: '/apprenticeshipTickets', label: 'Notation', icon: 'clipboard' })
 
 
 

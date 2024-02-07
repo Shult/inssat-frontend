@@ -19,73 +19,52 @@ const ApprenticeshipTickets = () => {
 
     const roleManager = RoleManager();
 
-
-    const ToggleRecuperationIdToken = true;
-    const ToggleRecuperationListeTickets = true;
-    const ToggleRecuperationFicheSuivi = true;
-    const ToggleRecuperationListStudentFollow = true;
-
-
     const [listTickets, setlistTickets] = useState<any>([]);
     const [ListStudentFollow, setlistStudentFollow] = useState<any>([]);
     const [ficheSuivi, setficheSuivi] = useState<any>([]);
-    const [StudentDisplay, setStudentDisplay] = useState<any>([]);
+    const [StudentDisplay, setStudentDisplay] = useState<string>('');
 
-    const userId = ToggleRecuperationIdToken ? UserService.getTokenParsed() : ("0cabe1b3-e680-4cac-8d19-0fbeab35134e");
-    
+
+    const userId = UserService.getTokenParsed();
+
+
+    const [shouldUpdateStudentDisplay, setShouldUpdateStudentDisplay] = useState(false);
 
     useEffect(() => {
-        if(roleManager.isApprentice || roleManager.isStudent){
+        if (roleManager.isApprentice || roleManager.isStudent) {
             console.log("je suis apprenti ou etudiant");
+            console.log(userId.sub);
             setStudentDisplay(userId.sub);
-            //Gestion de la récupéarion des notes de l'étudiant
-            }
-        else if(roleManager.isApprenticeshipManager){
+        } else if (roleManager.isApprenticeshipManager) {
             console.log("je suis ma");
-            //gestion affichage des boutons si plusieurs etudiant
-            ToggleRecuperationListStudentFollow ? getStudentMaForMa(userId).then(result => setlistStudentFollow(result)) : setlistStudentFollow(apprenticeshipListStudentFollow);
-            
-            }
-        else if(roleManager.isStudentTutor){
+            // Gestion affichage des boutons si plusieurs etudiants
+            getStudentMaForMa(userId.sub).then(result => setlistStudentFollow(result));
+        } else if (roleManager.isStudentTutor) {
             console.log("je suis tutor");
-            //console.log(userId.sub);
-            //gestion affichage des boutons si plusieurs etudiant
-            ToggleRecuperationListStudentFollow ? getStudentMaForTutor(userId.sub).then(result => setlistStudentFollow(result)) : setlistStudentFollow(apprenticeshipListStudentFollow);
-            //console.log("Récupération liste student follow");
-            //console.log(ListStudentFollow);
-            // Ajouter méthode pour séléctionner un étudiant
-            //setStudentDisplay(ListStudentFollow[0].student.ID);
-            }        
-      }, []);
-      
+            // Gestion affichage des boutons si plusieurs etudiants
+            getStudentMaForTutor(userId.sub).then(result => setlistStudentFollow(result));
+        }
+    }, []);
+
+    useEffect(() => {
+        if (shouldUpdateStudentDisplay) {
+            const firstFollow = Object.values<FollowStudent>(ListStudentFollow)[0];
+            const studentId = firstFollow?.student?.ID || "";
+            setStudentDisplay(studentId);
+            setShouldUpdateStudentDisplay(false);
+        }
+    }, [ListStudentFollow, shouldUpdateStudentDisplay]);
+
     useEffect(() => {
         // Récupération ou Mise à jours de la fiche de suivi
-        ToggleRecuperationFicheSuivi ? getDataStudentSuivi(StudentDisplay).then(result => setficheSuivi(result)) : setficheSuivi(apprenticeshipSuiviStudentMock);
-        //console.log("OOOOOOOOOOOOOOOO");
-        //console.log(StudentDisplay)
-        //console.log(ficheSuivi)
+        console.log('StudentDisplay');
+        console.log(StudentDisplay);
 
+        getDataStudentSuivi(StudentDisplay).then(result => setficheSuivi(result));
 
-        // Récupération ou Mise à jours liste Tickets
-        //console.log("KKKKKKKKKKKKKKKK");
-
-        ToggleRecuperationListeTickets ? getGradesTicketsSorted(StudentDisplay).then(result => setlistTickets(result)) : setlistTickets(apprenticeshipListeTicketsSortedMock);
-        
-        
+        getGradesTicketsSorted(StudentDisplay).then(result => setlistTickets(result));
     }, [StudentDisplay]);
 
-    useEffect(() => {
-        console.log("Liste student follow");
-        console.log(ListStudentFollow)
-        console.log("Information liste shhh")
-        console.log(ListStudentFollow[0]?.FIRST_NAME)
-        const firstFollow = Object.values<FollowStudent>(ListStudentFollow)[0];
-
-        const studentId = firstFollow?.student?.ID || "";
-        setStudentDisplay(studentId);
-        //console.log("ID de L'étudiant de liste student follow");
-        //console.log(StudentDisplay)  
-    }, [ListStudentFollow]);
 
     {/*LIEN TEMPORAIRE*/}
     const navigate = useNavigate();
@@ -107,81 +86,81 @@ const ApprenticeshipTickets = () => {
         <div>
             <h1>Fiches de spécification du travail en entreprise, de suivi et de bilan</h1>
 
-            
-            <div className="container">
-            {hasRightMenu() && ListStudentFollow && Object.keys(ListStudentFollow).length === 1 ?
-                <>
-                    <span>Elève suivi : </span>
-                    <Button
-                    className={"buttonGold txtCenter "}
-                    content={`${ListStudentFollow[Object.keys(ListStudentFollow)[0]]?.student.FIRST_NAME} ${ListStudentFollow[Object.keys(ListStudentFollow)[0]]?.student.LAST_NAME}`}                    />
-                    
-                </> : <></>
-            }
 
-            {hasRightMenu() && ListStudentFollow && ListStudentFollow.length > 1 && ListStudentFollow.length < 6 ?
-                <>
-                    <span>Liste des élèves suivi : </span>
+            <div className="container">
+                {hasRightMenu() && ListStudentFollow && Object.keys(ListStudentFollow).length === 1 ?
+                    <>
+                        <span>Elève suivi : </span>
+                        <Button
+                            className={"buttonGold txtCenter "}
+                            content={`${ListStudentFollow[Object.keys(ListStudentFollow)[0]]?.student.FIRST_NAME} ${ListStudentFollow[Object.keys(ListStudentFollow)[0]]?.student.LAST_NAME}`}                    />
+
+                    </> : <></>
+                }
+
+                {hasRightMenu() && ListStudentFollow && ListStudentFollow.length > 1 && ListStudentFollow.length < 6 ?
+                    <>
+                        <span>Liste des élèves suivi : </span>
                         <ButtonsMenu listStudentSuivi={ListStudentFollow}/>
-                </> : <></>
-            }
+                    </> : <></>
+                }
             </div>
 
             <div className="container">
-            <Card>
-                <Card.Body>
-                    <Card.Title>Fiche de suivi</Card.Title>
-                    <Row>
-                        <Col className="container">
-                            <Card>
-                                <Card.Body style={{ backgroundColor: 'var(--gold)', color: 'white' }}>
-                                    <Card.Title>Entreprise</Card.Title>
-                                    <ul>
-                                        <li>Nom : {ficheSuivi?.COMPANY ? ficheSuivi?.COMPANY[0].name : ""}</li>
-                                        <li>Adresse : {ficheSuivi?.COMPANY ? ficheSuivi?.COMPANY[0]?.address : ""}</li>
-                                        <li>Ville : {ficheSuivi?.COMPANY ? ficheSuivi?.COMPANY[0]?.city : ""}</li>
-                                        <li>Téléphone : {ficheSuivi?.COMPANY ? ficheSuivi?.COMPANY[0]?.phone : ""}</li>
-                                    </ul>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <SuiviInfoCard title="Maitre d'apprentissage" data={ficheSuivi?.MA ? ficheSuivi?.MA[0] : ""} style={{ backgroundColor: 'black', color: 'white' }}/>
-                    </Row>
-                    <Row>
-                        <SuiviInfoCard title="Tuteur" data={ficheSuivi?.TUTOR ? ficheSuivi?.TUTOR[0] : ""} style={{ backgroundColor: 'var(--gold)', color: 'white' }}/>
-                        <Col className="container">
-                            <Card>
-                                <Card.Body style={{ backgroundColor: 'black', color: 'white' }}>
-                                    <Card.Title>Elève</Card.Title>
-                                    <ul>
-                                        <li>Nom : {ficheSuivi?.LAST_NAME}</li>
-                                        <li>Prénom : {ficheSuivi?.FIRST_NAME}</li>
-                                        <li>Email : {ficheSuivi?.EMAIL}</li>
-                                    </ul>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    </Row>
-                </Card.Body>
-            </Card>
+                <Card>
+                    <Card.Body>
+                        <Card.Title>Fiche de suivi</Card.Title>
+                        <Row>
+                            <Col className="container">
+                                <Card>
+                                    <Card.Body style={{ backgroundColor: 'var(--gold)', color: 'white' }}>
+                                        <Card.Title>Entreprise</Card.Title>
+                                        <ul>
+                                            <li>Nom : {ficheSuivi?.COMPANY ? ficheSuivi?.COMPANY[0].name : ""}</li>
+                                            <li>Adresse : {ficheSuivi?.COMPANY ? ficheSuivi?.COMPANY[0]?.address : ""}</li>
+                                            <li>Ville : {ficheSuivi?.COMPANY ? ficheSuivi?.COMPANY[0]?.city : ""}</li>
+                                            <li>Téléphone : {ficheSuivi?.COMPANY ? ficheSuivi?.COMPANY[0]?.phone : ""}</li>
+                                        </ul>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                            <SuiviInfoCard title="Maitre d'apprentissage" data={ficheSuivi?.MA ? ficheSuivi?.MA[0] : ""} style={{ backgroundColor: 'black', color: 'white' }}/>
+                        </Row>
+                        <Row>
+                            <SuiviInfoCard title="Tuteur" data={ficheSuivi?.TUTOR ? ficheSuivi?.TUTOR[0] : ""} style={{ backgroundColor: 'var(--gold)', color: 'white' }}/>
+                            <Col className="container">
+                                <Card>
+                                    <Card.Body style={{ backgroundColor: 'black', color: 'white' }}>
+                                        <Card.Title>Elève</Card.Title>
+                                        <ul>
+                                            <li>Nom : {ficheSuivi?.LAST_NAME}</li>
+                                            <li>Prénom : {ficheSuivi?.FIRST_NAME}</li>
+                                            <li>Email : {ficheSuivi?.EMAIL}</li>
+                                        </ul>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </Card.Body>
+                </Card>
             </div>
 
             <div className="container">
-            <Card>
-                <Card.Body>
-                    <Card.Title>Tickets d'évaluations</Card.Title>
+                <Card>
+                    <Card.Body>
+                        <Card.Title>Tickets d'évaluations</Card.Title>
 
-                    {(listTickets && Object.keys(listTickets).length > 0)&&
-                        <BilanAccordion bilans={listTickets} studentId={StudentDisplay}/>
-                    }
+                        {(listTickets && Object.keys(listTickets).length > 0)&&
+                            <BilanAccordion bilans={listTickets} studentId={StudentDisplay}/>
+                        }
 
-                    { ((roleManager.isApprenticeshipManager || roleManager.isStudentSupervisor || roleManager.isStudentTutor) && (listTickets && Object.keys(listTickets).length < 6)) ?
-                     <div className="container center">
-                        <Button className={"buttonWhite txtCenter"} content={"Créer un nouveau tickets"} onclick={() => navigateToActivityReport(String(StudentDisplay), ((Object.keys(listTickets).length + 1)))}/>
-                    </div> : <></>
-                    }
-                </Card.Body>
-            </Card>
+                        { ((roleManager.isApprenticeshipManager || roleManager.isStudentSupervisor || roleManager.isStudentTutor) && (listTickets && Object.keys(listTickets).length < 6)) ?
+                            <div className="container center">
+                                <Button className={"buttonWhite txtCenter"} content={"Créer un nouveau tickets"} onclick={() => navigateToActivityReport(String(StudentDisplay), ((Object.keys(listTickets).length + 1)))}/>
+                            </div> : <></>
+                        }
+                    </Card.Body>
+                </Card>
             </div>
         </div>
     )
