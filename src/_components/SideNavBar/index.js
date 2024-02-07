@@ -35,7 +35,7 @@ const Sidebar = () => {
   if (roleManager.isStudent || roleManager.isTeacher){
     localSidebarItems.push({ path: '/', label: 'Dashboard', icon: 'columns' })
     localSidebarItems.push({ path: '/schedule', label: 'Emploi du temps', icon: 'calendar-alt' })
-    localSidebarItems.push({ path: window.open('https://foad.univ-rennes.fr/my/'), label: 'Cours', icon: 'book' })
+    localSidebarItems.push({ path: '/courses', label: 'Cours', icon: 'book' })
   }
 
   if (roleManager.isNewsManager){
@@ -46,6 +46,9 @@ const Sidebar = () => {
   localSidebarItems.push({ path: '/apprenticeshipTickets', label: 'Notation', icon: 'clipboard' })
 
 
+  const handleCourseLinkClick = () => {
+    window.open('https://foad.univ-rennes.fr/my/', '_blank');
+  };
 
   return (
       <div className="sidebar-container">
@@ -58,16 +61,16 @@ const Sidebar = () => {
 
           <CDBSidebarContent className="sidebar-content">
             <CDBSidebarMenu>
-              {localSidebarItems.map((item, index) => (
-                  <NavLink
-                      // exact
-                      to={item.path}
-                      className={`sidebar-item ${location.pathname === item.path ? 'activeClicked' : ''}`}
-                      key={index}
-                  >
-                    <CDBSidebarMenuItem icon={item.icon}>{item.label}</CDBSidebarMenuItem>
-                  </NavLink>
-              ))}
+            {localSidebarItems.map((item, index) => (
+              <NavLink
+                to={item.path}
+                className={`sidebar-item ${location.pathname === item.path ? 'activeClicked' : ''}`}
+                key={index}
+                onClick={item.path === '/courses' ? handleCourseLinkClick : undefined}
+              >
+                <CDBSidebarMenuItem icon={item.icon}>{item.label}</CDBSidebarMenuItem>
+              </NavLink>
+            ))}
             </CDBSidebarMenu>
           </CDBSidebarContent>
 

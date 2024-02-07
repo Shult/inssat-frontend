@@ -195,11 +195,7 @@ const HorizontalCard = ({ article }: any) => {
               </Row>
               <Row className="mb-3 align-items-center">
                 <Col className="d-flex align-items-center">
-                  {(avatarEnssatImage || avatarImage) ? (
-                    <Image src={article?.fromEnssat ? avatarEnssatImage : avatarImage} alt="Author Avatar" roundedCircle style={{ width: '40px', height: '40px' }} />
-                  ) : (
-                    <Image src='/loading.gif' alt="Author Avatar" roundedCircle style={{ width: '40px', height: '40px', transform: 'scale(2)'}} />
-                  )}
+                  
                   <div className="ms-3">
                     <p className="fw-bold mb-0">
                       {author?.FIRST_NAME} {author?.LAST_NAME}
