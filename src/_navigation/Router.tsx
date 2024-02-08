@@ -37,7 +37,11 @@ const Router = () => {
                 <Route path="/" Component={ News }/> : <Route path="/news" Component={ News }/>
             }
             { (roleManager.isApprenticeshipManager) ?
-                <Route path="/" Component={ ApprenticeshipManagement }/> : <Route path="/apprenticeshipManagement" Component={ ApprenticeshipManagement }/>
+                <>
+                    <Route path="/" Component={ ApprenticeshipManagement }/>
+                    <Route path="/apprenticeshipManagement" Component={ ApprenticeshipManagement }/>
+                </> : <></>
+
             }
             <Route path="/blogEditor" Component={Blog}/>
 

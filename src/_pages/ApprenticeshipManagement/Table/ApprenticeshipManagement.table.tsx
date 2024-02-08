@@ -9,11 +9,17 @@ import { getUsersMock } from "../../../_components/User/User.api";
 import { deleteAssociationMock } from "../../../_components/User/ApprenticeshipAssociation/Association.api";
 
 import "./ApprenticeshipManagement.table.css"
-import {AssociationInterface} from "../../../_components/User/ApprenticeshipAssociation/Association.interface";
+import {AssociationInterface, AssociationsInterface} from "../../../_components/User/ApprenticeshipAssociation/Association.interface";
+import { getUserByID } from "../../../_components/ApprenticeshipTickets/Services/apprenticeshipTicket.services";
+import UserData from "./UserData";
+import { deleteStudentMaTutor } from "../../../_api/student-ma-tutors";
 
 const ApprenticeshipManagementTable = ({associations}: any) => {
     const [showModalUpdate, setShowModalUpdate] = useState(false);
     const [studentUUID, setStudentUUID] = useState("");
+
+    console.log("associations");
+    console.log(associations);
 
     return (
         <>
@@ -40,37 +46,21 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                     </thead>
                     <tbody>
                     { associations.map(
-                        (association: AssociationInterface) =>
+                        (association: AssociationsInterface) =>
+                        
                             <tr>
                                 <td className={"txtCenter"}>
                                     <input
                                         type={'checkbox'}
                                         name={'AssociationCheckbox'}
-                                        value={association.studentUUID}
+                                        value={association.student_id}
                                     />
                                 </td>
-                                <td>
-                                    <div className={"line w100"}>
-                                        <p>{ getUsersMock("uuid", association.studentUUID).pop()?.firstname }</p>
-                                        <p>{ getUsersMock("uuid", association.studentUUID).pop()?.lastname.toUpperCase() }</p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className={"line w100"}>
-                                        <p>{ getUsersMock("uuid", association.tutorUUID).pop()?.firstname }</p>
-                                        <p>{ getUsersMock("uuid", association.tutorUUID).pop()?.lastname.toUpperCase() }</p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className={"line w100"}>
-                                        <p>{ getUsersMock("uuid", association.supervisorUUID).pop()?.firstname }</p>
-                                        <p>{ getUsersMock("uuid", association.supervisorUUID).pop()?.lastname.toUpperCase() }</p>
-                                    </div>
-                                </td>
+                                <UserData association={association} />
                                 <td>
                                     <button id="edit-button" onClick={() => {
                                         setShowModalUpdate(!showModalUpdate)
-                                        setStudentUUID(association.studentUUID)
+                                        setStudentUUID(association.student_id)
                                     }}>
                                         <CDBSidebarMenuItem icon={"edit"}/>
                                     </button>
@@ -78,7 +68,7 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                                 <td>
                                     <button id="delete-button"  onClick={() => {
                                         window.confirm("Confirmez-vous la suppression de cette association ?") ?
-                                            deleteAssociationMock(association.studentUUID) : console.log()
+                                        deleteStudentMaTutor(association.id) : console.log()
                                     }}>
                                         <CDBSidebarMenuItem icon={"trash"}/>
                                     </button>

@@ -1,6 +1,7 @@
-import { getAllStudentMaTutors, getStudentsAndMAByTutorId, getStudentsAndTutorByMAId } from "../../../_api/student-ma-tutors"
-import { getGradesByPk, getSuivi } from "../../../_api/user"
-import { AssociationInterface } from "../../User/ApprenticeshipAssociation/Association.interface"
+import { getAllStudentMaTutors, getAllStudentMaTutorsBySearched, getStudentsAndMAByTutorId, getStudentsAndTutorByMAId } from "../../../_api/student-ma-tutors"
+import { getGradesByPk, getSuivi, getUserById } from "../../../_api/user"
+import { AssociationInterface, AssociationsInterface } from "../../User/ApprenticeshipAssociation/Association.interface"
+import { UserInterface } from "../../User/User.interface"
 import { IApprentieceshipTickets, IDataSuivi, IGrade, ListFollowStudent, ListTickets } from "./apprenticeshipTickets.interface"
 
 
@@ -79,6 +80,22 @@ async function fetchGradesTickets(id: any): Promise<ListTickets> {
 }
 
 
+export const getUserByID = (id:any) => fetchgetUserByID(id);
+
+async function fetchgetUserByID(id: any): Promise<UserInterface> {
+  const UserByID = await getUserById(id);
+  return UserByID.data
+}
+
+
+
+export const getDataAllStudentMaTutorsBySearched = (id: any) => fetchAllStudentMaTutorsBySearched(id)
+
+async function fetchAllStudentMaTutorsBySearched(id: any): Promise<AssociationsInterface> {
+    const allStudentMaTutorsBySearchedResponse = await getAllStudentMaTutorsBySearched(id);
+    return allStudentMaTutorsBySearchedResponse.data
+}
+
 export const getDataStudentSuivi = (id: any) => fetchDataStudentExtended(id)
 
 async function fetchDataStudentExtended(id: any): Promise<IDataSuivi> {
@@ -86,9 +103,10 @@ async function fetchDataStudentExtended(id: any): Promise<IDataSuivi> {
     return dataStudentExtendedResponse.data
 }
 
+
 export const getStudentMaTutors = () => fetchAllStudentMaTutors()
 
-async function fetchAllStudentMaTutors(): Promise<AssociationInterface> {
+async function fetchAllStudentMaTutors(): Promise<AssociationsInterface> {
     const allStudentMaTutorsResponse = await getAllStudentMaTutors();
     return allStudentMaTutorsResponse.data
 }

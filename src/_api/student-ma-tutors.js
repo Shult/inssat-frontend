@@ -3,6 +3,8 @@ import {apiAcademy} from './client'
 
 const getAllStudentMaTutors = () => apiAcademy.get(`/student-ma-tutors`)
 
+const getAllStudentMaTutorsBySearched = (searched) => apiAcademy.get(`/student-ma-tutors/searched/${searched}`)
+
 const createStudentMaTutor = (formData) => {
     return apiAcademy.post('/student-ma-tutors', formData, {
       headers: {
@@ -20,11 +22,7 @@ const createStudentMaTutor = (formData) => {
   };
   
 const deleteStudentMaTutor = (id) => {
-return apiAcademy.delete(`/student-ma-tutors/${id}`, id, {
-    headers: {
-    'Content-Type': 'multipart/form-data', // Ensure correct headers for form data
-    },
-})
+  return apiAcademy.delete(`/student-ma-tutors/${id}`)
 };
 
 const getStudentsAndMAByTutorId = (tutorId) => apiAcademy.get(`/student-ma-tutors/tutor/${tutorId}`)
@@ -37,5 +35,6 @@ export {
     updateStudentMaTutor,
     deleteStudentMaTutor,
     getStudentsAndMAByTutorId,
-    getStudentsAndTutorByMAId
+    getStudentsAndTutorByMAId,
+    getAllStudentMaTutorsBySearched
 }

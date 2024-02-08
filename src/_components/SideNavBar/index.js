@@ -18,6 +18,7 @@ const sidebarItems = [
   { path: '/', label: 'Dashboard', icon: 'columns' },
   { path: '/schedule', label: 'Emploi du temps', icon: 'calendar-alt' },
   { path: '/apprenticeshipTickets', label: 'Notation', icon: 'clipboard' },
+  { path: '/apprenticeshipManagement', label: 'Association', icon: 'clipboard' },
   { path: '/courses', label: 'Cours', icon: 'book' },
   { path: '/chat', label: 'Chat', icon: 'comment-alt' },
   // { path: '/contact', label: 'Contact', icon: 'address-book' },
@@ -38,12 +39,19 @@ const Sidebar = () => {
     localSidebarItems.push({ path: '/courses', label: 'Cours', icon: 'book' })
   }
 
+  if (roleManager.isApprenticeshipManager){
+    localSidebarItems.push( { path: '/apprenticeshipManagement', label: 'Association', icon: 'clipboard'})
+  }
+
   if (roleManager.isNewsManager){
     localSidebarItems.push( { path: '/blogEditor', label: 'Edition des actualités', icon: 'edit' })
   }
   // localSidebarItems.push({ path: '/contact', label: 'Contact', icon: 'address-book' })
   localSidebarItems.push({ path: '/news', label: 'Actualités', icon: 'newspaper' })
-  localSidebarItems.push({ path: '/apprenticeshipTickets', label: 'Notation', icon: 'clipboard' })
+
+  if (roleManager.isStudent || roleManager.isApprentice || roleManager.isStudentSupervisor || roleManager.isStudentTutor){
+    localSidebarItems.push({ path: '/apprenticeshipTickets', label: 'Notation', icon: 'clipboard' })
+  }
 
 
   const handleCourseLinkClick = () => {
