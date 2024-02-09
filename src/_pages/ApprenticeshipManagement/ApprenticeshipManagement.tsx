@@ -23,6 +23,8 @@ const ApprenticeshipManagement = () => {
     const [searched, setSearched] = useState("");
     const [data, setData] = useState<any>([]);
 
+    const [newAsso, setNewAsso] = useState<any>([]);
+
     
     const [listeAssociation, setAssociation] = useState<any>([])
     //getStudentMaForMa(userId.sub).then(result => setlistStudentFollow(result));
@@ -33,6 +35,19 @@ const ApprenticeshipManagement = () => {
     useEffect(() => {
         getStudentMaTutors().then(result => setAssociation(result));
     }, []);
+
+    useEffect(() => {
+        const newAssoArray = [newAsso];
+
+        // Merge listeAssociation and newAssoArray
+        const mergedAssociations = [...listeAssociation, ...newAssoArray];
+        
+        // Log the merged objects once
+        console.log("Merged Associations:", mergedAssociations);
+    
+        // Update the state with the merged objects
+        setAssociation(mergedAssociations);
+    }, [newAsso]);
 
 
     const searchForFata = ()=>{
@@ -83,10 +98,10 @@ const ApprenticeshipManagement = () => {
             
 
             <Modal show={showModalCreation} onClose={() => setShowModalCreation(false)}>
-                <ModalAssociationCreation onValidate={() => setShowModalCreation(false)} show={showModalCreation}/>
+                <ModalAssociationCreation setNewAsso={setNewAsso} onValidate={() => setShowModalCreation(false)} show={showModalCreation}/>
             </Modal>
 
-           {listeAssociation && listeAssociation.length>0 && <ApprenticeshipManagementTable associations={listeAssociation}/>} 
+           {listeAssociation && listeAssociation.length>0 && <ApprenticeshipManagementTable setAssociation={setAssociation} associations={listeAssociation}/>} 
         </div>
     )
 }

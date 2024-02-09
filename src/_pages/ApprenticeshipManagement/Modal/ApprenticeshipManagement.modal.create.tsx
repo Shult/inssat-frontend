@@ -8,9 +8,10 @@ import { Row, Col } from 'react-bootstrap';
 interface ModalAssociationProps {
     onValidate: () => void;
     show: boolean;
+    setNewAsso:any;
 }
 
-const ModalAssociationCreation: React.FC<ModalAssociationProps> = ({ onValidate, show }) => {
+const ModalAssociationCreation: React.FC<ModalAssociationProps> = ({ onValidate, show, setNewAsso }) => {
     if (!show) return null;
 
     return (
@@ -40,6 +41,14 @@ const ModalAssociationCreation: React.FC<ModalAssociationProps> = ({ onValidate,
                                     tutor_id: (document.getElementById("select-tutor") as HTMLSelectElement).value,
                                     ma_id: (document.getElementById("select-supervisor") as HTMLSelectElement).value
                                 });
+
+                                // il faut verifier si donnee bien cree
+                                
+                                setNewAsso({
+                                    student_id: (document.getElementById("select-student") as HTMLSelectElement).value,
+                                    tutor_id: (document.getElementById("select-tutor") as HTMLSelectElement).value,
+                                    ma_id: (document.getElementById("select-supervisor") as HTMLSelectElement).value
+                                })
                                 onValidate();
                             }}
                     />

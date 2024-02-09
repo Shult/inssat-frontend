@@ -14,7 +14,7 @@ import { getUserByID } from "../../../_components/ApprenticeshipTickets/Services
 import UserData from "./UserData";
 import { deleteStudentMaTutor } from "../../../_api/student-ma-tutors";
 
-const ApprenticeshipManagementTable = ({associations}: any) => {
+const ApprenticeshipManagementTable = ({associations, setAssociation}: any) => {
     const [showModalUpdate, setShowModalUpdate] = useState(false);
     const [studentUUID, setStudentUUID] = useState("");
 
@@ -69,6 +69,9 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                                     <button id="delete-button"  onClick={() => {
                                         window.confirm("Confirmez-vous la suppression de cette association ?") ?
                                         deleteStudentMaTutor(association.id) : console.log()
+                                        const updatedAssociations = associations.filter((item: { id: number; }) => item.id !== association.id);
+                                        // Update the state with the filtered list
+                                        setAssociation(updatedAssociations);
                                     }}>
                                         <CDBSidebarMenuItem icon={"trash"}/>
                                     </button>
