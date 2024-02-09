@@ -165,7 +165,7 @@ function Impression({ activity, studentId, periodId } : any) {
                 setDropdownBackground('#90ee90');
                 break;
             case 'Bien':
-                setDropdownBackground('#2196f3');
+                setDropdownBackground('#b7f1b7');
                 break;
             case 'Assez bien':
                 setDropdownBackground('#ffc107');

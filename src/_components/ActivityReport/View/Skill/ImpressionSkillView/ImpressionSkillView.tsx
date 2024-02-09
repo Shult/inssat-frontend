@@ -16,7 +16,7 @@ function ImpressionSkillView(activityView : ActivitySkillViewProps) {
             case 'Très bien':
                 return '#90ee90';
             case 'Bien':
-                return '#2196f3';
+                return '#b7f1b7';
             case 'Assez bien':
                 return '#ffc107';
             case 'Passable':

@@ -7,7 +7,7 @@ export function getButtonColor(impression : string){
         case 'Très bien':
             return '#90ee90';
         case 'Bien':
-            return '#2196f3';
+            return '#b7f1b7'; // 2196f3
         case 'Assez bien':
             return '#ffc107';
         case 'Passable':
@@ -30,7 +30,7 @@ export function getButtonColorById(levelId : number){
         case 2:
             return '#90ee90';
         case 3:
-            return '#2196f3';
+            return '#b7f1b7'; // 2196f3
         case 4:
             return '#ffc107';
         case 5:
