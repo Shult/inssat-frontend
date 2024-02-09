@@ -8,7 +8,7 @@ import { UserGroup } from "../ApprenticeshipTickets/Services/apprenticeshipTicke
 
 
     
-const UserDropdown = ({className = "w33", id = "select-user", usertype = "user"}) => {
+const UserDropdown = ({className = "w100", id = "select-user", usertype = "user"}) => {
     
 
     const [searched, setSearched] = useState("");
@@ -17,7 +17,7 @@ const UserDropdown = ({className = "w33", id = "select-user", usertype = "user"}
 
     const [UsersGroup, setUsersGroup] = useState<any>([])
 
-
+    const [GroupTranslate, setGroupTranslate] = useState<any>([])
     
     useEffect(()=>{
         
@@ -26,15 +26,16 @@ const UserDropdown = ({className = "w33", id = "select-user", usertype = "user"}
             if(usertype){
                 if(usertype == "student"){
                     getStudentGroupUsers().then(result => setUsersGroup(result));
+                    setGroupTranslate("Etudiant");
     
                 }
                 else if(usertype == "teacher"){
                     getTutorGroupUsers().then(result => setUsersGroup(result));
-    
+                    setGroupTranslate("Tuteur");
                 }
                 else if(usertype == "supervisor"){
                     getMaGroupUsers().then(result => setUsersGroup(result));
-    
+                    setGroupTranslate("MA");
                 }
             }
             
@@ -74,12 +75,12 @@ const UserDropdown = ({className = "w33", id = "select-user", usertype = "user"}
 
     return (
         <div className="w100 UserDropdown">
-            <h5>{usertype}</h5>
+            <h5>{GroupTranslate}</h5>
+            
             <input
                    className="w100"
                    type={"text"}
                    name={'searchUserByName'}
-                   placeholder={'Recherche par nom...'}
                    onChange={ e => setSearched(e.target.value) }
                    value = { searchedValue? searchedValue.firstname + " " + searchedValue.lastname : searched }
             />

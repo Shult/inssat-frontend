@@ -7,6 +7,7 @@ import {updateAssociationMock} from '../../../_components/User/ApprenticeshipAss
 import './ApprenticeshipManagement.modal.css'
 import React, { useEffect, useState } from "react";
 import { getUserById } from '../../../_api/user';
+import { Col, Row } from 'react-bootstrap';
 
 interface ModalAssociationUpdtProps {
     onValidate: () => void;
@@ -37,18 +38,28 @@ const ModalAssociationUpdate: React.FC<ModalAssociationUpdtProps> = ({ onValidat
             <article className={'line w100 space-between ApprenticeshipManagementModal'}>
                 <h2 className={'w100'}>Mettre à jour l'association</h2>
 
-                <div className={'line w100 items-center space-around'} id={'readOnly'}>
-                    <input id={'studentKey'}
-                           hidden={true}
-                           value={studentUUID}
-                    />
-                    <h6>Student : {student.FIRST_NAME} {student.LAST_NAME}</h6>
-                </div>
-                <UserDropdown className={'w100'} id={'select-tutor'} usertype={'teacher'}/>
-                <UserDropdown className={'w100'} id={'select-supervisor'} usertype={'supervisor'}/>
+                <Row className="w100"> {/* Utilisation du composant Row de React Bootstrap */}
+                    <Col xs={4}>
+                        <div className={'line w100 items-center space-around'} id={'readOnly'}>
+                            <input id={'studentKey'}
+                                hidden={true}
+                                value={studentUUID}
+                            />
+                            <h4>Etudiant : {student.FIRST_NAME} {student.LAST_NAME}</h4>
+                        </div>
+                    </Col>
+                    <Col xs={4}>
+                        <UserDropdown className={'w100'} id={'select-tutor'} usertype={'teacher'}/>
+
+                    </Col>
+                    <Col xs={4}>
+                        <UserDropdown className={'w100'} id={'select-supervisor'} usertype={'supervisor'}/>
+                    </Col>
+                </Row>
+                
 
                 <div className={'line w100 space-around'}>
-                    <Button className={'buttonSuccess'}
+                    <Button className={'buttonGold txtCenter'}
                             name={'updateApprenticeshipAssociation'}
                             content={'Valider'}
                             onclick={ () => {

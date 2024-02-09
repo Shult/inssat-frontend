@@ -79,6 +79,7 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                 </table>
             </article>
 
+            {/*
             <div className={"line w100"}>
                 <Button className={'buttonError'}
                         name={'DeleteAllPosts'}
@@ -90,6 +91,9 @@ const ApprenticeshipManagementTable = ({associations}: any) => {
                         }}
                 />
             </div>
+            
+            */ }
+            
 
         </>
     )

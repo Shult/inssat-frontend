@@ -1,6 +1,9 @@
-.ApprenticeshipManagementModal {}
+.ApprenticeshipManagementModal {
+    
+}
 
-.ApprenticeshipManagementModal div { height: 5vh; }
+/*
+.ApprenticeshipManagementModal div { height: 10vh; }
 
 
 .ApprenticeshipManagementModal #readOnly {
@@ -10,3 +13,4 @@
     color: var(--gold);
 }
 .ApprenticeshipManagementModal #readOnly h4 { margin: 0; }
+*/
