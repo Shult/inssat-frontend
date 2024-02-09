@@ -1,13 +1,57 @@
 import {UserInterface} from "./User.interface";
 import {getUsersMock} from "./User.api";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import "./UserDropdown.css"
+import { getMaGroupUsers, getStudentGroupUsers, getTutorGroupUsers } from "../ApprenticeshipTickets/Services/apprenticeshipTicket.services";
+import { UserGroup } from "../ApprenticeshipTickets/Services/apprenticeshipTickets.interface";
 
+
+    
 const UserDropdown = ({className = "w33", id = "select-user", usertype = "user"}) => {
+    
+
     const [searched, setSearched] = useState("");
     const [searchedValue, setValue] = useState<UserInterface | null>(null);
     const users = getUserBySearch(searched)
+
+    const [UsersGroup, setUsersGroup] = useState<any>([])
+
+
+    
+    useEffect(()=>{
+        
+        
+        const fetchData = async()=>{
+            if(usertype){
+                if(usertype == "student"){
+                    getStudentGroupUsers().then(result => setUsersGroup(result));
+    
+                }
+                else if(usertype == "teacher"){
+                    getTutorGroupUsers().then(result => setUsersGroup(result));
+    
+                }
+                else if(usertype == "supervisor"){
+                    getMaGroupUsers().then(result => setUsersGroup(result));
+    
+                }
+            }
+            
+        }
+        
+        fetchData();
+        
+    }, [usertype]);
+
+    useEffect(()=>{
+        
+        
+        
+        console.log("UsersGroup");
+        console.log(UsersGroup);
+        
+    }, [UsersGroup]);
 
     function getUserBySearch(searched: string, users: UserInterface[] = getUsersMock("group", usertype)){
         if (searched.length > 1){
@@ -46,7 +90,7 @@ const UserDropdown = ({className = "w33", id = "select-user", usertype = "user"}
             />
 
             <div>
-                {users.map( user =>
+                {UsersGroup.map( (user: any) =>
                     <button key={user.uuid}
                             value={user.uuid}
                             onClick={() => setValue(user) }

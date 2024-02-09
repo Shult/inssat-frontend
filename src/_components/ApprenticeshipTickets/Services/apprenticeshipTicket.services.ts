@@ -1,8 +1,9 @@
+import { getUsersByGroupId } from "../../../_api/group"
 import { getAllStudentMaTutors, getAllStudentMaTutorsBySearched, getStudentsAndMAByTutorId, getStudentsAndTutorByMAId } from "../../../_api/student-ma-tutors"
 import { getGradesByPk, getSuivi, getUserById } from "../../../_api/user"
 import { AssociationInterface, AssociationsInterface } from "../../User/ApprenticeshipAssociation/Association.interface"
 import { UserInterface } from "../../User/User.interface"
-import { IApprentieceshipTickets, IDataSuivi, IGrade, ListFollowStudent, ListTickets } from "./apprenticeshipTickets.interface"
+import { IApprentieceshipTickets, IDataSuivi, IGrade, ListFollowStudent, ListTickets, UserGroup } from "./apprenticeshipTickets.interface"
 
 
 
@@ -123,4 +124,28 @@ export const getStudentMaForMa = (maId: any) => fetchStudentMaForMa(maId)
 async function fetchStudentMaForMa(maId: any): Promise<ListFollowStudent> {
     const allStudentMaTutorsResponse = await getStudentsAndTutorByMAId(maId);
     return allStudentMaTutorsResponse.data
+}
+
+export const getStudentGroupUsers = ( )=> fetchStudentGroupUsers()
+
+async function fetchStudentGroupUsers(): Promise<UserGroup> { 
+    const studentGroupId = "7bbe885d-49c7-48a5-8439-64e6eee4de49";
+    const allStudentGroupUsersResponse = await getUsersByGroupId(studentGroupId);
+    return allStudentGroupUsersResponse.data
+}
+
+export const getTutorGroupUsers = ( )=> fetchTutorGroupUsers()
+
+async function fetchTutorGroupUsers(): Promise<UserGroup> { 
+    const tutorGroupId = "88ccdd92-f5fe-46af-a8e1-72aae50809b6";
+    const allTutorGroupUsersResponse = await getUsersByGroupId(tutorGroupId);
+    return allTutorGroupUsersResponse.data
+}
+
+export const getMaGroupUsers = ( )=> fetchMaGroupUsers()
+
+async function fetchMaGroupUsers(): Promise<UserGroup> { 
+    const maGroupId = "dc3d01b0-9cf0-40fc-be47-08c4f61e536f";
+    const allMaGroupUsersResponse = await getUsersByGroupId(maGroupId);
+    return allMaGroupUsersResponse.data
 }

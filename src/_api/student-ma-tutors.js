@@ -8,7 +8,7 @@ const getAllStudentMaTutorsBySearched = (searched) => apiAcademy.get(`/student-m
 const createStudentMaTutor = (formData) => {
     return apiAcademy.post('/student-ma-tutors', formData, {
       headers: {
-        'Content-Type': 'multipart/form-data', // Ensure correct headers for form data
+        'Content-Type': 'application/json', // Ensure correct headers for form data
       },
     })
   };
@@ -16,7 +16,7 @@ const createStudentMaTutor = (formData) => {
   const updateStudentMaTutor = (formData) => {
     return apiAcademy.put('/student-ma-tutors', formData, {
       headers: {
-        'Content-Type': 'multipart/form-data', // Ensure correct headers for form data
+        'Content-Type': 'application/json', // Ensure correct headers for form data
       },
     })
   };

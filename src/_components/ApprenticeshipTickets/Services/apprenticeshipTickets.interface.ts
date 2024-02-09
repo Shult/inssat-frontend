@@ -145,3 +145,11 @@ export interface FollowStudent{
 export interface ListFollowStudent{
     [key: string]: FollowStudent;
 }
+
+
+export interface UserGroup{
+    uuid: string,
+    firstname: string,
+    lastname: string,
+    email: string,
+}

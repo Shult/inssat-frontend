@@ -12,3 +12,9 @@ export interface AssociationsInterface {
     created_at: Date,
     updated_at: Date,
 }
+
+export interface AssociationsCreateInterface {
+    ma_id: string,
+    student_id: string,
+    tutor_id: string
+}
