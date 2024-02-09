@@ -44,7 +44,7 @@ const Router = () => {
 
             }
             <Route path="/blogEditor" Component={Blog}/>
-
+            
             {/*<Route path="/activityReport/" Component={ActivityReport} />
             <Route path="/activityReportView/" Component={ActivityReportView} />*/}
 

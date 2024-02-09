@@ -47,11 +47,12 @@ const Sidebar = () => {
     localSidebarItems.push( { path: '/blogEditor', label: 'Edition des actualités', icon: 'edit' })
   }
   // localSidebarItems.push({ path: '/contact', label: 'Contact', icon: 'address-book' })
-  localSidebarItems.push({ path: '/news', label: 'Actualités', icon: 'newspaper' })
+  localSidebarItems.push({ path: '/news', label: 'Article ENSSAT', icon: 'newspaper' })
 
   if (roleManager.isStudent || roleManager.isApprentice || roleManager.isStudentSupervisor || roleManager.isStudentTutor){
     localSidebarItems.push({ path: '/apprenticeshipTickets', label: 'Notation', icon: 'clipboard' })
   }
+  localSidebarItems.push({ path: '/article', label: 'Article INSSAT', icon: 'newspaper' })
 
 
   const handleCourseLinkClick = () => {

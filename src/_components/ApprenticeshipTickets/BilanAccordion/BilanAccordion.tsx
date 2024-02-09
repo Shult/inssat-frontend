@@ -65,7 +65,7 @@ const BilanAccordion: React.FC<BilanAccordionProps> = ({ bilans, studentId }) =>
                                 {Array.isArray(bilans[key]) && bilans[key].length > 0 && (
                                     <div>
                                         <p>Note finale : </p>
-                                        <span>{`${calculateFinalGrade(bilans[key])} / 20`}</span>
+                                        <span>{`${calculateFinalGrade(bilans[key]).toFixed(2)} / 20`}</span>
                                     </div>
                                 )}
                             </Col>
