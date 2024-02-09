@@ -23,7 +23,7 @@ const sidebarItems = [
   { path: '/chat', label: 'Chat', icon: 'comment-alt' },
   // { path: '/contact', label: 'Contact', icon: 'address-book' },
   { path: '/news', label: 'Actualités', icon: 'newspaper' },
-  { path: '/blogEditor', label: 'Edition des actualités', icon: 'edit' },
+  { path: '/article/new', label: 'Edition des actualités', icon: 'edit' },
   { path: '/hero404', label: '404 page', icon: 'exclamation-circle' },
 ];
 
@@ -44,7 +44,7 @@ const Sidebar = () => {
   }
 
   if (roleManager.isNewsManager){
-    localSidebarItems.push( { path: '/blogEditor', label: 'Edition des actualités', icon: 'edit' })
+    localSidebarItems.push( { path: '/article/new', label: 'Edition des actualités', icon: 'edit' })
   }
   // localSidebarItems.push({ path: '/contact', label: 'Contact', icon: 'address-book' })
   localSidebarItems.push({ path: '/news', label: 'Article ENSSAT', icon: 'newspaper' })
