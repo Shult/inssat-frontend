@@ -1,0 +1,15 @@
+a {
+    display: flex;
+    justify-content: space-around;
+    width: fit-content;
+}
+
+img {
+    margin: 0.5rem;
+    align-self: center;
+    max-width: fit-content;
+}
+
+img:hover {
+    box-shadow: 0 0 3px var(--gold);
+}

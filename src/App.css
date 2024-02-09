@@ -1,0 +1,13 @@
+#divSideNav {
+    max-height: 100vh;
+    background: #463c1c;
+}
+
+@media (max-width: 1000px){
+
+    #divSideNav > .sidebar-container .toggled {
+        height: 70px;
+        background: #a48231;
+    }
+
+}

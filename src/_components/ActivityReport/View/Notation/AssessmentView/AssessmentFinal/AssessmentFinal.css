@@ -1,0 +1,38 @@
+.label {
+    height: 73px;
+    width: 128px;
+}
+
+.finalGrade {
+    color: #BF9E4E;
+    font-family: "Inter-ExtraBold", Helvetica, serif;
+    font-size: 80px;
+}
+
+.finalComment {
+    text-align: center;
+    font-size: 30px;
+}
+
+.division-with-border {
+    border-right: 2px solid #cccccc;
+    padding-right: 20px;
+}
+
+.assessmentFinal {
+    text-align: center;
+}
+
+/*.big-number {*/
+/*    font-size: 80px; !* Grande taille pour les chiffres avant la virgule *!*/
+/*}*/
+
+.small-number {
+    font-size: 40px; /* Petite taille pour les chiffres après la virgule */
+}
+
+.finalSpan {
+    position: absolute;
+    bottom: 19px;
+    left:0;
+}

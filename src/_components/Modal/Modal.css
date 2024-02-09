@@ -1,0 +1,28 @@
+/* Modal.css */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContent {
+    width: 80%;
+    max-width: 1000px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.btn-close-position {
+    position: flex;  /* Positionnement absolu par rapport à .container */
+    top: 0;  /* En haut */
+    right: 0;  /* À droite */
+    margin: 1%;
+}

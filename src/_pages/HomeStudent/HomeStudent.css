@@ -1,0 +1,9 @@
+#HomeStudent-FirstLine {
+    margin: 0.5rem 0 1rem 0;
+    color: #fff;
+    height: 25%;
+}
+
+#HomeStudent-SecondLine { height: 85%; }
+
+#HomeStudent-SecondLine > article { height: inherit; }

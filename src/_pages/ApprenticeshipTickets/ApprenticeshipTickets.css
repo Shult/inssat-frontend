@@ -1,0 +1,24 @@
+/* Ajoutez des styles pour le conteneur principal */
+.container {
+    padding: 20px; /* Ajoutez la valeur de padding souhaitée */
+
+}
+
+/* Ajoutez des styles pour les Cards */
+
+
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.black {
+    background-color: black;
+    color: goldenrod;
+}
+
+.whiteText {
+    color: white;
+}

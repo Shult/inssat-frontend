@@ -1,0 +1,12 @@
+.scrollable-tabs .nav {
+    overflow-x: auto;
+    padding-bottom: 15px; /* To create space for the shadow */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    scrollbar-width: none; /* Hide scrollbar on Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar on IE and Edge */
+  
+    /* Hide scrollbar on WebKit based browsers (Chrome, Safari) */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }

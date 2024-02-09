@@ -1,0 +1,83 @@
+/* .logo path {
+    fill: none;
+    stroke: #B89A3C;
+    stroke-width: 2;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw 5s infinite, fill 0.5s 5.5s infinite forwards;
+  }
+  
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  @keyframes fill {
+    to {
+      fill: #B89A3C!important;
+    }
+  }
+   */
+
+   .logo{
+    overflow: visible;
+   }
+   .logo path {
+    fill: none;
+    stroke: #B89A3C;
+    stroke-width: 2;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawAndFill 3s infinite;
+  }
+  
+  @keyframes drawAndFill {
+    0% {
+      stroke-dashoffset: 1000;
+      fill: none;
+      transform-origin: center;
+      transform: scale(1);
+    }
+    50% {
+      stroke-dashoffset:500;
+      fill: none;
+      transform-origin: center;
+      transform: scale(1);
+    }
+    60% {
+        stroke-dashoffset:0;
+      fill: #B89A3C;
+      transform-origin: center;
+      transform: scale(1.1) rotate(-2deg);
+    }
+    70% {
+      fill: #a7892d;
+      transform-origin: center;
+      transform: scale(1.1) rotate(2deg);
+    }
+    80% {
+      fill: #af8e2b;
+      transform-origin: center;
+      transform: scale(1.1) rotate(-2deg);
+    }
+    90% {
+    fill: #463c1c;
+      transform-origin: center;
+      transform: scale(1.1) rotate(2deg);
+    }
+    100% {
+      fill: #B89A3C;
+      transform-origin: center;
+      transform: scale(1);
+    }
+  }
+  
+
+  /* add media query for small screen */
+  @media only screen and (max-width: 600px){
+    #loading-animation svg{
+      scale: 0.7;
+    }
+
+  }

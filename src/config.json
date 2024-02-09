@@ -1,0 +1,14 @@
+{
+    "development": {
+        "API_URL": "http://localhost:5000"
+    },
+    "production": {
+        "API_URL": "https://api.dapi-services.fr"
+    },
+    "test": {
+        "API_URL": "https://api.dapi-services.fr"
+    },
+    "local": {
+        "API_URL": "http://localhost:5000"
+    }
+  }

@@ -1,0 +1,48 @@
+[
+  {
+    "id": "1",
+    "title": "Hades",
+    "imageUrl": "_imgArticles/hades.jpg",
+    "snippet": "Le nouveau jeu Hades est sorti !",
+    "link": "https://store.steampowered.com/app/1145360/Hades/?l=french",
+    "tags": [
+      "Phot",
+      "IAI",
+      "INFO",
+      "SysNum"
+    ],
+    "publishDate": "2000-11-16T00:01:00.006+01:00",
+    "lastUpdate": "2023-11-16T00:01:00.006+01:00",
+    "status": "published"
+  },
+  {
+    "id": "2",
+    "title": "Worlds 2023",
+    "imageUrl": "_imgArticles/worlds.jpg",
+    "snippet": "Les worlds de league of legends ont commencé sur des chapeaux de roues !",
+    "link": "https://lolesports.com/schedule?leagues=worlds",
+    "tags": [
+      "Phot",
+      "IAI",
+      "INFO",
+      "SysNum"
+    ],
+    "publishDate": "2023-11-02",
+    "lastUpdate": "2023-11-03",
+    "status": "published"
+  },
+  {
+    "id": "698.4407169459041",
+    "title": "Css",
+    "imageUrl": "Css",
+    "snippet": "Css",
+    "content": "",
+    "link": "Css",
+    "tags": [
+      "Css"
+    ],
+    "publishDate": "2023-11-02",
+    "lastUpdate": "2023-11-03",
+    "status": "published"
+  }
+]

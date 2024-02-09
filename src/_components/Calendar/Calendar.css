@@ -1,0 +1,100 @@
+#CalendarContainer {
+    background: #fff;
+
+    max-width: inherit;
+    height: 100%;
+
+    padding: 1rem;
+
+    border-radius: 1rem;
+    box-shadow: 0 0 5px var(--enssatGrey);
+}
+
+.fc
+{
+    height: 100%;
+}
+
+.fc-header-toolbar
+{
+    margin: 0 !important;
+}
+
+.fc-today-button
+{
+    background: var(--gold) !important;
+    border: solid 1px var(--gold) !important;
+}
+
+.fc-today-button:hover
+{
+    background: var(--goldDark) !important;
+}
+
+.fc-button
+{
+
+}
+
+.fc-icon-chevron-left
+{
+
+}
+
+.fc-next-button
+{
+
+}
+
+.fc-icon-chevron-right
+{
+
+}
+
+.fc-scrollgrid
+{
+    margin: 0;
+}
+
+.fc-scroller
+{
+    overflow: hidden !important;
+}
+
+
+.fc-col-header
+{
+    margin: 0 !important;
+}
+
+.fc-col-header th
+{
+    background: #fff !important;
+    border: none !important;
+    border-collapse: collapse !important;
+    padding: 0.5rem !important;
+}
+
+.fc-col-header-cell-cushion
+{
+    width: auto;
+    text-decoration: none;
+    font: var(--fontTitle);
+    color: var(--gold);
+}
+
+.fc-event-main
+{
+    background: var(--gold);
+    color: #fff;
+    text-align: center;
+}
+
+
+.fc-timegrid-slots table {
+    margin: 0 !important;
+}
+
+.fc-view-harness {
+    height: 45rem !important;
+}

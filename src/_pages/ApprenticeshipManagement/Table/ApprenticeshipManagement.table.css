@@ -1,0 +1,72 @@
+#ApprenticeshipManagementTable {
+    height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    background: var(--lightGrey);
+    box-shadow: 0 0 5px var(--enssatGrey);
+    border-radius: 0.5rem;
+
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+#ApprenticeshipManagementTable input {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--enssatGrey);
+}
+
+#ApprenticeshipManagementTable input:hover,
+#ApprenticeshipManagementTable input:focus {
+    border: 1px solid var(--gold);
+}
+
+#ApprenticeshipManagementTable th,
+#ApprenticeshipManagementTable td {
+    padding: 0.5rem;
+}
+
+#ApprenticeshipManagementTable thead {
+    height: 20px;
+}
+
+#ApprenticeshipManagementTable th {
+    background: var(--gold);
+
+    font-family: var(--fontTitle);
+    font-variant: small-caps;
+    color: #fff;
+}
+
+#ApprenticeshipManagementTable td {
+    border-top: solid 1px var(--gold);
+    background: inherit;
+}
+
+#ApprenticeshipManagementTable td div {
+    padding: 0;
+    margin: 0;
+}
+#ApprenticeshipManagementTable td div > p {
+    margin: 0 0.5rem;
+}
+
+#ApprenticeshipManagementTable tr:hover {
+    background: var(--goldDark);
+    color: #fff;
+}
+
+
+#ApprenticeshipManagementTable .sc-cfxfcM,
+#ApprenticeshipManagementTable .hQSxZz,
+#ApprenticeshipManagementTable .sc-Nxspf,
+#ApprenticeshipManagementTable .cvIITU,
+#ApprenticeshipManagementTable .gmeTLe,
+#ApprenticeshipManagementTable #edit-button,
+#ApprenticeshipManagementTable #delete-button
+{
+    background: inherit;
+    padding: 0;
+    margin: 0;
+}

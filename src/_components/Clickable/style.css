@@ -1,0 +1,214 @@
+/* ========================================== LINK STYLE ========================================== */
+
+/* Common pattern */
+
+.linkGold,
+.linkGrey,
+.linkWhite,
+.linkWhiteDark,
+.linkBlack,
+.linkError,
+.linkSuccess {
+    text-decoration: none;
+    padding: 1.5rem 1rem;
+    cursor: pointer;
+}
+
+.linkGold:hover,
+.linkGrey:hover,
+.linkWhite:hover,
+.linkWhiteDark:hover,
+.linkBlack:hover,
+.linkError:hover,
+.linkSuccess:hover {
+    text-decoration: underline;
+}
+
+/* Golden link specificities */
+
+.linkGold {
+    color: var(--gold);
+}
+
+.linkGold:hover {
+    color: var(--gold);
+}
+
+/* Grey link specificities */
+
+.linkGrey {
+    color: var(--enssatGrey);
+}
+
+.linkGrey:hover {
+    color: var(--gold);
+}
+
+/* White link specificities */
+
+.linkWhite,
+.linkWhiteDark {
+    color: #fff;
+}
+
+.linkWhite:hover {
+    color: var(--gold);
+}
+
+.linkWhiteDark:hover {
+    color: var(--goldDark);
+}
+
+/* Black link specificities */
+
+.linkBlack {
+    color: #000;
+}
+
+.linkBlack:hover {
+    color: var(--gold);
+}
+
+/* Error link specificities */
+
+.linkError {
+    color: var(--error);
+}
+
+/* Error link specificities */
+
+.linkSuccess {
+    color: var(--success);
+}
+
+/* If there is a golden background */
+
+.goldenBackground:hover {
+    text-decoration: none;
+    background: #fff;
+}
+
+/* ========================================== BUTTON STYLE ========================================== */
+
+/* Common pattern */
+
+.buttonGold,
+.buttonGold2,
+.buttonGrey,
+.buttonLightGrey,
+.buttonWhite,
+.buttonBlack,
+.buttonError,
+.buttonSuccess {
+    margin: 0.25rem 0;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Golden button specificities */
+
+.buttonGold,
+.buttonGold2 {
+    background: var(--gold);
+    border: solid 1px var(--gold);
+}
+
+.buttonGold:hover {
+    background: #fff;
+    color: var(--gold);
+}
+
+.buttonGold2:hover {
+    background: var(--goldDark);
+}
+
+/* Grey button specificities */
+
+.buttonGrey {
+    background: var(--enssatGrey);
+    border: solid 1px var(--enssatGrey);
+}
+
+.buttonGrey:hover {
+    background: var(--enssatGreyDark);
+}
+
+/* White button specificities */
+
+.buttonWhite {
+    border: solid 1px var(--gold);
+    background: #fff;
+    color: var(--gold);
+}
+
+.buttonWhite:hover {
+    background: var(--gold);
+    color: #fff;
+}
+
+/* Black button specificities */
+
+.buttonBlack {
+    border: solid 1px #000;
+    background: #fff;
+    color: #000;
+}
+
+.buttonBlack:hover {
+    background: #000;
+    color: #fff;
+}
+
+/* Error button specificities */
+
+.buttonError {
+    border: solid 1px var(--error);
+    background: var(--error);
+}
+
+.buttonError:hover {
+    border: solid 1px var(--error);
+    background: var(--errorDark);
+}
+
+/* Error button specificities */
+
+.buttonSuccess {
+    border: solid 1px var(--success);
+    background: var(--success);
+}
+
+.buttonSuccess:hover {
+    border: solid 1px var(--success);
+    background: var(--successDark);
+}
+
+/* If there is a golden background */
+
+.goldenBackground:hover {
+    text-decoration: none;
+    background: #fff;
+}
+
+/* Button from aside navbar */
+
+.buttonLightGrey {
+    max-height: inherit;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: var(--lightGrey);
+    color: var(--darkGrey);
+    text-decoration: none;
+}
+
+.buttonLightGrey:hover {
+    background: var(--mediumGrey);
+}
+
+.buttonLightGrey:checked {
+    background: var(--gold);
+    color: #fff
+}

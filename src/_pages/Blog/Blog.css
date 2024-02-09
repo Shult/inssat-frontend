@@ -1,0 +1,51 @@
+#Blog {
+    height: inherit;
+}
+
+#Blog article {
+    background: var(--lightGrey);
+
+    border-radius: 0.5rem;
+    box-shadow: 0 0 3px var(--enssatGrey);
+
+    margin: 1rem 0;
+    padding: 1rem;
+
+    height: 80%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+#Blog input {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--enssatGrey);
+}
+
+#Blog input:hover,
+#Blog input:focus {
+    border: 1px solid var(--gold);
+}
+
+#Blog th,
+#Blog td {
+    padding: 0.5rem;
+}
+
+#Blog th {
+    background: var(--gold);
+
+    font-family: var(--fontTitle);
+    font-variant: small-caps;
+    color: #fff;
+}
+
+#Blog td {
+    border-bottom: solid 1px var(--gold);
+    background: inherit;
+}
+
+#Blog tr:hover {
+    background: var(--goldDark);
+    color: #fff;
+}

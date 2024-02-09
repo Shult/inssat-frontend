@@ -1,0 +1,14 @@
+#text-form {
+    background-color: #E9E9E9;
+}
+
+#coef {
+    text-align-last: center;
+}
+
+.vertical-separator {
+    background-color: #000; /* Couleur de la ligne */
+    width: 1px; /* Largeur de la ligne */
+    height: 100%; /* Hauteur pour s'étendre sur toute la hauteur du container */
+    margin: 0 20px; /* Espace autour de la ligne */
+}
