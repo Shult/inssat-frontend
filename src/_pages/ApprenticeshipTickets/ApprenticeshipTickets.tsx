@@ -116,7 +116,7 @@ const ApprenticeshipTickets = () => {
                                     <Card.Body style={{ backgroundColor: 'var(--gold)', color: 'white' }}>
                                         <Card.Title>Entreprise</Card.Title>
                                         <ul>
-                                            <li>Nom : {ficheSuivi?.COMPANY ? ficheSuivi?.COMPANY[0].name : ""}</li>
+                                            <li>Nom : {ficheSuivi?.COMPANY ? ficheSuivi?.COMPANY[0]?.name : ""}</li>
                                             <li>Adresse : {ficheSuivi?.COMPANY ? ficheSuivi?.COMPANY[0]?.address : ""}</li>
                                             <li>Ville : {ficheSuivi?.COMPANY ? ficheSuivi?.COMPANY[0]?.city : ""}</li>
                                             <li>Téléphone : {ficheSuivi?.COMPANY ? ficheSuivi?.COMPANY[0]?.phone : ""}</li>

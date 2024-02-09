@@ -95,13 +95,13 @@ const ArticlesFilter = ({ onFilter, loading }) => {
         <Col sm={12} md={5} lg={7}> 
             <Row className="mb-3">
                 <Form.Group className="px-2" controlId="category">
-                    <label htmlFor='category'>Category</label>
+                    <label htmlFor='category'>Catégorie</label>
                     <Form.Control
                     as="select"
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
                     >
-                    <option value="">All Categories</option>
+                    <option value="">Toutes les catégories</option>
                     {categories.map((category) => (
                         <option key={category.id} value={category.id}>
                         {category.title}
@@ -146,13 +146,13 @@ const ArticlesFilter = ({ onFilter, loading }) => {
                             placement="top"
                             overlay={<Tooltip>chercher un article par son titre ou contenu.</Tooltip>}
                         >
-                            <span>Chercher par des mots cles</span>
+                            <span>Chercher</span>
                         </OverlayTrigger>
                     </label>
                     
                     <Form.Control 
                     type="text"
-                    placeholder="Enter search term"
+                    placeholder="Rechercher"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -169,7 +169,7 @@ const ArticlesFilter = ({ onFilter, loading }) => {
               Filtration en cours...
             </>
           ) : (
-            'Filtrer les articles'
+            'Rechercher les articles'
           )}
              </ActionButton>
             </Row> 

@@ -49,7 +49,7 @@ const ArticleCreation: React.FC<ArticleCreationProps> = () => {
         );
 
         // Serveur Express temporaire
-        fetch('https://api.dapi-services.fr/create-article', {
+        fetch('http://localhost:5000/create-article', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

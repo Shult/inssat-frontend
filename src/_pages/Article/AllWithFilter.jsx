@@ -70,7 +70,7 @@ const AllWithFilter = () => {
           <Row className="mt-5">
             {articles && articles.length === 0 ? (
               <Alert variant="info" className="mt-3">
-                <p className="mb-0">Rien trouve</p>
+                <p className="mb-0">Aucun article trouvé</p>
               </Alert>
             ) : null}
             {articles && articles.map((article, index) => (
@@ -87,7 +87,7 @@ const AllWithFilter = () => {
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
                 >
-                  Precedent
+                  Précedent
                 </button>
               </li>
               {[...Array(totalPages).keys()].map((page) => (
